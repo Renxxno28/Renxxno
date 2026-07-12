@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games | Renxxno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* BACKGROUND LUAR TRANSPARAN TOTAL (Menyatu dengan Google Sites) */
+        html {
+            min-height: 100vh;
+            background: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: transparent; 
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px 20px 40px 20px; 
+            color: #2d3436;
+            min-height: 100vh;
+        }
+
+        /* === KUMPULAN ANIMASI MASUK === */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* WARNA GRADASI BIRU MASUK KE DALAM KOTAK INI + ANIMASI */
+        .card-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 30px 20px; 
+            width: 100%;
+            max-width: 420px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+            border: 2px solid #ffffff; 
+            
+            /* Pemicu Animasi Masuk Utama */
+            opacity: 0;
+            animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        /* HEADER HALAMAN */
+        .page-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Pembungkus agar animasi masuk & memantul tidak bentrok */
+        .icon-anim-wrapper {
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards;
+        }
+
+        .header-icon {
+            font-size: 40px;
+            color: #0984e3;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e272e;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: #576574;
+            margin-top: 5px;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
+        }
+
+        /* DAFTAR GAME (ACCORDION) */
+        .game-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .game-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            
+            /* Animasi masuk berurutan untuk daftar game */
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        /* Jeda waktu animasi tiap game agar munculnya berurutan */
+        .game-item:nth-child(1) { animation-delay: 0.5s; }
+        .game-item:nth-child(2) { animation-delay: 0.6s; }
+        .game-item:nth-child(3) { animation-delay: 0.7s; }
+
+        .game-item:hover {
+            box-shadow: 0 6px 15px rgba(9, 132, 227, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* BAGIAN ATAS YANG BISA DIKLIK */
+        .game-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px; 
+            cursor: pointer;
+            gap: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .game-name {
+            flex-grow: 1;
+            font-size: 16px; 
+            font-weight: 600;
+            color: #2d3436;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Ikon generic kecil di samping nama */
+        .game-name i {
+            color: #0984e3;
+            font-size: 18px;
+        }
+
+        .chevron-icon {
+            color: #636e72;
+            font-size: 14px;
+            transition: transform 0.4s ease;
+        }
+
+        /* KETIKA AKTIF/TERBUKA */
+        .game-item.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        .game-item.active .game-header {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            background: rgba(9, 132, 227, 0.05); 
+        }
+
+        /* BAGIAN DALAM YANG TURUN (SEPERTI TIRAI) */
+        .game-content {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(241, 242, 246, 0.5);
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            padding: 0 20px;
+        }
+
+        .game-item.active .game-content {
+            max-height: 200px; 
+            padding: 15px 20px;
+        }
+
+        /* TEKS ID DAN NAMA DALAM TIRAI */
+        .account-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .info-label {
+            color: #636e72;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label i {
+            color: #0984e3;
+        }
+
+        .info-value {
+            color: #2d3436;
+            font-weight: 700;
+            background: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    
+    <div class="page-header">
+        <!-- Wrapper agar efek masuk & efek mantul tidak berantakan -->
+        <div class="icon-anim-wrapper">
+            <div class="header-icon">
+                <i class="fa-solid fa-gamepad"></i>
+            </div>
+        </div>
+        <h1 class="header-title">Game Saya</h1>
+        <p class="header-subtitle">Klik Game Untuk Melihat ID & Akun</p>
+    </div>
+
+    <div class="game-list">
+        
+        <!-- GAME 1: MOBILE LEGENDS -->
+        <div class="game-item">
+            <div class="game-header">
+                <div class="game-name">
+                    <i class="fa-solid fa-mobile-screen-button"></i> Mobile Legends
+                </div>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+            </div>
+            <div class="game-content">
+                <div class="account-info">
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-id-card"></i> ID Game</span>
+                        <span class="info-value">88744662 (2180)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-user-ninja"></i> Nickname</span>
+                        <span class="info-value">Renooo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME 2: FREE FIRE -->
+        <div class="game-item">
+            <div class="game-header">
+                <div class="game-name">
+                    <i class="fa-solid fa-crosshairs"></i> Free Fire
+                </div>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+            </div>
+            <div class="game-content">
+                <div class="account-info">
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-id-card"></i> ID Game</span>
+                        <span class="info-value">5181842911</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-user-ninja"></i> Nickname</span>
+                        <span class="info-value">Xxno28</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- GAME 3: PUBG MOBILE -->
+        <div class="game-item">
+            <div class="game-header">
+                <div class="game-name">
+                    <i class="fa-solid fa-person-rifle"></i> PUBG Mobile
+                </div>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+            </div>
+            <div class="game-content">
+                <div class="account-info">
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-id-card"></i> ID Game</span>
+                        <span class="info-value">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-user-ninja"></i> Nickname</span>
+                        <span class="info-value">PunyaRenooo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- SCRIPT UNTUK EFEK TIRAI TURUN -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const gameHeaders = document.querySelectorAll(".game-header");
+
+        gameHeaders.forEach(header => {
+            header.addEventListener("click", function() {
+                const gameItem = this.parentElement;
+                
+                // Cek apakah yang diklik sudah terbuka
+                const isActive = gameItem.classList.contains("active");
+
+                // Tutup semua tirai yang lain (agar tampilannya rapi, hanya 1 yang terbuka)
+                document.querySelectorAll(".game-item").forEach(item => {
+                    item.classList.remove("active");
+                });
+
+                // Jika sebelumnya tertutup, maka buka
+                if (!isActive) {
+                    gameItem.classList.add("active");
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
