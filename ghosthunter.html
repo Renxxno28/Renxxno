@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games Mini | Renxxno</title>
+    <title>Ghost Hunter | Renxxno</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,34 +15,80 @@
             padding: 0;
         }
         
-        /* BACKGROUND LUAR TRANSPARAN */
         html, body {
-            background: transparent;
-            margin: 0;
-            padding: 0;
+            min-height: 100vh;
             width: 100%;
+            overflow-x: hidden; 
         }
 
         body {
             font-family: 'Poppins', sans-serif;
+            background: #ffffff; /* Latar belakang putih bersih */
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 10px; 
+            padding: 100px 20px 40px 20px; /* Jarak untuk navbar atas */
             color: #2d3436;
         }
 
+        /* =========================================
+           TOP NAVBAR APPLE STYLE
+           ========================================= */
+        .apple-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 54px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 9999;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .nav-icons i:hover { opacity: 0.5; }
+
+        /* OVERLAY MENU & CARI */
+        .nav-overlay {
+            position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
+            background: #ffffff; z-index: 9998; padding: 30px 25px;
+            transform: translateY(-100%); opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+
+        /* Tampilan List Menu & Sub-Menu */
+        .menu-list { list-style: none; }
+        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+        }
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
+
+        /* Header Sub-Menu (Tombol Kembali) */
+        .submenu-header {
+            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
+        }
+        .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
+
+        /* Tampilan Kotak Cari */
+        .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
+        .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
+        .search-box input::placeholder { color: #86868b; }
+
         /* === ANIMASI === */
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.95) translateY(20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes shake {
             0% { transform: translate(1px, 1px) rotate(0deg); }
             20% { transform: translate(-2px, 0px) rotate(1deg); }
@@ -52,282 +98,125 @@
             100% { transform: translate(1px, -1px) rotate(-1deg); }
         }
         
-        /* --- KOTAK UTAMA GRADASI BIRU --- */
+        /* --- KOTAK UTAMA GHOST HUNTER --- */
         .card-container {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border-radius: 24px;
             padding: 25px 20px; 
             width: 100%; 
-            max-width: 420px; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
+            max-width: 450px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); 
             border: 2px solid #ffffff; 
             text-align: center;
             position: relative;
             overflow: hidden; 
-            
             opacity: 0;
             animation: popIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
 
-        /* Efek getar card jika terkena bom */
-        .card-container.shaking {
-            animation: shake 0.4s;
-            border-color: #ff4757;
-        }
+        .card-container.shaking { animation: shake 0.4s; border-color: #ff4757; }
 
-        /* HEADER GAME */
-        .header-icon {
-            font-size: 38px;
-            color: #6c5ce7;
-            margin-bottom: 5px;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.1s forwards;
-        }
+        .header-icon { font-size: 38px; color: #0066cc; margin-bottom: 5px; opacity: 0; animation: fadeUp 0.5s 0.1s forwards; }
+        .header-title { font-size: 22px; font-weight: 800; color: #1e272e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; opacity: 0; animation: fadeUp 0.5s 0.2s forwards; }
 
-        .header-title {
-            font-size: 22px;
-            font-weight: 800;
-            color: #1e272e;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.2s forwards;
-        }
-
-        /* TUTORIAL BOX */
         .tutorial-box {
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 12px;
-            padding: 10px 12px;
-            margin: 0 auto 15px auto;
-            font-size: 11px;
-            color: #576574;
-            text-align: left;
-            line-height: 1.5;
-            border: 1px dashed rgba(108, 92, 231, 0.4);
-            opacity: 0;
-            animation: fadeUp 0.5s 0.3s forwards;
+            background: rgba(255, 255, 255, 0.6); border-radius: 12px; padding: 10px 12px;
+            margin: 0 auto 15px auto; font-size: 11px; color: #576574; text-align: left;
+            line-height: 1.5; border: 1px dashed rgba(0, 102, 204, 0.4); opacity: 0; animation: fadeUp 0.5s 0.3s forwards;
         }
-
-        .tutorial-box strong { color: #6c5ce7; font-size: 12px;}
-        .t-ghost { color: #6c5ce7; font-weight: bold; }
+        .tutorial-box strong { color: #0066cc; font-size: 12px;}
+        .t-ghost { color: #0066cc; font-weight: bold; }
         .t-bomb { color: #ff4757; font-weight: bold; }
         .t-time { color: #00b894; font-weight: bold; }
 
-        /* STATISTIK GAME */
-        .stats-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.4s forwards;
-        }
-
-        .stat-box {
-            background: #ffffff;
-            padding: 8px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 11px;
-            color: #a4b0be;
-            width: 48%;
-            text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-
-        .stat-box span {
-            display: block;
-            font-size: 22px;
-            font-weight: 800;
-            color: #1e272e;
-            margin-top: 2px;
-        }
-
+        .stats-container { display: flex; justify-content: space-between; margin-bottom: 15px; opacity: 0; animation: fadeUp 0.5s 0.4s forwards; }
+        .stat-box { background: #ffffff; padding: 8px; border-radius: 12px; font-weight: 700; font-size: 11px; color: #a4b0be; width: 48%; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .stat-box span { display: block; font-size: 22px; font-weight: 800; color: #1e272e; margin-top: 2px; }
         #timeLeft.warning { color: #ff4757; }
         #timeLeft.bonus { color: #00b894; }
 
-        /* PAPAN GAME */
         .game-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px; 
-            max-width: 290px; 
-            margin: 0 auto 20px auto; 
-            background: rgba(255, 255, 255, 0.4);
-            padding: 12px;
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            opacity: 0;
-            animation: fadeUp 0.5s 0.4s forwards;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 290px; 
+            margin: 0 auto 20px auto; background: rgba(255, 255, 255, 0.4); padding: 12px;
+            border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.6); opacity: 0; animation: fadeUp 0.5s 0.4s forwards;
         }
-
-        .hole {
-            background: rgba(255, 255, 255, 0.8);
-            aspect-ratio: 1/1; 
-            border-radius: 12px; 
-            box-shadow: inset 0 3px 6px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid transparent;
-            transition: transform 0.1s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        .hole { background: rgba(255, 255, 255, 0.8); aspect-ratio: 1/1; border-radius: 12px; box-shadow: inset 0 3px 6px rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; overflow: hidden; border: 2px solid transparent; transition: transform 0.1s ease; -webkit-tap-highlight-color: transparent; }
         .hole:active { transform: scale(0.92); }
 
-        /* ENTITAS GAME */
-        .entity {
-            font-size: 32px;
-            opacity: 0;
-            transform: translateY(100%); 
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
-            pointer-events: none; 
-        }
-
-        .hole.active .entity {
-            opacity: 1;
-            transform: translateY(0); 
-        }
-
-        .entity.ghost { color: #6c5ce7; }
+        .entity { font-size: 32px; opacity: 0; transform: translateY(100%); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease; pointer-events: none; }
+        .hole.active .entity { opacity: 1; transform: translateY(0); }
+        .entity.ghost { color: #0066cc; }
         .entity.bomb { color: #ff4757; font-size: 28px; }
         .entity.time { color: #00b894; font-size: 28px; }
 
-        /* Efek Berkedip Saat Dipukul */
-        .hole.hit-ghost { border-color: #6c5ce7; background: rgba(108, 92, 231, 0.15); }
+        .hole.hit-ghost { border-color: #0066cc; background: rgba(0, 102, 204, 0.15); }
         .hole.hit-bomb { border-color: #ff4757; background: rgba(255, 71, 87, 0.2); }
         .hole.hit-time { border-color: #00b894; background: rgba(0, 184, 148, 0.2); }
 
-        /* TOMBOL MULAI */
-        .start-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #6c5ce7, #5b4bc4);
-            color: #ffffff;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            opacity: 0;
-            animation: fadeUp 0.5s 0.5s forwards;
-        }
+        .start-btn { width: 100%; background: linear-gradient(135deg, #0066cc, #005bb5); color: #ffffff; border: none; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3); transition: all 0.3s ease; font-family: 'Poppins', sans-serif; opacity: 0; animation: fadeUp 0.5s 0.5s forwards; }
+        .start-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4); }
+        .start-btn:disabled { background: #b2bec3; color: #ffffff; cursor: not-allowed; box-shadow: none; transform: none; }
 
-        .start-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
-        }
+        .game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30, 39, 46, 0.95); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 20px; }
+        .game-over-screen.show { opacity: 1; pointer-events: all; }
+        .go-title { font-size: 28px; font-weight: 900; color: #ff4757; text-transform: uppercase; margin-bottom: 5px; }
+        .go-score { font-size: 15px; color: #ffffff; margin-bottom: 25px; }
+        .go-score span { color: #00d2ff; font-size: 24px; font-weight: 800; display: block; margin-top: 5px; }
 
-        /* State Disable saat Bermain (Abu-abu) */
-        .start-btn:disabled {
-            background: #b2bec3;
-            color: #ffffff;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
-
-        /* --- OVERLAY MENU GAME OVER --- */
-        .game-over-screen {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(30, 39, 46, 0.95);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-            padding: 20px;
-        }
-
-        .game-over-screen.show {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .go-title {
-            font-size: 28px;
-            font-weight: 900;
-            color: #ff4757;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .go-score {
-            font-size: 15px;
-            color: #ffffff;
-            margin-bottom: 25px;
-        }
-        .go-score span {
-            color: #00d2ff;
-            font-size: 24px;
-            font-weight: 800;
-            display: block;
-            margin-top: 5px;
-        }
-
-        /* BUNGKUSAN 2 TOMBOL DI GAME OVER */
-        .go-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .go-btn {
-            background: #ffffff;
-            color: #1e272e;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
-            transition: transform 0.2s, background 0.2s;
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
+        .go-buttons { display: flex; gap: 12px; justify-content: center; }
+        .go-btn { background: #ffffff; color: #1e272e; border: none; padding: 10px 20px; border-radius: 30px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 5px 15px rgba(255,255,255,0.2); transition: transform 0.2s, background 0.2s; font-family: 'Poppins', sans-serif; display: flex; align-items: center; gap: 6px; }
         .go-btn:hover { transform: scale(1.05); }
-
-        /* Tombol Berhenti (Garis Putih/Transparan) */
-        .go-btn.quit-btn {
-            background: transparent;
-            color: #ffffff;
-            border: 2px solid #ffffff;
-            box-shadow: none;
-            padding: 8px 18px; /* Disesuaikan karena ada ketebalan border */
-        }
-
-        .go-btn.quit-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
+        .go-btn.quit-btn { background: transparent; color: #ffffff; border: 2px solid #ffffff; box-shadow: none; padding: 8px 18px; }
+        .go-btn.quit-btn:hover { background: rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
+<!-- TOP NAVBAR APPLE STYLE -->
+<nav class="apple-nav">
+    <a href="index.html" class="nav-brand">Renxxno</a>
+    <div class="nav-icons">
+        <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
+        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+    </div>
+</nav>
+
+<!-- OVERLAY MENU -->
+<div class="nav-overlay" id="menuOverlay">
+    
+    <!-- 1. MENU UTAMA -->
+    <div id="mainMenu">
+        <ul class="menu-list">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="biodata.html">Biodata</a></li>
+            <!-- Tombol ini memicu perpindahan ke sub-menu -->
+            <li><a href="#" id="btnGamesMenu" class="active">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="music.html">Music</a></li>
+        </ul>
+    </div>
+
+    <!-- 2. SUB-MENU GAMES (Tersembunyi secara default) -->
+    <div id="subMenuGames" style="display: none;">
+        <div class="submenu-header" id="btnBackMainMenu">
+            <i class="fa-solid fa-chevron-left"></i>
+            <span>Games</span>
+        </div>
+        <ul class="menu-list">
+            <li><a href="games.html">My Account</a></li>
+            <li><a href="ghosthunter.html" class="active">Ghost Hunter Mini</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- OVERLAY PENCARIAN -->
+<div class="nav-overlay" id="searchOverlay">
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Cari..." id="searchInput">
+    </div>
+</div>
 
 <div class="card-container" id="gameCard">
-        
     <div class="header-icon"><i class="fa-solid fa-gamepad"></i></div>
     <h1 class="header-title">Ghost Hunter</h1>
     
@@ -339,14 +228,8 @@
     </div>
 
     <div class="stats-container">
-        <div class="stat-box">
-            Waktu
-            <span id="timeLeft">30</span>
-        </div>
-        <div class="stat-box">
-            Skor
-            <span id="score">0</span>
-        </div>
+        <div class="stat-box">Waktu <span id="timeLeft">30</span></div>
+        <div class="stat-box">Skor <span id="score">0</span></div>
     </div>
 
     <div class="game-board">
@@ -373,15 +256,65 @@
             <button class="go-btn quit-btn" id="quitBtn"><i class="fa-solid fa-xmark"></i> Berhenti</button>
         </div>
     </div>
-
 </div>
 
 <script>
+    // 1. SCRIPT NAVBAR & NESTED MENU APPLE
+    const btnMenu = document.getElementById('toggleMenu');
+    const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
+    
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+
+    btnMenu.addEventListener('click', () => {
+        if (searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+        menuOverlay.classList.toggle('active');
+        if (menuOverlay.classList.contains('active')) {
+            btnMenu.classList.replace('fa-bars', 'fa-xmark');
+            mainMenu.style.display = 'block';
+            subMenuGames.style.display = 'none';
+        } else {
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+    });
+
+    btnSearch.addEventListener('click', () => {
+        if (menuOverlay.classList.contains('active')) {
+            menuOverlay.classList.remove('active');
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+        searchOverlay.classList.toggle('active');
+        if (searchOverlay.classList.contains('active')) {
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
+            document.getElementById('searchInput').focus();
+        } else {
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+    });
+
+    btnGamesMenu.addEventListener('click', (e) => {
+        e.preventDefault();
+        mainMenu.style.display = 'none';
+        subMenuGames.style.display = 'block';
+    });
+
+    btnBackMainMenu.addEventListener('click', () => {
+        subMenuGames.style.display = 'none';
+        mainMenu.style.display = 'block';
+    });
+
+    // 2. SCRIPT GHOST HUNTER GAME
     const holes = document.querySelectorAll('.hole');
     const timeLeftText = document.querySelector('#timeLeft');
     const scoreText = document.querySelector('#score');
     const startBtn = document.querySelector('#startBtn');
-    
     const gameOverScreen = document.getElementById('gameOverScreen');
     const finalScoreText = document.getElementById('finalScore');
     const goTitle = document.getElementById('goTitle');
@@ -390,176 +323,85 @@
     const quitBtn = document.getElementById('quitBtn');
     const gameCard = document.getElementById('gameCard');
 
-    let score = 0;
-    let currentTime = 30;
-    let gameInterval = null;
-    let countdownInterval = null;
-    let gameSpeed = 850; 
-    let isPlaying = false;
-
+    let score = 0; let currentTime = 30; let gameInterval = null; let countdownInterval = null;
+    let gameSpeed = 850; let isPlaying = false;
     const ghostIcon = '<i class="fa-solid fa-ghost entity ghost"></i>';
     const bombIcon = '<i class="fa-solid fa-bomb entity bomb"></i>';
     const timeIcon = '<i class="fa-solid fa-stopwatch entity time"></i>';
 
     function spawnEntities() {
-        holes.forEach(hole => {
-            hole.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time');
-            hole.innerHTML = '';
-            hole.dataset.type = '';
-        });
-
-        let ghostCount = Math.random() > 0.65 ? 2 : 1; 
-        let spawnBomb = Math.random() > 0.7; 
-        let spawnTime = Math.random() > 0.91; 
-
-        let availableHoles = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-        availableHoles.sort(() => Math.random() - 0.5);
+        holes.forEach(hole => { hole.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); hole.innerHTML = ''; hole.dataset.type = ''; });
+        let ghostCount = Math.random() > 0.65 ? 2 : 1; let spawnBomb = Math.random() > 0.7; let spawnTime = Math.random() > 0.91; 
+        let availableHoles = [0, 1, 2, 3, 4, 5, 6, 7, 8].sort(() => Math.random() - 0.5);
 
         for (let i = 0; i < ghostCount; i++) {
             if(availableHoles.length === 0) break;
             let holeIndex = availableHoles.pop();
-            holes[holeIndex].innerHTML = ghostIcon;
-            holes[holeIndex].dataset.type = 'ghost';
-            holes[holeIndex].classList.add('active');
+            holes[holeIndex].innerHTML = ghostIcon; holes[holeIndex].dataset.type = 'ghost'; holes[holeIndex].classList.add('active');
         }
-
         if (spawnBomb && availableHoles.length > 0) {
             let holeIndex = availableHoles.pop();
-            holes[holeIndex].innerHTML = bombIcon;
-            holes[holeIndex].dataset.type = 'bomb';
-            holes[holeIndex].classList.add('active');
+            holes[holeIndex].innerHTML = bombIcon; holes[holeIndex].dataset.type = 'bomb'; holes[holeIndex].classList.add('active');
         }
-
         if (spawnTime && availableHoles.length > 0) {
             let holeIndex = availableHoles.pop();
-            holes[holeIndex].innerHTML = timeIcon;
-            holes[holeIndex].dataset.type = 'time';
-            holes[holeIndex].classList.add('active');
+            holes[holeIndex].innerHTML = timeIcon; holes[holeIndex].dataset.type = 'time'; holes[holeIndex].classList.add('active');
         }
     }
 
-    // Eksekusi Pukulan Target
     holes.forEach(hole => {
         const handleHit = (e) => {
             if(e.type === 'touchstart') e.preventDefault(); 
-            
             if (!isPlaying || !hole.classList.contains('active')) return;
-
             let type = hole.dataset.type;
 
             if (type === 'ghost') {
-                score++;
-                scoreText.textContent = score;
-                hole.classList.remove('active');
-                hole.innerHTML = ''; 
-                hole.classList.add('hit-ghost');
-                
+                score++; scoreText.textContent = score; hole.classList.remove('active'); hole.innerHTML = ''; hole.classList.add('hit-ghost');
             } else if (type === 'bomb') {
-                hole.classList.remove('active');
-                hole.classList.add('hit-bomb');
-                gameCard.classList.add('shaking'); 
-                setTimeout(() => gameCard.classList.remove('shaking'), 400);
-                triggerGameOver(true);
-
+                hole.classList.remove('active'); hole.classList.add('hit-bomb'); gameCard.classList.add('shaking'); 
+                setTimeout(() => gameCard.classList.remove('shaking'), 400); triggerGameOver(true);
             } else if (type === 'time') {
-                currentTime += 3;
-                timeLeftText.textContent = currentTime;
-                timeLeftText.classList.add('bonus');
+                currentTime += 3; timeLeftText.textContent = currentTime; timeLeftText.classList.add('bonus');
                 setTimeout(() => timeLeftText.classList.remove('bonus'), 500);
-                
-                hole.classList.remove('active');
-                hole.innerHTML = '';
-                hole.classList.add('hit-time');
+                hole.classList.remove('active'); hole.innerHTML = ''; hole.classList.add('hit-time');
             }
         };
-
-        hole.addEventListener('mousedown', handleHit);
-        hole.addEventListener('touchstart', handleHit);
+        hole.addEventListener('mousedown', handleHit); hole.addEventListener('touchstart', handleHit);
     });
 
     function countDown() {
-        currentTime--;
-        timeLeftText.textContent = currentTime;
-
-        if (currentTime <= 5) {
-            timeLeftText.classList.add('warning');
-        } else {
-            timeLeftText.classList.remove('warning');
-        }
-
-        if (currentTime <= 0) {
-            triggerGameOver(false); 
-        }
+        currentTime--; timeLeftText.textContent = currentTime;
+        if (currentTime <= 5) { timeLeftText.classList.add('warning'); } else { timeLeftText.classList.remove('warning'); }
+        if (currentTime <= 0) { triggerGameOver(false); }
     }
 
-    // Fungsi Trigger Game Over
     function triggerGameOver(isBombed) {
-        isPlaying = false;
-        clearInterval(gameInterval);
-        clearInterval(countdownInterval);
-        
-        // Kembalikan tombol seperti semula dan aktifkan lagi
-        startBtn.disabled = false;
-        startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Game';
-
+        isPlaying = false; clearInterval(gameInterval); clearInterval(countdownInterval);
+        startBtn.disabled = false; startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Game';
         finalScoreText.innerText = score;
-        
-        if (isBombed) {
-            goTitle.innerText = "KABOOM!";
-            goReason.innerText = "Kamu Terkena Bom!";
-            goTitle.style.color = "#ff4757";
-        } else {
-            goTitle.innerText = "WAKTU HABIS!";
-            goReason.innerText = "Permainan Selesai!";
-            goTitle.style.color = "#6c5ce7";
-        }
-        
-        setTimeout(() => {
-            gameOverScreen.classList.add('show');
-        }, 200);
+        if (isBombed) { goTitle.innerText = "KABOOM!"; goReason.innerText = "Kamu Terkena Bom!"; goTitle.style.color = "#ff4757";
+        } else { goTitle.innerText = "WAKTU HABIS!"; goReason.innerText = "Permainan Selesai!"; goTitle.style.color = "#0066cc"; }
+        setTimeout(() => { gameOverScreen.classList.add('show'); }, 200);
     }
 
-    // Fungsi Mulai Bermain (Hanya bisa diklik jika sedang tidak main)
     function startGame() {
-        score = 0;
-        currentTime = 30;
-        isPlaying = true;
-        
-        scoreText.textContent = score;
-        timeLeftText.textContent = currentTime;
-        timeLeftText.classList.remove('warning');
-        gameOverScreen.classList.remove('show');
-        
-        // Matikan tombol agar tidak bisa di-spam
-        startBtn.disabled = true;
-        startBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bermain...';
-        
+        score = 0; currentTime = 30; isPlaying = true;
+        scoreText.textContent = score; timeLeftText.textContent = currentTime;
+        timeLeftText.classList.remove('warning'); gameOverScreen.classList.remove('show');
+        startBtn.disabled = true; startBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bermain...';
         holes.forEach(h => { h.innerHTML = ''; h.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); });
-
-        clearInterval(gameInterval);
-        clearInterval(countdownInterval);
-        
-        gameInterval = setInterval(spawnEntities, gameSpeed);
-        countdownInterval = setInterval(countDown, 1000);
+        clearInterval(gameInterval); clearInterval(countdownInterval);
+        gameInterval = setInterval(spawnEntities, gameSpeed); countdownInterval = setInterval(countDown, 1000);
     }
 
     startBtn.addEventListener('click', startGame);
-    
-    // Tombol Main Lagi di layar Game Over
-    restartBtn.addEventListener('click', () => {
-        gameOverScreen.classList.remove('show');
-        setTimeout(startGame, 300); // Beri jeda layar tertutup dulu baru mulai
-    });
-
-    // Tombol Berhenti (Quit) di layar Game Over
+    restartBtn.addEventListener('click', () => { gameOverScreen.classList.remove('show'); setTimeout(startGame, 300); });
     quitBtn.addEventListener('click', () => {
         gameOverScreen.classList.remove('show');
-        // Kosongkan papan dan kembalikan angka ke awal
         holes.forEach(h => { h.innerHTML = ''; h.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); });
-        scoreText.textContent = "0";
-        timeLeftText.textContent = "30";
+        scoreText.textContent = "0"; timeLeftText.textContent = "30";
     });
-
 </script>
+
 </body>
 </html>
