@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodata | Renxxno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* BACKGROUND LUAR TRANSPARAN TOTAL (Menyatu dengan Google Sites) */
+        html, body {
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden; 
+        }
+
+        html {
+            background: transparent; 
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+            padding: 40px 20px; 
+            color: #2d3436;
+        }
+
+        /* === ANIMASI MASUK UTAMA === */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* WARNA GRADASI BIRU MASUK KE DALAM KOTAK INI */
+        .card-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 45px 30px;
+            width: 100%;
+            max-width: 450px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+            border: 2px solid #ffffff; 
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+
+            /* Pemicu Animasi Masuk Utama */
+            opacity: 0;
+            animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        
+        /* HEADER PROFIL */
+        .header-profile {
+            text-align: center;
+            margin-bottom: 30px;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards;
+        }
+        
+        .profile-img {
+            width: 120px;          
+            height: 120px;          
+            border-radius: 50%;   
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e272e;
+            margin-bottom: 5px;
+        }
+        
+        .profile-role {
+            font-size: 14px;
+            color: #6c5ce7;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* BAGIAN TENTANG SAYA */
+        .section-1 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title i {
+            color: #6c5ce7;
+        }
+
+        .bio-text {
+            font-size: 14px;
+            color: #576574;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            text-align: justify;
+            min-height: 120px; /* Menjaga ukuran kotak agar tidak lompat-lompat saat mengetik */
+        }
+
+        /* EFEK KURSOR MENGETIK (KEDAP KEDIP) */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .typing-cursor::after {
+            content: '|';
+            color: #6c5ce7;
+            font-weight: bold;
+            font-size: 16px;
+            animation: blink 0.8s infinite;
+        }
+
+        /* GRID INFO PRIBADI */
+        .section-2 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards; }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards;
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(108, 92, 231, 0.1);
+        }
+
+        .info-icon {
+            min-width: 35px; 
+            height: 35px;
+            background: rgba(108, 92, 231, 0.1);
+            color: #6c5ce7;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .info-detail {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; 
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #a4b0be;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        /* TAG MINAT & HOBI */
+        .section-3 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s forwards; }
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.8s forwards;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, #f1f2f6 0%, #ffffff 100%);
+            color: #576574;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: #6c5ce7;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        /* TAMPILAN KHUSUS MOBILE (HP) */
+        @media (max-width: 480px) {
+            body { padding: 15px 10px; }
+            .card-container { padding: 30px 20px; border-radius: 20px; }
+            .info-grid { grid-template-columns: 1fr; gap: 10px; }
+            .bio-text { text-align: left; min-height: 160px; }
+            .profile-img { width: 100px; height: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    
+    <!-- HEADER PROFIL -->
+    <div class="header-profile">
+        <img class="profile-img" src="https://i.ibb.co.com/Xx7HdrQT/IMG20250420105850.jpg" alt="Foto Profil">
+        <div class="profile-name">Renxxno</div>
+        <div class="profile-role">Kreator Website</div>
+    </div>
+
+    <!-- TENTANG SAYA -->
+    <h2 class="section-title section-1"><i class="fa-solid fa-user"></i> Tentang Saya</h2>
+    
+    <!-- TEKS INI AKAN DIKETIK OTOMATIS OLEH JAVASCRIPT -->
+    <p class="bio-text section-1 typing-cursor" id="typingText">
+        Perkenalkan, saya Alexzander Bareno, lulusan Teknik Komputer dan Jaringan (TKJ) SMK Negeri 2 Kota Blitar. Saya menguasai troubleshooting perangkat keras komputer & laptop serta instalasi jaringan internet. Berbekal pengalaman magang saya terbiasa melayani pelanggan dengan komunikatif, baik secara mandiri maupun di dalam tim. Saya adalah pribadi yang jujur, disiplin, teliti, dan selalu antusias mempelajari hal baru di bidang teknologi.
+    </p>
+
+    <!-- INFO PRIBADI -->
+    <h2 class="section-title section-2"><i class="fa-solid fa-address-card"></i> Info Pribadi</h2>
+    <div class="info-grid">
+        <div class="info-card">
+            <div class="info-icon"><i class="fa-solid fa-calendar-day"></i></div>
+            <div class="info-detail">
+                <span class="info-label">Kelahiran</span>
+                <span class="info-value">28 April 2006</span>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="info-detail">
+                <span class="info-label">Lokasi</span>
+                <span class="info-value">Kota Blitar, Jawa Timur, Indonesia</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MINAT & HOBI -->
+    <h2 class="section-title section-3"><i class="fa-solid fa-star"></i> Minat & Hobi</h2>
+    <div class="tags-container">
+        <span class="tag">🎵 Musik</span>
+        <span class="tag">🎬 Video Editing</span>
+        <span class="tag">📸 Fotografi</span>
+        <span class="tag">🎮 Gaming</span>
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT UNTUK EFEK MENGETIK -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const textElement = document.getElementById("typingText");
+        const originalText = textElement.innerHTML.trim(); 
+        
+        // Kosongkan teks di awal agar bisa diketik ulang
+        textElement.innerHTML = ""; 
+        
+        let charIndex = 0;
+        const typingSpeed = 30; // Kecepatan mengetik (semakin kecil semakin cepat)
+
+        function typeWriter() {
+            if (charIndex < originalText.length) {
+                textElement.innerHTML = originalText.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeWriter, typingSpeed);
+            } else {
+                // Opsional: Matikan kursor setelah selesai mengetik (Hapus tanda "//" di bawah ini jika ingin mematikan kursor)
+                // textElement.classList.remove("typing-cursor"); 
+            }
+        }
+
+        // Tunda efek mengetik selama 1 detik agar menunggu animasi kotaknya masuk dulu
+        setTimeout(typeWriter, 1000); 
+    });
+</script>
+
+</body>
+</html>
