@@ -22,24 +22,125 @@
         body {
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
-            /* Latar Belakang Animasi Premium (Menggantikan Transparan) */
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            /* Latar belakang putih bersih ala Apple */
+            background: #ffffff;
             display: flex;
             justify-content: center;
             align-items: flex-start; 
-            padding: 40px 20px 100px 20px; /* Padding bawah 100px untuk Menu Bawah */
-            color: #2d3436;
+            padding: 100px 20px 40px 20px; /* Jarak atas ditambah agar tidak tertabrak menu */
+            color: #1d1d1f;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* =========================================
+           TOP NAVBAR APPLE STYLE
+           ========================================= */
+        .apple-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 54px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 9999;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-        
-        /* === KUMPULAN ANIMASI MASUK === */
+
+        .nav-brand {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1d1d1f;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 25px;
+            color: #1d1d1f;
+            font-size: 18px;
+        }
+
+        .nav-icons i {
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .nav-icons i:hover {
+            opacity: 0.5;
+        }
+
+        /* OVERLAY MENU & CARI */
+        .nav-overlay {
+            position: fixed;
+            top: 54px; /* Muncul di bawah navbar */
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 54px);
+            background: #ffffff;
+            z-index: 9998;
+            padding: 30px 25px;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .nav-overlay.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Tampilan List Menu */
+        .menu-list {
+            list-style: none;
+        }
+        .menu-list li {
+            border-bottom: 1px solid #e5e5ea;
+        }
+        .menu-list a {
+            display: block;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1d1d1f;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .menu-list a:hover, .menu-list a.active {
+            color: #0066cc; /* Warna biru khas Apple saat ditekan */
+        }
+
+        /* Tampilan Kotak Cari */
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 12px 15px;
+        }
+        .search-box i {
+            color: #86868b;
+            font-size: 20px;
+            margin-right: 12px;
+        }
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 20px;
+            width: 100%;
+            color: #1d1d1f;
+        }
+        .search-box input::placeholder {
+            color: #86868b;
+        }
+
+        /* === KUMPULAN ANIMASI MASUK KARTU === */
         @keyframes popIn {
             0% { opacity: 0; transform: scale(0.95) translateY(30px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
@@ -50,18 +151,16 @@
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* WARNA GRADASI BIRU MASUK KE KOTAK + ANIMASI POP IN */
         .card-container {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border-radius: 24px;
             padding: 40px 30px;
             width: 100%;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* Shadow dipertebal sedikit agar kontras dengan background putih */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             transition: transform 0.3s ease;
             opacity: 0;
             animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
@@ -70,13 +169,8 @@
             transform: translateY(-5px);
         }
         
-        /* BUNGKUSAN FOTO AGAR ANIMASI MASUK & MELAYANG TIDAK BENTROK */
-        .img-wrapper {
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards;
-        }
+        .img-wrapper { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; }
 
-        /* PERBAIKAN FOTO + EFEK MELAYANG (FLOAT) */
         .profile-img {
             width: 160px;          
             height: auto;          
@@ -94,40 +188,14 @@
             100% { transform: translateY(0px); }
         }
 
-        .profile-name {
-            font-size: 22px;
-            font-weight: 700;
-            margin: 10px 0 5px 0;
-            color: #1e272e;
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
-        }
-        .profile-bio {
-            font-size: 14px;
-            color: #576574;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            font-weight: 400;
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
-        }
+        .profile-name { font-size: 22px; font-weight: 700; margin: 10px 0 5px 0; color: #1e272e; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
+        .profile-bio { font-size: 14px; color: #576574; margin-bottom: 30px; line-height: 1.6; font-weight: 400; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards; }
 
-        .links-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        .links-wrapper { display: flex; flex-direction: column; gap: 15px; }
         .btn-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 15px 20px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            opacity: 0;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            padding: 15px 20px; border-radius: 16px; text-decoration: none;
+            font-weight: 600; font-size: 15px; opacity: 0;
             animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
@@ -138,7 +206,6 @@
         .btn-link:nth-child(3) { animation-delay: 0.7s; }
         .btn-link:nth-child(4) { animation-delay: 0.8s; }
         
-        /* HOVER EFFECT TOMBOL */
         .youtube-btn { background: #ff0000; color: #ffffff; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2); }
         .youtube-btn:hover { background: #cc0000; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(255, 0, 0, 0.35); }
 
@@ -151,61 +218,39 @@
         .whatsapp-btn { background: #25D366; color: #ffffff; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2); }
         .whatsapp-btn:hover { background: #20bd5a; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35); }
 
-        /* =========================================
-           BOTTOM NAVIGATION BAR
-           ========================================= */
-        .bottom-nav {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 450px;
-            background: linear-gradient(135deg, rgba(245, 247, 250, 0.85), rgba(195, 207, 226, 0.85));
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 10px;
-            z-index: 1000;
-            opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 1s forwards;
-        }
-
-        .nav-item {
-            text-decoration: none;
-            color: #576574;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 11px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            padding: 8px 15px;
-            border-radius: 30px;
-        }
-
-        .nav-item i {
-            font-size: 18px;
-            margin-bottom: 4px;
-        }
-
-        .nav-item:hover, .nav-item.active {
-            color: #ffffff;
-            background: linear-gradient(135deg, #4285f4, #357ae8);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
-        }
     </style>
 </head>
 <body>
 
+<!-- TOP NAVBAR APPLE STYLE -->
+<nav class="apple-nav">
+    <a href="index.html" class="nav-brand">Renxxno</a>
+    <div class="nav-icons">
+        <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
+        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+    </div>
+</nav>
+
+<!-- OVERLAY MENU -->
+<div class="nav-overlay" id="menuOverlay">
+    <ul class="menu-list">
+        <li><a href="index.html" class="active">Beranda</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="music.html">Music</a></li>
+    </ul>
+</div>
+
+<!-- OVERLAY PENCARIAN -->
+<div class="nav-overlay" id="searchOverlay">
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Cari..." id="searchInput">
+    </div>
+</div>
+
+<!-- KONTEN KARTU UTAMA -->
 <div class="card-container">
-    
     <div class="img-wrapper">
         <img class="profile-img" src="https://i.ibb.co.com/pB09JRPm/image-1778662381337.jpg" alt="Foto Profil Alexzander Bareno">
     </div>
@@ -229,25 +274,48 @@
     </div>
 </div>
 
-<!-- MENU NAVIGASI (AKTIF DI BERANDA) -->
-<nav class="bottom-nav">
-    <a href="index.html" class="nav-item active">
-        <i class="fa-solid fa-house"></i>
-        <span>Beranda</span>
-    </a>
-    <a href="biodata.html" class="nav-item">
-        <i class="fa-solid fa-user-pen"></i>
-        <span>Biodata</span>
-    </a>
-    <a href="games.html" class="nav-item">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>Games</span>
-    </a>
-    <a href="music.html" class="nav-item">
-        <i class="fa-solid fa-music"></i>
-        <span>Music</span>
-    </a>
-</nav>
+<!-- JAVASCRIPT UNTUK MENU DAN PENCARIAN -->
+<script>
+    const btnMenu = document.getElementById('toggleMenu');
+    const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
+
+    // Fungsi Buka/Tutup Menu
+    btnMenu.addEventListener('click', () => {
+        // Jika pencarian sedang terbuka, tutup dulu
+        if (searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+
+        // Toggle Menu
+        menuOverlay.classList.toggle('active');
+        if (menuOverlay.classList.contains('active')) {
+            btnMenu.classList.replace('fa-bars', 'fa-xmark'); // Ubah jadi ikon silang
+        } else {
+            btnMenu.classList.replace('fa-xmark', 'fa-bars'); // Kembalikan ke garis 3
+        }
+    });
+
+    // Fungsi Buka/Tutup Pencarian
+    btnSearch.addEventListener('click', () => {
+        // Jika menu sedang terbuka, tutup dulu
+        if (menuOverlay.classList.contains('active')) {
+            menuOverlay.classList.remove('active');
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+
+        // Toggle Pencarian
+        searchOverlay.classList.toggle('active');
+        if (searchOverlay.classList.contains('active')) {
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); // Ubah jadi ikon silang
+            document.getElementById('searchInput').focus(); // Otomatis fokus ke kotak ketik
+        } else {
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+    });
+</script>
 
 </body>
 </html>
