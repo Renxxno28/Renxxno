@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio Data & Sosial Media | Alexzander Bareno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* BACKGROUND LUAR DIUBAH JADI TRANSPARAN */
+        html {
+            min-height: 100vh;
+            background: transparent; 
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: transparent; 
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+            padding: 40px 20px 40px 20px; 
+            color: #2d3436;
+        }
+        
+        /* === KUMPULAN ANIMASI MASUK === */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* WARNA GRADASI BIRU MASUK KE KOTAK + ANIMASI POP IN */
+        .card-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease;
+            
+            /* Pemicu Animasi Masuk Utama */
+            opacity: 0;
+            animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        .card-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* BUNGKUSAN FOTO AGAR ANIMASI MASUK & MELAYANG TIDAK BENTROK */
+        .img-wrapper {
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards;
+        }
+
+        /* PERBAIKAN FOTO + EFEK MELAYANG (FLOAT) */
+        .profile-img {
+            width: 160px;          
+            height: auto;          
+            border-radius: 20px;   
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 10px 0 5px 0;
+            color: #1e272e;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
+        }
+        .profile-bio {
+            font-size: 14px;
+            color: #576574;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-weight: 400;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
+        }
+
+        .links-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .btn-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            
+            /* Animasi masuk tombol (Diatur waktunya berurutan di bawah) */
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .btn-link i {
+            font-size: 20px;
+        }
+
+        /* MENGATUR WAKTU MUNCUL TOMBOL AGAR BERURUTAN (STAGGERED) */
+        .btn-link:nth-child(1) { animation-delay: 0.5s; }
+        .btn-link:nth-child(2) { animation-delay: 0.6s; }
+        .btn-link:nth-child(3) { animation-delay: 0.7s; }
+        .btn-link:nth-child(4) { animation-delay: 0.8s; }
+        
+        /* HOVER EFFECT TOMBOL */
+        .youtube-btn {
+            background: #ff0000;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+        }
+        .youtube-btn:hover {
+            background: #cc0000;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.35);
+        }
+
+        .instagram-btn {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2);
+        }
+        .instagram-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(220, 39, 67, 0.35);
+        }
+
+        .email-btn {
+            background: #4285f4;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.2);
+        }
+        .email-btn:hover {
+            background: #357ae8;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.35);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+        }
+        .whatsapp-btn:hover {
+            background: #20bd5a;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    
+    <!-- FOTO DIBUNGKUS AGAR ANIMASI MASUK DAN MELAYANG TIDAK BENTROK -->
+    <div class="img-wrapper">
+        <img class="profile-img" src="https://i.ibb.co.com/pB09JRPm/image-1778662381337.jpg" alt="Foto Profil Alexzander Bareno">
+    </div>
+    
+    <div class="profile-name">Renxxno</div>
+    <div class="profile-bio">Halo! Check yaa kalau sudah, jangan lupa di ikutin yaaa, Heheh</div>
+    
+    <div class="links-wrapper">
+        <a href="https://youtube.com/@alexzanderbareno?si=Shl3zBDB-LEKatNP" target="_blank" class="btn-link youtube-btn">
+            <i class="fa-brands fa-youtube"></i> My YouTube
+        </a>
+        
+        <a href="https://www.instagram.com/renoogemoyyy?igsh=MXgwd2Z1eXQyMHVkbA==" target="_blank" class="btn-link instagram-btn">
+            <i class="fa-brands fa-instagram"></i> My Instagram
+        </a>
+        
+        <a href="mailto:alexanderbareno44@gmail.com" class="btn-link email-btn">
+            <i class="fa-solid fa-envelope"></i> Hubungi Via Email
+        </a>
+        
+        <a href="https://wa.me/6285749776994" target="_blank" class="btn-link whatsapp-btn">
+            <i class="fa-brands fa-whatsapp"></i> Chat Via WhatsApp
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
