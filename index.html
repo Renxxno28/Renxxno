@@ -22,18 +22,17 @@
         body {
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
-            /* BACKGROUND ANIMASI PREMIUM UNTUK GITHUB PAGES */
+            /* Latar Belakang Animasi Premium (Menggantikan Transparan) */
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             display: flex;
             justify-content: center;
-            align-items: center; /* Diubah ke center agar kartu di tengah layar */
-            padding: 40px 20px 100px 20px; /* Padding bawah 100px agar tidak tertutup menu */
+            align-items: flex-start; 
+            padding: 40px 20px 100px 20px; /* Padding bawah 100px untuk Menu Bawah */
             color: #2d3436;
         }
 
-        /* Animasi Latar Belakang Bergerak */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -61,11 +60,9 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.5);
             transition: transform 0.3s ease;
-            
-            /* Pemicu Animasi Masuk Utama */
             opacity: 0;
             animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
@@ -102,7 +99,6 @@
             font-weight: 700;
             margin: 10px 0 5px 0;
             color: #1e272e;
-            
             opacity: 0;
             animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
         }
@@ -112,7 +108,6 @@
             margin-bottom: 30px;
             line-height: 1.6;
             font-weight: 400;
-            
             opacity: 0;
             animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
         }
@@ -132,16 +127,12 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
-            
             opacity: 0;
             animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .btn-link i {
-            font-size: 20px;
-        }
+        .btn-link i { font-size: 20px; }
 
-        /* MENGATUR WAKTU MUNCUL TOMBOL AGAR BERURUTAN (STAGGERED) */
         .btn-link:nth-child(1) { animation-delay: 0.5s; }
         .btn-link:nth-child(2) { animation-delay: 0.6s; }
         .btn-link:nth-child(3) { animation-delay: 0.7s; }
@@ -161,15 +152,15 @@
         .whatsapp-btn:hover { background: #20bd5a; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35); }
 
         /* =========================================
-           BOTTOM NAVIGATION BAR (MENU KAPSUL KACA) 
+           BOTTOM NAVIGATION BAR
            ========================================= */
         .bottom-nav {
             position: fixed;
             bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px; /* Lebar sama dengan kartu profil */
+            width: 95%;
+            max-width: 450px;
             background: linear-gradient(135deg, rgba(245, 247, 250, 0.85), rgba(195, 207, 226, 0.85));
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -179,10 +170,8 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 10px 15px;
+            padding: 10px 10px;
             z-index: 1000;
-            
-            /* Animasi masuk dari bawah */
             opacity: 0;
             animation: fadeUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 1s forwards;
         }
@@ -193,22 +182,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             transition: all 0.3s ease;
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 30px;
         }
 
         .nav-item i {
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 4px;
         }
 
-        /* Saat di-hover atau saat halaman sedang aktif (dibuka) */
         .nav-item:hover, .nav-item.active {
             color: #ffffff;
-            background: linear-gradient(135deg, #4285f4, #357ae8); /* Biru menyala */
+            background: linear-gradient(135deg, #4285f4, #357ae8);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
         }
@@ -229,24 +217,19 @@
         <a href="https://youtube.com/@alexzanderbareno?si=Shl3zBDB-LEKatNP" target="_blank" class="btn-link youtube-btn">
             <i class="fa-brands fa-youtube"></i> My YouTube
         </a>
-        
         <a href="https://www.instagram.com/renoogemoyyy?igsh=MXgwd2Z1eXQyMHVkbA==" target="_blank" class="btn-link instagram-btn">
             <i class="fa-brands fa-instagram"></i> My Instagram
         </a>
-        
         <a href="mailto:alexanderbareno44@gmail.com" class="btn-link email-btn">
             <i class="fa-solid fa-envelope"></i> Hubungi Via Email
         </a>
-        
         <a href="https://wa.me/6285749776994" target="_blank" class="btn-link whatsapp-btn">
             <i class="fa-brands fa-whatsapp"></i> Chat Via WhatsApp
         </a>
     </div>
 </div>
 
-<!-- =========================================
-     MENU NAVIGASI BAWAH (VERSI UPDATE 4 TOMBOL)
-     ========================================= -->
+<!-- MENU NAVIGASI (AKTIF DI BERANDA) -->
 <nav class="bottom-nav">
     <a href="index.html" class="nav-item active">
         <i class="fa-solid fa-house"></i>
@@ -265,7 +248,6 @@
         <span>Music</span>
     </a>
 </nav>
-    
 
 </body>
 </html>
