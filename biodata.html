@@ -23,16 +23,17 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff; /* Latar belakang putih bersih */
+            /* Latar belakang putih bersih ala Apple diterapkan di sini juga */
+            background: #ffffff; 
             display: flex;
             justify-content: center;
             align-items: flex-start; 
-            padding: 100px 20px 40px 20px; /* Jarak untuk navbar atas */
+            padding: 100px 20px 40px 20px; /* Jarak agar konten tidak tertabrak menu atas */
             color: #1d1d1f;
         }
 
         /* =========================================
-           TOP NAVBAR APPLE STYLE
+           TOP NAVBAR APPLE STYLE (SAMA SEPERTI BERANDA)
            ========================================= */
         .apple-nav {
             position: fixed;
@@ -67,7 +68,8 @@
         .menu-list { list-style: none; }
         .menu-list li { border-bottom: 1px solid #e5e5ea; }
         .menu-list a { display: block; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
-        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        /* Warna biru khas Apple untuk menu yang sedang aktif */
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; } 
 
         /* Tampilan Kotak Cari */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
@@ -75,7 +77,7 @@
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; }
 
-        /* === ANIMASI MASUK UTAMA === */
+        /* === ANIMASI MASUK KARTU BIODATA === */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         
@@ -143,7 +145,7 @@
     </div>
 </nav>
 
-<!-- OVERLAY MENU -->
+<!-- OVERLAY MENU (PERHATIKAN CLASS ACTIVE ADA DI BIODATA) -->
 <div class="nav-overlay" id="menuOverlay">
     <ul class="menu-list">
         <li><a href="index.html">Beranda</a></li>
@@ -161,6 +163,7 @@
     </div>
 </div>
 
+<!-- KONTEN KARTU BIODATA -->
 <div class="card-container">
     <div class="header-profile">
         <img class="profile-img" src="https://i.ibb.co.com/Xx7HdrQT/IMG20250420105850.jpg" alt="Foto Profil">
@@ -257,3 +260,4 @@
 
 </body>
 </html>
+
