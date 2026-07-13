@@ -57,7 +57,6 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
         }
-        /* DIUBAH MENJADI BIRU */
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
         .menu-list a i { font-size: 18px; color: #86868b; }
 
@@ -65,7 +64,6 @@
             display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
             padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
         }
-        /* DIUBAH MENJADI BIRU */
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
@@ -92,7 +90,6 @@
 
         .lyric-line { font-size: 16px; font-weight: 700; color: rgba(0, 0, 0, 0.3); margin-bottom: 18px; line-height: 1.5; transition: all 0.4s ease; transform-origin: left center; cursor: pointer; }
         
-        /* LIRIK AKTIF DIUBAH MENJADI BIRU */
         .lyric-line.active { color: #0066cc; font-size: 20px; font-weight: 800; transform: scale(1.02); }
 
         .am-player-container.lyric-mode .cover-view { opacity: 0; transform: scale(0.8); pointer-events: none; }
@@ -102,7 +99,6 @@
         .am-text-info { display: flex; flex-direction: column; overflow: hidden; padding-right: 15px; }
         .am-title { font-size: 22px; font-weight: 800; color: #1d1d1f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
         
-        /* NAMA ARTIS DIUBAH MENJADI BIRU */
         .am-artist { font-size: 16px; font-weight: 500; color: #0066cc; }
 
         .am-progress { margin-bottom: 30px; padding: 0 5px; }
@@ -119,7 +115,6 @@
         .am-bottom-row { display: flex; align-items: center; justify-content: space-between; padding: 0 5px; margin-bottom: 40px; gap: 15px; }
         .am-lyric-btn { font-size: 20px; color: #86868b; background: transparent; border: none; cursor: pointer; transition: color 0.3s; }
         
-        /* TOMBOL LIRIK MENYALA BIRU SAAT AKTIF */
         .am-player-container.lyric-mode .am-lyric-btn { color: #0066cc; } 
         
         .am-volume { display: flex; align-items: center; gap: 10px; color: #86868b; font-size: 14px; flex-grow: 1; }
@@ -128,7 +123,6 @@
         .am-description-box { background: #f5f5f7; border-radius: 20px; padding: 20px; width: 100%; max-width: 380px; opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
         .desc-header { font-size: 16px; font-weight: 700; color: #1d1d1f; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         
-        /* IKON DESKRIPSI DIUBAH MENJADI BIRU */
         .desc-header i { color: #0066cc; }
         .desc-body { font-size: 14px; color: #576574; line-height: 1.6; }
     </style>
@@ -144,7 +138,7 @@
     </div>
 </nav>
 
-<!-- OVERLAY MENU (PERHATIKAN CLASS ACTIVE ADA DI MUSIC) -->
+<!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -283,10 +277,14 @@
             title: "Berubah", artist: "Tenxi, Jemsii", cover: "https://i.ibb.co.com/d4f1hCtR/ab67616d0000b273ebdd8446bacd87dc7796cede.jpg",
             src: "https://www.image2url.com/r2/default/videos/1783809184940-e218acef-eb1f-44e2-8b5b-c55affbd4af0.mp4", description: "Lagu dengan beat yang asik dan lirik relatable tentang seseorang yang memutuskan untuk berubah dan move on dari toxic relationship.",
             lyrics: `[00:16.00] Jangan nyesel semua problem kamu yang start\n[00:19.00] Jangan minta rewind aku kamu udah finish\n[00:22.00] Pasang mata sinis mata jadi gerimis\n[00:25.50] Emang paling narsis\n[00:29.50] Apa kita udahan kok kamu masih nanya\n[00:33.00] Mendengarmu membual banyak nya nya nya nya\n[00:36.50] Kau main belakang gak usah pakai lama\n[00:39.50] Cuma gitu aku juga bisa\n[00:43.00] Sudah selesai cerita pun berakhir\n[00:46.50] Kau yang memulai memang penulis mahir\n[00:50.00] Ku tak mau mengulang I said no no not again\n[00:53.00] Jangan follow aku lagi aku udah gak naksir hei hei hei\n[00:57.00] Belagak buta tapi tak pernah lupa\n[01:00.50] Kamu mendua jadi aku bertiga\n[01:04.00] Masih terasa mata balas mata\n[01:08.50] Tak mau terluka jadi aku berubah\n[01:11.50] Aku berubah\n[01:13.50] Aku berubah\n[01:25.00] Sibuk cari duit buat siapa ya buat gua\n[01:28.50] Jangan bilang sakit gua tau lu buat-buat\n[01:32.00] Kerja sehari dompet gua udah gak muat\n[01:35.50] Dont act like you're the one cewek masih banyak\n[01:39.00] Apa kita udahan kok kamu masih nanya\n[01:42.50] Mendengarmu membual banyak nya nya nya nya\n[01:46.00] Kau main belakang gak usah pakai lama\n[01:49.00] Cuma gitu aku juga bisa\n[01:52.50] Sudah selesai cerita pun berakhir\n[01:56.50] Kau yang memulai memang penulis mahir\n[02:00.00] Ku tak mau mengulang I said no no not again\n[02:02.50] Jangan follow aku lagi aku udah gak naksir hei hei hei\n[02:07.00] Belagak buta tapi tak pernah lupa\n[02:10.50] Kamu mendua jadi aku bertiga\n[02:14.00] Masih terasa mata balas mata\n[02:17.50] Tak mau terluka jadi aku berubah\n[02:22.00] Aku berubah\n[02:24.00] Aku berubah\n[02:25.50] Aku berubah\n[02:28.50] Aku berubah\n[02:32.00] Hu hu-hu hu hu-hu\n[02:37.00] Hu hu-hu hu-hu\n[02:48.00] Sudah selesai cerita pun berakhir\n[02:51.00] Kau yang memulai memang penulis mahir\n[02:54.50] Ku tak mau mengulang I said no no not again\n[02:57.00] Jangan follow aku lagi aku udah gak naksir hei hei hei\n[03:03.00] Belagak buta tapi tak pernah lupa\n[03:06.50] Kamu mendua jadi aku bertiga\n[03:10.00] Masih terasa mata balas mata\n[03:14.00] Tak mau terluka jadi aku berubah`
+        },
+        {
+            title: "Tunggal Eka", artist: "Denny Caknan", cover: "https://i.ibb.co.com/y9fMQZX/tunggaleka.jpg", 
+            src: "https://files.catbox.moe/h5rk6l.mp4", description: "Sebuah persembahan romantis dari Denny Caknan. Lagu ini menceritakan tentang ketulusan cinta, doa terbaik, dan harapan untuk selalu bersama satu-satunya di hari yang istimewa.",
+            lyrics: `[00:21.00] Aku nebak\n[00:23.00] Isine pandongamu\n[00:26.00] Wis tak siapke\n[00:30.00] Kado nggo sliramu\n[00:37.00] Aku ngukir\n[00:38.00] Kata-kata romantis\n[00:41.00] Sing iso nyenengke\n[00:45.00] Kowe sing manis\n[00:56.00] Seksine dunyo lan langit\n[00:58.00] Gedhene rosoku\n[01:00.00] Tunggal eka mring sliramu\n[01:08.00] Panjang umurmu\n[01:19.00] Tak usahane panyuwunmu\n[01:25.00] Tak pasrahke jantung atiku\n[01:28.00] Nganti nemoni lelayu\n[01:35.00] Sing apik-apik ya sayang\n[01:39.00] Ning dino istimewa iki\n[01:45.00] Dungoku langgeng tresno abadi\n[01:57.00] Semerbak wangine ambeganmu\n[02:00.00] Gugah roso tembok gairahku\n[02:06.00] Manise suoro rayuanmu\n[02:14.00] Negeske kowe ra iso kelangan aku\n[02:48.00] Yang dungoku sampean bahagia\n[02:52.00] Kadoku terkesan biasa\n[02:56.00] Rung iso ngenehi sing sempurna\n[03:01.00] Selamat tambah usia\n[03:05.00] Semoga umur panjang\n[03:08.00] Ku harap bisa terkenang sayang\n[03:15.00] Tak usahane panyuwunmu\n[03:20.00] Tak pasrahke jantung atiku\n[03:23.00] Nganti nemoni lelayu\n[03:30.00] Sing apik-apik ya sayang\n[03:34.00] Ning dino istimewa iki\n[03:41.00] Dungoku langgeng tresno abadi\n[03:49.00] Tak usahane panyuwunmu\n[03:54.00] Tak pasrahke jantung atiku\n[03:58.00] Nganti nemoni lelayu\n[04:05.00] Sing apik-apik ya sayang\n[04:09.00] Ning dino istimewa iki\n[04:15.00] Dungoku langgeng tresno abadi`
         }
     ];
-
-    let currentSongIndex = 0; let isPlaying = false; let currentLyricsData = []; 
+        let currentSongIndex = 0; let isPlaying = false; let currentLyricsData = []; 
     const playerNode = document.getElementById("playerNode"); const audio = document.getElementById("myAudio");
     const albumCover = document.getElementById("albumCover"); const songTitleText = document.getElementById("songTitle");
     const artistNameText = document.getElementById("artistName"); const songDescText = document.getElementById("songDescription");
@@ -384,3 +382,4 @@
 </script>
 </body>
 </html>
+
