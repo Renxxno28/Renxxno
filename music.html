@@ -104,14 +104,13 @@
 
         .cover-view img {
             width: 100%;
-            height: auto; /* Mengakomodasi gambar kotak + CD */
+            height: auto; 
             border-radius: 12px;
-            transform: scale(0.85); /* Ukuran saat dijeda */
+            transform: scale(0.85); 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Saat diputar, kover kembali besar (scale 1) */
         .am-player-container.playing .cover-view img {
             transform: scale(1);
             box-shadow: 0 20px 40px rgba(0,0,0,0.25);
@@ -163,7 +162,7 @@
         /* VOLUME & LIRIK BUTTON ROW */
         .am-bottom-row { display: flex; align-items: center; justify-content: space-between; padding: 0 5px; margin-bottom: 40px; gap: 15px; }
         .am-lyric-btn { font-size: 20px; color: #86868b; background: transparent; border: none; cursor: pointer; transition: color 0.3s; }
-        .am-player-container.lyric-mode .am-lyric-btn { color: #fa233b; } /* Tombol lirik menyala merah saat aktif */
+        .am-player-container.lyric-mode .am-lyric-btn { color: #fa233b; } 
         
         .am-volume { display: flex; align-items: center; gap: 10px; color: #86868b; font-size: 14px; flex-grow: 1; }
         .am-volume input[type="range"]::-webkit-slider-thumb { box-shadow: -400px 0 0 400px #1d1d1f; }
@@ -177,6 +176,7 @@
 </head>
 <body>
 
+<!-- TOP NAVBAR APPLE STYLE -->
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
@@ -185,6 +185,7 @@
     </div>
 </nav>
 
+<!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -206,22 +207,27 @@
     </div>
 </div>
 
+<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" placeholder="Cari..." id="searchInput">
     </div>
 </div>
+<!-- KONTEN PEMUTAR APPLE MUSIC -->
 <div class="am-player-container" id="playerNode">
     
+    <!-- Bagian Media (Kover / Lirik) -->
     <div class="media-section">
         <div class="cover-view">
             <img id="albumCover" src="" alt="Album Cover">
         </div>
         <div class="lyrics-view" id="lyricView">
-            </div>
+            <!-- Lirik akan dimasukkan otomatis ke sini oleh JS -->
+        </div>
     </div>
 
+    <!-- Info Lagu (Titik 3 sudah dihapus sesuai permintaan) -->
     <div class="am-song-info">
         <div class="am-text-info">
             <div class="am-title" id="songTitle">Memuat...</div>
@@ -229,19 +235,23 @@
         </div>
     </div>
 
+    <!-- Progress Bar -->
     <div class="am-progress">
         <input type="range" id="progressBar" value="0" step="1" min="0" max="100">
         <div class="am-time">
             <span id="currentTime">0:00</span>
-            <span id="durationTime">-0:00</span> </div>
+            <span id="durationTime">-0:00</span> 
+        </div>
     </div>
 
+    <!-- Kontrol Putar (NAMA IKON NEXT DAN BACK SUDAH DIPERBAIKI) -->
     <div class="am-controls">
-        <button class="am-btn am-btn-side" id="prevBtn"><i class="fa-solid fa-backward-fill"></i></button>
+        <button class="am-btn am-btn-side" id="prevBtn"><i class="fa-solid fa-backward-step"></i></button>
         <button class="am-btn am-btn-play" id="playBtn"><i class="fa-solid fa-play" id="playIcon"></i></button>
-        <button class="am-btn am-btn-side" id="nextBtn"><i class="fa-solid fa-forward-fill"></i></button>
+        <button class="am-btn am-btn-side" id="nextBtn"><i class="fa-solid fa-forward-step"></i></button>
     </div>
 
+    <!-- Kontrol Tambahan: Tombol Lirik & Volume -->
     <div class="am-bottom-row">
         <button class="am-lyric-btn" id="toggleLyricsBtn" title="Tampilkan Lirik">
             <i class="fa-solid fa-quote-right"></i>
@@ -256,6 +266,7 @@
     <audio id="myAudio"></audio>
 </div>
 
+<!-- KOTAK DESKRIPSI -->
 <div class="am-description-box">
     <div class="desc-header">
         <i class="fa-solid fa-circle-info"></i> Tentang Lagu
@@ -611,7 +622,7 @@
         audio.src = song.src;
         songDescText.innerText = song.description;
         
-        renderLyrics(song.lyrics); // Memanggil lirik sesuai lagu
+        renderLyrics(song.lyrics); 
         
         progressBar.value = 0;
         currentTimeText.innerText = "0:00";
@@ -656,11 +667,10 @@
             progressBar.max = duration;
             progressBar.value = currentTime;
             currentTimeText.innerText = formatTime(currentTime);
-            // Format waktu sisa dengan tanda minus Apple Music
             const timeLeft = duration - currentTime;
             durationTimeText.innerText = "-" + formatTime(timeLeft);
         }
-        syncLyrics(); // Menjalankan lirik otomatis
+        syncLyrics(); 
     });
 
     progressBar.addEventListener("input", function() {
