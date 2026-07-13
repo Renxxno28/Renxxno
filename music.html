@@ -24,12 +24,12 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: flex-start;
-            padding: 80px 20px 40px 20px; /* Jarak untuk Navbar */
+            padding: 80px 20px 40px 20px; 
             color: #1d1d1f; 
         }
 
         /* =========================================
-           TOP NAVBAR APPLE STYLE (WAJIB)
+           TOP NAVBAR APPLE STYLE
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -57,7 +57,7 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
         }
-        .menu-list a:hover, .menu-list a.active { color: #fa233b; /* Warna aksen merah Apple Music */ }
+        .menu-list a:hover, .menu-list a.active { color: #fa233b; }
         .menu-list a i { font-size: 18px; color: #86868b; }
 
         .submenu-header {
@@ -86,171 +86,93 @@
             animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
 
-        /* KOVER ALBUM (EFEK ZOOM ALA APPLE) */
-        .am-album-art {
+        /* MEDIA SECTION (TEMPAT KOVER DAN LIRIK BERGANTIAN) */
+        .media-section {
+            position: relative;
             width: 100%;
-            aspect-ratio: 1/1;
-            border-radius: 12px;
+            height: 300px; 
             margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        .am-album-art img {
+        /* KOVER ALBUM */
+        .cover-view {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 2;
+        }
+
+        .cover-view img {
             width: 100%;
-            height: 100%;
+            height: auto; /* Mengakomodasi gambar kotak + CD */
             border-radius: 12px;
-            object-fit: cover;
-            /* Saat dijeda, kover mengecil sedikit (scale 0.8) */
-            transform: scale(0.8);
+            transform: scale(0.85); /* Ukuran saat dijeda */
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* Saat diputar, kover kembali besar (scale 1) */
-        .am-player-container.playing .am-album-art img {
+        .am-player-container.playing .cover-view img {
             transform: scale(1);
             box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-            border-radius: 8px; /* Mengikuti gaya iOS */
         }
+
+        /* TAMPILAN LIRIK BERJALAN */
+        .lyrics-view {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            overflow-y: auto;
+            padding: 10px 10px 80px 0;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            scroll-behavior: smooth;
+            opacity: 0; transform: translateY(20px); pointer-events: none; z-index: 1;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .lyrics-view::-webkit-scrollbar { display: none; }
+
+        .lyric-line {
+            font-size: 16px; font-weight: 700; color: rgba(0, 0, 0, 0.3);
+            margin-bottom: 18px; line-height: 1.5; transition: all 0.4s ease;
+            transform-origin: left center; cursor: pointer;
+        }
+        .lyric-line.active { color: #fa233b; font-size: 20px; font-weight: 800; transform: scale(1.02); }
+
+        /* TOGGLE EFEK MODE LIRIK */
+        .am-player-container.lyric-mode .cover-view { opacity: 0; transform: scale(0.8); pointer-events: none; }
+        .am-player-container.lyric-mode .lyrics-view { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
         /* INFO LAGU */
-        .am-song-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding: 0 5px;
-        }
-
-        .am-text-info {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            padding-right: 15px;
-        }
-
-        .am-title {
-            font-size: 22px;
-            font-weight: 800;
-            color: #1d1d1f;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 2px;
-        }
-
-        .am-artist {
-            font-size: 16px;
-            font-weight: 500;
-            color: #fa233b; /* Merah Apple Music */
-        }
-
-        .am-more-btn {
-            font-size: 22px;
-            color: #1d1d1f;
-            background: rgba(0,0,0,0.05);
-            width: 35px; height: 35px;
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            cursor: pointer;
-        }
+        .am-song-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding: 0 5px; }
+        .am-text-info { display: flex; flex-direction: column; overflow: hidden; padding-right: 15px; }
+        .am-title { font-size: 22px; font-weight: 800; color: #1d1d1f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+        .am-artist { font-size: 16px; font-weight: 500; color: #fa233b; }
 
         /* PROGRESS BAR */
-        .am-progress {
-            margin-bottom: 35px;
-            padding: 0 5px;
-        }
+        .am-progress { margin-bottom: 30px; padding: 0 5px; }
+        input[type="range"] { -webkit-appearance: none; width: 100%; height: 6px; background: rgba(0,0,0,0.1); border-radius: 10px; outline: none; cursor: pointer; overflow: hidden; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 0px; box-shadow: -400px 0 0 400px #a4a4a4; transition: all 0.2s; }
+        .am-time { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: #86868b; margin-top: 8px; }
 
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 6px;
-            background: rgba(0,0,0,0.1);
-            border-radius: 10px;
-            outline: none;
-            cursor: pointer;
-            overflow: hidden;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 0px; 
-            box-shadow: -400px 0 0 400px #a4a4a4; /* Warna abu-abu scrub */
-            transition: all 0.2s;
-        }
-
-        .am-time {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            font-weight: 600;
-            color: #86868b;
-            margin-top: 8px;
-        }
-
-        /* KONTROL PUTAR */
-        .am-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 45px;
-            margin-bottom: 35px;
-        }
-
-        .am-btn {
-            background: transparent;
-            border: none;
-            color: #1d1d1f;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
+        /* KONTROL PUTAR (PLAY, NEXT, PREV) */
+        .am-controls { display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 30px; }
+        .am-btn { background: transparent; border: none; color: #1d1d1f; cursor: pointer; transition: transform 0.2s; }
         .am-btn:active { transform: scale(0.85); opacity: 0.7; }
-        .am-btn-side { font-size: 35px; }
-        .am-btn-play { font-size: 55px; }
+        .am-btn-side { font-size: 32px; }
+        .am-btn-play { font-size: 50px; }
 
-        /* VOLUME BAR */
-        .am-volume {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 0 10px;
-            color: #86868b;
-            font-size: 14px;
-            margin-bottom: 40px;
-        }
+        /* VOLUME & LIRIK BUTTON ROW */
+        .am-bottom-row { display: flex; align-items: center; justify-content: space-between; padding: 0 5px; margin-bottom: 40px; gap: 15px; }
+        .am-lyric-btn { font-size: 20px; color: #86868b; background: transparent; border: none; cursor: pointer; transition: color 0.3s; }
+        .am-player-container.lyric-mode .am-lyric-btn { color: #fa233b; } /* Tombol lirik menyala merah saat aktif */
+        
+        .am-volume { display: flex; align-items: center; gap: 10px; color: #86868b; font-size: 14px; flex-grow: 1; }
         .am-volume input[type="range"]::-webkit-slider-thumb { box-shadow: -400px 0 0 400px #1d1d1f; }
 
-        /* DESKRIPSI (GAYA APPLE PLAYING NEXT / INFO) */
-        .am-description-box {
-            background: #f5f5f7;
-            border-radius: 20px;
-            padding: 20px;
-            width: 100%;
-            max-width: 380px;
-            opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
-        }
-
-        .desc-header {
-            font-size: 16px;
-            font-weight: 700;
-            color: #1d1d1f;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
+        /* DESKRIPSI LENGKAP */
+        .am-description-box { background: #f5f5f7; border-radius: 20px; padding: 20px; width: 100%; max-width: 380px; opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
+        .desc-header { font-size: 16px; font-weight: 700; color: #1d1d1f; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         .desc-header i { color: #fa233b; }
-
-        .desc-body {
-            font-size: 14px;
-            color: #576574;
-            line-height: 1.6;
-        }
+        .desc-body { font-size: 14px; color: #576574; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -264,7 +186,6 @@
 </nav>
 
 <div class="nav-overlay" id="menuOverlay">
-    
     <div id="mainMenu">
         <ul class="menu-list">
             <li><a href="index.html">Beranda</a></li>
@@ -273,7 +194,6 @@
             <li><a href="music.html" class="active">Music</a></li>
         </ul>
     </div>
-
     <div id="subMenuGames" style="display: none;">
         <div class="submenu-header" id="btnBackMainMenu">
             <i class="fa-solid fa-chevron-left"></i>
@@ -284,7 +204,6 @@
             <li><a href="ghosthunter.html">Ghost Hunter Mini</a></li>
         </ul>
     </div>
-
 </div>
 
 <div class="nav-overlay" id="searchOverlay">
@@ -293,10 +212,14 @@
         <input type="text" placeholder="Cari..." id="searchInput">
     </div>
 </div>
-    <div class="am-player-container" id="playerNode">
+<div class="am-player-container" id="playerNode">
     
-    <div class="am-album-art">
-        <img id="albumCover" src="" alt="Album Cover">
+    <div class="media-section">
+        <div class="cover-view">
+            <img id="albumCover" src="" alt="Album Cover">
+        </div>
+        <div class="lyrics-view" id="lyricView">
+            </div>
     </div>
 
     <div class="am-song-info">
@@ -304,7 +227,6 @@
             <div class="am-title" id="songTitle">Memuat...</div>
             <div class="am-artist" id="artistName">🎵</div>
         </div>
-        <div class="am-more-btn"><i class="fa-solid fa-ellipsis"></i></div>
     </div>
 
     <div class="am-progress">
@@ -320,10 +242,15 @@
         <button class="am-btn am-btn-side" id="nextBtn"><i class="fa-solid fa-forward-fill"></i></button>
     </div>
 
-    <div class="am-volume">
-        <i class="fa-solid fa-volume-off"></i>
-        <input type="range" id="volumeBar" value="100" min="0" max="100">
-        <i class="fa-solid fa-volume-high"></i>
+    <div class="am-bottom-row">
+        <button class="am-lyric-btn" id="toggleLyricsBtn" title="Tampilkan Lirik">
+            <i class="fa-solid fa-quote-right"></i>
+        </button>
+        <div class="am-volume">
+            <i class="fa-solid fa-volume-off"></i>
+            <input type="range" id="volumeBar" value="100" min="0" max="100">
+            <i class="fa-solid fa-volume-high"></i>
+        </div>
     </div>
 
     <audio id="myAudio"></audio>
@@ -340,7 +267,7 @@
 
 <script>
     // ==========================================
-    // 1. SCRIPT NAVBAR & NESTED MENU APPLE
+    // 1. SCRIPT NAVBAR & NESTED MENU
     // ==========================================
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
@@ -392,7 +319,7 @@
     });
 
     // ==========================================
-    // 2. SCRIPT PEMUTAR APPLE MUSIC
+    // 2. SCRIPT PEMUTAR & LIRIK
     // ==========================================
     const playlist = [
         {
@@ -400,26 +327,169 @@
             artist: "Tate McRae",
             cover: "https://i.ibb.co.com/jZxfLH7X/F1CD.jpg", 
             src: "https://files.catbox.moe/jx3non.mp4",
-            description: "Versi lambat (Slowed + Reverb) dari lagu populer Tate McRae yang ada di film F1®. Alunannya memberikan kesan yang lebih mendalam, menenangkan, dan sangat estetik untuk dinikmati sambil bersantai."
+            description: "Versi lambat (Slowed + Reverb) dari lagu populer Tate McRae yang ada di film F1®. Alunannya memberikan kesan yang lebih mendalam, menenangkan, dan sangat estetik untuk dinikmati sambil bersantai.",
+            lyrics: `
+[00:08.00] Oh
+[00:10.50] I wanna let my hair down (yeah, yeah, yeah, yeah, yeah)
+[00:12.50] While I'm staring down your face
+[00:13.50] Wanna go 'til lights out (yeah, yeah, yeah, yeah, yeah)
+[00:16.50] Take you right back to my place
+[00:18.00] You out your mind (no, no, no, no)
+[00:20.00] If you don't know what this is
+[00:23.50] I'll tell 'em one by one, show 'em one by one
+[00:26.50] Twist my wrist
+[00:27.00] Goes like this, start with the track
+[00:29.50] Eyes on me, arching my back
+[00:32.00] Just like this, here for the night
+[00:36.00] You ain't buying in? Just keep watching
+[00:37.50] Goes like this (yeah), move from the back (yeah)
+[00:38.50] Eyes on me (yeah), how you like that? (Yeah)
+[00:40.00] Just like this, here for the night
+[00:43.00] You ain't buying in? Just keep watching
+[00:44.00] Just keep watching
+[00:48.00] Just keep, just keep (no-no, oh, no-no)
+[00:52.00] Just keep watching
+[01:02.00] I wanna make my mind up (yeah, yeah, yeah, yeah, yeah)
+[01:04.00] 'Cause I know where this might go
+[01:06.50] Wanna take your time up (yeah, yeah, yeah, yeah, yeah)
+[01:08.50] But you make it difficult
+[01:11.00] Your friends, they try (they try, yeah)
+[01:13.50] But they don't know what this is (this is, yeah)
+[01:13.00] We'll tell 'em one by one, show 'em one by one
+[01:15.00] Twist my wrist
+[01:20.00] Goes like this, start with the track
+[01:22.00] Eyes on me, arching my back
+[01:24.00] Just like this, here for the night
+[01:26.00] You ain't buying in? Just keep watching
+[01:28.00] Goes like this (yeah), move from the back (yeah)
+[01:30.00] Eyes on me (yeah), how you like that? (Yeah)
+[01:33.50] Just like this, here for the night
+[01:35.00] You ain't buying in? Just keep watching (yeah, yeah, yeah)
+[01:40.00] Just keep watching
+[01:44.00] Just keep, just keep (no-no, oh, no-no)
+[01:49.00] Just keep watching (ooh)
+[01:55.00] It's alright, if you can't keep up, give me all your love
+[02:01.50] All night, all night
+[02:03.00] It's alright (it's alright), if you can't keep up, give me all your love
+[02:09.00] All night (all night), all night (baby)
+[02:13.50] Goes like this, start with the track
+[02:14.00] Eyes on me, arching my back
+[02:16.00] Just like this, here for the night
+[02:18.00] You ain't buying in? Just keep watching
+[02:21.00] Goes like this (yeah), move from the back (yeah)
+[02:23.00] Eyes on me (yeah), how you like that? (Yeah)
+[02:24.50] Just like this, here for the night
+[02:27.00] You ain't buying in? Just keep watching (you know you watching)
+[02:32.50] Just keep watching (as long as you're watching)
+[02:37.00] Just keep, just keep (you know you watching)
+[02:41.50] Just keep watching (as long as you're watching)
+[02:45.00] Just keep watching`
         },
         {
             title: "Sesi Potret", 
             artist: "eńau & Ari Lesmana",
             cover: "https://i.ibb.co.com/p6d5bK7j/ab67616d0000b273172768978c7f929803ad7e8b.jpg", 
             src: "https://files.catbox.moe/napsnc.mp4",
-            description: "Sebuah kolaborasi apik yang membawa nuansa tenang dan nostalgia. Lagu ini diibaratkan seperti mengabadikan momen-momen berharga dalam hidup bagaikan sebuah jepretan kamera, mengajak pendengarnya untuk meresapi setiap kenangan."
+            description: "Sebuah kolaborasi apik yang membawa nuansa tenang dan nostalgia. Lagu ini diibaratkan seperti mengabadikan momen-momen berharga dalam hidup bagaikan sebuah jepretan kamera, mengajak pendengarnya untuk meresapi setiap kenangan.",
+            lyrics: `
+[00:15.00] Tahun lalu berjuta alasanku
+[00:20.50] Maaf tak bisa pulang penghasilanku pas-pasan
+[00:26.00] Kali ini sudah lumayan
+[00:32.00] Berkat doamu di ijabah sang maha kaya
+[00:38.50] Dan tahun ini kubisa pulang
+[00:44.00] Oleh-oleh sudah ditangan
+[00:50.00] Tapi anehnya bukan kau yang menyambutku
+[00:55.50] Oh ternyata kau yang lebih dulu pulang
+[01:05.00] Ku bertamu ke rumah barumu
+[01:11.00] Tak ada kamu
+[01:13.50] Hanya papan dan namamu
+[01:16.00] Mana ocehan wewangian khasmu
+[01:22.00] Jarak ini terlalu jauh
+[01:25.00] Kalau rindu aku tak mampu
+[01:28.50] Soal ikhlas ternyata aku masih amatir
+[01:34.50] Gengsi menyelimutiku
+[01:37.50] Manusia ini kehilanganmu
+[02:01.00] Ha-ha-ha-ha
+[02:08.00] Sesi potret yang selalu ku benci
+[02:14.00] Aneh rasanya kau tak di sini
+[02:20.00] Susunan barisannya tak sama lagi
+[02:24.00] Oh ho ho satu dua tiga
+[02:29.00] Ini nyata kau telah pergi
+[02:38.00] Ku bertamu kerumah barumu
+[02:43.50] Tak ada kamu
+[02:46.00] Hanya papan dan namamu
+[02:49.00] Mana ocehan wewangian khasmu
+[02:55.00] Jarak ini terlalu jauh
+[02:58.50] Kalau rindu aku tak mampu
+[03:01.50] Sesal hatiku tak sempat temani kamu
+[03:07.50] Harusnya kubisikan kata ajaib ke telingamu
+[03:13.00] Soal ikhlas ternyata aku masih amatir
+[03:19.50] Masih sangat amatir
+[03:24.00] Gengsi menyelimutiku
+[03:28.50] Manusia ini kehilanganmu
+[03:46.00] Kehilanganmu`
         },
         {
             title: "Berubah", 
             artist: "Tenxi, Jemsii",
             cover: "https://i.ibb.co.com/d4f1hCtR/ab67616d0000b273ebdd8446bacd87dc7796cede.jpg",
             src: "https://www.image2url.com/r2/default/videos/1783809184940-e218acef-eb1f-44e2-8b5b-c55affbd4af0.mp4", 
-            description: "Lagu dengan beat yang asik dan lirik relatable tentang seseorang yang memutuskan untuk berubah dan move on dari toxic relationship."
+            description: "Lagu dengan beat yang asik dan lirik relatable tentang seseorang yang memutuskan untuk berubah dan move on dari toxic relationship.",
+            lyrics: `
+[00:16.00] Jangan nyesel semua problem kamu yang start
+[00:19.00] Jangan minta rewind aku kamu udah finish
+[00:22.00] Pasang mata sinis mata jadi gerimis
+[00:25.50] Emang paling narsis
+[00:29.50] Apa kita udahan kok kamu masih nanya
+[00:33.00] Mendengarmu membual banyak nya nya nya nya
+[00:36.50] Kau main belakang gak usah pakai lama
+[00:39.50] Cuma gitu aku juga bisa
+[00:43.00] Sudah selesai cerita pun berakhir
+[00:46.50] Kau yang memulai memang penulis mahir
+[00:50.00] Ku tak mau mengulang I said no no not again
+[00:53.00] Jangan follow aku lagi aku udah gak naksir hei hei hei
+[00:57.00] Belagak buta tapi tak pernah lupa
+[01:00.50] Kamu mendua jadi aku bertiga
+[01:04.00] Masih terasa mata balas mata
+[01:08.50] Tak mau terluka jadi aku berubah
+[01:11.50] Aku berubah
+[01:13.50] Aku berubah
+[01:25.00] Sibuk cari duit buat siapa ya buat gua
+[01:28.50] Jangan bilang sakit gua tau lu buat-buat
+[01:32.00] Kerja sehari dompet gua udah gak muat
+[01:35.50] Dont act like you're the one cewek masih banyak
+[01:39.00] Apa kita udahan kok kamu masih nanya
+[01:42.50] Mendengarmu membual banyak nya nya nya nya
+[01:46.00] Kau main belakang gak usah pakai lama
+[01:49.00] Cuma gitu aku juga bisa
+[01:52.50] Sudah selesai cerita pun berakhir
+[01:56.50] Kau yang memulai memang penulis mahir
+[02:00.00] Ku tak mau mengulang I said no no not again
+[02:02.50] Jangan follow aku lagi aku udah gak naksir hei hei hei
+[02:07.00] Belagak buta tapi tak pernah lupa
+[02:10.50] Kamu mendua jadi aku bertiga
+[02:14.00] Masih terasa mata balas mata
+[02:17.50] Tak mau terluka jadi aku berubah
+[02:22.00] Aku berubah
+[02:24.00] Aku berubah
+[02:25.50] Aku berubah
+[02:28.50] Aku berubah
+[02:32.00] Hu hu-hu hu hu-hu
+[02:37.00] Hu hu-hu hu-hu
+[02:48.00] Sudah selesai cerita pun berakhir
+[02:51.00] Kau yang memulai memang penulis mahir
+[02:54.50] Ku tak mau mengulang I said no no not again
+[02:57.00] Jangan follow aku lagi aku udah gak naksir hei hei hei
+[03:03.00] Belagak buta tapi tak pernah lupa
+[03:06.50] Kamu mendua jadi aku bertiga
+[03:10.00] Masih terasa mata balas mata
+[03:14.00] Tak mau terluka jadi aku berubah`
         }
     ];
 
     let currentSongIndex = 0;
     let isPlaying = false;
+    let currentLyricsData = []; 
 
     const playerNode = document.getElementById("playerNode");
     const audio = document.getElementById("myAudio");
@@ -437,7 +507,95 @@
     const playIcon = document.getElementById("playIcon");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
+    
+    const lyricView = document.getElementById("lyricView");
+    const toggleLyricsBtn = document.getElementById("toggleLyricsBtn");
 
+    // FUNGSI LIRIK
+    toggleLyricsBtn.addEventListener("click", () => {
+        playerNode.classList.toggle("lyric-mode");
+        if(playerNode.classList.contains("lyric-mode")) {
+            syncLyrics(true); 
+        }
+    });
+
+    function parseLRC(lrcText) {
+        const lines = lrcText.split('\n');
+        const result = [];
+        lines.forEach(line => {
+            const match = line.match(/\[(\d{2}):(\d{2})\.(\d{2,3})\](.*)/);
+            if (match) {
+                const min = parseInt(match[1]);
+                const sec = parseInt(match[2]);
+                const ms = parseInt(match[3]);
+                const time = min * 60 + sec + ms / (match[3].length === 2 ? 100 : 1000);
+                const text = match[4].trim();
+                if(text) result.push({ time, text });
+            }
+        });
+        return result;
+    }
+
+    function renderLyrics(lrcText) {
+        lyricView.innerHTML = ''; 
+        if (lrcText && lrcText.trim() !== "") {
+            currentLyricsData = parseLRC(lrcText);
+            if (currentLyricsData.length > 0) {
+                currentLyricsData.forEach((line) => {
+                    const span = document.createElement('div');
+                    span.className = 'lyric-line';
+                    span.innerText = line.text;
+                    span.addEventListener('click', () => {
+                        audio.currentTime = line.time;
+                        if (!isPlaying) togglePlay();
+                    });
+                    lyricView.appendChild(span);
+                });
+                const spacer = document.createElement('div');
+                spacer.style.height = "200px";
+                lyricView.appendChild(spacer);
+            } else {
+                lyricView.innerHTML = `<div class="lyric-line" style="text-align:center;">Lirik belum sinkron</div>`;
+            }
+        } else {
+            currentLyricsData = [];
+            lyricView.innerHTML = `<div class="lyric-line" style="text-align:center;">Belum Tersedia Lirik</div>`;
+        }
+    }
+
+    function syncLyrics(forceScroll = false) {
+        if (currentLyricsData.length === 0 || !playerNode.classList.contains("lyric-mode")) return;
+        const currentTime = audio.currentTime;
+        let activeIndex = -1;
+
+        for (let i = 0; i < currentLyricsData.length; i++) {
+            if (currentTime >= currentLyricsData[i].time) {
+                activeIndex = i;
+            } else { break; }
+        }
+
+        if (activeIndex !== -1) {
+            const lyricElements = lyricView.querySelectorAll('.lyric-line');
+            lyricElements.forEach((el, index) => {
+                if (index === activeIndex) {
+                    if (!el.classList.contains('active') || forceScroll) {
+                        el.classList.add('active');
+                        const containerCenter = lyricView.clientHeight / 2;
+                        const elOffset = el.offsetTop;
+                        const elHeight = el.clientHeight;
+                        lyricView.scrollTo({
+                            top: elOffset - containerCenter + (elHeight / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+        }
+    }
+
+    // FUNGSI UTAMA PEMUTAR
     function formatTime(seconds) {
         if (isNaN(seconds) || seconds < 0) return "0:00";
         const min = Math.floor(seconds / 60);
@@ -453,28 +611,27 @@
         audio.src = song.src;
         songDescText.innerText = song.description;
         
+        renderLyrics(song.lyrics); // Memanggil lirik sesuai lagu
+        
         progressBar.value = 0;
         currentTimeText.innerText = "0:00";
         durationTimeText.innerText = "-0:00";
         
-        if (isPlaying) {
-            audio.play();
-        }
+        if (isPlaying) { audio.play(); }
     }
 
-    // Muat lagu pertama kali
     loadSong(currentSongIndex);
 
     function togglePlay() {
         if (audio.paused) {
             audio.play(); 
             playIcon.classList.replace("fa-play", "fa-pause");
-            playerNode.classList.add("playing"); // Men-trigger animasi kover membesar
+            playerNode.classList.add("playing"); 
             isPlaying = true;
         } else {
             audio.pause(); 
             playIcon.classList.replace("fa-pause", "fa-play");
-            playerNode.classList.remove("playing"); // Men-trigger animasi kover mengecil
+            playerNode.classList.remove("playing"); 
             isPlaying = false;
         }
     }
@@ -499,17 +656,18 @@
             progressBar.max = duration;
             progressBar.value = currentTime;
             currentTimeText.innerText = formatTime(currentTime);
-            // Format waktu sisa dengan tanda minus persis seperti Apple Music
+            // Format waktu sisa dengan tanda minus Apple Music
             const timeLeft = duration - currentTime;
             durationTimeText.innerText = "-" + formatTime(timeLeft);
         }
+        syncLyrics(); // Menjalankan lirik otomatis
     });
 
     progressBar.addEventListener("input", function() {
         audio.currentTime = progressBar.value;
+        syncLyrics(true); 
     });
 
-    // Kontrol Volume Tambahan
     volumeBar.addEventListener("input", function() {
         audio.volume = volumeBar.value / 100;
     });
@@ -521,4 +679,3 @@
 </script>
 </body>
 </html>
-
