@@ -14,9 +14,9 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff; 
+            background: #ffffff; /* Latar belakang Apple Putih Bersih */
             display: flex; justify-content: center; align-items: flex-start;
-            padding: 100px 20px 40px 20px; color: #1d1d1f;
+            padding: 100px 10px 40px 10px; color: #1d1d1f;
         }
 
         /* =========================================
@@ -43,6 +43,7 @@
         .menu-list { list-style: none; }
         .menu-list li { border-bottom: 1px solid #e5e5ea; }
         .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
+        
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
         .menu-list a i { font-size: 18px; color: #86868b; }
 
@@ -54,27 +55,32 @@
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
 
         /* =========================================
-           DESAIN HALAMAN STORE (KATALOG & DETAIL)
+           KOTAK UTAMA (RESPONSIF UNTUK HP & LAPTOP)
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
 
         .store-card {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 24px; padding: 25px 20px; width: 100%; max-width: 450px; 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); border: 2px solid #ffffff; 
-            opacity: 0; animation: popIn 0.8s forwards; margin: 0 auto;
+            border-radius: 24px; 
+            padding: 25px 15px; 
+            width: 100%; 
+            max-width: 900px; /* Diperbesar agar di Laptop tampil luas */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+            border: 2px solid #ffffff; 
+            opacity: 0; animation: popIn 0.8s forwards; 
+            margin: 0 auto;
         }
 
         /* 1. TAMPILAN KATALOG PRODUK (ETALASE) */
-        .store-header { text-align: center; margin-bottom: 20px; }
-        .store-header h1 { font-size: 22px; font-weight: 800; color: #1d1d1f; letter-spacing: 1px; }
+        .store-header { text-align: center; margin-bottom: 25px; }
+        .store-header h1 { font-size: 24px; font-weight: 800; color: #1d1d1f; letter-spacing: 1px; }
         .store-header p { font-size: 13px; color: #576574; }
 
         .catalog-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 Kolom menyamping */
-            gap: 15px;
+            grid-template-columns: repeat(2, 1fr); /* Default HP: 2 Kolom */
+            gap: 12px;
         }
 
         .catalog-item {
@@ -87,8 +93,21 @@
         .catalog-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
         .catalog-item:hover .catalog-img-box img { transform: scale(1.05); }
 
-        .catalog-title { font-size: 13px; font-weight: 700; color: #1d1d1f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
-        .catalog-price { font-size: 12px; font-weight: 600; color: #0066cc; }
+        /* PERBAIKAN BUG TEKS TERGENCET */
+        .catalog-title { 
+            font-size: 13px; 
+            font-weight: 700; 
+            color: #1d1d1f; 
+            margin-bottom: 4px; 
+            line-height: 1.3;
+            /* Memaksa teks turun ke bawah maksimal 2 baris */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            white-space: normal; 
+        }
+        .catalog-price { font-size: 13px; font-weight: 600; color: #0066cc; }
 
         /* 2. TAMPILAN DETAIL PRODUK (Disembunyikan di awal) */
         #viewDetail { display: none; animation: fadeUp 0.5s forwards; }
@@ -99,6 +118,13 @@
             font-family: 'Poppins', sans-serif; transition: color 0.3s;
         }
         .back-catalog-btn:hover { color: #0066cc; }
+
+        /* Wrapper untuk membelah tampilan di Laptop */
+        .detail-content-wrapper {
+            display: flex;
+            flex-direction: column; /* Default HP: Atas-Bawah */
+            gap: 20px;
+        }
 
         /* Galeri */
         .main-image-box { width: 100%; aspect-ratio: 1/1; background: #ffffff; border-radius: 16px; overflow: hidden; margin-bottom: 15px; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
@@ -126,7 +152,7 @@
         .desc-accordion.active .desc-header i { transform: rotate(180deg); }
 
         /* Pilihan & Cart */
-        .product-options { margin-bottom: 25px; }
+        .product-options { margin-bottom: 25px; text-align: left; }
         .option-label { display: block; font-size: 13px; font-weight: 600; color: #1d1d1f; margin-bottom: 8px; }
         .size-select { width: 100%; padding: 14px 15px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: #ffffff; font-family: 'Poppins', sans-serif; font-size: 14px; color: #1d1d1f; appearance: none; outline: none; margin-bottom: 15px; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2386868b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto; }
         .quantity-control { display: flex; align-items: center; background: #ffffff; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); width: fit-content; overflow: hidden; }
@@ -136,11 +162,30 @@
 
         .add-cart-btn { width: 100%; background: #0066cc; color: #ffffff; border: none; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: all 0.3s; font-family: 'Poppins', sans-serif; }
         .add-cart-btn:hover { background: #005bb5; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); }
+
+        /* =========================================
+           MEDIA QUERIES (KHUSUS LAPTOP/DESKTOP)
+           ========================================= */
+        @media (min-width: 768px) {
+            .store-card { padding: 40px; }
+            .catalog-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; } /* Laptop: 3 Kolom */
+            .catalog-item { padding: 15px; }
+            .catalog-title { font-size: 15px; }
+            .catalog-price { font-size: 15px; }
+            
+            /* Di Laptop, Detail Produk membelah jadi Kiri (Foto) & Kanan (Deskripsi) */
+            .detail-content-wrapper {
+                flex-direction: row; 
+                align-items: flex-start;
+                gap: 40px;
+            }
+            .detail-left { width: 45%; }
+            .detail-right { width: 55%; }
+        }
     </style>
 </head>
 <body>
 
-<!-- TOP NAVBAR -->
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
@@ -149,7 +194,6 @@
     </div>
 </nav>
 
-<!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -157,8 +201,7 @@
             <li><a href="biodata.html">Biodata</a></li>
             <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
             <li><a href="music.html">Music</a></li>
-            <li><a href="store.html" class="active">Store</a></li> <!-- STORE AKTIF -->
-            <li><a href="Memberipesan.html">Kirim Pesan</a></li>
+            <li><a href="store.html" class="active">Store</a></li> <li><a href="Memberipesan.html">Kirim Pesan</a></li>
             <li><a href="rating.html">View & Rating</a></li>
             <li><a href="donate.html">Donasi</a></li>
         </ul>
@@ -172,7 +215,6 @@
     </div>
 </div>
 
-<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Cari..." id="searchInput">
@@ -180,9 +222,6 @@
 </div>
     <div class="store-card" id="mainStoreCard">
     
-    <!-- =========================================
-         TAMPILAN 1: KATALOG (DAFTAR PRODUK)
-         ========================================= -->
     <div id="viewCatalog">
         <div class="store-header">
             <h1>Featured Products</h1>
@@ -191,10 +230,8 @@
 
         <div class="catalog-grid">
             
-            <!-- PRODUK 1 (Jaket / Sweater) -->
-            <!-- Trik JS: Data disimpan di atribut 'data-' agar mudah diedit -->
             <div class="catalog-item" onclick="openProduct(this)"
-                 data-title="Knitwear Sweater Black"
+                 data-title="Knitwear Sweater Black Premium Edition"
                  data-cat="Clandestine"
                  data-price="Rp 429.000"
                  data-desc="Black crew neck knitwear sweaters with white direct embroidery. Dibuat dengan bahan premium yang nyaman digunakan."
@@ -204,13 +241,12 @@
                 <div class="catalog-img-box">
                     <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=300" alt="Produk 1">
                 </div>
-                <div class="catalog-title">Knitwear Sweater Black</div>
+                <div class="catalog-title">Knitwear Sweater Black Premium Edition</div>
                 <div class="catalog-price">Rp 429.000</div>
             </div>
 
-            <!-- PRODUK 2 (T-Shirt) -->
             <div class="catalog-item" onclick="openProduct(this)"
-                 data-title="T-Shirt MATROO Black"
+                 data-title="T-Shirt MATROO Black Original"
                  data-cat="Trooper"
                  data-price="Rp 249.000"
                  data-desc="Kaos lengan pendek hitam dengan sablon MATROO premium di bagian dada. Bahan katun yang adem dan menyerap keringat."
@@ -220,13 +256,12 @@
                 <div class="catalog-img-box">
                     <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=300" alt="Produk 2">
                 </div>
-                <div class="catalog-title">T-Shirt MATROO</div>
+                <div class="catalog-title">T-Shirt MATROO Black Original</div>
                 <div class="catalog-price">Rp 249.000</div>
             </div>
 
-            <!-- PRODUK 3 (Helm/Aksesoris) -->
             <div class="catalog-item" onclick="openProduct(this)"
-                 data-title="Helmet Trooster Dark"
+                 data-title="Helmet Trooster Dark Edition"
                  data-cat="Accessories"
                  data-price="Rp 2.199.000"
                  data-desc="Helm full-face eksklusif dengan warna matte black. Standar keamanan internasional."
@@ -236,13 +271,12 @@
                 <div class="catalog-img-box">
                     <img src="https://images.unsplash.com/photo-1557008075-7f2c5efa4cb9?auto=format&fit=crop&q=80&w=300" alt="Produk 3">
                 </div>
-                <div class="catalog-title">Helmet Trooster</div>
+                <div class="catalog-title">Helmet Trooster Dark Edition</div>
                 <div class="catalog-price">Rp 2.199.000</div>
             </div>
 
-            <!-- PRODUK 4 (Sarung Tangan) -->
             <div class="catalog-item" onclick="openProduct(this)"
-                 data-title="Gloves Troonal"
+                 data-title="Gloves Troonal Safety First"
                  data-cat="Accessories"
                  data-price="Rp 399.000"
                  data-desc="Sarung tangan riding hitam dengan grip kuat dan perlindungan maksimal di bagian buku jari."
@@ -252,79 +286,73 @@
                 <div class="catalog-img-box">
                     <img src="https://images.unsplash.com/photo-1544228834-d021f198b1e4?auto=format&fit=crop&q=80&w=300" alt="Produk 4">
                 </div>
-                <div class="catalog-title">Gloves Troonal</div>
+                <div class="catalog-title">Gloves Troonal Safety First</div>
                 <div class="catalog-price">Rp 399.000</div>
             </div>
 
         </div>
     </div>
 
-    <!-- =========================================
-         TAMPILAN 2: DETAIL PRODUK (Disembunyikan)
-         ========================================= -->
     <div id="viewDetail">
         
-        <!-- Tombol Kembali ke Katalog -->
         <button class="back-catalog-btn" onclick="closeProduct()">
             <i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog
         </button>
 
-        <!-- Galeri -->
-        <div class="product-gallery">
-            <div class="main-image-box">
-                <img id="detailMainImg" src="" alt="Produk Utama">
-                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+        <div class="detail-content-wrapper">
+            
+            <div class="detail-left">
+                <div class="product-gallery">
+                    <div class="main-image-box">
+                        <img id="detailMainImg" src="" alt="Produk Utama">
+                        <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    
+                    <div class="thumbnail-list">
+                        <div class="thumb-box active" onclick="changeImage(this, 1)"><img id="detailThumb1" src="" alt="Thumb 1"></div>
+                        <div class="thumb-box" onclick="changeImage(this, 2)"><img id="detailThumb2" src="" alt="Thumb 2"></div>
+                        <div class="thumb-box" onclick="changeImage(this, 3)"><img id="detailThumb3" src="" alt="Thumb 3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-right">
+                <div class="product-info">
+                    <div class="prod-category" id="detailCat">Category</div>
+                    <h1 class="prod-title" id="detailTitle">Product Title</h1>
+                    <div class="prod-price" id="detailPrice">Rp 0</div>
+
+                    <div class="desc-accordion" id="descAccordion">
+                        <div class="desc-header">Product Description <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="desc-content" id="detailDesc">Deskripsi produk di sini.</div>
+                    </div>
+                </div>
+
+                <div class="product-options">
+                    <label class="option-label">Size</label>
+                    <select class="size-select" id="sizeSelect">
+                        <option value="" disabled selected>Choose an option</option>
+                        <option value="S">Small (S)</option>
+                        <option value="M">Medium (M)</option>
+                        <option value="L">Large (L)</option>
+                        <option value="XL">Extra Large (XL)</option>
+                    </select>
+
+                    <label class="option-label">Quantity</label>
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="updateQty(-1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="text" class="qty-input" id="qtyInput" value="1" readonly>
+                        <button class="qty-btn" onclick="updateQty(1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <button class="add-cart-btn" id="addToCartBtn">
+                    <i class="fa-solid fa-cart-shopping" id="cartIcon"></i> 
+                    <span id="cartText">Add To Cart</span>
+                </button>
             </div>
             
-            <div class="thumbnail-list">
-                <div class="thumb-box active" onclick="changeImage(this, 1)">
-                    <img id="detailThumb1" src="" alt="Thumb 1">
-                </div>
-                <div class="thumb-box" onclick="changeImage(this, 2)">
-                    <img id="detailThumb2" src="" alt="Thumb 2">
-                </div>
-                <div class="thumb-box" onclick="changeImage(this, 3)">
-                    <img id="detailThumb3" src="" alt="Thumb 3">
-                </div>
-            </div>
         </div>
-
-        <!-- Info & Deskripsi -->
-        <div class="product-info">
-            <div class="prod-category" id="detailCat">Category</div>
-            <h1 class="prod-title" id="detailTitle">Product Title</h1>
-            <div class="prod-price" id="detailPrice">Rp 0</div>
-
-            <div class="desc-accordion" id="descAccordion">
-                <div class="desc-header">Product Description <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="desc-content" id="detailDesc">Deskripsi produk di sini.</div>
-            </div>
-        </div>
-
-        <!-- Pilihan Ukuran & Jumlah -->
-        <div class="product-options">
-            <label class="option-label">Size</label>
-            <select class="size-select" id="sizeSelect">
-                <option value="" disabled selected>Choose an option</option>
-                <option value="S">Small (S)</option>
-                <option value="M">Medium (M)</option>
-                <option value="L">Large (L)</option>
-                <option value="XL">Extra Large (XL)</option>
-            </select>
-
-            <label class="option-label">Quantity</label>
-            <div class="quantity-control">
-                <button class="qty-btn" onclick="updateQty(-1)"><i class="fa-solid fa-minus"></i></button>
-                <input type="text" class="qty-input" id="qtyInput" value="1" readonly>
-                <button class="qty-btn" onclick="updateQty(1)"><i class="fa-solid fa-plus"></i></button>
-            </div>
-        </div>
-
-        <button class="add-cart-btn" id="addToCartBtn">
-            <i class="fa-solid fa-cart-shopping" id="cartIcon"></i> 
-            <span id="cartText">Add To Cart</span>
-        </button>
-
     </div>
 </div>
 
@@ -355,17 +383,14 @@
     btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
     // ==========================================
-    // 2. SCRIPT HALAMAN STORE (LOGIKA KATALOG & DETAIL)
+    // 2. SCRIPT HALAMAN STORE 
     // ==========================================
     const viewCatalog = document.getElementById('viewCatalog');
     const viewDetail = document.getElementById('viewDetail');
-    
-    // Variabel Penampung Gambar Saat Ini
     let currentImages = [];
 
-    // FUNGSI MEMBUKA DETAIL PRODUK
+    // Buka Produk
     function openProduct(element) {
-        // 1. Mengambil data dari atribut HTML produk yang diklik
         const title = element.getAttribute('data-title');
         const cat = element.getAttribute('data-cat');
         const price = element.getAttribute('data-price');
@@ -377,7 +402,6 @@
             element.getAttribute('data-img3')
         ];
 
-        // 2. Memasukkan data ke dalam halaman Detail
         document.getElementById('detailTitle').innerText = title;
         document.getElementById('detailCat').innerText = cat;
         document.getElementById('detailPrice').innerText = price;
@@ -388,30 +412,27 @@
         document.getElementById('detailThumb2').src = currentImages[1];
         document.getElementById('detailThumb3').src = currentImages[2];
 
-        // Reset state
         document.getElementById('qtyInput').value = 1;
         document.getElementById('sizeSelect').value = "";
         document.getElementById('descAccordion').classList.remove('active');
         
-        // Reset class active di thumbnail (pilih yang pertama)
         document.querySelectorAll('.thumb-box').forEach((t, index) => {
-            if(index === 0) t.classList.add('active');
-            else t.classList.remove('active');
+            if(index === 0) t.classList.add('active'); else t.classList.remove('active');
         });
 
-        // 3. Animasi Transisi (Sembunyikan Katalog, Munculkan Detail)
         viewCatalog.style.display = 'none';
         viewDetail.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll ke atas
+        window.scrollTo({ top: 0, behavior: 'smooth' }); 
     }
 
-    // FUNGSI KEMBALI KE KATALOG
+    // Tutup Produk
     function closeProduct() {
         viewDetail.style.display = 'none';
         viewCatalog.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' }); 
     }
 
-    // Ganti Gambar saat Thumbnail diklik
+    // Ganti Gambar Utama
     function changeImage(element, index) {
         document.querySelectorAll('.thumb-box').forEach(thumb => thumb.classList.remove('active'));
         element.classList.add('active');
@@ -419,24 +440,24 @@
         const mainImg = document.getElementById('detailMainImg');
         mainImg.style.opacity = 0; 
         setTimeout(() => {
-            mainImg.src = currentImages[index - 1]; // Mengambil dari array gambar
+            mainImg.src = currentImages[index - 1]; 
             mainImg.style.opacity = 1; 
         }, 150);
     }
 
-    // Buka/Tutup Deskripsi Akordion
+    // Accordion Deskripsi
     document.getElementById('descAccordion').addEventListener('click', function() {
         this.classList.toggle('active');
     });
 
-    // Kontrol Kuantitas (+ / -)
+    // Kontrol Jumlah (+-)
     function updateQty(change) {
         const qtyInput = document.getElementById('qtyInput');
         let newQty = parseInt(qtyInput.value) + change;
         if (newQty >= 1) qtyInput.value = newQty;
     }
 
-    // Animasi Tombol Add to Cart
+    // Add To Cart
     const addToCartBtn = document.getElementById('addToCartBtn');
     const cartIcon = document.getElementById('cartIcon');
     const cartText = document.getElementById('cartText');
