@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donasi | Renxxno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* BACKGROUND LUAR TRANSPARAN */
+        html {
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            background: transparent; 
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            padding: 20px; 
+            color: #2d3436;
+            min-height: 100vh;
+        }
+
+        /* === KUMPULAN ANIMASI MASUK === */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* WARNA GRADASI BIRU MASUK KE DALAM KOTAK INI */
+        .card-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            /* Padding atas/bawah dikurangi, kiri/kanan dilebarkan agar bentuknya kotak proporsional */
+            padding: 35px 40px 35px 40px; 
+            width: 100%;
+            max-width: 460px; /* Dilebarkan sedikit dari sebelumnya 420px */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffffff; 
+            transition: transform 0.3s ease;
+            text-align: center;
+            position: relative;
+
+            opacity: 0;
+            animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        /* TOMBOL KEMBALI */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #576574;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s ease;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards;
+        }
+
+        .back-btn:hover {
+            color: #6c5ce7;
+        }
+
+        /* BUNGKUSAN IKON */
+        .icon-wrapper {
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
+        }
+
+        /* HEADER DONASI */
+        .donate-icon {
+            font-size: 45px;
+            color: #ff7675;
+            margin-top: 20px; /* Jarak aman dari tombol kembali */
+            margin-bottom: 5px; /* Dipersempit agar tidak lonjong ke bawah */
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .donate-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e272e;
+            margin-bottom: 5px;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
+        }
+
+        .donate-subtitle {
+            font-size: 13px;
+            color: #576574;
+            line-height: 1.5;
+            margin-bottom: 20px; /* Dipersempit jaraknya */
+            padding: 0 10px;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards;
+        }
+
+        /* BINGKAI QRIS */
+        .qris-wrapper {
+            background: #ffffff;
+            padding: 12px; /* Padding bingkai sedikit dirampingkan */
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 2px dashed #dfe6e9;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards;
+        }
+
+        .qris-wrapper:hover {
+            transform: translateY(-5px);
+            border-color: #6c5ce7;
+        }
+
+        .qris-img {
+            width: 100%;
+            max-width: 240px; /* Diperbesar sedikit agar proporsional dengan kotak yang lebih lebar */
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        /* TEKS INFO SCAN */
+        .scan-info {
+            font-size: 12px;
+            color: #636e72;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 10px 15px;
+            border-radius: 12px;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s forwards;
+        }
+
+        .scan-info i {
+            color: #0984e3;
+            font-size: 16px;
+        }
+
+        /* TAMPILAN KHUSUS MOBILE */
+        @media (max-width: 480px) {
+            .card-container {
+                padding: 40px 25px 30px 25px;
+            }
+            .donate-title {
+                font-size: 20px;
+            }
+            .qris-img {
+                max-width: 210px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    
+    <!-- Tombol Kembali -->
+    <a href="https://sites.google.com/view/renxxno/halaman" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+
+    <!-- Header Donasi -->
+    <div class="icon-wrapper">
+        <div class="donate-icon">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+        </div>
+    </div>
+    
+    <h1 class="donate-title">Dukung Karya Saya</h1>
+    <p class="donate-subtitle">
+        Terima kasih atas apresiasi Anda! Hehehe Yaa kasi lah ya, man teman
+    </p>
+
+    <!-- Tempat Foto QRIS -->
+    <div class="qris-wrapper">
+        <img class="qris-img" src="https://i.ibb.co.com/01F3JbG/Kode-QRIS-ALEXZANDER-BARENO-Digital-Kreatif.jpg" alt="Scan QRIS untuk Donasi">
+    </div>
+
+    <!-- Info Tambahan -->
+    <div class="scan-info">
+        <i class="fa-solid fa-qrcode"></i> Scan QRIS via e-Wallet & M-Banking
+    </div>
+
+</div>
+
+</body>
+</html>
