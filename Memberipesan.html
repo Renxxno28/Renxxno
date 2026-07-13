@@ -10,33 +10,22 @@
     
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html, body {
-            min-height: 100vh;
-            width: 100%;
-            overflow-x: hidden;
-        }
+        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff; /* Latar belakang putih bersih ala Apple */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 100px 20px 40px 20px; /* Jarak atas untuk Navbar */
-            color: #1d1d1f;
+            background: #ffffff; /* Background Apple Putih Bersih */
+            display: flex; justify-content: center; align-items: flex-start;
+            padding: 100px 20px 40px 20px; color: #1d1d1f;
         }
 
-        /* =========================================
-           TOP NAVBAR APPLE STYLE
-           ========================================= */
+        /* NAVBAR & OVERLAY MENU */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
         .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
@@ -45,92 +34,65 @@
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
             background: #ffffff; z-index: 9998; padding: 30px 25px;
-            transform: translateY(-100%); opacity: 0; visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.4s ease;
         }
         .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
         .menu-list { list-style: none; }
         .menu-list li { border-bottom: 1px solid #e5e5ea; }
-        .menu-list a { 
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
-        }
+        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
+        
+        /* Warna Biru Menyala untuk Menu yang Sedang Dibuka */
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
         .menu-list a i { font-size: 18px; color: #86868b; }
 
-        .submenu-header {
-            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
-        }
+        .submenu-header { display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer; }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
         .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
-        .search-box input::placeholder { color: #86868b; }
 
-        /* =========================================
-           KOTAK PESAN & FORMULIR
-           ========================================= */
+        /* KOTAK PESAN */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
 
         .card-container {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 24px; padding: 35px 25px; width: 100%; max-width: 420px; 
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); border: 2px solid #ffffff; 
-            text-align: center; transition: transform 0.3s ease;
-            opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            text-align: center; opacity: 0; animation: popIn 0.8s forwards;
         }
 
-        .message-icon {
-            font-size: 38px; color: #0066cc; margin-bottom: 12px;
-            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards, float 3s ease-in-out infinite 0.8s;
-        }
-
-        .message-title { font-size: 20px; font-weight: 700; color: #1e272e; margin-bottom: 8px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
-        .message-subtitle { font-size: 13px; color: #576574; line-height: 1.5; margin-bottom: 25px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards; }
+        .message-icon { font-size: 38px; color: #0066cc; margin-bottom: 12px; opacity: 0; animation: fadeUp 0.6s 0.2s forwards, float 3s infinite 0.8s; }
+        .message-title { font-size: 20px; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; opacity: 0; animation: fadeUp 0.6s 0.3s forwards; }
+        .message-subtitle { font-size: 13px; color: #576574; margin-bottom: 25px; opacity: 0; animation: fadeUp 0.6s 0.4s forwards; }
 
         .input-group { text-align: left; margin-bottom: 15px; opacity: 0; }
-        .delay-1 { animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards; }
-        .delay-2 { animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards; }
+        .delay-1 { animation: fadeUp 0.6s 0.5s forwards; }
+        .delay-2 { animation: fadeUp 0.6s 0.6s forwards; }
 
         .input-label { display: block; font-size: 12px; font-weight: 600; color: #1d1d1f; margin-bottom: 6px; padding-left: 5px; }
-        .form-control {
-            width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.8); font-family: 'Poppins', sans-serif; font-size: 13px;
-            color: #1d1d1f; transition: all 0.3s ease;
-        }
-        .form-control:focus { outline: none; border-color: #0066cc; background: #ffffff; box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1); }
+        .form-control { width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.8); font-family: 'Poppins', sans-serif; font-size: 13px; color: #1d1d1f; transition: all 0.3s; }
+        .form-control:focus { outline: none; border-color: #0066cc; background: #ffffff; box-shadow: 0 0 0 3px rgba(0,102,204,0.1); }
         textarea.form-control { resize: none; height: 100px; }
 
-        .submit-btn {
-            width: 100%; background: #0066cc; color: #ffffff; border: none; padding: 12px;
-            border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex;
-            justify-content: center; align-items: center; gap: 8px; transition: all 0.3s ease;
-            margin-top: 10px; font-family: 'Poppins', sans-serif;
-            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s forwards;
-        }
-        .submit-btn:hover:not(:disabled) { background: #005bb5; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3); }
-        .submit-btn:disabled { background: #7ab3ef; cursor: not-allowed; box-shadow: none; transform: none; }
+        .submit-btn { width: 100%; background: #0066cc; color: #ffffff; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.3s; margin-top: 10px; font-family: 'Poppins', sans-serif; opacity: 0; animation: fadeUp 0.6s 0.7s forwards; }
+        .submit-btn:hover:not(:disabled) { background: #005bb5; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,102,204,0.3); }
+        .submit-btn:disabled { background: #7ab3ef; cursor: not-allowed; transform: none; }
 
-        /* NOTIFIKASI SUKSES */
-        .success-message { display: none; text-align: center; padding: 20px 0; animation: popIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
-        .success-icon { font-size: 50px; color: #00b894; margin-bottom: 15px; animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        .success-title { font-size: 20px; font-weight: 700; color: #1e272e; margin-bottom: 8px; }
-        .success-text { font-size: 13px; color: #636e72; line-height: 1.6; margin-bottom: 20px; }
-        .back-form-btn {
-            background: transparent; color: #0066cc; border: 1px solid #0066cc; padding: 8px 20px;
-            border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-        }
-        .back-form-btn:hover { background: rgba(0, 102, 204, 0.1); }
+        .success-message { display: none; text-align: center; padding: 20px 0; animation: popIn 0.5s forwards; }
+        .success-icon { font-size: 50px; color: #00b894; margin-bottom: 15px; animation: popIn 0.6s forwards; }
+        .success-title { font-size: 20px; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; }
+        .success-text { font-size: 13px; color: #636e72; margin-bottom: 20px; }
+        .back-form-btn { background: transparent; color: #0066cc; border: 1px solid #0066cc; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Poppins', sans-serif; }
+        .back-form-btn:hover { background: rgba(0,102,204,0.1); }
     </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
@@ -139,23 +101,21 @@
     </div>
 </nav>
 
+<!-- MENU OVERLAY -->
+<div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
             <li><a href="index.html">Beranda</a></li>
             <li><a href="biodata.html">Biodata</a></li>
             <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
             <li><a href="music.html">Music</a></li>
-            <!-- Warna Biru Aktif pada Kirim Pesan -->
+            <!-- INDIKATOR AKTIF DI KIRIM PESAN -->
             <li><a href="Memberipesan.html" class="active">Kirim Pesan</a></li>
             <li><a href="rating.html">View & Rating</a></li>
         </ul>
     </div>
-
     <div id="subMenuGames" style="display: none;">
-        <div class="submenu-header" id="btnBackMainMenu">
-            <i class="fa-solid fa-chevron-left"></i>
-            <span>Games</span>
-        </div>
+        <div class="submenu-header" id="btnBackMainMenu"><i class="fa-solid fa-chevron-left"></i><span>Games</span></div>
         <ul class="menu-list">
             <li><a href="games.html">My Account</a></li>
             <li><a href="ghosthunter.html">Ghost Hunter Mini</a></li>
@@ -163,37 +123,30 @@
     </div>
 </div>
 
+<!-- SEARCH OVERLAY -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="Cari..." id="searchInput">
+        <i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Cari..." id="searchInput">
     </div>
 </div>
+
+<!-- KONTEN PESAN -->
 <div class="card-container">
-    
-    <div class="message-icon">
-        <i class="fa-solid fa-envelope-open-text"></i>
-    </div>
+    <div class="message-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
     <h1 class="message-title">Tinggalkan Pesan</h1>
-    <p class="message-subtitle" id="formSubtitle">
-        Pesan Anda akan langsung dikirimkan dan tersimpan di Email saya.
-    </p>
+    <p class="message-subtitle" id="formSubtitle">Pesan Anda akan langsung dikirimkan dan tersimpan di Email saya.</p>
 
     <form id="contactForm" action="https://formsubmit.co/alexanderbareno44@gmail.com" method="POST">
-        
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="Pesan Baru dari Website Google Sites Anda!">
-
         <div class="input-group delay-1">
             <label class="input-label" for="senderName">Nama Anda</label>
             <input type="text" name="Nama Pengirim" id="senderName" class="form-control" placeholder="Masukkan nama Anda..." required>
         </div>
-
         <div class="input-group delay-2">
             <label class="input-label" for="senderMessage">Pesan</label>
             <textarea name="Isi Pesan" id="senderMessage" class="form-control" placeholder="Tulis pesan Anda di sini..." required></textarea>
         </div>
-
         <button type="submit" class="submit-btn" id="submitBtn">
             <i class="fa-solid fa-paper-plane" id="btnIcon"></i> <span id="btnText">Kirim Pesan</span>
         </button>
@@ -205,122 +158,51 @@
         <p class="success-text">Terima kasih banyak! Pesan Anda telah sukses meluncur ke email saya.</p>
         <button class="back-form-btn" onclick="resetForm()">Kirim Pesan Lain</button>
     </div>
-
 </div>
 
 <script>
-    // ==========================================
-    // 1. SCRIPT NAVBAR & NESTED MENU
-    // ==========================================
-    const btnMenu = document.getElementById('toggleMenu');
-    const btnSearch = document.getElementById('toggleSearch');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const searchOverlay = document.getElementById('searchOverlay');
-    const mainMenu = document.getElementById('mainMenu');
-    const subMenuGames = document.getElementById('subMenuGames');
-    const btnGamesMenu = document.getElementById('btnGamesMenu');
-    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    // JS NAVBAR
+    const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu'); const btnBackMainMenu = document.getElementById('btnBackMainMenu');
 
     btnMenu.addEventListener('click', () => {
-        if (searchOverlay.classList.contains('active')) {
-            searchOverlay.classList.remove('active');
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-        }
+        if (searchOverlay.classList.contains('active')) { searchOverlay.classList.remove('active'); btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
         menuOverlay.classList.toggle('active');
-        if (menuOverlay.classList.contains('active')) {
-            btnMenu.classList.replace('fa-bars', 'fa-xmark');
-            mainMenu.style.display = 'block';
-            subMenuGames.style.display = 'none';
-        } else {
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
-        }
+        if (menuOverlay.classList.contains('active')) { btnMenu.classList.replace('fa-bars', 'fa-xmark'); mainMenu.style.display = 'block'; subMenuGames.style.display = 'none'; } 
+        else { btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
     });
 
     btnSearch.addEventListener('click', () => {
-        if (menuOverlay.classList.contains('active')) {
-            menuOverlay.classList.remove('active');
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
-        }
+        if (menuOverlay.classList.contains('active')) { menuOverlay.classList.remove('active'); btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
         searchOverlay.classList.toggle('active');
-        if (searchOverlay.classList.contains('active')) {
-            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
-            document.getElementById('searchInput').focus();
-        } else {
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-        }
+        if (searchOverlay.classList.contains('active')) { btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); } 
+        else { btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
     });
 
-    btnGamesMenu.addEventListener('click', (e) => {
-        e.preventDefault();
-        mainMenu.style.display = 'none';
-        subMenuGames.style.display = 'block';
-    });
+    btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
+    btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
-    btnBackMainMenu.addEventListener('click', () => {
-        subMenuGames.style.display = 'none';
-        mainMenu.style.display = 'block';
-    });
-
-    // ==========================================
-    // 2. SCRIPT FORMULIR PENGIRIMAN PESAN
-    // ==========================================
-    const form = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const btnIcon = document.getElementById('btnIcon');
-    const btnText = document.getElementById('btnText');
-    const successMessage = document.getElementById('successMessage');
-    const formSubtitle = document.getElementById('formSubtitle');
+    // JS FORMULIR
+    const form = document.getElementById('contactForm'); const submitBtn = document.getElementById('submitBtn');
+    const btnIcon = document.getElementById('btnIcon'); const btnText = document.getElementById('btnText');
+    const successMessage = document.getElementById('successMessage'); const formSubtitle = document.getElementById('formSubtitle');
 
     form.addEventListener('submit', function(e) {
-        // Mencegah halaman berpindah ke Formsubmit
         e.preventDefault(); 
+        submitBtn.disabled = true; btnIcon.className = "fa-solid fa-spinner fa-spin"; btnText.innerText = "Mengirim...";
         
-        // Ubah tampilan tombol jadi "Loading"
-        submitBtn.disabled = true;
-        btnIcon.className = "fa-solid fa-spinner fa-spin"; 
-        btnText.innerText = "Mengirim...";
-        
-        // Mengambil data dari form
-        const formData = new FormData(form);
-
-        // Mengirim data menggunakan Fetch API
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json' 
-            }
-        })
+        fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
         .then(response => {
-            if (response.ok) {
-                // Jika sukses, sembunyikan form dan tampilkan pesan sukses
-                form.style.display = 'none';
-                formSubtitle.style.display = 'none';
-                successMessage.style.display = 'block';
-                form.reset(); 
-            } else {
-                alert("Mohon maaf, terjadi kesalahan pada server. Silakan coba lagi.");
-            }
-        })
-        .catch(error => {
-            alert("Gagal mengirim pesan. Silakan periksa koneksi internet Anda.");
-        })
-        .finally(() => {
-            // Kembalikan tombol seperti semula setelah selesai
-            submitBtn.disabled = false;
-            btnIcon.className = "fa-solid fa-paper-plane";
-            btnText.innerText = "Kirim Pesan";
-        });
+            if (response.ok) { form.style.display = 'none'; formSubtitle.style.display = 'none'; successMessage.style.display = 'block'; form.reset(); } 
+            else { alert("Terjadi kesalahan server."); }
+        }).catch(error => { alert("Gagal mengirim pesan. Periksa koneksi Anda."); })
+        .finally(() => { submitBtn.disabled = false; btnIcon.className = "fa-solid fa-paper-plane"; btnText.innerText = "Kirim Pesan"; });
     });
 
-    // Fungsi untuk tombol "Kirim Pesan Lain"
-    function resetForm() {
-        successMessage.style.display = 'none';
-        formSubtitle.style.display = 'block';
-        form.style.display = 'block';
-    }
+    function resetForm() { successMessage.style.display = 'none'; formSubtitle.style.display = 'block'; form.style.display = 'block'; }
 </script>
-
 </body>
 </html>
 
