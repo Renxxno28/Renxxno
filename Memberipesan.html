@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirim Pesan | Renxxno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* BACKGROUND LUAR TRANSPARAN TOTAL */
+        html {
+            min-height: 100vh;
+            background: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: transparent; 
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px 20px 40px 20px; 
+            color: #2d3436;
+            min-height: 100vh;
+        }
+
+        /* === ANIMASI MASUK (ENTRANCE) === */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* KOTAK UTAMA */
+        .card-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 35px 25px; 
+            width: 100%;
+            max-width: 420px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+            border: 2px solid #ffffff; 
+            text-align: center;
+            transition: transform 0.3s ease;
+
+            /* Pemicu Animasi Masuk */
+            opacity: 0;
+            animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        /* HEADER PESAN & ANIMASINYA */
+        .message-icon {
+            font-size: 38px;
+            color: #6c5ce7;
+            margin-bottom: 12px;
+            /* Menggabungkan efek melayang dan efek masuk */
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards, float 3s ease-in-out infinite 0.8s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .message-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e272e;
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
+        }
+
+        .message-subtitle {
+            font-size: 13px;
+            color: #576574;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
+        }
+
+        /* FORMULIR & ANIMASINYA */
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+            opacity: 0;
+        }
+
+        .delay-1 { animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards; }
+        .delay-2 { animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards; }
+
+        .input-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 6px;
+            padding-left: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.8);
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            color: #2d3436;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        }
+
+        textarea.form-control {
+            resize: none;
+            height: 100px;
+        }
+
+        /* TOMBOL KIRIM */
+        .submit-btn {
+            width: 100%;
+            background: #6c5ce7;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            font-family: 'Poppins', sans-serif;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s forwards;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: #5b4bc4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #a29bfe;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* TAMPILAN NOTIFIKASI SUKSES */
+        .success-message {
+            display: none; /* Disembunyikan awalnya */
+            text-align: center;
+            padding: 20px 0;
+            animation: popIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        .success-icon {
+            font-size: 50px;
+            color: #00b894;
+            margin-bottom: 15px;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .success-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+
+        .success-text {
+            font-size: 13px;
+            color: #636e72;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .back-form-btn {
+            background: transparent;
+            color: #6c5ce7;
+            border: 1px solid #6c5ce7;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .back-form-btn:hover {
+            background: rgba(108, 92, 231, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    
+    <div class="message-icon">
+        <i class="fa-solid fa-envelope-open-text"></i>
+    </div>
+    <h1 class="message-title">Tinggalkan Pesan</h1>
+    <p class="message-subtitle" id="formSubtitle">
+        Pesan Anda akan langsung dikirimkan dan tersimpan di Email saya.
+    </p>
+
+    <!-- FORM MENGGUNAKAN FORMSUBMIT -->
+    <form id="contactForm" action="https://formsubmit.co/alexanderbareno44@gmail.com" method="POST">
+        
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="Pesan Baru dari Website Google Sites Anda!">
+        <!-- Halaman tidak akan redirect ke formsubmit karena kita cegah pakai JavaScript di bawah -->
+
+        <div class="input-group delay-1">
+            <label class="input-label" for="senderName">Nama Anda</label>
+            <input type="text" name="Nama Pengirim" id="senderName" class="form-control" placeholder="Masukkan nama Anda..." required>
+        </div>
+
+        <div class="input-group delay-2">
+            <label class="input-label" for="senderMessage">Pesan</label>
+            <textarea name="Isi Pesan" id="senderMessage" class="form-control" placeholder="Tulis pesan Anda di sini..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+            <i class="fa-solid fa-paper-plane" id="btnIcon"></i> <span id="btnText">Kirim Pesan</span>
+        </button>
+    </form>
+
+    <!-- NOTIFIKASI SUKSES (MUNCUL SETELAH PESAN TERKIRIM) -->
+    <div class="success-message" id="successMessage">
+        <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h2 class="success-title">Pesan Terkirim!</h2>
+        <p class="success-text">Terima kasih banyak! Pesan Anda telah sukses meluncur ke email saya.</p>
+        <button class="back-form-btn" onclick="resetForm()">Kirim Pesan Lain</button>
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT UNTUK ANIMASI PENGIRIMAN & NOTIFIKASI -->
+<script>
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnIcon = document.getElementById('btnIcon');
+    const btnText = document.getElementById('btnText');
+    const successMessage = document.getElementById('successMessage');
+    const formSubtitle = document.getElementById('formSubtitle');
+
+    form.addEventListener('submit', function(e) {
+        // Mencegah halaman berpindah ke Formsubmit
+        e.preventDefault(); 
+        
+        // Ubah tampilan tombol jadi "Loading"
+        submitBtn.disabled = true;
+        btnIcon.className = "fa-solid fa-spinner fa-spin"; // Ikon berputar
+        btnText.innerText = "Mengirim...";
+        
+        // Mengambil data dari form
+        const formData = new FormData(form);
+
+        // Mengirim data menggunakan Fetch API secara rahasia di latar belakang
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json' // Penting agar Formsubmit tidak me-redirect paksa
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Jika sukses, sembunyikan form dan tampilkan pesan sukses
+                form.style.display = 'none';
+                formSubtitle.style.display = 'none';
+                successMessage.style.display = 'block';
+                form.reset(); // Kosongkan form
+            } else {
+                alert("Mohon maaf, terjadi kesalahan pada server. Silakan coba lagi.");
+            }
+        })
+        .catch(error => {
+            alert("Gagal mengirim pesan. Silakan periksa koneksi internet Anda.");
+        })
+        .finally(() => {
+            // Kembalikan tombol seperti semula setelah selesai (walau sukses/gagal)
+            submitBtn.disabled = false;
+            btnIcon.className = "fa-solid fa-paper-plane";
+            btnText.innerText = "Kirim Pesan";
+        });
+    });
+
+    // Fungsi untuk tombol "Kirim Pesan Lain"
+    function resetForm() {
+        successMessage.style.display = 'none';
+        formSubtitle.style.display = 'block';
+        form.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
