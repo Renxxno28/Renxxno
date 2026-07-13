@@ -11,174 +11,132 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        /* BACKGROUND LUAR TRANSPARAN TOTAL */
-        html {
+        html, body {
             min-height: 100vh;
-            background: transparent;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: transparent; 
+            background: #ffffff; /* Background putih bersih ala Apple */
             display: flex;
             flex-direction: column; 
             align-items: center;
-            gap: 60px; 
-            padding: 30px 10px 50px 10px; 
+            gap: 40px; 
+            padding: 100px 20px 50px 20px; /* Jarak atas untuk Navbar */
             min-height: 100vh;
+            color: #1d1d1f;
         }
 
-        /* === KUMPULAN ANIMASI MASUK === */
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.95) translateY(30px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+        /* =========================================
+           TOP NAVBAR APPLE STYLE
+           ========================================= */
+        .apple-nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 54px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .nav-icons i:hover { opacity: 0.5; }
+
+        .nav-overlay {
+            position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
+            background: #ffffff; z-index: 9998; padding: 30px 25px;
+            transform: translateY(-100%); opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
+        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+
+        .menu-list { list-style: none; }
+        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+        }
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
+
+        .submenu-header {
+            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
+        }
+        .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
+
+        .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
+        .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
+        .search-box input::placeholder { color: #86868b; }
+
+        /* =========================================
+           KOTAK RATING & VIEW (PREMIUM CARD)
+           ========================================= */
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         
-        /* WARNA GRADASI BIRU MASUK KE DALAM KOTAK */
         .premium-card {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border-radius: 24px;
             padding: 30px 25px; 
             width: 100%;
-            max-width: 350px; 
+            max-width: 420px; 
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
             border: 2px solid #ffffff; 
             text-align: center;
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease;
-
-            /* Pemicu Animasi Masuk */
             opacity: 0;
             animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
 
-        /* Delay berurutan untuk kotak 1 dan 2 */
         .premium-card:nth-child(1) { animation-delay: 0s; }
         .premium-card:nth-child(2) { animation-delay: 0.2s; }
-
-        .premium-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .premium-card::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(108, 92, 231, 0.08) 0%, transparent 60%);
-            z-index: -1;
-            animation: rotateGlow 10s linear infinite;
-        }
-
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        .premium-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
 
         /* IKON MELAYANG (VIEWS) */
         .icon-wrapper {
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(135deg, #6c5ce7, #0984e3);
+            width: 55px; height: 55px;
+            background: #0066cc; /* Warna biru Apple */
             border-radius: 16px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             margin: 0 auto 15px auto;
-            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
-            
-            /* Gabungan animasi masuk dan melayang */
+            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3);
             opacity: 0;
             animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards, float 3s ease-in-out infinite 0.8s;
         }
-
         .icon-wrapper i { font-size: 24px; color: #ffffff; }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
         .stat-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: #2d3436;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
+            font-size: 16px; font-weight: 800; color: #1d1d1f; letter-spacing: 0.5px;
+            margin-bottom: 10px; text-transform: uppercase;
+            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
         }
 
-        .badge-wrapper {
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
-        }
-
-        .badge-img {
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-            height: 30px; 
-            margin-bottom: 5px;
-        }
+        .badge-wrapper { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards; }
+        .badge-img { border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); transition: transform 0.3s ease; height: 30px; margin-bottom: 5px; }
         .badge-img:hover { transform: scale(1.05); }
 
-        .divider {
-            border: 0;
-            border-top: 2px dashed rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards;
-        }
+        .divider { border: 0; border-top: 2px dashed rgba(0, 0, 0, 0.1); margin: 20px 0; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards; }
 
         /* FITUR RATA-RATA RATING */
         .avg-rating-container { 
-            margin-bottom: 20px; 
-            transition: all 0.5s ease; 
-            opacity: 0;
+            margin-bottom: 20px; transition: all 0.5s ease; opacity: 0;
             animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards;
         }
-        
-        .avg-label {
-            font-size: 11px;
-            color: #a4b0be;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-        }
-
-        .avg-number { 
-            font-size: 46px; 
-            font-weight: 800; 
-            color: #2d3436; 
-            line-height: 1; 
-            margin-bottom: 5px; 
-        }
-        
-        .avg-stars { 
-            color: #fdcb6e; 
-            font-size: 18px; 
-        }
+        .avg-label { font-size: 11px; color: #86868b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .avg-number { font-size: 46px; font-weight: 800; color: #1d1d1f; line-height: 1; margin-bottom: 5px; }
+        .avg-stars { color: #fdcb6e; font-size: 18px; }
 
         /* FITUR INPUT RATING BINTANG */
-        #ratingArea {
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s forwards;
-        }
-
-        .rating-title { font-size: 14px; font-weight: 700; color: #2d3436; margin-bottom: 12px; }
+        #ratingArea { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s forwards; }
+        .rating-title { font-size: 14px; font-weight: 700; color: #1d1d1f; margin-bottom: 12px; }
         
         .star-rating { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
         .star-rating i { font-size: 28px; color: #b2bec3; cursor: pointer; transition: all 0.2s ease; }
@@ -186,49 +144,75 @@
 
         /* FITUR KOMENTAR */
         .comment-section { display: none; animation: popIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
-
         .comment-box {
             width: 100%; height: 80px; padding: 12px; border-radius: 12px;
-            border: 1px solid rgba(108, 92, 231, 0.3); background: rgba(255, 255, 255, 0.7);
-            font-family: 'Poppins', sans-serif; font-size: 13px; color: #2d3436;
-            outline: none; resize: none; margin-bottom: 12px; transition: border 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1); background: rgba(255, 255, 255, 0.8);
+            font-family: 'Poppins', sans-serif; font-size: 13px; color: #1d1d1f;
+            outline: none; resize: none; margin-bottom: 12px; transition: all 0.3s ease;
         }
-        .comment-box:focus { border-color: #6c5ce7; background: #ffffff; }
+        .comment-box:focus { border-color: #0066cc; background: #ffffff; box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1); }
 
         .submit-btn {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #ffffff; border: none;
-            padding: 10px 0; width: 100%; border-radius: 12px; font-weight: 600; font-size: 14px;
-            cursor: pointer; box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3); transition: all 0.3s ease;
-            display: flex; justify-content: center; align-items: center; gap: 8px;
+            background: #0066cc; color: #ffffff; border: none; padding: 10px 0; width: 100%; 
+            border-radius: 12px; font-weight: 600; font-size: 14px; cursor: pointer; 
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3); transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif;
         }
-        
-        .submit-btn:hover:not(:disabled) { 
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4); 
-        }
-
-        .submit-btn:disabled {
-            background: #a29bfe;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
+        .submit-btn:hover:not(:disabled) { background: #005bb5; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4); }
+        .submit-btn:disabled { background: #7ab3ef; cursor: not-allowed; box-shadow: none; transform: none; }
 
         /* PESAN TERIMA KASIH */
         .thank-you-msg { 
-            display: none; 
-            font-size: 14px; 
-            font-weight: 600; 
-            color: #00b894; 
-            animation: popIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; 
-            margin-top: 10px; 
-            padding: 20px 0;
+            display: none; font-size: 14px; font-weight: 600; color: #00b894; 
+            animation: popIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; margin-top: 10px; padding: 20px 0;
         }
         .thank-you-msg i { font-size: 35px; margin-bottom: 10px; display: block; animation: float 3s ease-in-out infinite; }
     </style>
 </head>
 <body>
 
+<!-- TOP NAVBAR APPLE STYLE -->
+<nav class="apple-nav">
+    <a href="index.html" class="nav-brand">Renxxno</a>
+    <div class="nav-icons">
+        <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
+        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+    </div>
+</nav>
+
+<!-- OVERLAY MENU -->
+<div class="nav-overlay" id="menuOverlay">
+    <div id="mainMenu">
+        <ul class="menu-list">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="biodata.html">Biodata</a></li>
+            <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="Memberipesan.html">Kirim Pesan</a></li>
+            <li><a href="rating.html" class="active">View & Rating</a></li>
+        </ul>
+    </div>
+
+    <!-- SUB-MENU GAMES -->
+    <div id="subMenuGames" style="display: none;">
+        <div class="submenu-header" id="btnBackMainMenu">
+            <i class="fa-solid fa-chevron-left"></i>
+            <span>Games</span>
+        </div>
+        <ul class="menu-list">
+            <li><a href="games.html">My Account</a></li>
+            <li><a href="ghosthunter.html">Ghost Hunter Mini</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- OVERLAY PENCARIAN -->
+<div class="nav-overlay" id="searchOverlay">
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Cari..." id="searchInput">
+    </div>
+</div>
 <!-- KOTAK 1: VIEW -->
 <div class="premium-card">
     <div class="icon-wrapper">
@@ -236,7 +220,7 @@
     </div>
     <div class="stat-title">Dilihat Oleh</div>
     <div class="badge-wrapper">
-        <img class="badge-img" src="https://api.visitorbadge.io/api/visitors?path=renxxno.portofolio.v2026&label=TOTAL%20VIEWS&labelColor=%232d3436&countColor=%236c5ce7&style=for-the-badge" alt="Visitor Badge">
+        <img class="badge-img" src="https://api.visitorbadge.io/api/visitors?path=renxxno.portofolio.v2026&label=TOTAL%20VIEWS&labelColor=%232d3436&countColor=%230066cc&style=for-the-badge" alt="Visitor Badge">
     </div>
 </div>
 
@@ -290,6 +274,61 @@
 </div>
 
 <script>
+    // ==========================================
+    // 1. SCRIPT NAVBAR & NESTED MENU
+    // ==========================================
+    const btnMenu = document.getElementById('toggleMenu');
+    const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+
+    btnMenu.addEventListener('click', () => {
+        if (searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+        menuOverlay.classList.toggle('active');
+        if (menuOverlay.classList.contains('active')) {
+            btnMenu.classList.replace('fa-bars', 'fa-xmark');
+            mainMenu.style.display = 'block';
+            subMenuGames.style.display = 'none';
+        } else {
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+    });
+
+    btnSearch.addEventListener('click', () => {
+        if (menuOverlay.classList.contains('active')) {
+            menuOverlay.classList.remove('active');
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+        searchOverlay.classList.toggle('active');
+        if (searchOverlay.classList.contains('active')) {
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
+            document.getElementById('searchInput').focus();
+        } else {
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+    });
+
+    btnGamesMenu.addEventListener('click', (e) => {
+        e.preventDefault();
+        mainMenu.style.display = 'none';
+        subMenuGames.style.display = 'block';
+    });
+
+    btnBackMainMenu.addEventListener('click', () => {
+        subMenuGames.style.display = 'none';
+        mainMenu.style.display = 'block';
+    });
+
+    // ==========================================
+    // 2. SCRIPT RATING & VIEW COUNTER
+    // ==========================================
     const stars = document.querySelectorAll('#stars i');
     const commentSection = document.getElementById('commentSection');
     const ratingValueInput = document.getElementById('ratingValue');
@@ -301,7 +340,6 @@
     const btnIcon = document.getElementById('btnIcon');
     const btnText = document.getElementById('btnText');
     
-    // Variabel untuk animasi nilai ulasan
     let currentRating = 0;
     let baseAvg = 3.9;
     const avgNumberText = document.getElementById('avgNumberText');
@@ -336,11 +374,10 @@
         });
     }
 
-    // Mengirim Form ke Formspree dengan efek loading
     ratingForm.addEventListener("submit", async function(event) {
         event.preventDefault(); 
         
-        // Ubah tombol jadi status "Loading"
+        // Animasi Loading Tombol
         submitBtn.disabled = true;
         btnIcon.className = "fa-solid fa-spinner fa-spin";
         btnText.innerText = "Mengirim...";
@@ -359,7 +396,6 @@
             }
         }).then(response => {
             if (response.ok) {
-                // Sukses: Tutup rating area, buka notifikasi sukses
                 ratingArea.style.display = 'none'; 
                 thankYouMsg.style.display = 'block'; 
             } else {
@@ -368,7 +404,6 @@
         }).catch(error => {
             alert("Maaf, gagal mengirim penilaian. Periksa koneksi internet Anda.");
         }).finally(() => {
-            // Kembalikan tombol ke mode normal (walau sukses/gagal)
             submitBtn.disabled = false;
             btnIcon.className = "fa-solid fa-paper-plane";
             btnText.innerText = "Kirim Penilaian";
