@@ -20,14 +20,14 @@
             width: 100%;
             overflow-x: hidden; 
         }
-
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff; /* Latar belakang putih bersih */
+            background: #ffffff; /* Latar belakang putih bersih ala Apple */
             display: flex;
             justify-content: center;
             align-items: flex-start; 
-            padding: 100px 20px 40px 20px; /* Jarak untuk navbar atas */
+            padding: 100px 20px 40px 20px; /* Jarak atas untuk Navbar */
             color: #1d1d1f;
         }
 
@@ -35,18 +35,10 @@
            TOP NAVBAR APPLE STYLE
            ========================================= */
         .apple-nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 54px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            z-index: 9999;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
+            position: fixed; top: 0; left: 0; right: 0; height: 54px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
@@ -54,7 +46,6 @@
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
-        /* OVERLAY MENU & CARI */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
             background: #ffffff; z-index: 9998; padding: 30px 25px;
@@ -63,34 +54,38 @@
         }
         .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
-        /* Tampilan List Menu */
         .menu-list { list-style: none; }
         .menu-list li { border-bottom: 1px solid #e5e5ea; }
-        .menu-list a { display: block; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+        }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
 
-        /* Tampilan Kotak Cari */
+        .submenu-header {
+            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
+        }
+        .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
+
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
         .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; }
 
-        /* === ANIMASI MASUK UTAMA === */
+        /* =========================================
+           KOTAK KONTEN BIODATA
+           ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         
         .card-container {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 24px;
-            padding: 45px 30px;
-            width: 100%;
-            max-width: 450px; 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); 
-            border: 2px solid #ffffff; 
-            transition: transform 0.3s ease;
-            margin: 0 auto;
-            opacity: 0;
-            animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            border-radius: 24px; padding: 45px 30px; width: 100%; max-width: 450px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); border: 2px solid #ffffff; 
+            transition: transform 0.3s ease; margin: 0 auto;
+            opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
         
         .header-profile { text-align: center; margin-bottom: 30px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; }
@@ -98,30 +93,31 @@
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
         
         .profile-name { font-size: 24px; font-weight: 700; color: #1e272e; margin-bottom: 5px; }
-        .profile-role { font-size: 14px; color: #6c5ce7; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .profile-role { font-size: 14px; color: #0066cc; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
 
         .section-1 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
-        .section-title { font-size: 16px; font-weight: 700; color: #2d3436; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .section-title i { color: #6c5ce7; }
+        .section-title { font-size: 16px; font-weight: 700; color: #1d1d1f; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .section-title i { color: #0066cc; }
+
         .bio-text { font-size: 14px; color: #576574; line-height: 1.7; margin-bottom: 25px; text-align: justify; min-height: 120px; }
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .typing-cursor::after { content: '|'; color: #6c5ce7; font-weight: bold; font-size: 16px; animation: blink 0.8s infinite; }
+        .typing-cursor::after { content: '|'; color: #0066cc; font-weight: bold; font-size: 16px; animation: blink 0.8s infinite; }
 
         .section-2 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards; }
         
         .info-card { background: rgba(255, 255, 255, 0.8); padding: 15px; border-radius: 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid rgba(255, 255, 255, 0.6); transition: all 0.3s ease; }
-        .info-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(108, 92, 231, 0.1); }
-        .info-icon { min-width: 35px; height: 35px; background: rgba(108, 92, 231, 0.1); color: #6c5ce7; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 16px; }
+        .info-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0, 102, 204, 0.1); }
+        .info-icon { min-width: 35px; height: 35px; background: rgba(0, 102, 204, 0.1); color: #0066cc; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 16px; }
         .info-detail { display: flex; flex-direction: column; overflow: hidden; }
-        .info-label { font-size: 11px; color: #a4b0be; font-weight: 600; text-transform: uppercase; }
-        .info-value { font-size: 13px; font-weight: 600; color: #2d3436; }
+        .info-label { font-size: 11px; color: #86868b; font-weight: 600; text-transform: uppercase; }
+        .info-value { font-size: 13px; font-weight: 600; color: #1d1d1f; }
 
         .section-3 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s forwards; }
         .tags-container { display: flex; flex-wrap: wrap; gap: 10px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.8s forwards; }
-        .tag { background: linear-gradient(135deg, #f1f2f6 0%, #ffffff 100%); color: #576574; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: all 0.3s ease; }
-        .tag:hover { background: #6c5ce7; color: #ffffff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3); }
+        .tag { background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%); color: #576574; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: all 0.3s ease; }
+        .tag:hover { background: #0066cc; color: #ffffff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3); }
 
         @media (max-width: 480px) {
             body { padding: 80px 10px 40px 10px; }
@@ -134,7 +130,6 @@
 </head>
 <body>
 
-<!-- TOP NAVBAR APPLE STYLE -->
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
@@ -143,25 +138,39 @@
     </div>
 </nav>
 
-<!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
-    <ul class="menu-list">
-        <li><a href="index.html">Beranda</a></li>
-        <li><a href="biodata.html" class="active">Biodata</a></li>
-        <li><a href="games.html">Games</a></li>
-        <li><a href="music.html">Music</a></li>
-    </ul>
+    
+    <div id="mainMenu">
+        <ul class="menu-list">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="biodata.html" class="active">Biodata</a></li> <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="Memberipesan.html">Kirim Pesan</a></li>
+            <li><a href="rating.html">View & Rating</a></li>
+        </ul>
+    </div>
+
+    <div id="subMenuGames" style="display: none;">
+        <div class="submenu-header" id="btnBackMainMenu">
+            <i class="fa-solid fa-chevron-left"></i>
+            <span>Games</span>
+        </div>
+        <ul class="menu-list">
+            <li><a href="games.html">My Account</a></li>
+            <li><a href="ghosthunter.html">Ghost Hunter Mini</a></li>
+        </ul>
+    </div>
+
 </div>
 
-<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" placeholder="Cari..." id="searchInput">
     </div>
 </div>
-
 <div class="card-container">
+    
     <div class="header-profile">
         <img class="profile-img" src="https://i.ibb.co.com/Xx7HdrQT/IMG20250420105850.jpg" alt="Foto Profil">
         <div class="profile-name">Renxxno</div>
@@ -199,15 +208,22 @@
         <span class="tag">📸 Fotografi</span>
         <span class="tag">🎮 Gaming</span>
     </div>
+
 </div>
 
-<!-- JAVASCRIPT UNTUK EFEK MENGETIK & MENU OVERLAY -->
 <script>
-    // 1. Script untuk Navbar Apple Style
+    // ==========================================
+    // 1. SCRIPT NAVBAR & NESTED MENU (FIX BUG)
+    // ==========================================
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay');
     const searchOverlay = document.getElementById('searchOverlay');
+    
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
 
     btnMenu.addEventListener('click', () => {
         if (searchOverlay.classList.contains('active')) {
@@ -217,6 +233,8 @@
         menuOverlay.classList.toggle('active');
         if (menuOverlay.classList.contains('active')) {
             btnMenu.classList.replace('fa-bars', 'fa-xmark');
+            mainMenu.style.display = 'block';
+            subMenuGames.style.display = 'none';
         } else {
             btnMenu.classList.replace('fa-xmark', 'fa-bars');
         }
@@ -236,11 +254,26 @@
         }
     });
 
-    // 2. Script untuk Animasi Mengetik Biodata
+    btnGamesMenu.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        mainMenu.style.display = 'none'; 
+        subMenuGames.style.display = 'block'; 
+    });
+
+    btnBackMainMenu.addEventListener('click', () => {
+        subMenuGames.style.display = 'none';
+        mainMenu.style.display = 'block';
+    });
+
+    // ==========================================
+    // 2. SCRIPT EFEK MENGETIK (TYPING ANIMATION)
+    // ==========================================
     document.addEventListener("DOMContentLoaded", function() {
         const textElement = document.getElementById("typingText");
         const originalText = textElement.innerHTML.trim(); 
+        
         textElement.innerHTML = ""; 
+        
         let charIndex = 0;
         const typingSpeed = 30; 
 
@@ -251,6 +284,7 @@
                 setTimeout(typeWriter, typingSpeed);
             }
         }
+        
         setTimeout(typeWriter, 1000); 
     });
 </script>
