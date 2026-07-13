@@ -54,7 +54,7 @@
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
 
         /* =========================================
-           KOTAK UTAMA (RESPONSIF UNTUK HP & LAPTOP)
+           KOTAK UTAMA STORE
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
@@ -66,12 +66,10 @@
             opacity: 0; animation: popIn 0.8s forwards; margin: 0 auto;
         }
 
-        /* 1. TAMPILAN KATALOG PRODUK (ETALASE) */
         .store-header { text-align: center; margin-bottom: 25px; }
         .store-header h1 { font-size: 24px; font-weight: 800; color: #1d1d1f; letter-spacing: 1px; }
         .store-header p { font-size: 13px; color: #576574; }
 
-        /* Kategori Judul Katalog */
         .category-title {
             text-align: left; font-size: 18px; font-weight: 800; color: #1d1d1f;
             margin: 25px 0 15px 0; padding-bottom: 5px; border-bottom: 2px solid #ffffff;
@@ -88,7 +86,6 @@
         }
         .catalog-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.15); border-color: #0066cc; }
 
-        /* Label Sisa Stok di Katalog */
         .stock-label {
             position: absolute; top: 15px; left: 15px; background: #ff4757; color: white;
             font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 8px; z-index: 2;
@@ -104,7 +101,7 @@
         }
         .catalog-price { font-size: 13px; font-weight: 600; color: #0066cc; }
 
-        /* 2. TAMPILAN DETAIL PRODUK */
+        /* DETAIL PRODUK */
         #viewDetail { display: none; animation: fadeUp 0.5s forwards; }
 
         .back-catalog-btn {
@@ -116,7 +113,6 @@
 
         .detail-content-wrapper { display: flex; flex-direction: column; gap: 20px; }
 
-        /* Galeri */
         .main-image-box { width: 100%; aspect-ratio: 1/1; background: #ffffff; border-radius: 16px; overflow: hidden; margin-bottom: 15px; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .main-image-box img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease; }
         .zoom-icon { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.8); width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #1d1d1f; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -128,13 +124,11 @@
         .thumb-box.active { border-color: #0066cc; }
         .thumb-box.active img, .thumb-box:hover img { opacity: 1; }
 
-        /* Info & Deskripsi */
         .product-info { text-align: left; margin-bottom: 25px; }
         .prod-category { font-size: 12px; font-weight: 700; color: #0066cc; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
         .prod-title { font-size: 24px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; line-height: 1.2; }
         .prod-price { font-size: 20px; font-weight: 600; color: #576574; margin-bottom: 10px; }
 
-        /* Label Info Stock Detail */
         .stock-alert {
             display: inline-block; background: #ff7675; color: #ffffff; font-size: 11px;
             font-weight: 700; padding: 4px 10px; border-radius: 8px; margin-bottom: 20px;
@@ -147,7 +141,6 @@
         .desc-accordion.active .desc-content { max-height: 200px; padding-top: 15px; }
         .desc-accordion.active .desc-header i { transform: rotate(180deg); }
 
-        /* Pilihan & Cart */
         .product-options { margin-bottom: 25px; text-align: left; }
         .option-label { display: block; font-size: 13px; font-weight: 600; color: #1d1d1f; margin-bottom: 8px; }
         .size-select { width: 100%; padding: 14px 15px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: #ffffff; font-family: 'Poppins', sans-serif; font-size: 14px; color: #1d1d1f; appearance: none; outline: none; margin-bottom: 15px; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2386868b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto; }
@@ -157,18 +150,14 @@
         .qty-input { width: 50px; height: 40px; border: none; border-left: 1px solid rgba(0,0,0,0.1); border-right: 1px solid rgba(0,0,0,0.1); text-align: center; font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 600; color: #1d1d1f; outline: none; }
 
         .add-cart-btn { width: 100%; background: #0066cc; color: #ffffff; border: none; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: all 0.3s; font-family: 'Poppins', sans-serif; }
-        .add-cart-btn:hover { background: #005bb5; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); }
+        .add-cart-btn:hover:not(:disabled) { background: #005bb5; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); }
 
-        /* =========================================
-           MEDIA QUERIES (KHUSUS LAPTOP/DESKTOP)
-           ========================================= */
         @media (min-width: 768px) {
             .store-card { padding: 40px; }
             .catalog-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; } 
             .catalog-item { padding: 15px; }
             .catalog-title { font-size: 15px; }
             .catalog-price { font-size: 15px; }
-            
             .detail-content-wrapper { flex-direction: row; align-items: flex-start; gap: 40px; }
             .detail-left { width: 45%; }
             .detail-right { width: 55%; }
@@ -222,7 +211,6 @@
 
         <h2 class="category-title"><i class="fa-solid fa-shirt"></i> Pakaian</h2>
         <div class="catalog-grid">
-            
             <div class="catalog-item" onclick="openProduct(this)"
                  data-type="clothing"
                  data-title="Knitwear Sweater Black Premium Edition"
@@ -231,18 +219,18 @@
                  data-desc="Black crew neck knitwear sweaters with white direct embroidery. Bahan premium eksklusif. SISA 1 STOK TERAKHIR!"
                  data-img1="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=600"
                  data-img2="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=600"
-                 data-img3=""> <div class="stock-label">Sisa 1 (Ukuran L)</div> <div class="catalog-img-box">
+                 data-img3=""> 
+                <div class="stock-label">Sisa 1 (Ukuran L)</div> 
+                <div class="catalog-img-box">
                     <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=300" alt="Produk Baju">
                 </div>
                 <div class="catalog-title">Knitwear Sweater Black</div>
                 <div class="catalog-price">Rp 429.000</div>
             </div>
-
         </div>
 
         <h2 class="category-title" style="margin-top: 40px;"><i class="fa-solid fa-laptop-code"></i> Jasa Pembuatan Website</h2>
         <div class="catalog-grid">
-            
             <div class="catalog-item" onclick="openProduct(this)"
                  data-type="service"
                  data-title="Jasa Pembuatan Website Portofolio"
@@ -274,25 +262,21 @@
                 <div class="catalog-title">Website Toko Online</div>
                 <div class="catalog-price">Mulai Rp 750k</div>
             </div>
-
         </div>
     </div>
 
     <div id="viewDetail">
-        
         <button class="back-catalog-btn" onclick="closeProduct()">
             <i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog
         </button>
 
         <div class="detail-content-wrapper">
-            
             <div class="detail-left">
                 <div class="product-gallery">
                     <div class="main-image-box">
                         <img id="detailMainImg" src="" alt="Produk Utama">
                         <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
-                    
                     <div class="thumbnail-list">
                         <div class="thumb-box active" onclick="changeImage(this, 1)" id="thumbBox1"><img id="detailThumb1" src="" alt="Thumb 1"></div>
                         <div class="thumb-box" onclick="changeImage(this, 2)" id="thumbBox2"><img id="detailThumb2" src="" alt="Thumb 2"></div>
@@ -318,7 +302,6 @@
                 </div>
 
                 <div class="product-options">
-                    
                     <div id="sizeOptionBox">
                         <label class="option-label">Size</label>
                         <select class="size-select" id="sizeSelect">
@@ -326,28 +309,27 @@
                         </select>
                     </div>
 
-                    <label class="option-label">Quantity</label>
-                    <div class="quantity-control">
-                        <button class="qty-btn" onclick="updateQty(-1)"><i class="fa-solid fa-minus"></i></button>
-                        <input type="text" class="qty-input" id="qtyInput" value="1" readonly>
-                        <button class="qty-btn" onclick="updateQty(1)"><i class="fa-solid fa-plus"></i></button>
+                    <div id="quantityOptionBox">
+                        <label class="option-label">Quantity</label>
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="updateQty(-1)"><i class="fa-solid fa-minus"></i></button>
+                            <input type="text" class="qty-input" id="qtyInput" value="1" readonly>
+                            <button class="qty-btn" onclick="updateQty(1)"><i class="fa-solid fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
 
                 <button class="add-cart-btn" id="addToCartBtn">
-                    <i class="fa-solid fa-cart-shopping" id="cartIcon"></i> 
-                    <span id="cartText">Beli Sekarang</span>
+                    <i class="fa-brands fa-whatsapp" id="cartIcon" style="font-size: 20px;"></i> 
+                    <span id="cartText">Beli via WhatsApp</span>
                 </button>
             </div>
-            
         </div>
     </div>
 </div>
 
 <script>
-    // ==========================================
-    // 1. SCRIPT NAVBAR & NESTED MENU
-    // ==========================================
+    // 1. MENU NAVBAR
     const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
     const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
@@ -359,46 +341,39 @@
         if (menuOverlay.classList.contains('active')) { btnMenu.classList.replace('fa-bars', 'fa-xmark'); mainMenu.style.display = 'block'; subMenuGames.style.display = 'none'; } 
         else { btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
     });
-
     btnSearch.addEventListener('click', () => {
         if (menuOverlay.classList.contains('active')) { menuOverlay.classList.remove('active'); btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
         searchOverlay.classList.toggle('active');
         if (searchOverlay.classList.contains('active')) { btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); } 
         else { btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
     });
-
     btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
     btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
-    // ==========================================
-    // 2. SCRIPT HALAMAN STORE 
-    // ==========================================
+    // 2. LOGIKA STORE & WHATSAPP
     const viewCatalog = document.getElementById('viewCatalog');
     const viewDetail = document.getElementById('viewDetail');
     let currentImages = [];
     let currentProductType = '';
+    let currentProductTitle = '';
+    let currentProductPrice = '';
 
-    // Buka Produk
+    // NOMOR WHATSAPP KAMU (Gunakan format 62 tanpa spasi/plus)
+    const myWhatsAppNumber = "6285749776994";
+
     function openProduct(element) {
-        // Ambil Data
         currentProductType = element.getAttribute('data-type');
-        const title = element.getAttribute('data-title');
-        const cat = element.getAttribute('data-cat');
-        const price = element.getAttribute('data-price');
-        const desc = element.getAttribute('data-desc');
+        currentProductTitle = element.getAttribute('data-title');
+        currentProductPrice = element.getAttribute('data-price');
         
-        const img1 = element.getAttribute('data-img1');
-        const img2 = element.getAttribute('data-img2');
-        const img3 = element.getAttribute('data-img3');
+        document.getElementById('detailTitle').innerText = currentProductTitle;
+        document.getElementById('detailCat').innerText = element.getAttribute('data-cat');
+        document.getElementById('detailPrice').innerText = currentProductPrice;
+        document.getElementById('detailDesc').innerText = element.getAttribute('data-desc');
+        
+        const img1 = element.getAttribute('data-img1'); const img2 = element.getAttribute('data-img2'); const img3 = element.getAttribute('data-img3');
         currentImages = [img1, img2, img3];
-
-        // Masukkan Text
-        document.getElementById('detailTitle').innerText = title;
-        document.getElementById('detailCat').innerText = cat;
-        document.getElementById('detailPrice').innerText = price;
-        document.getElementById('detailDesc').innerText = desc;
         
-        // Masukkan Gambar & Sembunyikan Thumbnail 3 jika kosong (karena foto cuma 2)
         document.getElementById('detailMainImg').src = img1;
         document.getElementById('detailThumb1').src = img1;
         document.getElementById('detailThumb2').src = img2;
@@ -406,98 +381,104 @@
         if(img3 && img3 !== "") {
             document.getElementById('thumbBox3').style.display = 'block';
             document.getElementById('detailThumb3').src = img3;
-        } else {
-            document.getElementById('thumbBox3').style.display = 'none';
-        }
+        } else { document.getElementById('thumbBox3').style.display = 'none'; }
 
-        // LOGIKA PINTAR: Sembunyikan Size Jika Memilih Jasa
         const sizeOptionBox = document.getElementById('sizeOptionBox');
+        const quantityOptionBox = document.getElementById('quantityOptionBox');
         const stockBadge = document.getElementById('stockBadge');
         
+        // Logika Pintar: Cek Tipe Produk
         if(currentProductType === 'clothing') {
-            sizeOptionBox.style.display = 'block'; // Tampilkan Size
-            stockBadge.style.display = 'inline-block'; // Tampilkan Alert "Sisa 1"
-            document.getElementById('cartText').innerText = 'Beli Sekarang';
+            sizeOptionBox.style.display = 'block';
+            quantityOptionBox.style.display = 'block';
+            stockBadge.style.display = 'inline-block';
+            document.getElementById('cartText').innerText = 'Beli via WhatsApp';
         } else {
-            sizeOptionBox.style.display = 'none'; // Sembunyikan Size untuk Jasa Website
+            sizeOptionBox.style.display = 'none'; 
+            quantityOptionBox.style.display = 'none'; // Jasa web gak butuh jumlah barang
             stockBadge.style.display = 'none';
-            document.getElementById('cartText').innerText = 'Pesan Jasa Ini';
+            document.getElementById('cartText').innerText = 'Pesan Jasa via WhatsApp';
         }
 
-        // Reset
         document.getElementById('qtyInput').value = 1;
         document.getElementById('descAccordion').classList.remove('active');
-        document.querySelectorAll('.thumb-box').forEach((t, index) => {
-            if(index === 0) t.classList.add('active'); else t.classList.remove('active');
-        });
+        document.querySelectorAll('.thumb-box').forEach((t, index) => { if(index === 0) t.classList.add('active'); else t.classList.remove('active'); });
 
-        // Pindah Halaman
-        viewCatalog.style.display = 'none';
-        viewDetail.style.display = 'block';
+        viewCatalog.style.display = 'none'; viewDetail.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' }); 
     }
 
-    // Tutup Produk
     function closeProduct() {
-        viewDetail.style.display = 'none';
-        viewCatalog.style.display = 'block';
+        viewDetail.style.display = 'none'; viewCatalog.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' }); 
     }
 
-    // Ganti Gambar Utama
     function changeImage(element, index) {
         document.querySelectorAll('.thumb-box').forEach(thumb => thumb.classList.remove('active'));
         element.classList.add('active');
-        
         const mainImg = document.getElementById('detailMainImg');
         mainImg.style.opacity = 0; 
-        setTimeout(() => {
-            mainImg.src = currentImages[index - 1]; 
-            mainImg.style.opacity = 1; 
-        }, 150);
+        setTimeout(() => { mainImg.src = currentImages[index - 1]; mainImg.style.opacity = 1; }, 150);
     }
 
-    // Accordion Deskripsi
-    document.getElementById('descAccordion').addEventListener('click', function() {
-        this.classList.toggle('active');
-    });
+    document.getElementById('descAccordion').addEventListener('click', function() { this.classList.toggle('active'); });
 
-    // Kontrol Jumlah (+-)
     function updateQty(change) {
         const qtyInput = document.getElementById('qtyInput');
         let newQty = parseInt(qtyInput.value) + change;
+        
+        // Cek jika produk ini baju dan stoknya cuma 1, maka gak boleh tambah lebih dari 1!
+        if (currentProductType === 'clothing') {
+            if (newQty > 1) {
+                alert("Maaf, sisa stok produk ini hanya tinggal 1!");
+                return;
+            }
+        }
+        
         if (newQty >= 1) qtyInput.value = newQty;
     }
 
-    // Animasi Add To Cart
+    // PROSES PEMESANAN KE WHATSAPP
     const addToCartBtn = document.getElementById('addToCartBtn');
     const cartIcon = document.getElementById('cartIcon');
     const cartText = document.getElementById('cartText');
 
     addToCartBtn.addEventListener('click', () => {
+        // Animasi Loading
         addToCartBtn.disabled = true;
         cartIcon.className = "fa-solid fa-spinner fa-spin";
-        cartText.innerText = "Memproses...";
+        cartText.innerText = "Membuka WhatsApp...";
         
         setTimeout(() => {
+            // Pembuatan Teks Pesan Otomatis
+            let waMessage = "";
+            const qty = document.getElementById('qtyInput').value;
+
+            if (currentProductType === 'clothing') {
+                const size = document.getElementById('sizeSelect').value;
+                waMessage = `Halo Kak Renxxno, saya tertarik untuk membeli produk dari website kakak:%0A%0A*📦 Detail Pesanan:*%0A- Produk: ${currentProductTitle}%0A- Ukuran: ${size}%0A- Jumlah: ${qty} Pcs%0A- Harga: ${currentProductPrice}%0A%0AApakah stoknya masih tersedia? Tolong infokan cara pembayarannya ya. Terima kasih!`;
+            } else {
+                waMessage = `Halo Kak Renxxno, saya tertarik dengan layanan dari website kakak:%0A%0A*💻 Detail Pesanan:*%0A- Layanan: ${currentProductTitle}%0A- Harga: ${currentProductPrice}%0A%0ASaya ingin berdiskusi lebih lanjut mengenai detail pembuatannya. Kapan kakak ada waktu luang? Terima kasih!`;
+            }
+
+            // Arahkan otomatis ke WA
+            const waLink = `https://wa.me/${myWhatsAppNumber}?text=${waMessage}`;
+            window.open(waLink, '_blank'); // Buka di tab baru
+
+            // Kembalikan Tombol seperti semula
             cartIcon.className = "fa-solid fa-check"; 
-            cartText.innerText = "Berhasil Masuk Keranjang!";
+            cartText.innerText = "Terkirim!";
             addToCartBtn.style.background = "#00b894"; 
             
             setTimeout(() => {
                 addToCartBtn.disabled = false;
-                cartIcon.className = "fa-solid fa-cart-shopping"; 
-                
-                // Kembalikan tulisan sesuai tipe produk
-                if(currentProductType === 'clothing') {
-                    cartText.innerText = "Beli Sekarang";
-                } else {
-                    cartText.innerText = "Pesan Jasa Ini";
-                }
-                
+                cartIcon.className = "fa-brands fa-whatsapp"; 
+                if(currentProductType === 'clothing') { cartText.innerText = "Beli via WhatsApp"; } 
+                else { cartText.innerText = "Pesan Jasa via WhatsApp"; }
                 addToCartBtn.style.background = "#0066cc";
             }, 2000);
-        }, 1000);
+            
+        }, 800); // Waktu jeda animasi loading
     });
 </script>
 </body>
