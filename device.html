@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Devices | Renxxno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* BACKGROUND LUAR TRANSPARAN TOTAL */
+        html {
+            min-height: 100vh;
+            background: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: transparent; 
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px 20px 40px 20px; 
+            color: #2d3436;
+            min-height: 100vh;
+        }
+
+        /* === ANIMASI MASUK (ENTRANCE) === */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* --- KOTAK UTAMA (GRADASI BIRU KITA) --- */
+        .card-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 30px 20px; 
+            width: 100%;
+            max-width: 480px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+            border: 2px solid #ffffff; 
+            
+            opacity: 0;
+            animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        /* HEADER HALAMAN */
+        .page-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .icon-anim-wrapper {
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards;
+        }
+
+        .header-icon {
+            font-size: 40px;
+            color: #6c5ce7;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e272e;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: #576574;
+            margin-top: 5px;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
+        }
+
+        /* DAFTAR DEVICE (ACCORDION) */
+        .device-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .device-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            
+            opacity: 0;
+            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        .device-item:nth-child(1) { animation-delay: 0.5s; }
+        .device-item:nth-child(2) { animation-delay: 0.6s; }
+        .device-item:nth-child(3) { animation-delay: 0.7s; }
+
+        .device-item:hover {
+            box-shadow: 0 6px 15px rgba(108, 92, 231, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* BAGIAN ATAS YANG BISA DIKLIK */
+        .device-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px; 
+            cursor: pointer;
+            gap: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .device-name {
+            flex-grow: 1;
+            font-size: 16px; 
+            font-weight: 700;
+            color: #2d3436;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .device-name i {
+            color: #6c5ce7;
+            font-size: 20px;
+        }
+        
+        /* BUNGKUSAN BARU AGAR TEKS & LABEL SEJAJAR RAPI */
+        .name-text {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px; /* Pengganti margin agar rapi walau turun baris */
+            line-height: 1.2;
+        }
+
+        /* LABEL BADGES */
+        .badge-tag {
+            font-size: 10px;
+            background: #6c5ce7;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            white-space: nowrap; /* Mencegah label terpotong */
+        }
+
+        .chevron-icon {
+            color: #636e72;
+            font-size: 14px;
+            transition: transform 0.4s ease;
+        }
+
+        /* KETIKA AKTIF/TERBUKA */
+        .device-item.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        .device-item.active .device-header {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            background: rgba(108, 92, 231, 0.05); 
+        }
+
+        /* BAGIAN DALAM SPESIFIKASI (TIRAI TURUN) */
+        .device-content {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(241, 242, 246, 0.5);
+            transition: max-height 0.5s ease-in-out, padding 0.4s ease-in-out;
+            padding: 0 20px;
+        }
+
+        .device-item.active .device-content {
+            max-height: 800px; 
+            padding: 18px 20px;
+        }
+
+        /* DESAIN TEKS SPESIFIKASI DETAIL */
+        .specs-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px dashed rgba(0,0,0,0.08);
+            padding-bottom: 10px;
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .spec-label {
+            color: #636e72;
+            font-weight: 600;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 95px;
+            padding-top: 2px;
+        }
+
+        .spec-label i {
+            color: #a4b0be;
+            width: 16px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .spec-value {
+            color: #2d3436;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-align: right;
+            max-width: 65%;
+            line-height: 1.5;
+        }
+
+        /* RESPONSIVE KHUSUS LAYAR HP AGAR TIDAK TURUN BARIS */
+        @media (max-width: 480px) {
+            .card-container {
+                padding: 25px 15px; /* Dilonggarkan agar area teks lebih lebar */
+            }
+            .device-name {
+                font-size: 14px; /* Sedikit diperkecil agar muat 1 baris */
+                gap: 10px;
+            }
+            .badge-tag {
+                font-size: 9px; /* Disesuaikan dengan teks */
+                padding: 2px 6px;
+            }
+            .spec-label {
+                min-width: 85px;
+                font-size: 11px;
+            }
+            .spec-value {
+                font-size: 11.5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    
+    <div class="page-header">
+        <div class="icon-anim-wrapper">
+            <div class="header-icon">
+                <i class="fa-solid fa-microchip"></i>
+            </div>
+        </div>
+        <h1 class="header-title">Perangkat Saya</h1>
+        <p class="header-subtitle">Klik Device Melihat Detail Spesifikasi</p>
+    </div>
+
+    <div class="device-list">
+        
+        <div class="device-item">
+            <div class="device-header">
+                <div class="device-name">
+                    <i class="fa-solid fa-mobile-screen"></i> 
+                    <div class="name-text">
+                        <span>Oppo Reno 12 5G</span>
+                        <span class="badge-tag">Utama</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+            </div>
+            <div class="device-content">
+                <div class="specs-info">
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-mobile-screen-button"></i> Layar</span>
+                        <span class="spec-value">6.7" 3D Curved AMOLED, 120Hz, HDR10+, 1200nits, Gorilla Glass 7i</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-microchip"></i> Prosesor</span>
+                        <span class="spec-value">MediaTek Dimensity 7300-Energy (4nm) 5G</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-brands fa-android"></i> OS & UI</span>
+                        <span class="spec-value">Android 14, ColorOS 14.1</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-memory"></i> Memori</span>
+                        <span class="spec-value">12GB LPDDR4X RAM / 256GB UFS 3.1 (+ RAM Expansion)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-camera"></i> Kamera Utama</span>
+                        <span class="spec-value">50 MP (Sony LYT-600, OIS) + 8 MP (Ultrawide) + 2 MP (Macro)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-camera-rotate"></i> Kamera Depan</span>
+                        <span class="spec-value">32 MP, Autofocus, Perekaman Video hingga 4K</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-battery-full"></i> Baterai</span>
+                        <span class="spec-value">5000 mAh, 80W SUPERVOOC Flash Charge</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-star"></i> Fitur Ekstra</span>
+                        <span class="spec-value">IP65 Tahan Air/Debu, NFC, AI Eraser, BeaconLink, Stereo Speakers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="device-item">
+            <div class="device-header">
+                <div class="device-name">
+                    <i class="fa-solid fa-mobile-button"></i> 
+                    <div class="name-text">
+                        <span>Oppo F11</span>
+                        <span class="badge-tag" style="background:#b2bec3;">Kedua</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+            </div>
+            <div class="device-content">
+                <div class="specs-info">
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-mobile-screen-button"></i> Layar</span>
+                        <span class="spec-value">6.53" LTPS IPS LCD, FHD+ (1080 x 2340 piksel)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-microchip"></i> Prosesor</span>
+                        <span class="spec-value">MediaTek Helio P70 (12nm), Octa-core</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-brands fa-android"></i> OS & UI</span>
+                        <span class="spec-value">Android 9.0 (Pie), ColorOS 6</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-memory"></i> Memori</span>
+                        <span class="spec-value">4GB RAM / 128GB ROM (Support MicroSDXC)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-camera"></i> Kamera Utama</span>
+                        <span class="spec-value">48 MP (Wide, PDAF) + 5 MP (Depth Sensor)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-camera-rotate"></i> Kamera Depan</span>
+                        <span class="spec-value">16 MP (Wide), HDR</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-battery-full"></i> Baterai</span>
+                        <span class="spec-value">4020 mAh, 20W VOOC 3.0 Fast Charging</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-star"></i> Fitur Ekstra</span>
+                        <span class="spec-value">Fingerprint (Belakang), Audio Jack 3.5mm, FM Radio</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="device-item">
+            <div class="device-header">
+                <div class="device-name">
+                    <i class="fa-solid fa-laptop"></i> 
+                    <div class="name-text">
+                        <span>Advan WorkPro</span>
+                        <span class="badge-tag" style="background:#0984e3;">Kerja</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+            </div>
+            <div class="device-content">
+                <div class="specs-info">
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-desktop"></i> Layar</span>
+                        <span class="spec-value">14" FHD IPS (1920x1200), Rasio 16:10, Bezel Tipis</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-microchip"></i> Prosesor</span>
+                        <span class="spec-value">Intel® Core™ i5-1035G7 (4 Cores, 8 Threads, up to 3.7GHz)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-gamepad"></i> Grafis</span>
+                        <span class="spec-value">Intel® Iris® Plus Graphics</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-brands fa-windows"></i> OS</span>
+                        <span class="spec-value">Windows 11 Home Original</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-memory"></i> Memori</span>
+                        <span class="spec-value">14GB DDR4 RAM / 256GB SSD NVMe PCIe</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-battery-full"></i> Baterai</span>
+                        <span class="spec-value">6600 mAh (50.16Wh)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-plug"></i> Colokan / Port</span>
+                        <span class="spec-value">1x Type-C, 2x USB 3.2, 1x USB 2.0, HDMI, Audio Jack, MicroSD</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label"><i class="fa-solid fa-star"></i> Fitur Ekstra</span>
+                        <span class="spec-value">Body Metal Premium, Desain Elegan & Tipis, Wi-Fi & Bluetooth 5.1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const deviceHeaders = document.querySelectorAll(".device-header");
+
+        deviceHeaders.forEach(header => {
+            header.addEventListener("click", function() {
+                const deviceItem = this.parentElement;
+                
+                const isActive = deviceItem.classList.contains("active");
+
+                document.querySelectorAll(".device-item").forEach(item => {
+                    item.classList.remove("active");
+                });
+
+                if (!isActive) {
+                    deviceItem.classList.add("active");
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
