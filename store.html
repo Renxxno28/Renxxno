@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store | Renxxno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff; /* Latar belakang Apple Putih Bersih */
+            display: flex; justify-content: center; align-items: flex-start;
+            padding: 100px 20px 40px 20px; color: #1d1d1f;
+        }
+
+        /* =========================================
+           TOP NAVBAR APPLE STYLE
+           ========================================= */
+        .apple-nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 54px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .nav-icons i:hover { opacity: 0.5; }
+
+        .nav-overlay {
+            position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
+            background: #ffffff; z-index: 9998; padding: 30px 25px;
+            transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.4s ease;
+        }
+        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+
+        .menu-list { list-style: none; }
+        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
+        
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
+
+        .submenu-header { display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer; }
+        .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
+
+        .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
+        .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
+
+        /* =========================================
+           DESAIN HALAMAN STORE / PRODUK
+           ========================================= */
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        .store-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 24px; padding: 25px 20px; width: 100%; max-width: 450px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); border: 2px solid #ffffff; 
+            opacity: 0; animation: popIn 0.8s forwards;
+            margin: 0 auto;
+        }
+
+        /* 1. GALERI PRODUK */
+        .product-gallery { margin-bottom: 25px; opacity: 0; animation: fadeUp 0.6s 0.2s forwards; }
+        
+        .main-image-box {
+            width: 100%; aspect-ratio: 1/1; background: #ffffff;
+            border-radius: 16px; overflow: hidden; margin-bottom: 15px;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .main-image-box img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .zoom-icon { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.8); width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #1d1d1f; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        .thumbnail-list { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+        .thumbnail-list::-webkit-scrollbar { display: none; }
+        
+        .thumb-box {
+            min-width: 70px; height: 70px; border-radius: 12px;
+            background: #ffffff; overflow: hidden; cursor: pointer;
+            border: 2px solid transparent; transition: all 0.3s ease;
+        }
+        .thumb-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: opacity 0.3s; }
+        .thumb-box.active { border-color: #0066cc; }
+        .thumb-box.active img, .thumb-box:hover img { opacity: 1; }
+
+        /* 2. INFO PRODUK */
+        .product-info { text-align: left; margin-bottom: 25px; opacity: 0; animation: fadeUp 0.6s 0.3s forwards; }
+        .prod-category { font-size: 12px; font-weight: 700; color: #0066cc; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .prod-title { font-size: 26px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; line-height: 1.2; }
+        .prod-price { font-size: 20px; font-weight: 600; color: #576574; margin-bottom: 20px; }
+
+        /* ACCORDION DESKRIPSI */
+        .desc-accordion { border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1); padding: 15px 0; cursor: pointer; }
+        .desc-header { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; color: #1d1d1f; }
+        .desc-header i { transition: transform 0.3s; color: #86868b; }
+        .desc-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; font-size: 13px; color: #576574; line-height: 1.6; }
+        .desc-accordion.active .desc-content { max-height: 200px; padding-top: 15px; }
+        .desc-accordion.active .desc-header i { transform: rotate(180deg); }
+
+        /* 3. PILIHAN (UKURAN & JUMLAH) */
+        .product-options { margin-bottom: 25px; opacity: 0; animation: fadeUp 0.6s 0.4s forwards; }
+        .option-label { display: block; font-size: 13px; font-weight: 600; color: #1d1d1f; margin-bottom: 8px; }
+        
+        .size-select {
+            width: 100%; padding: 14px 15px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1);
+            background: #ffffff; font-family: 'Poppins', sans-serif; font-size: 14px; color: #1d1d1f;
+            appearance: none; -webkit-appearance: none; outline: none; margin-bottom: 15px;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2386868b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto;
+        }
+        .size-select:focus { border-color: #0066cc; box-shadow: 0 0 0 3px rgba(0,102,204,0.1); }
+
+        .quantity-control { display: flex; align-items: center; background: #ffffff; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); width: fit-content; overflow: hidden; }
+        .qty-btn { background: transparent; border: none; width: 40px; height: 40px; font-size: 16px; color: #1d1d1f; cursor: pointer; transition: background 0.2s; }
+        .qty-btn:hover { background: #f5f5f7; }
+        .qty-input { width: 50px; height: 40px; border: none; border-left: 1px solid rgba(0,0,0,0.1); border-right: 1px solid rgba(0,0,0,0.1); text-align: center; font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 600; color: #1d1d1f; outline: none; }
+
+        /* 4. TOMBOL ADD TO CART */
+        .add-cart-btn {
+            width: 100%; background: #0066cc; color: #ffffff; border: none; padding: 15px;
+            border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex;
+            justify-content: center; align-items: center; gap: 10px; transition: all 0.3s;
+            font-family: 'Poppins', sans-serif; opacity: 0; animation: fadeUp 0.6s 0.5s forwards;
+        }
+        .add-cart-btn:hover { background: #005bb5; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); }
+        .add-cart-btn i { font-size: 18px; }
+
+    </style>
+</head>
+<body>
+
+<!-- TOP NAVBAR -->
+<nav class="apple-nav">
+    <a href="index.html" class="nav-brand">Renxxno</a>
+    <div class="nav-icons">
+        <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
+        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+    </div>
+</nav>
+
+<!-- OVERLAY MENU (DITAMBAH MENU STORE) -->
+<div class="nav-overlay" id="menuOverlay">
+    <div id="mainMenu">
+        <ul class="menu-list">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="biodata.html">Biodata</a></li>
+            <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="store.html" class="active">Store</a></li> <!-- STORE AKTIF -->
+            <li><a href="Memberipesan.html">Kirim Pesan</a></li>
+            <li><a href="rating.html">View & Rating</a></li>
+            <li><a href="donate.html">Donasi</a></li>
+        </ul>
+    </div>
+    <div id="subMenuGames" style="display: none;">
+        <div class="submenu-header" id="btnBackMainMenu"><i class="fa-solid fa-chevron-left"></i><span>Games</span></div>
+        <ul class="menu-list">
+            <li><a href="games.html">My Account</a></li>
+            <li><a href="ghosthunter.html">Ghost Hunter Mini</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- OVERLAY PENCARIAN -->
+<div class="nav-overlay" id="searchOverlay">
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Cari..." id="searchInput">
+    </div>
+</div>
+<!-- KOTAK PRODUK STORE -->
+<div class="store-card">
+    
+    <!-- 1. GALERI FOTO -->
+    <div class="product-gallery">
+        <div class="main-image-box">
+            <!-- Foto Utama Jaket (Kamu bisa ganti link gambarnya nanti) -->
+            <img id="mainProductImg" src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=600" alt="Produk Jaket">
+            <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+        </div>
+        
+        <!-- Thumbnail Bawah -->
+        <div class="thumbnail-list">
+            <!-- Thumbnail 1 (Aktif) -->
+            <div class="thumb-box active" onclick="changeImage(this, 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=600')">
+                <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=200" alt="Thumb 1">
+            </div>
+            <!-- Thumbnail 2 -->
+            <div class="thumb-box" onclick="changeImage(this, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=600')">
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=200" alt="Thumb 2">
+            </div>
+            <!-- Thumbnail 3 -->
+            <div class="thumb-box" onclick="changeImage(this, 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=600')">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=200" alt="Thumb 3">
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. INFO PRODUK & DESKRIPSI -->
+    <div class="product-info">
+        <div class="prod-category">Clandestine</div>
+        <h1 class="prod-title">Knitwear Sweater Black</h1>
+        <div class="prod-price">Rp 429.000</div>
+
+        <!-- Accordion Deskripsi (Klik untuk membuka) -->
+        <div class="desc-accordion" id="descAccordion">
+            <div class="desc-header">
+                Product Description <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="desc-content">
+                Black crew neck knitwear sweaters with white direct embroidery. Dibuat dengan bahan katun premium yang lembut dan nyaman digunakan untuk kegiatan sehari-hari. Desain eksklusif terbatas.
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. PILIHAN UKURAN & JUMLAH -->
+    <div class="product-options">
+        <label class="option-label">Size</label>
+        <select class="size-select">
+            <option value="" disabled selected>Choose an option</option>
+            <option value="S">Small (S)</option>
+            <option value="M">Medium (M)</option>
+            <option value="L">Large (L)</option>
+            <option value="XL">Extra Large (XL)</option>
+        </select>
+
+        <label class="option-label">Quantity</label>
+        <div class="quantity-control">
+            <button class="qty-btn" onclick="updateQty(-1)"><i class="fa-solid fa-minus"></i></button>
+            <input type="text" class="qty-input" id="qtyInput" value="1" readonly>
+            <button class="qty-btn" onclick="updateQty(1)"><i class="fa-solid fa-plus"></i></button>
+        </div>
+    </div>
+
+    <!-- 4. TOMBOL ADD TO CART -->
+    <button class="add-cart-btn" id="addToCartBtn">
+        <i class="fa-solid fa-cart-shopping" id="cartIcon"></i> 
+        <span id="cartText">Add To Cart</span>
+    </button>
+
+</div>
+
+<script>
+    // ==========================================
+    // 1. SCRIPT NAVBAR & NESTED MENU
+    // ==========================================
+    const btnMenu = document.getElementById('toggleMenu');
+    const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+
+    btnMenu.addEventListener('click', () => {
+        if (searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+        menuOverlay.classList.toggle('active');
+        if (menuOverlay.classList.contains('active')) {
+            btnMenu.classList.replace('fa-bars', 'fa-xmark');
+            mainMenu.style.display = 'block';
+            subMenuGames.style.display = 'none';
+        } else {
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+    });
+
+    btnSearch.addEventListener('click', () => {
+        if (menuOverlay.classList.contains('active')) {
+            menuOverlay.classList.remove('active');
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+        searchOverlay.classList.toggle('active');
+        if (searchOverlay.classList.contains('active')) {
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
+            document.getElementById('searchInput').focus();
+        } else {
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+    });
+
+    btnGamesMenu.addEventListener('click', (e) => {
+        e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block';
+    });
+
+    btnBackMainMenu.addEventListener('click', () => {
+        subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
+    });
+
+    // ==========================================
+    // 2. SCRIPT HALAMAN STORE (GALERI & KUANTITAS)
+    // ==========================================
+    
+    // Ganti Gambar saat Thumbnail diklik
+    function changeImage(element, imageUrl) {
+        // Hapus class active dari semua thumbnail
+        document.querySelectorAll('.thumb-box').forEach(thumb => {
+            thumb.classList.remove('active');
+        });
+        
+        // Tambahkan class active ke thumbnail yang diklik
+        element.classList.add('active');
+        
+        // Ganti gambar utama
+        const mainImg = document.getElementById('mainProductImg');
+        mainImg.style.opacity = 0; // Efek fade out
+        
+        setTimeout(() => {
+            mainImg.src = imageUrl;
+            mainImg.style.opacity = 1; // Efek fade in
+        }, 150);
+    }
+
+    // Buka/Tutup Deskripsi
+    const descAccordion = document.getElementById('descAccordion');
+    descAccordion.addEventListener('click', () => {
+        descAccordion.classList.toggle('active');
+    });
+
+    // Kontrol Kuantitas (Plus Minus)
+    const qtyInput = document.getElementById('qtyInput');
+    function updateQty(change) {
+        let currentQty = parseInt(qtyInput.value);
+        let newQty = currentQty + change;
+        
+        // Pastikan jumlah minimal adalah 1
+        if (newQty >= 1) {
+            qtyInput.value = newQty;
+        }
+    }
+
+    // Animasi Tombol Add to Cart
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    const cartIcon = document.getElementById('cartIcon');
+    const cartText = document.getElementById('cartText');
+
+    addToCartBtn.addEventListener('click', () => {
+        // Cek apakah ukuran sudah dipilih
+        const sizeSelect = document.querySelector('.size-select');
+        if(sizeSelect.value === "") {
+            alert("Silakan pilih ukuran (Size) terlebih dahulu!");
+            return;
+        }
+
+        // Efek loading saat ditekan
+        addToCartBtn.disabled = true;
+        cartIcon.className = "fa-solid fa-spinner fa-spin";
+        cartText.innerText = "Memproses...";
+        
+        // Simulasi sukses masuk keranjang setelah 1 detik
+        setTimeout(() => {
+            cartIcon.className = "fa-solid fa-check";
+            cartText.innerText = "Berhasil Ditambahkan!";
+            addToCartBtn.style.background = "#00b894"; // Berubah hijau
+            
+            // Kembalikan ke asal setelah 2 detik
+            setTimeout(() => {
+                addToCartBtn.disabled = false;
+                cartIcon.className = "fa-solid fa-cart-shopping";
+                cartText.innerText = "Add To Cart";
+                addToCartBtn.style.background = "#0066cc";
+            }, 2000);
+        }, 1000);
+    });
+
+</script>
+</body>
+</html>
