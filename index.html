@@ -15,19 +15,19 @@
             padding: 0;
         }
         
-        html {
+        html, body {
             min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
         }
         
         body {
             font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            /* Latar belakang putih bersih ala Apple */
-            background: #ffffff;
+            background: #ffffff; /* Latar belakang putih bersih ala Apple */
             display: flex;
             justify-content: center;
             align-items: flex-start; 
-            padding: 100px 20px 40px 20px; /* Jarak atas ditambah agar tidak tertabrak menu */
+            padding: 100px 20px 40px 20px; 
             color: #1d1d1f;
         }
 
@@ -35,121 +35,50 @@
            TOP NAVBAR APPLE STYLE
            ========================================= */
         .apple-nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 54px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            z-index: 9999;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
+            position: fixed; top: 0; left: 0; right: 0; height: 54px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        .nav-brand {
-            font-size: 20px;
-            font-weight: 600;
-            color: #1d1d1f;
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .nav-icons i:hover { opacity: 0.5; }
 
-        .nav-icons {
-            display: flex;
-            gap: 25px;
-            color: #1d1d1f;
-            font-size: 18px;
-        }
-
-        .nav-icons i {
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .nav-icons i:hover {
-            opacity: 0.5;
-        }
-
-        /* OVERLAY MENU & CARI */
         .nav-overlay {
-            position: fixed;
-            top: 54px; /* Muncul di bawah navbar */
-            left: 0;
-            width: 100%;
-            height: calc(100vh - 54px);
-            background: #ffffff;
-            z-index: 9998;
-            padding: 30px 25px;
-            transform: translateY(-100%);
-            opacity: 0;
-            visibility: hidden;
+            position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
+            background: #ffffff; z-index: 9998; padding: 30px 25px;
+            transform: translateY(-100%); opacity: 0; visibility: hidden;
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
+        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
-        .nav-overlay.active {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
+        .menu-list { list-style: none; }
+        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
         }
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
 
-        /* Tampilan List Menu */
-        .menu-list {
-            list-style: none;
+        .submenu-header {
+            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
         }
-        .menu-list li {
-            border-bottom: 1px solid #e5e5ea;
-        }
-        .menu-list a {
-            display: block;
-            padding: 15px 0;
-            font-size: 24px;
-            font-weight: 600;
-            color: #1d1d1f;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .menu-list a:hover, .menu-list a.active {
-            color: #0066cc; /* Warna biru khas Apple saat ditekan */
-        }
+        .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
-        /* Tampilan Kotak Cari */
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: #f5f5f7;
-            border-radius: 12px;
-            padding: 12px 15px;
-        }
-        .search-box i {
-            color: #86868b;
-            font-size: 20px;
-            margin-right: 12px;
-        }
-        .search-box input {
-            border: none;
-            background: transparent;
-            outline: none;
-            font-size: 20px;
-            width: 100%;
-            color: #1d1d1f;
-        }
-        .search-box input::placeholder {
-            color: #86868b;
-        }
+        .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
+        .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
+        .search-box input::placeholder { color: #86868b; }
 
-        /* === KUMPULAN ANIMASI MASUK KARTU === */
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.95) translateY(30px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        /* =========================================
+           KOTAK KONTEN BERANDA
+           ========================================= */
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         
         .card-container {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -158,16 +87,13 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
-            /* Shadow dipertebal sedikit agar kontras dengan background putih */
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.8);
             transition: transform 0.3s ease;
             opacity: 0;
             animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
-        .card-container:hover {
-            transform: translateY(-5px);
-        }
+        .card-container:hover { transform: translateY(-5px); }
         
         .img-wrapper { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; }
 
@@ -182,11 +108,7 @@
             animation: float 6s ease-in-out infinite;
         }
         
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
 
         .profile-name { font-size: 22px; font-weight: 700; margin: 10px 0 5px 0; color: #1e272e; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
         .profile-bio { font-size: 14px; color: #576574; margin-bottom: 30px; line-height: 1.6; font-weight: 400; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards; }
@@ -217,7 +139,6 @@
 
         .whatsapp-btn { background: #25D366; color: #ffffff; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2); }
         .whatsapp-btn:hover { background: #20bd5a; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35); }
-
     </style>
 </head>
 <body>
@@ -233,11 +154,10 @@
 
 <!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
-    
     <!-- 1. MENU UTAMA -->
     <div id="mainMenu">
         <ul class="menu-list">
-            <li><a href="index.html">Beranda</a></li>
+            <li><a href="index.html" class="active">Beranda</a></li>
             <li><a href="biodata.html">Biodata</a></li>
             <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
             <li><a href="music.html">Music</a></li>
@@ -257,7 +177,6 @@
             <li><a href="ghosthunter.html">Ghost Hunter Mini</a></li>
         </ul>
     </div>
-
 </div>
 
 <!-- OVERLAY PENCARIAN -->
@@ -267,7 +186,6 @@
         <input type="text" placeholder="Cari..." id="searchInput">
     </div>
 </div>
-
 <!-- KONTEN KARTU UTAMA -->
 <div class="card-container">
     <div class="img-wrapper">
@@ -293,46 +211,62 @@
     </div>
 </div>
 
-<!-- JAVASCRIPT UNTUK MENU DAN PENCARIAN -->
+<!-- JAVASCRIPT LENGKAP UNTUK MENGATUR NAVIGASI & SUB-MENU -->
 <script>
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay');
     const searchOverlay = document.getElementById('searchOverlay');
+    
+    // Inilah variabel yang sebelumnya tertinggal di index.html!
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
 
-    // Fungsi Buka/Tutup Menu
+    // Buka/Tutup Menu
     btnMenu.addEventListener('click', () => {
-        // Jika pencarian sedang terbuka, tutup dulu
         if (searchOverlay.classList.contains('active')) {
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
-
-        // Toggle Menu
         menuOverlay.classList.toggle('active');
         if (menuOverlay.classList.contains('active')) {
-            btnMenu.classList.replace('fa-bars', 'fa-xmark'); // Ubah jadi ikon silang
+            btnMenu.classList.replace('fa-bars', 'fa-xmark');
+            // Pastikan kembali ke Menu Utama setiap kali Hamburger Menu ditekan
+            mainMenu.style.display = 'block';
+            subMenuGames.style.display = 'none';
         } else {
-            btnMenu.classList.replace('fa-xmark', 'fa-bars'); // Kembalikan ke garis 3
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
         }
     });
 
-    // Fungsi Buka/Tutup Pencarian
+    // Buka/Tutup Pencarian
     btnSearch.addEventListener('click', () => {
-        // Jika menu sedang terbuka, tutup dulu
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
             btnMenu.classList.replace('fa-xmark', 'fa-bars');
         }
-
-        // Toggle Pencarian
         searchOverlay.classList.toggle('active');
         if (searchOverlay.classList.contains('active')) {
-            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); // Ubah jadi ikon silang
-            document.getElementById('searchInput').focus(); // Otomatis fokus ke kotak ketik
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
+            document.getElementById('searchInput').focus();
         } else {
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
+    });
+
+    // INI ADALAH FUNGSI YANG MEMPERBAIKI BUG "KLIK GAMES"
+    btnGamesMenu.addEventListener('click', (e) => {
+        e.preventDefault(); // Mencegah layar lompat ke atas
+        mainMenu.style.display = 'none'; // Sembunyikan menu utama
+        subMenuGames.style.display = 'block'; // Tampilkan submenu Games
+    });
+
+    // Kembali ke Menu Utama dari Sub-Menu Games
+    btnBackMainMenu.addEventListener('click', () => {
+        subMenuGames.style.display = 'none';
+        mainMenu.style.display = 'block';
     });
 </script>
 
