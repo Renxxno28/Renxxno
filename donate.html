@@ -15,192 +15,190 @@
             padding: 0;
         }
         
-        /* BACKGROUND LUAR TRANSPARAN */
-        html {
+        html, body {
             min-height: 100vh;
             width: 100%;
             overflow-x: hidden;
-            background: transparent; 
         }
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: transparent;
+            background: #ffffff; /* Latar belakang putih bersih ala Apple */
             display: flex;
             justify-content: center;
-            align-items: center; 
-            padding: 20px; 
-            color: #2d3436;
-            min-height: 100vh;
+            align-items: flex-start; /* Diubah agar kotak tidak menabrak menu atas */
+            padding: 100px 20px 40px 20px; 
+            color: #1d1d1f;
         }
 
-        /* === KUMPULAN ANIMASI MASUK === */
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.95) translateY(30px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+        /* =========================================
+           TOP NAVBAR APPLE STYLE
+           ========================================= */
+        .apple-nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 54px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .nav-icons i:hover { opacity: 0.5; }
+
+        .nav-overlay {
+            position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
+            background: #ffffff; z-index: 9998; padding: 30px 25px;
+            transform: translateY(-100%); opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
+        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+
+        .menu-list { list-style: none; }
+        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+        }
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
+
+        .submenu-header {
+            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
+        }
+        .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
+
+        .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
+        .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
+        .search-box input::placeholder { color: #86868b; }
+
+        /* =========================================
+           KOTAK KONTEN DONASI
+           ========================================= */
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         
-        /* WARNA GRADASI BIRU MASUK KE DALAM KOTAK INI */
         .card-container {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border-radius: 24px;
-            /* Padding atas/bawah dikurangi, kiri/kanan dilebarkan agar bentuknya kotak proporsional */
-            padding: 35px 40px 35px 40px; 
+            padding: 35px 40px; 
             width: 100%;
-            max-width: 460px; /* Dilebarkan sedikit dari sebelumnya 420px */
+            max-width: 450px; 
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             border: 2px solid #ffffff; 
             transition: transform 0.3s ease;
             text-align: center;
             position: relative;
-
+            margin: 0 auto;
             opacity: 0;
             animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
 
-        /* TOMBOL KEMBALI */
-        .back-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            text-decoration: none;
-            color: #576574;
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.3s ease;
-            
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards;
-        }
+        .icon-wrapper { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; }
 
-        .back-btn:hover {
-            color: #6c5ce7;
-        }
-
-        /* BUNGKUSAN IKON */
-        .icon-wrapper {
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
-        }
-
-        /* HEADER DONASI */
         .donate-icon {
             font-size: 45px;
-            color: #ff7675;
-            margin-top: 20px; /* Jarak aman dari tombol kembali */
-            margin-bottom: 5px; /* Dipersempit agar tidak lonjong ke bawah */
+            color: #fa233b; /* Merah Khas Apple */
+            margin-bottom: 5px; 
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
         .donate-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1e272e;
-            margin-bottom: 5px;
-            
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
+            font-size: 22px; font-weight: 700; color: #1d1d1f; margin-bottom: 5px;
+            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards;
         }
 
         .donate-subtitle {
-            font-size: 13px;
-            color: #576574;
-            line-height: 1.5;
-            margin-bottom: 20px; /* Dipersempit jaraknya */
-            padding: 0 10px;
-            
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards;
+            font-size: 13px; color: #576574; line-height: 1.5; margin-bottom: 25px; padding: 0 10px;
+            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards;
         }
 
-        /* BINGKAI QRIS */
         .qris-wrapper {
-            background: #ffffff;
-            padding: 12px; /* Padding bingkai sedikit dirampingkan */
-            border-radius: 20px;
+            background: #ffffff; padding: 12px; border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border: 2px dashed #dfe6e9;
-            margin-bottom: 20px;
-            display: inline-block;
-            transition: transform 0.3s ease;
-            
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards;
+            border: 2px dashed #dfe6e9; margin-bottom: 20px; display: inline-block;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards;
         }
 
         .qris-wrapper:hover {
             transform: translateY(-5px);
-            border-color: #6c5ce7;
+            border-color: #0066cc; /* Border berubah biru saat disentuh */
         }
 
-        .qris-img {
-            width: 100%;
-            max-width: 240px; /* Diperbesar sedikit agar proporsional dengan kotak yang lebih lebar */
-            height: auto;
-            border-radius: 12px;
-            display: block;
-        }
+        .qris-img { width: 100%; max-width: 240px; height: auto; border-radius: 12px; display: block; }
 
-        /* TEKS INFO SCAN */
         .scan-info {
-            font-size: 12px;
-            color: #636e72;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 10px 15px;
-            border-radius: 12px;
-            
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s forwards;
+            font-size: 12px; color: #1d1d1f; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            background: rgba(255, 255, 255, 0.6); padding: 10px 15px; border-radius: 12px;
+            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards;
         }
 
-        .scan-info i {
-            color: #0984e3;
-            font-size: 16px;
-        }
+        .scan-info i { color: #0066cc; font-size: 16px; }
 
-        /* TAMPILAN KHUSUS MOBILE */
         @media (max-width: 480px) {
-            .card-container {
-                padding: 40px 25px 30px 25px;
-            }
-            .donate-title {
-                font-size: 20px;
-            }
-            .qris-img {
-                max-width: 210px;
-            }
+            body { padding: 80px 10px 40px 10px; }
+            .card-container { padding: 40px 25px 30px 25px; }
+            .donate-title { font-size: 20px; }
+            .qris-img { max-width: 210px; }
         }
     </style>
 </head>
 <body>
 
+<!-- TOP NAVBAR APPLE STYLE -->
+<nav class="apple-nav">
+    <a href="index.html" class="nav-brand">Renxxno</a>
+    <div class="nav-icons">
+        <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
+        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+    </div>
+</nav>
+
+<!-- OVERLAY MENU (TERMASUK MENU DONASI) -->
+<div class="nav-overlay" id="menuOverlay">
+    <div id="mainMenu">
+        <ul class="menu-list">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="biodata.html">Biodata</a></li>
+            <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="Memberipesan.html">Kirim Pesan</a></li>
+            <li><a href="rating.html">View & Rating</a></li>
+            <!-- INDIKATOR AKTIF DI DONASI -->
+            <li><a href="donate.html" class="active">Donasi</a></li>
+        </ul>
+    </div>
+
+    <!-- SUB-MENU GAMES -->
+    <div id="subMenuGames" style="display: none;">
+        <div class="submenu-header" id="btnBackMainMenu">
+            <i class="fa-solid fa-chevron-left"></i>
+            <span>Games</span>
+        </div>
+        <ul class="menu-list">
+            <li><a href="games.html">My Account</a></li>
+            <li><a href="ghosthunter.html">Ghost Hunter Mini</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- OVERLAY PENCARIAN -->
+<div class="nav-overlay" id="searchOverlay">
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Cari..." id="searchInput">
+    </div>
+</div>
+    <!-- KONTEN KARTU DONASI -->
 <div class="card-container">
     
-    <!-- Tombol Kembali -->
-    <a href="https://sites.google.com/view/renxxno/halaman" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
-
-    <!-- Header Donasi -->
     <div class="icon-wrapper">
         <div class="donate-icon">
             <i class="fa-solid fa-hand-holding-heart"></i>
@@ -224,5 +222,58 @@
 
 </div>
 
+<!-- JAVASCRIPT UNTUK MENU NAVIGASI (FIX BUG) -->
+<script>
+    const btnMenu = document.getElementById('toggleMenu');
+    const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+
+    btnMenu.addEventListener('click', () => {
+        if (searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+        menuOverlay.classList.toggle('active');
+        if (menuOverlay.classList.contains('active')) {
+            btnMenu.classList.replace('fa-bars', 'fa-xmark');
+            mainMenu.style.display = 'block';
+            subMenuGames.style.display = 'none';
+        } else {
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+    });
+
+    btnSearch.addEventListener('click', () => {
+        if (menuOverlay.classList.contains('active')) {
+            menuOverlay.classList.remove('active');
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+        searchOverlay.classList.toggle('active');
+        if (searchOverlay.classList.contains('active')) {
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
+            document.getElementById('searchInput').focus();
+        } else {
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+    });
+
+    btnGamesMenu.addEventListener('click', (e) => {
+        e.preventDefault();
+        mainMenu.style.display = 'none';
+        subMenuGames.style.display = 'block';
+    });
+
+    btnBackMainMenu.addEventListener('click', () => {
+        subMenuGames.style.display = 'none';
+        mainMenu.style.display = 'block';
+    });
+</script>
+
 </body>
 </html>
+
