@@ -41,7 +41,16 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        /* CSS UNTUK LOGO GAMBAR RENXXNO */
+        .nav-brand { display: flex; align-items: center; text-decoration: none; }
+        .brand-logo {
+            height: 38px; /* Ukuran tinggi logo, bisa diubah jika kurang besar/kecil */
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply; /* Menghilangkan background putih */
+            transform: translateY(2px); /* Menyesuaikan posisi agar pas di tengah */
+        }
+
         .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
@@ -143,18 +152,17 @@
 </head>
 <body>
 
-<!-- TOP NAVBAR APPLE STYLE -->
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">Renxxno</a>
+    <a href="index.html" class="nav-brand">
+        <img src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Logo Renxxno" class="brand-logo">
+    </a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
         <i class="fa-solid fa-bars" id="toggleMenu"></i>
     </div>
 </nav>
 
-<!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
-    <!-- 1. MENU UTAMA -->
     <div id="mainMenu">
         <ul class="menu-list">
             <li><a href="index.html" class="active">Beranda</a></li>
@@ -168,7 +176,6 @@
         </ul>
     </div>
 
-    <!-- 2. SUB-MENU GAMES -->
     <div id="subMenuGames" style="display: none;">
         <div class="submenu-header" id="btnBackMainMenu">
             <i class="fa-solid fa-chevron-left"></i>
@@ -181,14 +188,12 @@
     </div>
 </div>
 
-<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" placeholder="Cari..." id="searchInput">
     </div>
 </div>
-<!-- KONTEN KARTU UTAMA -->
 <div class="card-container">
     <div class="img-wrapper">
         <img class="profile-img" src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Foto Profil Alexzander Bareno">
@@ -213,14 +218,12 @@
     </div>
 </div>
 
-<!-- JAVASCRIPT LENGKAP UNTUK MENGATUR NAVIGASI & SUB-MENU -->
 <script>
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay');
     const searchOverlay = document.getElementById('searchOverlay');
     
-    // Inilah variabel yang sebelumnya tertinggal di index.html!
     const mainMenu = document.getElementById('mainMenu');
     const subMenuGames = document.getElementById('subMenuGames');
     const btnGamesMenu = document.getElementById('btnGamesMenu');
@@ -258,7 +261,7 @@
         }
     });
 
-    // INI ADALAH FUNGSI YANG MEMPERBAIKI BUG "KLIK GAMES"
+    // Fungsi Klik Sub-Menu Games
     btnGamesMenu.addEventListener('click', (e) => {
         e.preventDefault(); // Mencegah layar lompat ke atas
         mainMenu.style.display = 'none'; // Sembunyikan menu utama
