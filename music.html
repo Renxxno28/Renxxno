@@ -11,21 +11,13 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        html, body {
-            min-height: 100vh;
-            width: 100%;
-            overflow-x: hidden;
-        }
+        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; }
         
         body {
             font-family: 'Poppins', sans-serif;
             background: #ffffff; 
-            display: flex;
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: flex-start;
-            padding: 80px 20px 40px 20px; 
-            color: #1d1d1f; 
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            padding: 80px 20px 40px 20px; color: #1d1d1f; 
         }
 
         /* =========================================
@@ -39,37 +31,72 @@
         }
 
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
+        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+        .apple-burger {
+            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
+            cursor: pointer; position: relative; z-index: 10000;
+        }
+        .apple-burger span {
+            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+        }
+        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
+        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
+
+        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 30px 25px;
-            transform: translateY(-100%); opacity: 0; visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto; 
         }
-        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+        .nav-overlay.active { opacity: 1; visibility: visible; }
 
-        .menu-list { list-style: none; }
-        .menu-list li { border-bottom: 1px solid #e5e5ea; }
-        .menu-list a { 
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
-        }
+        /* LIST MENU ALA APPLE */
+        .menu-list { list-style: none; padding-top: 10px; }
+        .menu-list li { border-bottom: none; opacity: 0; transform: translateY(20px) scale(0.98); transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
+        
+        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
+        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
+        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
+        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
+        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
+        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
+        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
+        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
+        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
+
+        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; letter-spacing: -1px; }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 18px; color: #86868b; }
+        .menu-list a i { font-size: 20px; color: #86868b; }
 
-        .submenu-header {
-            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
-        }
+        .submenu-header { display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px; }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
+        /* KOTAK PENCARIAN */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
+        .search-box i:hover { color: #0066cc; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
-        .search-box input::placeholder { color: #86868b; }
+        .search-box input::placeholder { color: #86868b; font-size: 16px; }
+
+        /* TOOLTIP NOTIFIKASI MENU */
+        .menu-tooltip {
+            position: fixed; top: 65px; right: 15px; background: #ffffff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); padding: 12px 16px; display: flex; align-items: center; gap: 12px; z-index: 9997; border: 1px solid rgba(0,0,0,0.05); opacity: 0; transform: translateY(-10px); visibility: hidden; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
+        .tooltip-arrow { position: absolute; top: -6px; right: 18px; width: 12px; height: 12px; background: #ffffff; transform: rotate(45deg); border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05); }
+        .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
+        .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
+        .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
+        .tooltip-close:hover { color: #fa233b; }
+        @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
 
         /* =========================================
            APPLE MUSIC PLAYER UI
@@ -79,17 +106,19 @@
 
         .am-player-container { width: 100%; max-width: 380px; display: flex; flex-direction: column; opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
 
-        .media-section { position: relative; width: 100%; height: 300px; margin-bottom: 30px; }
+        /* FIX BUG FOTO DESKTOP: Mengunci ukuran agar presisi */
+        .media-section { 
+            position: relative; width: 100%; max-width: 320px; aspect-ratio: 1/1; 
+            margin: 0 auto 30px auto; 
+        }
 
         .cover-view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); z-index: 2; }
-        .cover-view img { width: 100%; height: auto; border-radius: 12px; transform: scale(0.85); box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
-        .am-player-container.playing .cover-view img { transform: scale(1); box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+        .cover-view img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; transform: scale(0.85); box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .am-player-container.playing .cover-view img { transform: scale(1); box-shadow: 0 25px 50px rgba(0,0,0,0.25); }
 
         .lyrics-view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow-y: auto; padding: 10px 10px 80px 0; mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); scroll-behavior: smooth; opacity: 0; transform: translateY(20px); pointer-events: none; z-index: 1; transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .lyrics-view::-webkit-scrollbar { display: none; }
-
         .lyric-line { font-size: 16px; font-weight: 700; color: rgba(0, 0, 0, 0.3); margin-bottom: 18px; line-height: 1.5; transition: all 0.4s ease; transform-origin: left center; cursor: pointer; }
-        
         .lyric-line.active { color: #0066cc; font-size: 20px; font-weight: 800; transform: scale(1.02); }
 
         .am-player-container.lyric-mode .cover-view { opacity: 0; transform: scale(0.8); pointer-events: none; }
@@ -98,7 +127,6 @@
         .am-song-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding: 0 5px; }
         .am-text-info { display: flex; flex-direction: column; overflow: hidden; padding-right: 15px; }
         .am-title { font-size: 22px; font-weight: 800; color: #1d1d1f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
-        
         .am-artist { font-size: 16px; font-weight: 500; color: #0066cc; }
 
         .am-progress { margin-bottom: 30px; padding: 0 5px; }
@@ -112,33 +140,50 @@
         .am-btn-side { font-size: 32px; }
         .am-btn-play { font-size: 50px; }
 
-        .am-bottom-row { display: flex; align-items: center; justify-content: space-between; padding: 0 5px; margin-bottom: 40px; gap: 15px; }
+        .am-bottom-row { display: flex; align-items: center; justify-content: space-between; padding: 0 5px; margin-bottom: 20px; gap: 15px; }
         .am-lyric-btn { font-size: 20px; color: #86868b; background: transparent; border: none; cursor: pointer; transition: color 0.3s; }
-        
         .am-player-container.lyric-mode .am-lyric-btn { color: #0066cc; } 
-        
         .am-volume { display: flex; align-items: center; gap: 10px; color: #86868b; font-size: 14px; flex-grow: 1; }
         .am-volume input[type="range"]::-webkit-slider-thumb { box-shadow: -400px 0 0 400px #1d1d1f; }
 
-        .am-description-box { background: #f5f5f7; border-radius: 20px; padding: 20px; width: 100%; max-width: 380px; opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
-        .desc-header { font-size: 16px; font-weight: 700; color: #1d1d1f; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        
-        .desc-header i { color: #0066cc; }
-        .desc-body { font-size: 14px; color: #576574; line-height: 1.6; }
+        /* =========================================
+           DESKRIPSI KHAS APPLE MUSIC 
+           ========================================= */
+        .am-description-box { 
+            background: transparent; 
+            border-top: 1px solid rgba(0,0,0,0.08); 
+            padding: 25px 5px 10px 5px; 
+            width: 100%; max-width: 380px; text-align: left;
+            opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; 
+        }
+        .desc-header { font-size: 12px; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .desc-body { font-size: 15px; color: #1d1d1f; line-height: 1.6; font-weight: 500; }
+
+        @media (max-width: 768px) {
+            .menu-list a { font-size: 28px; }
+        }
     </style>
 </head>
 <body>
 
-<!-- TOP NAVBAR APPLE STYLE -->
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+        <div class="apple-burger" id="toggleMenu">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+        </div>
     </div>
 </nav>
 
-<!-- OVERLAY MENU -->
+<div class="menu-tooltip" id="menuTooltip">
+    <div class="tooltip-arrow"></div>
+    <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
+    <span>Klik di sini untuk menu lainnya!</span>
+    <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
+</div>
+
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -166,20 +211,16 @@
     </div>
 </div>
 
-<!-- OVERLAY PENCARIAN (SUDAH DIPERBAIKI) -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <!-- Ikon kaca pembesar di bawah ini yang akan menjalankan pencarian jika diklik -->
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
-        <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
+        <input type="text" placeholder="Cari lagu, game, dll..." id="searchInput">
     </div>
-    <!-- Pesan Peringatan -->
     <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
-</div>
-<!-- KONTEN PEMUTAR APPLE MUSIC -->
+
 <div class="am-player-container" id="playerNode">
     <div class="media-section">
         <div class="cover-view">
@@ -187,12 +228,14 @@
         </div>
         <div class="lyrics-view" id="lyricView"></div>
     </div>
+    
     <div class="am-song-info">
         <div class="am-text-info">
             <div class="am-title" id="songTitle">Memuat...</div>
             <div class="am-artist" id="artistName">🎵</div>
         </div>
     </div>
+    
     <div class="am-progress">
         <input type="range" id="progressBar" value="0" step="1" min="0" max="100">
         <div class="am-time">
@@ -200,11 +243,13 @@
             <span id="durationTime">-0:00</span> 
         </div>
     </div>
+    
     <div class="am-controls">
         <button class="am-btn am-btn-side" id="prevBtn"><i class="fa-solid fa-backward-step"></i></button>
         <button class="am-btn am-btn-play" id="playBtn"><i class="fa-solid fa-play" id="playIcon"></i></button>
         <button class="am-btn am-btn-side" id="nextBtn"><i class="fa-solid fa-forward-step"></i></button>
     </div>
+    
     <div class="am-bottom-row">
         <button class="am-lyric-btn" id="toggleLyricsBtn" title="Tampilkan Lirik">
             <i class="fa-solid fa-quote-right"></i>
@@ -218,16 +263,14 @@
     <audio id="myAudio"></audio>
 </div>
 
-<!-- KOTAK DESKRIPSI -->
 <div class="am-description-box">
-    <div class="desc-header">
-        <i class="fa-solid fa-circle-info"></i> Tentang Lagu
-    </div>
+    <div class="desc-header">TENTANG LAGU</div>
     <div class="desc-body" id="songDescription">Memuat deskripsi lagu...</div>
 </div>
-
 <script>
-    // 1. SCRIPT NAVBAR
+    // ==========================================
+    // 1. LOGIKA MENU & OVERLAY (ANTI-LAG & SCROLL LOCK)
+    // ==========================================
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay');
@@ -236,40 +279,105 @@
     const subMenuGames = document.getElementById('subMenuGames');
     const btnGamesMenu = document.getElementById('btnGamesMenu');
     const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    const menuTooltip = document.getElementById('menuTooltip');
 
     btnMenu.addEventListener('click', () => {
+        if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (searchOverlay.classList.contains('active')) {
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
+        
         menuOverlay.classList.toggle('active');
+        btnMenu.classList.toggle('active'); // Memicu animasi X
+
         if (menuOverlay.classList.contains('active')) {
-            btnMenu.classList.replace('fa-bars', 'fa-xmark');
-            mainMenu.style.display = 'block';
-            subMenuGames.style.display = 'none';
+            document.body.style.overflow = 'hidden'; 
+            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
         } else {
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+            document.body.style.overflow = 'auto'; 
         }
     });
 
     btnSearch.addEventListener('click', () => {
+        if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+            btnMenu.classList.remove('active'); 
+            document.body.style.overflow = 'auto';
         }
+        
         searchOverlay.classList.toggle('active');
+        
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
+            document.body.style.overflow = 'hidden'; 
         } else {
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+            document.body.style.overflow = 'auto'; 
         }
     });
 
-    btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
-    btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
+    btnGamesMenu.addEventListener('click', (e) => {
+        e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block';
+    });
+    btnBackMainMenu.addEventListener('click', () => {
+        subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
+    });
 
-    // 2. SCRIPT PEMUTAR & LIRIK
+    // ==========================================
+    // 2. LOGIKA MESIN PENCARIAN (BISA CARI LAGU)
+    // ==========================================
+    const executeSearchBtn = document.getElementById('executeSearchBtn');
+    const searchInputBox = document.getElementById('searchInput');
+    const searchErrorMsg = document.getElementById('searchErrorMsg');
+
+    // INFO: Judul-judul lagu sudah ditambahkan di bagian 'music.html'
+    const searchDatabase = [
+        { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
+        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
+        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
+        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
+        { keywords: ["aero glide", "burung", "aero", "glide", "terbang"], url: "aeroglide.html" },
+        // DATABASE LAGU:
+        { keywords: ["music", "musik", "lagu", "tate mcrae", "just keep watching", "enau", "sesi potret", "berubah", "tenxi", "bersenja gurau", "raim laode", "tunggal eka", "denny caknan"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" },
+        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+    ];
+
+    function performSearch() {
+        const query = searchInputBox.value.toLowerCase().trim();
+        if (query === "") return; 
+
+        let foundUrl = "";
+        for (let i = 0; i < searchDatabase.length; i++) {
+            const item = searchDatabase[i];
+            const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
+            if (isMatch) { foundUrl = item.url; break; }
+        }
+
+        if (foundUrl !== "") {
+            searchErrorMsg.style.display = 'none';
+            executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
+            setTimeout(() => { window.location.href = foundUrl; }, 500);
+        } else {
+            searchErrorMsg.style.display = 'block';
+            setTimeout(() => { searchErrorMsg.style.display = 'none'; }, 3000);
+        }
+    }
+
+    executeSearchBtn.addEventListener('click', performSearch);
+    searchInputBox.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
+    });
+
+    // ==========================================
+    // 3. SCRIPT PEMUTAR & LIRIK MUSIC
+    // ==========================================
     const playlist = [
         {
             title: "Just Keep Watching [slowed+reverb]", artist: "Tate McRae", cover: "https://i.ibb.co.com/jZxfLH7X/F1CD.jpg", 
@@ -287,9 +395,7 @@
             lyrics: `[00:16.00] Jangan nyesel semua problem kamu yang start\n[00:19.00] Jangan minta rewind aku kamu udah finish\n[00:22.00] Pasang mata sinis mata jadi gerimis\n[00:25.50] Emang paling narsis\n[00:29.50] Apa kita udahan kok kamu masih nanya\n[00:33.00] Mendengarmu membual banyak nya nya nya nya\n[00:36.50] Kau main belakang gak usah pakai lama\n[00:39.50] Cuma gitu aku juga bisa\n[00:43.00] Sudah selesai cerita pun berakhir\n[00:46.50] Kau yang memulai memang penulis mahir\n[00:50.00] Ku tak mau mengulang I said no no not again\n[00:53.00] Jangan follow aku lagi aku udah gak naksir hei hei hei\n[00:57.00] Belagak buta tapi tak pernah lupa\n[01:00.50] Kamu mendua jadi aku bertiga\n[01:04.00] Masih terasa mata balas mata\n[01:08.50] Tak mau terluka jadi aku berubah\n[01:11.50] Aku berubah\n[01:13.50] Aku berubah\n[01:25.00] Sibuk cari duit buat siapa ya buat gua\n[01:28.50] Jangan bilang sakit gua tau lu buat-buat\n[01:32.00] Kerja sehari dompet gua udah gak muat\n[01:35.50] Dont act like you're the one cewek masih banyak\n[01:39.00] Apa kita udahan kok kamu masih nanya\n[01:42.50] Mendengarmu membual banyak nya nya nya nya\n[01:46.00] Kau main belakang gak usah pakai lama\n[01:49.00] Cuma gitu aku juga bisa\n[01:52.50] Sudah selesai cerita pun berakhir\n[01:56.50] Kau yang memulai memang penulis mahir\n[02:00.00] Ku tak mau mengulang I said no no not again\n[02:02.50] Jangan follow aku lagi aku udah gak naksir hei hei hei\n[02:07.00] Belagak buta tapi tak pernah lupa\n[02:10.50] Kamu mendua jadi aku bertiga\n[02:14.00] Masih terasa mata balas mata\n[02:17.50] Tak mau terluka jadi aku berubah\n[02:22.00] Aku berubah\n[02:24.00] Aku berubah\n[02:25.50] Aku berubah\n[02:28.50] Aku berubah\n[02:32.00] Hu hu-hu hu hu-hu\n[02:37.00] Hu hu-hu hu-hu\n[02:48.00] Sudah selesai cerita pun berakhir\n[02:51.00] Kau yang memulai memang penulis mahir\n[02:54.50] Ku tak mau mengulang I said no no not again\n[02:57.00] Jangan follow aku lagi aku udah gak naksir hei hei hei\n[03:03.00] Belagak buta tapi tak pernah lupa\n[03:06.50] Kamu mendua jadi aku bertiga\n[03:10.00] Masih terasa mata balas mata\n[03:14.00] Tak mau terluka jadi aku berubah`
         }, 
         {
-            title: "Bersenja Gurau", 
-            artist: "Raim Laode", 
-            cover: "https://i.ibb.co.com/671CdppH/images.jpg", 
+            title: "Bersenja Gurau", artist: "Raim Laode", cover: "https://i.ibb.co.com/671CdppH/images.jpg", 
             src: "https://videotourl.com/videos/1784013919550-a8eec9b5-30e6-494b-a9fd-c41ca4cca40e.mp4", 
             description: "Sebuah lagu penenang jiwa dari Raim Laode yang mengingatkan kita bahwa senja adalah hadiah, dan di setiap kesedihan maupun kesulitan, akan selalu ada pelangi dan kemudahan yang Tuhan janjikan.",
             lyrics: `[00:20.50] Banyak yang salah mengira\n[00:27.50] Senja bukan tentang kopi, lagu indie, dan cerita\n[00:34.00] Ku kasih tahu kepadamu\n[00:40.00] Senja adalah hadiah pejalan kaki menjemput magribnya\n[00:49.00] Selalu ada pelangi\n[00:57.50] Pada setiap mendungnya\n[01:02.50] Setiap derita\n[01:05.00] Ku 'kan ada selalu untukmu\n[01:13.50] Temani setiap derita\n[01:18.00] Jadi pelukan ternyaman untukmu\n[01:30.00] Jika sempit hidup ini\n[01:33.50] (Jika sempit hidup ini)\n[01:36.00] Tidur selalu tak tenang, pagi selalu menyiksa\n[01:42.50] Semua akan baik saja\n[01:48.00] Sebab Tuhan telah berjanji, setelah sempit ada kemudahan\n[01:58.00] Kita milik-Nya\n[02:03.50] Semua telah tertulis\n[02:08.00] Dan akan kembali pada-Nya\n[02:22.00] Selalu ada pelangi\n[02:30.00] Pada setiap mendungnya\n[02:35.50] Setiap derita\n[02:39.00] Selalu ada pelangi\n[02:47.50] Pada setiap mendungnya\n[02:52.00] Setiap derita\n[02:54.00] Ku 'kan ada selalu untukmu\n[03:02.50] Temani setiap derita\n[03:06.50] Jadi pelukan ternyaman untukmu`
@@ -299,9 +405,8 @@
             src: "https://files.catbox.moe/h5rk6l.mp4", description: "Sebuah persembahan romantis dari Denny Caknan. Lagu ini menceritakan tentang ketulusan cinta, doa terbaik, dan harapan untuk selalu bersama satu-satunya di hari yang istimewa.",
             lyrics: `[00:22.00] Aku nebak\n[00:24.00] Isine pandongamu\n[00:31.00] Wis tak siapke\n[00:33.50] Kado nggo sliramu\n[00:38.00] Aku ngukir\n[00:41.00] Kata-kata romantis\n[00:46.00] Sing iso nyenengke\n[00:49.00] Kowe sing manis\n[00:57.00] Seksine dunyo lan langit\n[01:00.00] Gedhene rosoku\n[01:05.00] Tunggal eka mring sliramu\n[01:12.00] Panjang umurmu\n[01:20.00] Tak usahane panyuwunmu\n[01:26.00] Tak pasrahke jantung atiku\n[01:31.50] Nganti nemoni lelayu\n[01:36.00] Sing apik-apik ya sayang\n[01:41.00] Ning dino istimewa iki\n[01:46.50] Dungoku langgeng tresno abadi\n[01:58.50] Semerbak wangine ambeganmu\n[02:04.50] Gugah roso tembok gairahku\n[02:14.00] Manise suoro rayuanmu\n[02:21.00] Negeske kowe ra iso kelangan aku\n[02:49.00] Yang dungoku sampean bahagia\n[02:53.00] Kadoku terkesan biasa\n[02:57.00] Rung iso ngenehi sing sempurna\n[03:02.00] Selamat tambah usia\n[03:06.00] Semoga umur panjang\n[03:10.00] Ku harap bisa terkenang sayang\n[03:16.00] Tak usahane panyuwunmu\n[03:21.00] Tak pasrahke jantung atiku\n[03:26.50] Nganti nemoni lelayu\n[03:31.50] Sing apik-apik ya sayang\n[03:36.00] Ning dino istimewa iki\n[03:41.50] Dungoku langgeng tresno abadi\n[03:50.00] Tak usahane panyuwunmu\n[03:56.00] Tak pasrahke jantung atiku\n[04:01.00] Nganti nemoni lelayu\n[04:05.50] Sing apik-apik ya sayang\n[04:10.50] Ning dino istimewa iki\n[04:16.00] Dungoku langgeng tresno abadi`
         }
-
     ];
-        let currentSongIndex = 0; let isPlaying = false; let currentLyricsData = []; 
+    let currentSongIndex = 0; let isPlaying = false; let currentLyricsData = []; 
     const playerNode = document.getElementById("playerNode"); const audio = document.getElementById("myAudio");
     const albumCover = document.getElementById("albumCover"); const songTitleText = document.getElementById("songTitle");
     const artistNameText = document.getElementById("artistName"); const songDescText = document.getElementById("songDescription");
@@ -397,67 +502,6 @@
     volumeBar.addEventListener("input", function() { audio.volume = volumeBar.value / 100; });
     audio.addEventListener("ended", function() { currentSongIndex = (currentSongIndex + 1) % playlist.length; loadSong(currentSongIndex); });
 
-    // --- 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
-    const executeSearchBtn = document.getElementById('executeSearchBtn');
-    const searchInputBox = document.getElementById('searchInput');
-    const searchErrorMsg = document.getElementById('searchErrorMsg');
-
-    // Kamus Database Pencarian Kita
-    const searchDatabase = [
-        { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
-        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
-        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
-        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
-        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
-        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
-        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
-        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
-    ];
-
-    function performSearch() {
-        const query = searchInputBox.value.toLowerCase().trim();
-        if (query === "") return; 
-
-        let foundUrl = "";
-
-        // Mencari kecocokan kata
-        for (let i = 0; i < searchDatabase.length; i++) {
-            const item = searchDatabase[i];
-            const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
-            if (isMatch) {
-                foundUrl = item.url;
-                break; 
-            }
-        }
-
-        if (foundUrl !== "") {
-            searchErrorMsg.style.display = 'none';
-            // Efek Loading
-            executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
-            setTimeout(() => {
-                window.location.href = foundUrl; 
-            }, 500);
-        } else {
-            // Tampilkan Pesan Error
-            searchErrorMsg.style.display = 'block';
-            setTimeout(() => {
-                searchErrorMsg.style.display = 'none';
-            }, 3000);
-        }
-    }
-
-    // Jalankan pencarian jika klik ikon Kaca Pembesar di dalam kotak
-    executeSearchBtn.addEventListener('click', performSearch);
-
-    // Jalankan pencarian jika tekan tombol ENTER di Keyboard HP/Laptop
-    searchInputBox.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault(); // Mencegah halaman ke-refresh
-            performSearch();
-        }
-    });
 </script>
 </body>
 </html>
-
