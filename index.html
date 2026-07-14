@@ -28,9 +28,7 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        .nav-brand { display: flex; align-items: center; text-decoration: none; }
-        .brand-logo { height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply; transform: translateY(2px); }
-
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
         .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
@@ -68,48 +66,23 @@
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
 
         /* =========================================
-           TOOLTIP / NOTIFIKASI MENU (BARU)
+           TOOLTIP / NOTIFIKASI MENU
            ========================================= */
         .menu-tooltip {
-            position: fixed;
-            top: 65px; /* Tepat di bawah navbar */
-            right: 15px; /* Berada di sudut kanan dekat menu */
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 9997;
-            border: 1px solid rgba(0,0,0,0.05);
-            /* Kondisi Awal: Tersembunyi */
-            opacity: 0;
-            transform: translateY(-10px);
-            visibility: hidden;
+            position: fixed; top: 65px; right: 15px; background: #ffffff;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+            z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
+            opacity: 0; transform: translateY(-10px); visibility: hidden;
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .menu-tooltip.show {
-            opacity: 1;
-            transform: translateY(0);
-            visibility: visible;
-        }
+        .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
         .tooltip-arrow {
-            position: absolute;
-            top: -6px;
-            right: 18px; /* Mengarah pas ke ikon garis tiga */
-            width: 12px;
-            height: 12px;
-            background: #ffffff;
-            transform: rotate(45deg);
-            border-top: 1px solid rgba(0,0,0,0.05);
-            border-left: 1px solid rgba(0,0,0,0.05);
+            position: absolute; top: -6px; right: 18px; width: 12px; height: 12px;
+            background: #ffffff; transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05);
         }
-        .menu-tooltip span {
-            font-size: 12px;
-            font-weight: 600;
-            color: #1d1d1f;
-        }
+        .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
         .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
         .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
         .tooltip-close:hover { color: #fa233b; }
@@ -158,23 +131,25 @@
 </head>
 <body>
 
+<!-- TOP NAVBAR -->
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">
-        <img src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Logo Renxxno" class="brand-logo">
-    </a>
+    <!-- Menggunakan Teks Sesuai Kode Lama -->
+    <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
         <i class="fa-solid fa-bars" id="toggleMenu"></i>
     </div>
 </nav>
 
+<!-- TOOLTIP NOTIFIKASI MENU -->
 <div class="menu-tooltip" id="menuTooltip">
     <div class="tooltip-arrow"></div>
     <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
-    <span>Klik di sini untuk melihat menu lainnya!</span>
+    <span>Klik di sini untuk menu lainnya!</span>
     <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
 </div>
 
+<!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -197,6 +172,7 @@
     </div>
 </div>
 
+<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
@@ -206,6 +182,7 @@
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
+<!-- KONTEN BERANDA -->
 <div class="card-container">
     <div class="img-wrapper">
         <img class="profile-img" src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Foto Profil Alexzander Bareno">
@@ -229,6 +206,9 @@
     </div>
 </div>
 
+<!-- ==========================================
+     JAVASCRIPT LENGKAP 
+     ========================================== -->
 <script>
     // --- 1. LOGIKA MENU & OVERLAY ---
     const btnMenu = document.getElementById('toggleMenu');
@@ -242,9 +222,7 @@
     const menuTooltip = document.getElementById('menuTooltip');
 
     btnMenu.addEventListener('click', () => {
-        // Hilangkan notifikasi segera setelah menu diklik pertama kali!
-        if(menuTooltip) menuTooltip.classList.remove('show');
-
+        if(menuTooltip) menuTooltip.classList.remove('show'); // Hilangkan notif saat menu diklik
         if (searchOverlay.classList.contains('active')) {
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
@@ -259,9 +237,7 @@
     });
 
     btnSearch.addEventListener('click', () => {
-        // Hilangkan notifikasi jika membuka search
-        if(menuTooltip) menuTooltip.classList.remove('show');
-
+        if(menuTooltip) menuTooltip.classList.remove('show'); // Hilangkan notif saat search diklik
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
             btnMenu.classList.replace('fa-xmark', 'fa-bars');
@@ -283,31 +259,17 @@
         subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
     });
 
-    // --- 2. LOGIKA PENGINGAT (NOTIFIKASI PINTAR) ---
+    // --- 2. LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL) ---
     document.addEventListener("DOMContentLoaded", function() {
         const closeTooltip = document.getElementById('closeTooltip');
-
-        // Mengecek memori browser (Session Storage)
+        // Cek jika sesi browser belum menyimpan data bahwa notif sudah muncul
         if (!sessionStorage.getItem('menuNotifShown')) {
-            // Tampilkan kotak setelah 1 detik
-            setTimeout(() => {
-                menuTooltip.classList.add('show');
-            }, 1000);
-
-            // Simpan ingatan: Jangan munculkan lagi selama tab ini tidak ditutup total!
-            sessionStorage.setItem('menuNotifShown', 'true');
-
-            // Opsional: Tutup otomatis setelah 8 detik jika tidak dihiraukan
-            setTimeout(() => {
-                menuTooltip.classList.remove('show');
-            }, 8000);
+            setTimeout(() => { menuTooltip.classList.add('show'); }, 1000);
+            sessionStorage.setItem('menuNotifShown', 'true'); // Simpan memori di browser
+            setTimeout(() => { menuTooltip.classList.remove('show'); }, 8000); // Tutup otomatis 8 detik
         }
-
-        // Kalau tanda silang (x) di klik
         if (closeTooltip) {
-            closeTooltip.addEventListener('click', () => {
-                menuTooltip.classList.remove('show');
-            });
+            closeTooltip.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
         }
     });
 
@@ -333,7 +295,6 @@
         if (query === "") return; 
 
         let foundUrl = "";
-
         for (let i = 0; i < searchDatabase.length; i++) {
             const item = searchDatabase[i];
             const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
