@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda | Renxxno</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff; 
+            display: flex; justify-content: center; align-items: flex-start; 
+            padding: 100px 20px 40px 20px; color: #1d1d1f;
+        }
+
+        /* NAVBAR ATAS */
+        .apple-nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 54px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .nav-icons i:hover { opacity: 0.5; }
+
+        /* OVERLAY UMUM */
+        .nav-overlay {
+            position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
+            background: #ffffff; z-index: 9998; padding: 30px 25px;
+            transform: translateY(-100%); opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+
+        /* LIST MENU */
+        .menu-list { list-style: none; }
+        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+        }
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
+
+        .submenu-header {
+            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
+        }
+        .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
+
+        /* KOTAK PENCARIAN */
+        .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; }
+        .search-box i:hover { color: #0066cc; }
+        .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
+        .search-box input::placeholder { color: #86868b; font-size: 16px; }
+
+        /* =========================================
+           TOOLTIP / NOTIFIKASI MENU
+           ========================================= */
+        .menu-tooltip {
+            position: fixed; top: 65px; right: 15px; background: #ffffff;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+            z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
+            opacity: 0; transform: translateY(-10px); visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
+        .tooltip-arrow {
+            position: absolute; top: -6px; right: 18px; width: 12px; height: 12px;
+            background: #ffffff; transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05);
+        }
+        .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
+        .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
+        .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
+        .tooltip-close:hover { color: #fa233b; }
+
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(3px); }
+        }
+
+        /* KARTU BERANDA */
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        
+        .card-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 24px; padding: 40px 30px;
+            width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;
+            opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        .card-container:hover { transform: translateY(-5px); }
+        
+        .img-wrapper { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; }
+
+        .profile-img { width: 160px; height: auto; border-radius: 20px; object-fit: cover; border: 4px solid #ffffff; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 20px; animation: float 6s ease-in-out infinite; }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+
+        .profile-name { font-size: 22px; font-weight: 700; margin: 10px 0 5px 0; color: #1e272e; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
+        .profile-bio { font-size: 14px; color: #576574; margin-bottom: 30px; line-height: 1.6; font-weight: 400; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards; }
+
+        .links-wrapper { display: flex; flex-direction: column; gap: 15px; }
+        .btn-link {
+            display: flex; align-items: center; justify-content: center; gap: 12px; padding: 15px 20px; border-radius: 16px; text-decoration: none;
+            font-weight: 600; font-size: 15px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .btn-link i { font-size: 20px; }
+
+        .btn-link:nth-child(1) { animation-delay: 0.5s; } .btn-link:nth-child(2) { animation-delay: 0.6s; }
+        .btn-link:nth-child(3) { animation-delay: 0.7s; } .btn-link:nth-child(4) { animation-delay: 0.8s; }
+        
+        .youtube-btn { background: #ff0000; color: #ffffff; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2); } .youtube-btn:hover { background: #cc0000; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(255, 0, 0, 0.35); }
+        .instagram-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #ffffff; box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2); } .instagram-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(220, 39, 67, 0.35); }
+        .email-btn { background: #4285f4; color: #ffffff; box-shadow: 0 4px 15px rgba(66, 133, 244, 0.2); } .email-btn:hover { background: #357ae8; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(66, 133, 244, 0.35); }
+        .whatsapp-btn { background: #25D366; color: #ffffff; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2); } .whatsapp-btn:hover { background: #20bd5a; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35); }
+    </style>
+</head>
+<body>
+
+<!-- TOP NAVBAR -->
+<nav class="apple-nav">
+    <!-- Menggunakan Teks Sesuai Kode Lama -->
+    <a href="index.html" class="nav-brand">Renxxno</a>
+    <div class="nav-icons">
+        <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
+        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+    </div>
+</nav>
+
+<!-- TOOLTIP NOTIFIKASI MENU -->
+<div class="menu-tooltip" id="menuTooltip">
+    <div class="tooltip-arrow"></div>
+    <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
+    <span>Klik di sini untuk menu lainnya!</span>
+    <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
+</div>
+
+<!-- OVERLAY MENU -->
+<div class="nav-overlay" id="menuOverlay">
+    <div id="mainMenu">
+        <ul class="menu-list">
+            <li><a href="index.html" class="active">Beranda</a></li>
+            <li><a href="biodata.html">Biodata</a></li>
+            <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="store.html">Store</a></li>
+            <li><a href="Memberipesan.html">Kirim Pesan</a></li>
+            <li><a href="rating.html">View & Rating</a></li>
+            <li><a href="donate.html">Donasi</a></li>
+        </ul>
+    </div>
+    <div id="subMenuGames" style="display: none;">
+        <div class="submenu-header" id="btnBackMainMenu"><i class="fa-solid fa-chevron-left"></i><span>Games</span></div>
+        <ul class="menu-list">
+            <li><a href="games.html">My Account</a></li>
+            <li><a href="ghosthunter.html">Ghost Hunter</a></li>
+            <a href="aeroglide.html">Aero Glide</a>
+        </ul>
+    </div>
+</div>
+
+<!-- OVERLAY PENCARIAN -->
+<div class="nav-overlay" id="searchOverlay">
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
+        <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
+    </div>
+    <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
+        Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
+    </p>
+</div>
+<!-- KONTEN BERANDA -->
+<div class="card-container">
+    <div class="img-wrapper">
+        <img class="profile-img" src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Foto Profil Alexzander Bareno">
+    </div>
+    <div class="profile-name">Welcome to My Space</div>
+    <div class="profile-bio">Senang kamu bisa mampir! Di sini kamu bisa kenal aku lebih dekat, dengerin musik favoritku, main game, sampai mampir ke store. Silakan eksplor menunya dan jangan ragu buat sapa aku langsung ya. Let's connect!</div>
+    
+    <div class="links-wrapper">
+        <a href="https://youtube.com/@alexzanderbareno?si=Shl3zBDB-LEKatNP" target="_blank" class="btn-link youtube-btn">
+            <i class="fa-brands fa-youtube"></i> My YouTube
+        </a>
+        <a href="https://www.instagram.com/renoogemoyyy?igsh=MXgwd2Z1eXQyMHVkbA==" target="_blank" class="btn-link instagram-btn">
+            <i class="fa-brands fa-instagram"></i> My Instagram
+        </a>
+        <a href="mailto:alexanderbareno44@gmail.com" class="btn-link email-btn">
+            <i class="fa-solid fa-envelope"></i> Hubungi Via Email
+        </a>
+        <a href="https://wa.me/6285749776994" target="_blank" class="btn-link whatsapp-btn">
+            <i class="fa-brands fa-whatsapp"></i> Chat Via WhatsApp
+        </a>
+    </div>
+</div>
+
+<!-- ==========================================
+     JAVASCRIPT LENGKAP 
+     ========================================== -->
+<script>
+    // --- 1. LOGIKA MENU & OVERLAY ---
+    const btnMenu = document.getElementById('toggleMenu');
+    const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    const menuTooltip = document.getElementById('menuTooltip');
+
+    btnMenu.addEventListener('click', () => {
+        if(menuTooltip) menuTooltip.classList.remove('show'); // Hilangkan notif saat menu diklik
+        if (searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+        menuOverlay.classList.toggle('active');
+        if (menuOverlay.classList.contains('active')) {
+            btnMenu.classList.replace('fa-bars', 'fa-xmark');
+            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
+        } else {
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+    });
+
+    btnSearch.addEventListener('click', () => {
+        if(menuTooltip) menuTooltip.classList.remove('show'); // Hilangkan notif saat search diklik
+        if (menuOverlay.classList.contains('active')) {
+            menuOverlay.classList.remove('active');
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+        }
+        searchOverlay.classList.toggle('active');
+        if (searchOverlay.classList.contains('active')) {
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
+            document.getElementById('searchInput').focus();
+        } else {
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+    });
+
+    btnGamesMenu.addEventListener('click', (e) => {
+        e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block';
+    });
+
+    btnBackMainMenu.addEventListener('click', () => {
+        subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
+    });
+
+    // --- 2. LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL) ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const closeTooltip = document.getElementById('closeTooltip');
+        // Cek jika sesi browser belum menyimpan data bahwa notif sudah muncul
+        if (!sessionStorage.getItem('menuNotifShown')) {
+            setTimeout(() => { menuTooltip.classList.add('show'); }, 1000);
+            sessionStorage.setItem('menuNotifShown', 'true'); // Simpan memori di browser
+            setTimeout(() => { menuTooltip.classList.remove('show'); }, 8000); // Tutup otomatis 8 detik
+        }
+        if (closeTooltip) {
+            closeTooltip.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
+        }
+    });
+
+    // --- 3. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
+    const executeSearchBtn = document.getElementById('executeSearchBtn');
+    const searchInputBox = document.getElementById('searchInput');
+    const searchErrorMsg = document.getElementById('searchErrorMsg');
+
+    const searchDatabase = [
+        { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
+        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
+        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
+        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
+        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
+        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+    ];
+
+    function performSearch() {
+        const query = searchInputBox.value.toLowerCase().trim();
+        if (query === "") return; 
+
+        let foundUrl = "";
+        for (let i = 0; i < searchDatabase.length; i++) {
+            const item = searchDatabase[i];
+            const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
+            if (isMatch) { foundUrl = item.url; break; }
+        }
+
+        if (foundUrl !== "") {
+            searchErrorMsg.style.display = 'none';
+            executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
+            setTimeout(() => { window.location.href = foundUrl; }, 500);
+        } else {
+            searchErrorMsg.style.display = 'block';
+            setTimeout(() => { searchErrorMsg.style.display = 'none'; }, 3000);
+        }
+    }
+
+    executeSearchBtn.addEventListener('click', performSearch);
+    searchInputBox.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
+    });
+</script>
+
+</body>
+</html>
