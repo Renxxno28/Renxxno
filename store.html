@@ -33,7 +33,7 @@
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
-        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+        /* IKON MENU APPLE (GARIS JADI X MULUS) - DARI MUSIC.HTML */
         .apple-burger {
             width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
             cursor: pointer; position: relative; z-index: 10000;
@@ -45,9 +45,7 @@
         .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
         .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
 
-        /* =========================================
-           OVERLAY MENU (DESAIN BARU & MELAYANG)
-           ========================================= */
+        /* OVERLAY MENU FULL SCREEN - DARI MUSIC.HTML */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
             background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
@@ -56,6 +54,7 @@
         }
         .nav-overlay.active { opacity: 1; visibility: visible; }
 
+        /* LIST MENU ALA APPLE - DARI MUSIC.HTML */
         .menu-list { list-style: none; padding-top: 10px; }
         .menu-list li { border-bottom: none; opacity: 0; transform: translateY(20px) scale(0.98); transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
@@ -69,6 +68,7 @@
         .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
         .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
         .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
+        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
 
         .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; letter-spacing: -1px; }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
@@ -77,6 +77,7 @@
         .submenu-header { display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px; }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
+        /* KOTAK PENCARIAN */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
         .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
         .search-box i:hover { color: #0066cc; }
@@ -113,15 +114,11 @@
         .catalog-item {
             background: #ffffff; 
             border-radius: 16px; padding: 12px;
-            border: 1.5px solid #d1d1d6; 
+            border: 1.5px solid #d1d1d6; /* Garis Kotak Diperjelas */
             text-align: center; cursor: pointer; transition: all 0.3s;
             position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.04);
         }
-        .catalog-item:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 12px 25px rgba(0, 102, 204, 0.15); 
-            border-color: #0066cc; 
-        }
+        .catalog-item:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0, 102, 204, 0.15); border-color: #0066cc; }
 
         .stock-label {
             position: absolute; top: 20px; left: 20px; background: #ff3b30; color: white;
@@ -183,19 +180,14 @@
         .desc-accordion.active .desc-content { max-height: 250px; padding-top: 15px; }
         .desc-accordion.active .desc-header i { transform: rotate(180deg); color: #0066cc; }
 
-        /* PERBAIKAN BUG OVERFLOW & TERTUMPUK */
+        /* PERBAIKAN BUG: Diatur Berbaris Ke Bawah Agar Lebar Penuh */
         .product-options { 
             margin-bottom: 30px; text-align: left; 
-            display: flex; flex-direction: column; /* Baris ke bawah untuk HP */
+            display: flex; flex-direction: column; /* Selalu atas-bawah di HP */
             gap: 20px; 
         }
         
-        #sizeOptionBox, #quantityOptionBox {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+        #sizeOptionBox, #quantityOptionBox { width: 100%; display: flex; flex-direction: column; align-items: flex-start; }
 
         .option-label { display: block; font-size: 13px; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; }
         
@@ -209,6 +201,7 @@
         }
         .size-select:focus { border-color: #0066cc; }
         
+        /* Lebar kotak jumlah ( + 1 - ) dikunci agar tidak melebar */
         .quantity-control { 
             display: flex; align-items: center; justify-content: space-between;
             background: #f5f5f7; border-radius: 12px; 
@@ -230,30 +223,23 @@
         }
         .lightbox-overlay.active { opacity: 1; visibility: visible; }
         .lightbox-content { position: relative; max-width: 90%; max-height: 90%; }
-        .lightbox-img { 
-            max-width: 100%; max-height: 85vh; border-radius: 16px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); object-fit: contain;
-            transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+        .lightbox-img { max-width: 100%; max-height: 85vh; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); object-fit: contain; transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         .lightbox-overlay.active .lightbox-img { transform: scale(1); }
-        .lightbox-close {
-            position: absolute; top: -45px; right: -10px;
-            color: #ffffff; font-size: 35px; cursor: pointer; transition: color 0.3s;
-        }
+        .lightbox-close { position: absolute; top: -45px; right: -10px; color: #ffffff; font-size: 35px; cursor: pointer; transition: color 0.3s; }
         .lightbox-close:hover { color: #ff4757; }
 
-        /* RESPONSIVE DESKTOP/TABLET */
+        @media (min-width: 480px) {
+            .product-options { flex-direction: row; align-items: flex-end; }
+            #sizeOptionBox { flex: 1; }
+            #quantityOptionBox { flex: 0 0 auto; }
+        }
         @media (min-width: 768px) {
-            .menu-list a { font-size: 28px; } /* Sesuaikan menu di laptop */
+            .menu-list a { font-size: 28px; }
             .store-card { padding: 45px 35px; }
             .catalog-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } 
             .detail-content-wrapper { flex-direction: row; align-items: flex-start; gap: 40px; }
             .detail-left { width: 45%; position: sticky; top: 80px; }
             .detail-right { width: 55%; }
-            /* Khusus di laptop, kotak jumlah dan ukuran bisa bersebelahan karena layarnya luas */
-            .product-options { flex-direction: row; align-items: flex-end; }
-            #sizeOptionBox { flex: 1; }
-            #quantityOptionBox { flex: 0 0 auto; }
         }
     </style>
 </head>
@@ -271,7 +257,7 @@
     </div>
 </nav>
 
-<!-- OVERLAY MENU (MELAYANG BERURUTAN, TANPA GARIS BAWAH) -->
+<!-- OVERLAY MENU (PERSIS SEPERTI MUSIC.HTML) -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -429,7 +415,7 @@
     </div>
 </div>
 <script>
-    // 1. LOGIKA MENU & OVERLAY (ANTI-LAG & SCROLL LOCK)
+    // 1. LOGIKA MENU & OVERLAY (PERSIS DARI MUSIC.HTML)
     const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
     const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
