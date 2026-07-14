@@ -3,31 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda | Renxxno</title>
+    <title>Aero Glide | Renxxno Games</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; }
+        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; touch-action: manipulation; }
         
         body {
             font-family: 'Poppins', sans-serif;
             background: #ffffff; 
             display: flex; justify-content: center; align-items: flex-start; 
-            padding: 100px 20px 40px 20px; color: #1d1d1f;
+            padding: 90px 15px 40px 15px; color: #1d1d1f;
         }
 
-        /* NAVBAR ATAS */
+        /* =========================================
+           TOP NAVBAR APPLE STYLE
+           ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
         .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
@@ -42,64 +42,74 @@
         }
         .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
-        /* LIST MENU */
         .menu-list { list-style: none; }
         .menu-list li { border-bottom: 1px solid #e5e5ea; }
-        .menu-list a { 
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
-        }
+        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
         .menu-list a i { font-size: 18px; color: #86868b; }
 
-        .submenu-header {
-            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
-        }
+        .submenu-header { display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer; }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
         /* KOTAK PENCARIAN */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; }
-        .search-box i:hover { color: #0066cc; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; cursor: pointer; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
-        .search-box input::placeholder { color: #86868b; font-size: 16px; }
 
-        /* KARTU BERANDA */
+        /* =========================================
+           KOTAK GAME "AERO GLIDE"
+           ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         
-        .card-container {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 24px; padding: 40px 30px;
-            width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.8); transition: transform 0.3s ease;
+        .game-wrapper {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 24px; padding: 20px; width: 100%; max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); border: 2px solid #ffffff;
             opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            position: relative; text-align: center;
         }
-        .card-container:hover { transform: translateY(-5px); }
+
+        .game-header { margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .game-title { font-size: 20px; font-weight: 800; color: #1d1d1f; display: flex; align-items: center; gap: 8px; }
+        .game-title i { color: #0066cc; }
         
-        .img-wrapper { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; }
+        .score-board { display: flex; gap: 15px; }
+        .score-box { background: #ffffff; padding: 5px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; color: #576574; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .score-box span { color: #0066cc; font-size: 15px; font-weight: 800; }
 
-        .profile-img { width: 160px; height: auto; border-radius: 20px; object-fit: cover; border: 4px solid #ffffff; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 20px; animation: float 6s ease-in-out infinite; }
-        
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-
-        .profile-name { font-size: 22px; font-weight: 700; margin: 10px 0 5px 0; color: #1e272e; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
-        .profile-bio { font-size: 14px; color: #576574; margin-bottom: 30px; line-height: 1.6; font-weight: 400; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards; }
-
-        .links-wrapper { display: flex; flex-direction: column; gap: 15px; }
-        .btn-link {
-            display: flex; align-items: center; justify-content: center; gap: 12px; padding: 15px 20px; border-radius: 16px; text-decoration: none;
-            font-weight: 600; font-size: 15px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        /* AREA CANVAS GAME */
+        .canvas-container {
+            position: relative; width: 100%; aspect-ratio: 3/4; 
+            border-radius: 16px; overflow: hidden; background: #ffffff;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.1);
         }
-        .btn-link i { font-size: 20px; }
-
-        .btn-link:nth-child(1) { animation-delay: 0.5s; } .btn-link:nth-child(2) { animation-delay: 0.6s; }
-        .btn-link:nth-child(3) { animation-delay: 0.7s; } .btn-link:nth-child(4) { animation-delay: 0.8s; }
         
-        .youtube-btn { background: #ff0000; color: #ffffff; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2); } .youtube-btn:hover { background: #cc0000; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(255, 0, 0, 0.35); }
-        .instagram-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #ffffff; box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2); } .instagram-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(220, 39, 67, 0.35); }
-        .email-btn { background: #4285f4; color: #ffffff; box-shadow: 0 4px 15px rgba(66, 133, 244, 0.2); } .email-btn:hover { background: #357ae8; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(66, 133, 244, 0.35); }
-        .whatsapp-btn { background: #25D366; color: #ffffff; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2); } .whatsapp-btn:hover { background: #20bd5a; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35); }
+        canvas { width: 100%; height: 100%; display: block; }
+
+        /* MENU START & GAME OVER */
+        .game-ui-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 10; transition: opacity 0.3s;
+        }
+        
+        .game-ui-layer h2 { font-size: 28px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; }
+        .game-ui-layer p { font-size: 14px; font-weight: 500; color: #576574; margin-bottom: 25px; text-align: center; padding: 0 20px; }
+        
+        .play-btn {
+            background: #0066cc; color: #ffffff; border: none; padding: 12px 30px;
+            border-radius: 20px; font-size: 18px; font-weight: 700; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); transition: all 0.2s;
+            font-family: 'Poppins', sans-serif; display: flex; align-items: center; gap: 8px;
+        }
+        .play-btn:hover { background: #005bb5; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 102, 204, 0.4); }
+        .play-btn:active { transform: translateY(0); }
+
+        .hide { opacity: 0; pointer-events: none; }
+        
+        .instructions { font-size: 12px; color: #86868b; margin-top: 15px; font-weight: 500; }
+
     </style>
 </head>
 <body>
@@ -117,9 +127,9 @@
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
-            <li><a href="index.html" class="active">Beranda</a></li>
+            <li><a href="index.html">Beranda</a></li>
             <li><a href="biodata.html">Biodata</a></li>
-            <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="#" id="btnGamesMenu" class="active">Games <i class="fa-solid fa-chevron-right"></i></a></li>
             <li><a href="music.html">Music</a></li>
             <li><a href="store.html">Store</a></li>
             <li><a href="Memberipesan.html">Kirim Pesan</a></li>
@@ -132,157 +142,322 @@
         <ul class="menu-list">
             <li><a href="games.html">My Account</a></li>
             <li><a href="ghosthunter.html">Ghost Hunter Mini</a></li>
+            <li><a href="aeroglide.html" class="active">Aero Glide (New!)</a></li>
         </ul>
     </div>
 </div>
 
-<!-- OVERLAY PENCARIAN (SUDAH DIPERBAIKI) -->
+<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <!-- Ikon kaca pembesar di bawah ini yang akan menjalankan pencarian jika diklik -->
-        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
+        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;"></i>
         <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
     </div>
-    <!-- Pesan Peringatan -->
     <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
-<!-- KONTEN BERANDA -->
-<div class="card-container">
-    <div class="img-wrapper">
-        <img class="profile-img" src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Foto Profil Alexzander Bareno">
-    </div>
-    <div class="profile-name">Welcome to My Space</div>
-    <div class="profile-bio">Senang kamu bisa mampir! Di sini kamu bisa kenal aku lebih dekat, dengerin musik favoritku, main game, sampai mampir ke store. Silakan eksplor menunya dan jangan ragu buat sapa aku langsung ya. Let's connect!</div>
+<!-- =========================================
+     KONTEN UTAMA: GAME AERO GLIDE
+     ========================================= -->
+<div class="game-wrapper">
     
-    <div class="links-wrapper">
-        <a href="https://youtube.com/@alexzanderbareno?si=Shl3zBDB-LEKatNP" target="_blank" class="btn-link youtube-btn">
-            <i class="fa-brands fa-youtube"></i> My YouTube
-        </a>
-        <a href="https://www.instagram.com/renoogemoyyy?igsh=MXgwd2Z1eXQyMHVkbA==" target="_blank" class="btn-link instagram-btn">
-            <i class="fa-brands fa-instagram"></i> My Instagram
-        </a>
-        <a href="mailto:alexanderbareno44@gmail.com" class="btn-link email-btn">
-            <i class="fa-solid fa-envelope"></i> Hubungi Via Email
-        </a>
-        <a href="https://wa.me/6285749776994" target="_blank" class="btn-link whatsapp-btn">
-            <i class="fa-brands fa-whatsapp"></i> Chat Via WhatsApp
-        </a>
+    <div class="game-header">
+        <div class="game-title"><i class="fa-solid fa-rocket"></i> Aero Glide</div>
+        <div class="score-board">
+            <div class="score-box">Skor: <span id="currentScore">0</span></div>
+            <div class="score-box">Best: <span id="bestScore">0</span></div>
+        </div>
     </div>
+
+    <!-- WADAH GAME -->
+    <div class="canvas-container" id="canvasContainer">
+        
+        <!-- LAYAR AWAL & GAME OVER -->
+        <div class="game-ui-layer" id="uiLayer">
+            <h2 id="uiTitle">Aero Glide</h2>
+            <p id="uiDesc">Tap layar atau tekan SPASI untuk melayang melewati pilar energi!</p>
+            <button class="play-btn" id="startBtn">
+                <i class="fa-solid fa-play"></i> Mulai Game
+            </button>
+        </div>
+
+        <!-- KANVAS TEMPAT MENGGAMBAR GAME -->
+        <canvas id="gameCanvas" width="300" height="400"></canvas>
+    </div>
+
+    <div class="instructions">Mainkan untuk mencari skor tertinggi!</div>
 </div>
 
 <!-- ==========================================
-     JAVASCRIPT LENGKAP (NAVIGASI & PENCARIAN)
+     JAVASCRIPT LENGKAP 
      ========================================== -->
 <script>
-    // --- 1. LOGIKA MENU & OVERLAY ---
-    const btnMenu = document.getElementById('toggleMenu');
-    const btnSearch = document.getElementById('toggleSearch');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const searchOverlay = document.getElementById('searchOverlay');
-    
-    const mainMenu = document.getElementById('mainMenu');
-    const subMenuGames = document.getElementById('subMenuGames');
-    const btnGamesMenu = document.getElementById('btnGamesMenu');
-    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    // --- 1. LOGIKA MENU & PENCARIAN (Sama Seperti Biasa) ---
+    const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu'); const btnBackMainMenu = document.getElementById('btnBackMainMenu');
 
     btnMenu.addEventListener('click', () => {
-        if (searchOverlay.classList.contains('active')) {
-            searchOverlay.classList.remove('active');
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-        }
+        if (searchOverlay.classList.contains('active')) { searchOverlay.classList.remove('active'); btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
         menuOverlay.classList.toggle('active');
-        if (menuOverlay.classList.contains('active')) {
-            btnMenu.classList.replace('fa-bars', 'fa-xmark');
-            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
-        } else {
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
-        }
+        if (menuOverlay.classList.contains('active')) { btnMenu.classList.replace('fa-bars', 'fa-xmark'); mainMenu.style.display = 'block'; subMenuGames.style.display = 'none'; } 
+        else { btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
     });
 
     btnSearch.addEventListener('click', () => {
-        if (menuOverlay.classList.contains('active')) {
-            menuOverlay.classList.remove('active');
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
-        }
+        if (menuOverlay.classList.contains('active')) { menuOverlay.classList.remove('active'); btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
         searchOverlay.classList.toggle('active');
-        if (searchOverlay.classList.contains('active')) {
-            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
-            document.getElementById('searchInput').focus(); // Otomatis fokus ke kotak ketik
-        } else {
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-        }
+        if (searchOverlay.classList.contains('active')) { btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); } 
+        else { btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
     });
 
-    btnGamesMenu.addEventListener('click', (e) => {
-        e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block';
-    });
+    btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
+    btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
-    btnBackMainMenu.addEventListener('click', () => {
-        subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
-    });
-
-    // --- 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
-    const executeSearchBtn = document.getElementById('executeSearchBtn');
-    const searchInputBox = document.getElementById('searchInput');
-    const searchErrorMsg = document.getElementById('searchErrorMsg');
-
-    // Kamus Database Pencarian Kita
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
-        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
-        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
-        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
-        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
-        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
-        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
-        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+        { keywords: ["biodata", "tentang"], url: "biodata.html" },
+        { keywords: ["game", "games", "ml", "free fire", "aero glide"], url: "games.html" },
+        { keywords: ["music", "musik", "lagu"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jasa"], url: "store.html" },
+        { keywords: ["pesan", "kirim pesan", "kontak"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian"], url: "rating.html" },
+        { keywords: ["donasi", "donate"], url: "donate.html" }
     ];
 
     function performSearch() {
-        const query = searchInputBox.value.toLowerCase().trim();
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
         if (query === "") return; 
-
         let foundUrl = "";
-
-        // Mencari kecocokan kata
         for (let i = 0; i < searchDatabase.length; i++) {
-            const item = searchDatabase[i];
-            const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
-            if (isMatch) {
-                foundUrl = item.url;
-                break; 
-            }
+            const isMatch = searchDatabase[i].keywords.some(k => query.includes(k) || k.includes(query));
+            if (isMatch) { foundUrl = searchDatabase[i].url; break; }
         }
+        if (foundUrl !== "") { setTimeout(() => { window.location.href = foundUrl; }, 500); } 
+        else { document.getElementById('searchErrorMsg').style.display = 'block'; setTimeout(() => { document.getElementById('searchErrorMsg').style.display = 'none'; }, 3000); }
+    }
+    document.getElementById('executeSearchBtn').addEventListener('click', performSearch);
+    document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
 
-        if (foundUrl !== "") {
-            searchErrorMsg.style.display = 'none';
-            // Efek Loading
-            executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
-            setTimeout(() => {
-                window.location.href = foundUrl; 
-            }, 500);
-        } else {
-            // Tampilkan Pesan Error
-            searchErrorMsg.style.display = 'block';
-            setTimeout(() => {
-                searchErrorMsg.style.display = 'none';
-            }, 3000);
+
+    // ==========================================
+    // --- 2. LOGIKA GAME AERO GLIDE ---
+    // ==========================================
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const uiLayer = document.getElementById("uiLayer");
+    const uiTitle = document.getElementById("uiTitle");
+    const uiDesc = document.getElementById("uiDesc");
+    const startBtn = document.getElementById("startBtn");
+    
+    // Variabel Skor
+    let score = 0;
+    let bestScore = localStorage.getItem("aeroBestScore") || 0;
+    document.getElementById("bestScore").innerText = bestScore;
+    
+    // Status Game
+    let frames = 0;
+    let isPlaying = false;
+    let reqAnimation;
+
+    // Karakter Pemain (Core Energi Biru)
+    const player = {
+        x: 60,
+        y: 200,
+        radius: 12,
+        velocity: 0,
+        gravity: 0.25,      // Daya tarik ke bawah
+        jumpStrength: -5.5, // Kekuatan melompat
+        
+        draw() {
+            // Efek Cahaya / Glow
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius + 4, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(0, 102, 204, 0.3)";
+            ctx.fill();
+            
+            // Inti Karakter
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = "#0066cc";
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#ffffff";
+            ctx.stroke();
+        },
+        
+        update() {
+            this.velocity += this.gravity;
+            this.y += this.velocity;
+            
+            // Mencegah jatuh ke bawah layar (Mati)
+            if (this.y + this.radius >= canvas.height) {
+                this.y = canvas.height - this.radius;
+                gameOver();
+            }
+            // Mencegah terbang tembus langit-langit
+            if (this.y - this.radius <= 0) {
+                this.y = this.radius;
+                this.velocity = 0;
+            }
+        },
+        
+        flap() {
+            this.velocity = this.jumpStrength;
+        }
+    };
+
+    // Rintangan (Pilar)
+    const obstacles = {
+        list: [],
+        width: 45,
+        gap: 130, // Jarak lubang antar pilar
+        dx: 2.5,  // Kecepatan pilar bergerak ke kiri
+        
+        draw() {
+            for (let i = 0; i < this.list.length; i++) {
+                let obs = this.list[i];
+                
+                // Warna Pilar (Gaya Minimalis Modern)
+                ctx.fillStyle = "#e5e5ea"; // Warna abu Apple
+                ctx.strokeStyle = "#d1d1d6";
+                ctx.lineWidth = 2;
+
+                // Pilar Atas
+                ctx.beginPath();
+                ctx.roundRect(obs.x, 0, this.width, obs.top, 5);
+                ctx.fill(); ctx.stroke();
+                
+                // Pilar Bawah
+                ctx.beginPath();
+                ctx.roundRect(obs.x, canvas.height - obs.bottom, this.width, obs.bottom, 5);
+                ctx.fill(); ctx.stroke();
+            }
+        },
+        
+        update() {
+            // Memunculkan pilar baru setiap 90 frame
+            if (frames % 90 === 0) {
+                let topHeight = Math.random() * (canvas.height - this.gap - 60) + 30;
+                let bottomHeight = canvas.height - this.gap - topHeight;
+                this.list.push({
+                    x: canvas.width,
+                    top: topHeight,
+                    bottom: bottomHeight,
+                    passed: false // Penanda apakah sudah dilewati untuk tambah skor
+                });
+            }
+
+            for (let i = 0; i < this.list.length; i++) {
+                let obs = this.list[i];
+                obs.x -= this.dx; // Bergerak ke kiri
+
+                // Deteksi Tabrakan
+                if (player.x + player.radius > obs.x && player.x - player.radius < obs.x + this.width) {
+                    // Tabrak pilar atas atau pilar bawah
+                    if (player.y - player.radius < obs.top || player.y + player.radius > canvas.height - obs.bottom) {
+                        gameOver();
+                    }
+                }
+
+                // Tambah Skor jika berhasil melewati pilar
+                if (obs.x + this.width < player.x && !obs.passed) {
+                    score++;
+                    document.getElementById("currentScore").innerText = score;
+                    obs.passed = true;
+                }
+
+                // Hapus pilar yang sudah keluar dari layar kiri
+                if (obs.x + this.width < 0) {
+                    this.list.shift();
+                    i--;
+                }
+            }
+        },
+        
+        reset() {
+            this.list = [];
+        }
+    };
+
+    // Background (Latar Belakang Estetik)
+    function drawBackground() {
+        ctx.fillStyle = "#f5f5f7"; // Warna dasar Apple
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Hiasan grid halus di belakang
+        ctx.strokeStyle = "rgba(0,0,0,0.03)";
+        ctx.lineWidth = 1;
+        for(let i=0; i<canvas.width; i+=30) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke(); }
+        for(let i=0; i<canvas.height; i+=30) { ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke(); }
+    }
+
+    // Fungsi Utama Menjalankan Game
+    function loop() {
+        if (!isPlaying) return;
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        drawBackground();
+        obstacles.draw();
+        obstacles.update();
+        player.draw();
+        player.update();
+        
+        frames++;
+        reqAnimation = requestAnimationFrame(loop);
+    }
+
+    // Input Melompat (Klik / Sentuh / Spasi)
+    function actionJump(e) {
+        if (!isPlaying) return;
+        // Mencegah spasi meng-scroll halaman
+        if(e.type === "keydown" && e.code === "Space") { e.preventDefault(); player.flap(); }
+        if(e.type === "mousedown" || e.type === "touchstart") { player.flap(); }
+    }
+
+    window.addEventListener("keydown", actionJump);
+    canvas.addEventListener("mousedown", actionJump);
+    canvas.addEventListener("touchstart", actionJump, {passive: false});
+
+    // Mulai / Restart Game
+    startBtn.addEventListener("click", () => {
+        player.y = 200;
+        player.velocity = 0;
+        obstacles.reset();
+        score = 0;
+        frames = 0;
+        document.getElementById("currentScore").innerText = score;
+        
+        uiLayer.classList.add("hide");
+        isPlaying = true;
+        
+        cancelAnimationFrame(reqAnimation);
+        loop();
+    });
+
+    // Game Over
+    function gameOver() {
+        isPlaying = false;
+        uiLayer.classList.remove("hide");
+        uiTitle.innerText = "Game Over!";
+        uiDesc.innerText = "Yahh nabrak! Skor kamu: " + score;
+        startBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Main Lagi';
+        
+        // Cek High Score
+        if (score > bestScore) {
+            bestScore = score;
+            localStorage.setItem("aeroBestScore", bestScore);
+            document.getElementById("bestScore").innerText = bestScore;
+            uiDesc.innerText = "Skor Baru Tercipta! Skor kamu: " + score;
         }
     }
 
-    // Jalankan pencarian jika klik ikon Kaca Pembesar di dalam kotak
-    executeSearchBtn.addEventListener('click', performSearch);
-
-    // Jalankan pencarian jika tekan tombol ENTER di Keyboard HP/Laptop
-    searchInputBox.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault(); // Mencegah halaman ke-refresh
-            performSearch();
-        }
-    });
+    // Gambar awal sebelum main
+    drawBackground();
+    player.draw();
 
 </script>
 
