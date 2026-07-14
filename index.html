@@ -16,7 +16,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: #ffffff; 
-            display: flex; justify-content: center; align-items: center; /* Diubah agar ke tengah layar */
+            display: flex; justify-content: center; align-items: center; 
             padding: 80px 20px 40px 20px; color: #1d1d1f;
         }
 
@@ -29,32 +29,70 @@
         }
 
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
-        /* OVERLAY UMUM */
+        /* =========================================
+           IKON MENU APPLE (GARIS JADI X MULUS)
+           ========================================= */
+        .apple-burger {
+            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
+            cursor: pointer; position: relative; z-index: 10000;
+        }
+        .apple-burger span {
+            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+        }
+        /* Efek saat diklik menjadi X */
+        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
+        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
+
+        /* =========================================
+           OVERLAY MENU FULL SCREEN (BISA DI-SCROLL)
+           ========================================= */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 30px 25px;
-            transform: translateY(-100%); opacity: 0; visibility: hidden;
+            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto; /* Memastikan bisa discroll jika menu bertambah banyak */
+        }
+        .nav-overlay.active { opacity: 1; visibility: visible; }
+
+        /* LIST MENU ALA APPLE */
+        .menu-list { list-style: none; padding-top: 10px; }
+        
+        /* Animasi Melayang Bergantian (Staggered Animation) */
+        .menu-list li {
+            border-bottom: none; /* Garis bawah dihapus agar sangat bersih */
+            opacity: 0; transform: translateY(20px) scale(0.98);
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
+        
+        /* Waktu Muncul Berbeda-beda Tiap Baris */
+        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
+        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
+        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
+        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
+        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
+        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
+        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
+        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
+        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
 
-        /* LIST MENU */
-        .menu-list { list-style: none; }
-        .menu-list li { border-bottom: 1px solid #e5e5ea; }
         .menu-list a { 
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            letter-spacing: -1px;
         }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 18px; color: #86868b; }
+        .menu-list a i { font-size: 20px; color: #86868b; }
 
         .submenu-header {
-            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
+            display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
         }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
@@ -91,7 +129,7 @@
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
 
         /* =========================================
-           TAMPILAN BERANDA BARU (HERO SECTION)
+           TAMPILAN BERANDA (HERO SECTION)
            ========================================= */
         .hero-section {
             display: flex; flex-direction: column; align-items: center; text-align: center;
@@ -113,7 +151,7 @@
             font-size: 42px; font-weight: 800; color: #1d1d1f; letter-spacing: -1px; margin-bottom: 10px; line-height: 1.2;
             opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; 
         }
-        .hero-title span { color: #0066cc; } /* Warna aksen biru untuk nama */
+        .hero-title span { color: #0066cc; }
 
         .hero-subtitle { 
             font-size: 18px; font-weight: 600; color: #86868b; margin-bottom: 20px; 
@@ -151,6 +189,7 @@
             .hero-img { width: 150px; height: 150px; }
             .hero-cta { flex-direction: column; width: 100%; max-width: 250px; }
             .btn-primary, .btn-secondary { justify-content: center; }
+            .menu-list a { font-size: 28px; } /* Ukuran font menu untuk mobile */
         }
     </style>
 </head>
@@ -161,7 +200,11 @@
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+        <!-- Ikon FontAwesome diganti dengan Ikon Custom CSS Apple -->
+        <div class="apple-burger" id="toggleMenu">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+        </div>
     </div>
 </nav>
 
@@ -241,7 +284,7 @@
      JAVASCRIPT LENGKAP 
      ========================================== -->
 <script>
-    // --- 1. LOGIKA MENU & OVERLAY ---
+    // --- 1. LOGIKA MENU & OVERLAY BARU (ANTI-LAG & SCROLL LOCK) ---
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay');
@@ -258,12 +301,17 @@
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
+        
+        // Memunculkan Menu
         menuOverlay.classList.toggle('active');
+        btnMenu.classList.toggle('active'); // Memicu animasi ikon garis ke X
+
+        // Kunci background agar tidak bisa digeser saat menu terbuka
         if (menuOverlay.classList.contains('active')) {
-            btnMenu.classList.replace('fa-bars', 'fa-xmark');
+            document.body.style.overflow = 'hidden'; 
             mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
         } else {
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+            document.body.style.overflow = 'auto'; // Lepas kunci background
         }
     });
 
@@ -271,23 +319,31 @@
         if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+            btnMenu.classList.remove('active'); // Kembalikan ikon X ke Garis
+            document.body.style.overflow = 'auto';
         }
+        
         searchOverlay.classList.toggle('active');
+        
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
+            document.body.style.overflow = 'hidden'; // Kunci scroll
         } else {
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+            document.body.style.overflow = 'auto'; // Lepas kunci
         }
     });
 
     btnGamesMenu.addEventListener('click', (e) => {
-        e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block';
+        e.preventDefault(); 
+        mainMenu.style.display = 'none'; 
+        subMenuGames.style.display = 'block';
     });
 
     btnBackMainMenu.addEventListener('click', () => {
-        subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
+        subMenuGames.style.display = 'none'; 
+        mainMenu.style.display = 'block';
     });
 
     // --- 2. LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL) ---
@@ -318,7 +374,8 @@
         { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
         { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
         { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" }
     ];
 
     function performSearch() {
