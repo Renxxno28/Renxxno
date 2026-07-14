@@ -23,11 +23,11 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff; /* Latar belakang putih bersih ala Apple */
+            background: #ffffff; 
             display: flex;
             justify-content: center;
             align-items: flex-start; 
-            padding: 100px 20px 40px 20px; /* Jarak atas untuk Navbar */
+            padding: 100px 20px 40px 20px; 
             color: #1d1d1f;
         }
 
@@ -99,10 +99,7 @@
         .section-title { font-size: 16px; font-weight: 700; color: #1d1d1f; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         .section-title i { color: #0066cc; }
 
-        .bio-text { font-size: 14px; color: #576574; line-height: 1.7; margin-bottom: 25px; text-align: justify; min-height: 120px; }
-
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .typing-cursor::after { content: '|'; color: #0066cc; font-weight: bold; font-size: 16px; animation: blink 0.8s infinite; }
+        .bio-text { font-size: 14px; color: #576574; line-height: 1.7; margin-bottom: 25px; text-align: justify; }
 
         .section-2 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards; }
@@ -123,7 +120,7 @@
             body { padding: 80px 10px 40px 10px; }
             .card-container { padding: 30px 20px; border-radius: 20px; }
             .info-grid { grid-template-columns: 1fr; gap: 10px; }
-            .bio-text { text-align: left; min-height: 160px; }
+            .bio-text { text-align: left; }
             .profile-img { width: 100px; height: 100px; }
         }
     </style>
@@ -139,11 +136,11 @@
 </nav>
 
 <div class="nav-overlay" id="menuOverlay">
-    
     <div id="mainMenu">
         <ul class="menu-list">
             <li><a href="index.html">Beranda</a></li>
-            <li><a href="biodata.html" class="active">Biodata</a></li> <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="biodata.html" class="active">Biodata</a></li> 
+            <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
             <li><a href="music.html">Music</a></li>
             <li><a href="store.html">Store</a></li>
             <li><a href="Memberipesan.html">Kirim Pesan</a></li>
@@ -163,21 +160,19 @@
             <li><a href="aeroglide.html">Aero Glide</a></li>
         </ul>
     </div>
-
 </div>
 
-<!-- OVERLAY PENCARIAN (SUDAH DIPERBAIKI) -->
+<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <!-- Ikon kaca pembesar di bawah ini yang akan menjalankan pencarian jika diklik -->
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
         <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
     </div>
-    <!-- Pesan Peringatan -->
     <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
+
 <div class="card-container">
     
     <div class="header-profile">
@@ -188,7 +183,8 @@
 
     <h2 class="section-title section-1"><i class="fa-solid fa-user"></i> Tentang Saya</h2>
     
-    <p class="bio-text section-1 typing-cursor" id="typingText">
+    <!-- Teks ini sekarang akan memudar halus ke atas, tidak lagi mengetik -->
+    <p class="bio-text section-1">
         Perkenalkan, saya Alexzander Bareno, lulusan Teknik Komputer dan Jaringan (TKJ) SMK Negeri 2 Kota Blitar. Saya menguasai troubleshooting perangkat keras komputer & laptop serta instalasi jaringan internet. Berbekal pengalaman magang saya terbiasa melayani pelanggan dengan komunikatif, baik secara mandiri maupun di dalam tim. Saya adalah pribadi yang jujur, disiplin, teliti, dan selalu antusias mempelajari hal baru di bidang teknologi.
     </p>
 
@@ -212,17 +208,16 @@
 
     <h2 class="section-title section-3"><i class="fa-solid fa-star"></i> Minat & Hobi</h2>
     <div class="tags-container">
-        <span class="tag">🎵 Musik</span>
+        <span class="tag">🎧 Musik</span>
         <span class="tag">🎬 Video Editing</span>
         <span class="tag">📸 Fotografi</span>
         <span class="tag">🎮 Gaming</span>
     </div>
 
 </div>
-
 <script>
     // ==========================================
-    // 1. SCRIPT NAVBAR & NESTED MENU (FIX BUG)
+    // 1. SCRIPT NAVBAR & NESTED MENU 
     // ==========================================
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
@@ -275,29 +270,8 @@
     });
 
     // ==========================================
-    // 2. SCRIPT EFEK MENGETIK (TYPING ANIMATION)
+    // 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) 
     // ==========================================
-    document.addEventListener("DOMContentLoaded", function() {
-        const textElement = document.getElementById("typingText");
-        const originalText = textElement.innerHTML.trim(); 
-        
-        textElement.innerHTML = ""; 
-        
-        let charIndex = 0;
-        const typingSpeed = 30; 
-
-        function typeWriter() {
-            if (charIndex < originalText.length) {
-                textElement.innerHTML = originalText.substring(0, charIndex + 1);
-                charIndex++;
-                setTimeout(typeWriter, typingSpeed);
-            }
-        }
-        
-        setTimeout(typeWriter, 1000); 
-    });
-
-    // --- 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
     const executeSearchBtn = document.getElementById('executeSearchBtn');
     const searchInputBox = document.getElementById('searchInput');
     const searchErrorMsg = document.getElementById('searchErrorMsg');
@@ -312,7 +286,8 @@
         { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
         { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
         { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" },
+        { keywords: ["aero glide", "burung", "aero", "glide", "terbang"], url: "aeroglide.html" } // Tambahan rute ke Aero Glide
     ];
 
     function performSearch() {
@@ -321,7 +296,6 @@
 
         let foundUrl = "";
 
-        // Mencari kecocokan kata
         for (let i = 0; i < searchDatabase.length; i++) {
             const item = searchDatabase[i];
             const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
@@ -333,13 +307,11 @@
 
         if (foundUrl !== "") {
             searchErrorMsg.style.display = 'none';
-            // Efek Loading
             executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
             setTimeout(() => {
                 window.location.href = foundUrl; 
             }, 500);
         } else {
-            // Tampilkan Pesan Error
             searchErrorMsg.style.display = 'block';
             setTimeout(() => {
                 searchErrorMsg.style.display = 'none';
@@ -347,13 +319,11 @@
         }
     }
 
-    // Jalankan pencarian jika klik ikon Kaca Pembesar di dalam kotak
     executeSearchBtn.addEventListener('click', performSearch);
 
-    // Jalankan pencarian jika tekan tombol ENTER di Keyboard HP/Laptop
     searchInputBox.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-            e.preventDefault(); // Mencegah halaman ke-refresh
+            e.preventDefault(); 
             performSearch();
         }
     });
@@ -362,3 +332,4 @@
 
 </body>
 </html>
+
