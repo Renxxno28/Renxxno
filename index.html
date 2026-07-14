@@ -177,12 +177,19 @@
     </div>
 </div>
 
+<!-- OVERLAY PENCARIAN (BARU) -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="Cari..." id="searchInput">
+        <!-- Tambahan id="executeSearchBtn" agar ikon bisa diklik -->
+        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;"></i>
+        <input type="text" placeholder="Cari (misal: music, game, baju, donasi)..." id="searchInput">
     </div>
+    <!-- Teks peringatan jika kata kunci tidak ditemukan -->
+    <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
+        Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
+    </p>
 </div>
+    
 <div class="card-container">
     <div class="img-wrapper">
         <img class="profile-img" src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Foto Profil Alexzander Bareno">
@@ -264,5 +271,75 @@
     });
 </script>
 
+    // ==========================================
+    // FITUR SEARCH ENGINE MINI (PENCARIAN PINTAR)
+    // ==========================================
+    const executeSearchBtn = document.getElementById('executeSearchBtn');
+    const searchInputBox = document.getElementById('searchInput');
+    const searchErrorMsg = document.getElementById('searchErrorMsg');
+
+    // 1. Ini adalah "Kamus" pencarian kita
+    const searchDatabase = [
+        { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
+        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
+        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
+        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
+        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
+        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+    ];
+
+    // 2. Fungsi untuk menjalankan pencarian
+    function performSearch() {
+        const query = searchInputBox.value.toLowerCase().trim();
+        if (query === "") return; // Jika kosong, jangan lakukan apa-apa
+
+        let foundUrl = "";
+
+        // Sistem akan mengecek satu per satu dari kamus di atas
+        for (let i = 0; i < searchDatabase.length; i++) {
+            const item = searchDatabase[i];
+            
+            // Cek apakah ada kata yang cocok
+            const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
+            if (isMatch) {
+                foundUrl = item.url;
+                break; // Berhenti mencari jika sudah ketemu
+            }
+        }
+
+        // 3. Arahkan ke halaman tujuan atau munculkan error
+        if (foundUrl !== "") {
+            searchErrorMsg.style.display = 'none';
+            // Tambahkan animasi loading kecil di tombol kaca pembesar
+            executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
+            
+            setTimeout(() => {
+                window.location.href = foundUrl; // Pindah halaman
+            }, 500);
+        } else {
+            searchErrorMsg.style.display = 'block'; // Tampilkan tulisan merah
+            // Hilangkan pesan error setelah 3 detik
+            setTimeout(() => {
+                searchErrorMsg.style.display = 'none';
+            }, 3000);
+        }
+    }
+
+    // 4. Jalankan pencarian saat ikon kaca pembesar diklik
+    if (executeSearchBtn && searchInputBox) {
+        executeSearchBtn.addEventListener('click', performSearch);
+
+        // 5. Jalankan pencarian saat tombol "Enter" di keyboard HP/Laptop ditekan
+        searchInputBox.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                performSearch();
+            }
+        });
+    }
+        
 </body>
 </html>
