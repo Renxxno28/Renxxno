@@ -15,10 +15,10 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            /* Latar belakang diberi sedikit gradasi halus agar kartu Biolink lebih menonjol */
             background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); 
             display: flex; justify-content: center; align-items: flex-start; 
-            padding: 100px 20px 40px 20px; color: #1d1d1f;
+            padding: 120px 20px 40px 20px; /* Jarak atas sedikit ditambah agar seimbang */
+            color: #1d1d1f;
         }
 
         /* NAVBAR ATAS */
@@ -67,27 +67,18 @@
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
         
         .social-card {
             background: #ffffff;
-            border-radius: 30px; padding: 40px 25px;
+            border-radius: 30px; padding: 50px 25px; /* Padding disesuaikan karena foto hilang */
             width: 100%; max-width: 420px; text-align: center; 
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(0, 0, 0, 0.05); 
             opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
-        
-        .img-wrapper { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; }
 
-        .profile-img { 
-            width: 130px; height: 130px; border-radius: 50%; object-fit: cover; 
-            border: 4px solid #ffffff; box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
-            margin-bottom: 15px; animation: float 6s ease-in-out infinite; 
-        }
-
-        .profile-name { font-size: 24px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; opacity: 0; animation: fadeUp 0.6s 0.3s forwards; letter-spacing: -0.5px; }
-        .profile-bio { font-size: 15px; color: #86868b; font-weight: 500; margin-bottom: 35px; opacity: 0; animation: fadeUp 0.6s 0.4s forwards; }
+        .profile-name { font-size: 28px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; opacity: 0; animation: fadeUp 0.6s 0.1s forwards; letter-spacing: -0.5px; }
+        .profile-bio { font-size: 15px; color: #86868b; font-weight: 500; margin-bottom: 35px; opacity: 0; animation: fadeUp 0.6s 0.2s forwards; }
 
         /* DESAIN TOMBOL LINK MODERN */
         .links-wrapper { display: flex; flex-direction: column; gap: 16px; }
@@ -107,10 +98,10 @@
         .social-btn .fa-chevron-right { font-size: 14px; color: #a4b0be; position: absolute; right: 25px; transition: right 0.3s, color 0.3s; }
 
         /* Delay Animasi Muncul */
-        .social-btn:nth-child(1) { animation-delay: 0.5s; } 
-        .social-btn:nth-child(2) { animation-delay: 0.6s; }
-        .social-btn:nth-child(3) { animation-delay: 0.7s; } 
-        .social-btn:nth-child(4) { animation-delay: 0.8s; }
+        .social-btn:nth-child(1) { animation-delay: 0.3s; } 
+        .social-btn:nth-child(2) { animation-delay: 0.4s; }
+        .social-btn:nth-child(3) { animation-delay: 0.5s; } 
+        .social-btn:nth-child(4) { animation-delay: 0.6s; }
         
         /* WARNA KHAS MASING-MASING SOSMED */
         /* 1. YouTube */
@@ -147,7 +138,7 @@
     </div>
 </nav>
 
-<!-- OVERLAY MENU (Ditambahkan Link Sosial Media) -->
+<!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -156,7 +147,6 @@
             <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
             <li><a href="music.html">Music</a></li>
             <li><a href="store.html">Store</a></li>
-            <!-- Link Baru untuk Halaman Ini -->
             <li><a href="sosmed.html" class="active">Sosial Media</a></li> 
             <li><a href="Memberipesan.html">Kirim Pesan</a></li>
             <li><a href="rating.html">View & Rating</a></li>
@@ -187,9 +177,8 @@
      KARTU SOSIAL MEDIA (BIOLINK)
      ========================================= -->
 <div class="social-card">
-    <div class="img-wrapper">
-        <img class="profile-img" src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Foto Profil Renxxno">
-    </div>
+    
+    <!-- Bagian Foto Telah Dihapus Secara Penuh -->
     
     <div class="profile-name">Renxxno</div>
     <div class="profile-bio">Mari berteman & terhubung bersama!</div>
@@ -283,7 +272,6 @@
     const searchInputBox = document.getElementById('searchInput');
     const searchErrorMsg = document.getElementById('searchErrorMsg');
 
-    // JANGAN LUPA: Halaman "sosmed.html" sudah ditambahkan ke kamus pencarian!
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
         { keywords: ["biodata", "tentang", "about", "info", "lahir"], url: "biodata.html" },
