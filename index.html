@@ -41,16 +41,7 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        /* CSS UNTUK LOGO GAMBAR RENXXNO */
-        .nav-brand { display: flex; align-items: center; text-decoration: none; }
-        .brand-logo {
-            height: 38px; /* Ukuran tinggi logo, bisa diubah jika kurang besar/kecil */
-            width: auto;
-            object-fit: contain;
-            mix-blend-mode: multiply; /* Menghilangkan background putih */
-            transform: translateY(2px); /* Menyesuaikan posisi agar pas di tengah */
-        }
-
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
         .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
@@ -153,9 +144,7 @@
 <body>
 
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">
-        <img src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Logo Renxxno" class="brand-logo">
-    </a>
+    <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
         <i class="fa-solid fa-bars" id="toggleMenu"></i>
@@ -261,7 +250,7 @@
         }
     });
 
-    // Fungsi Klik Sub-Menu Games
+    // INI ADALAH FUNGSI YANG MEMPERBAIKI BUG "KLIK GAMES"
     btnGamesMenu.addEventListener('click', (e) => {
         e.preventDefault(); // Mencegah layar lompat ke atas
         mainMenu.style.display = 'none'; // Sembunyikan menu utama
