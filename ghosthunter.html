@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ghost Hunter | Renxxno</title>
+    <title>Ghost Hunter | Renxxno Games</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,20 +11,17 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; }
+        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; touch-action: manipulation; }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff; 
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 100px 20px 40px 20px; 
-            color: #2d3436;
+            background: #ffffff; /* Latar Web Tetap Putih Bersih */
+            display: flex; justify-content: center; align-items: flex-start;
+            padding: 100px 20px 40px 20px; color: #2d3436;
         }
 
         /* =========================================
-           TOP NAVBAR APPLE STYLE (WAJIB ADA)
+           TOP NAVBAR APPLE STYLE
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -32,7 +29,6 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
         .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
@@ -41,103 +37,101 @@
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
             background: #ffffff; z-index: 9998; padding: 30px 25px;
-            transform: translateY(-100%); opacity: 0; visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
         .menu-list { list-style: none; }
         .menu-list li { border-bottom: 1px solid #e5e5ea; }
-        .menu-list a { 
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
-        }
+        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
         .menu-list a i { font-size: 18px; color: #86868b; }
 
-        .submenu-header {
-            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
-        }
+        .submenu-header { display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer; }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; cursor: pointer; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
-        .search-box input::placeholder { color: #86868b; }
 
         /* =========================================
-           DESAIN GAME GHOST HUNTER
+           TEMA BARU: GHOST HUNTER "NEON ARCADE"
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes shake { 0%, 60% { transform: translate(-2px, 1px) rotate(0deg); } 20%, 80% { transform: translate(-2px, 0px) rotate(1deg); } 40%, 100% { transform: translate(1px, -1px) rotate(-1deg); } }
         
         .card-container {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #130f40 0%, #000000 100%); /* Latar Gelap Arcade */
             border-radius: 24px; padding: 25px 20px; width: 100%; max-width: 450px; 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); border: 2px solid #ffffff; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); border: 2px solid #30336b; 
             text-align: center; position: relative; overflow: hidden; 
             opacity: 0; animation: popIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            color: #ffffff;
         }
         .card-container.shaking { animation: shake 0.4s; border-color: #ff4757; }
 
-        .header-icon { font-size: 38px; color: #0066cc; margin-bottom: 5px; opacity: 0; animation: fadeUp 0.5s 0.1s forwards; }
-        .header-title { font-size: 22px; font-weight: 800; color: #1e272e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; opacity: 0; animation: fadeUp 0.5s 0.2s forwards; }
+        .header-icon { font-size: 38px; color: #00d2ff; text-shadow: 0 0 15px rgba(0, 210, 255, 0.6); margin-bottom: 5px; opacity: 0; animation: fadeUp 0.5s 0.1s forwards; }
+        .header-title { font-size: 24px; font-weight: 900; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; opacity: 0; animation: fadeUp 0.5s 0.2s forwards; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
         .tutorial-box {
-            background: rgba(255, 255, 255, 0.6); border-radius: 12px; padding: 10px 12px; margin: 0 auto 15px auto; 
-            font-size: 11px; color: #576574; text-align: left; line-height: 1.5; border: 1px dashed rgba(0, 102, 204, 0.4); 
-            opacity: 0; animation: fadeUp 0.5s 0.3s forwards;
+            background: rgba(0, 0, 0, 0.5); border-radius: 12px; padding: 12px; margin: 0 auto 15px auto; 
+            font-size: 12px; color: #dcdde1; text-align: left; line-height: 1.6; border: 1px dashed #00d2ff; 
+            opacity: 0; animation: fadeUp 0.5s 0.3s forwards; box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.1);
         }
-        .tutorial-box strong { color: #0066cc; font-size: 12px;}
-        .t-ghost { color: #0066cc; font-weight: bold; }
-        .t-bomb { color: #ff4757; font-weight: bold; }
-        .t-time { color: #00b894; font-weight: bold; }
+        .tutorial-box strong { color: #00d2ff; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;}
+        .t-ghost { color: #00d2ff; font-weight: bold; text-shadow: 0 0 5px #00d2ff; }
+        .t-bomb { color: #ff4757; font-weight: bold; text-shadow: 0 0 5px #ff4757; }
+        .t-time { color: #00b894; font-weight: bold; text-shadow: 0 0 5px #00b894; }
 
-        .stats-container { display: flex; justify-content: space-between; margin-bottom: 15px; opacity: 0; animation: fadeUp 0.5s 0.4s forwards; }
-        .stat-box { background: #ffffff; padding: 8px; border-radius: 12px; font-weight: 700; font-size: 11px; color: #a4b0be; width: 48%; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .stat-box span { display: block; font-size: 22px; font-weight: 800; color: #1e272e; margin-top: 2px; }
-        #timeLeft.warning { color: #ff4757; }
-        #timeLeft.bonus { color: #00b894; }
+        .stats-container { display: flex; justify-content: space-between; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.5s 0.4s forwards; }
+        .stat-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 12px; font-weight: 700; font-size: 11px; color: #a4b0be; width: 48%; text-transform: uppercase; }
+        .stat-box span { display: block; font-size: 26px; font-weight: 900; color: #ffffff; margin-top: 2px; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        #timeLeft.warning { color: #ff4757; text-shadow: 0 0 10px #ff4757; }
+        #timeLeft.bonus { color: #00b894; text-shadow: 0 0 10px #00b894; }
 
+        /* WADAH LUBANG HANTU GELAP */
         .game-board {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 290px; 
-            margin: 0 auto 20px auto; background: rgba(255, 255, 255, 0.4); padding: 12px;
-            border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.6); opacity: 0; animation: fadeUp 0.5s 0.4s forwards;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 300px; 
+            margin: 0 auto 25px auto; background: rgba(0, 0, 0, 0.6); padding: 15px;
+            border-radius: 18px; border: 1px solid #30336b; opacity: 0; animation: fadeUp 0.5s 0.4s forwards;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
-        .hole { background: rgba(255, 255, 255, 0.8); aspect-ratio: 1/1; border-radius: 12px; box-shadow: inset 0 3px 6px rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; overflow: hidden; border: 2px solid transparent; transition: transform 0.1s ease; -webkit-tap-highlight-color: transparent; }
-        .hole:active { transform: scale(0.92); }
+        .hole { background: #2f3640; aspect-ratio: 1/1; border-radius: 12px; box-shadow: inset 0 5px 15px rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; overflow: hidden; border: 2px solid transparent; transition: transform 0.1s ease; -webkit-tap-highlight-color: transparent; }
+        .hole:active { transform: scale(0.90); }
 
-        .entity { font-size: 32px; opacity: 0; transform: translateY(100%); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease; pointer-events: none; }
+        /* EFEK GLOWING ENTITY */
+        .entity { font-size: 38px; opacity: 0; transform: translateY(100%); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease; pointer-events: none; }
         .hole.active .entity { opacity: 1; transform: translateY(0); }
-        .entity.ghost { color: #0066cc; }
-        .entity.bomb { color: #ff4757; font-size: 28px; }
-        .entity.time { color: #00b894; font-size: 28px; }
+        
+        .entity.ghost { color: #00d2ff; text-shadow: 0 0 15px #00d2ff, 0 0 30px #00d2ff; }
+        .entity.bomb { color: #ff4757; font-size: 34px; text-shadow: 0 0 15px #ff4757, 0 0 30px #ff4757; }
+        .entity.time { color: #00b894; font-size: 34px; text-shadow: 0 0 15px #00b894, 0 0 30px #00b894; }
 
-        .hole.hit-ghost { border-color: #0066cc; background: rgba(0, 102, 204, 0.15); }
-        .hole.hit-bomb { border-color: #ff4757; background: rgba(255, 71, 87, 0.2); }
-        .hole.hit-time { border-color: #00b894; background: rgba(0, 184, 148, 0.2); }
+        .hole.hit-ghost { border-color: #00d2ff; background: rgba(0, 210, 255, 0.2); box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); }
+        .hole.hit-bomb { border-color: #ff4757; background: rgba(255, 71, 87, 0.2); box-shadow: 0 0 15px rgba(255, 71, 87, 0.5); }
+        .hole.hit-time { border-color: #00b894; background: rgba(0, 184, 148, 0.2); box-shadow: 0 0 15px rgba(0, 184, 148, 0.5); }
 
-        .start-btn { width: 100%; background: linear-gradient(135deg, #0066cc, #005bb5); color: #ffffff; border: none; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3); transition: all 0.3s ease; font-family: 'Poppins', sans-serif; opacity: 0; animation: fadeUp 0.5s 0.5s forwards; }
-        .start-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4); }
-        .start-btn:disabled { background: #b2bec3; color: #ffffff; cursor: not-allowed; box-shadow: none; transform: none; }
+        .start-btn { width: 100%; background: linear-gradient(135deg, #00d2ff, #0066cc); color: #ffffff; border: none; padding: 15px; border-radius: 12px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4); transition: all 0.3s ease; font-family: 'Poppins', sans-serif; opacity: 0; animation: fadeUp 0.5s 0.5s forwards; }
+        .start-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 210, 255, 0.6); }
+        .start-btn:disabled { background: #576574; color: rgba(255,255,255,0.5); cursor: not-allowed; box-shadow: none; transform: none; }
 
-        .game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30, 39, 46, 0.95); backdrop-filter: blur(5px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 20px; }
+        .game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(8px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 20px; }
         .game-over-screen.show { opacity: 1; pointer-events: all; }
-        .go-title { font-size: 28px; font-weight: 900; color: #ff4757; text-transform: uppercase; margin-bottom: 5px; }
-        .go-score { font-size: 15px; color: #ffffff; margin-bottom: 25px; }
-        .go-score span { color: #00d2ff; font-size: 24px; font-weight: 800; display: block; margin-top: 5px; }
+        .go-title { font-size: 32px; font-weight: 900; color: #ff4757; text-transform: uppercase; margin-bottom: 5px; text-shadow: 0 0 20px rgba(255, 71, 87, 0.6); }
+        .go-score { font-size: 16px; color: #dcdde1; margin-bottom: 30px; font-weight: 500; }
+        .go-score span { color: #00d2ff; font-size: 38px; font-weight: 900; display: block; margin-top: 5px; text-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
 
-        .go-buttons { display: flex; gap: 12px; justify-content: center; }
-        .go-btn { background: #ffffff; color: #1e272e; border: none; padding: 10px 20px; border-radius: 30px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 5px 15px rgba(255,255,255,0.2); transition: transform 0.2s; font-family: 'Poppins', sans-serif; display: flex; align-items: center; gap: 6px; }
+        .go-buttons { display: flex; gap: 15px; justify-content: center; }
+        .go-btn { background: linear-gradient(135deg, #00b894, #008f71); color: #ffffff; border: none; padding: 12px 25px; border-radius: 30px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 5px 20px rgba(0, 184, 148, 0.4); transition: transform 0.2s; font-family: 'Poppins', sans-serif; display: flex; align-items: center; gap: 8px; }
         .go-btn:hover { transform: scale(1.05); }
-        .go-btn.quit-btn { background: transparent; color: #ffffff; border: 2px solid #ffffff; box-shadow: none; padding: 8px 18px; }
+        .go-btn.quit-btn { background: transparent; color: #ff4757; border: 2px solid #ff4757; box-shadow: none; padding: 10px 20px; }
+        .go-btn.quit-btn:hover { background: rgba(255, 71, 87, 0.1); }
     </style>
 </head>
 <body>
 
-<!-- TOP NAVBAR APPLE STYLE (WAJIB) -->
+<!-- TOP NAVBAR -->
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
@@ -161,9 +155,7 @@
         </ul>
     </div>
     <div id="subMenuGames" style="display: none;">
-        <div class="submenu-header" id="btnBackMainMenu">
-            <i class="fa-solid fa-chevron-left"></i><span>Games</span>
-        </div>
+        <div class="submenu-header" id="btnBackMainMenu"><i class="fa-solid fa-chevron-left"></i><span>Games</span></div>
         <ul class="menu-list">
             <li><a href="games.html">My Account</a></li>
             <li><a href="ghosthunter.html" class="active">Ghost Hunter</a></li>
@@ -172,32 +164,30 @@
     </div>
 </div>
 
-<!-- OVERLAY PENCARIAN (SUDAH DIPERBAIKI) -->
+<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <!-- Ikon kaca pembesar di bawah ini yang akan menjalankan pencarian jika diklik -->
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
         <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
     </div>
-    <!-- Pesan Peringatan -->
     <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
-</div>
 <div class="card-container" id="gameCard">
-    <div class="header-icon"><i class="fa-solid fa-gamepad"></i></div>
+    <div class="header-icon"><i class="fa-solid fa-ghost"></i></div>
     <h1 class="header-title">Ghost Hunter</h1>
     
     <div class="tutorial-box">
         <strong>Cara Bermain:</strong><br>
         <span class="t-ghost"><i class="fa-solid fa-ghost"></i> Ghost:</span> +1 Skor.<br>
         <span class="t-bomb"><i class="fa-solid fa-bomb"></i> Bom:</span> Game Over.<br>
-        <span class="t-time"><i class="fa-solid fa-stopwatch"></i> Time:</span> +3 Detik.
+        <span class="t-time"><i class="fa-solid fa-stopwatch"></i> Time:</span> +5 Detik (Bonus!).
     </div>
 
     <div class="stats-container">
-        <div class="stat-box">Waktu <span id="timeLeft">30</span></div>
+        <!-- Tampilan waktu awal diubah menjadi 60 -->
+        <div class="stat-box">Waktu <span id="timeLeft">60</span></div>
         <div class="stat-box">Skor <span id="score">0</span></div>
     </div>
 
@@ -213,7 +203,7 @@
         <div class="hole" data-index="8"></div>
     </div>
 
-    <button class="start-btn" id="startBtn"><i class="fa-solid fa-play"></i> Mulai Game</button>
+    <button class="start-btn" id="startBtn"><i class="fa-solid fa-play"></i> Mulai Berburu!</button>
 
     <div class="game-over-screen" id="gameOverScreen">
         <div class="go-title" id="goTitle">GAME OVER!</div>
@@ -221,68 +211,60 @@
         <div class="go-score">Skor Akhir: <span id="finalScore">0</span></div>
         <div class="go-buttons">
             <button class="go-btn" id="restartBtn"><i class="fa-solid fa-rotate-right"></i> Main Lagi</button>
-            <button class="go-btn quit-btn" id="quitBtn"><i class="fa-solid fa-xmark"></i> Berhenti</button>
+            <button class="go-btn quit-btn" id="quitBtn"><i class="fa-solid fa-xmark"></i> Keluar</button>
         </div>
     </div>
 </div>
 
 <script>
     // ==========================================
-    // 1. SCRIPT NAVBAR & NESTED MENU APPLE (WAJIB)
+    // 1. SCRIPT NAVBAR & SEARCH
     // ==========================================
-    const btnMenu = document.getElementById('toggleMenu');
-    const btnSearch = document.getElementById('toggleSearch');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const searchOverlay = document.getElementById('searchOverlay');
-    
-    const mainMenu = document.getElementById('mainMenu');
-    const subMenuGames = document.getElementById('subMenuGames');
-    const btnGamesMenu = document.getElementById('btnGamesMenu');
-    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu'); const btnBackMainMenu = document.getElementById('btnBackMainMenu');
 
     btnMenu.addEventListener('click', () => {
-        if (searchOverlay.classList.contains('active')) {
-            searchOverlay.classList.remove('active');
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-        }
+        if (searchOverlay.classList.contains('active')) { searchOverlay.classList.remove('active'); btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
         menuOverlay.classList.toggle('active');
-        if (menuOverlay.classList.contains('active')) {
-            btnMenu.classList.replace('fa-bars', 'fa-xmark');
-            mainMenu.style.display = 'block';
-            subMenuGames.style.display = 'none';
-        } else {
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
-        }
+        if (menuOverlay.classList.contains('active')) { btnMenu.classList.replace('fa-bars', 'fa-xmark'); mainMenu.style.display = 'block'; subMenuGames.style.display = 'none'; } 
+        else { btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
     });
 
     btnSearch.addEventListener('click', () => {
-        if (menuOverlay.classList.contains('active')) {
-            menuOverlay.classList.remove('active');
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
-        }
+        if (menuOverlay.classList.contains('active')) { menuOverlay.classList.remove('active'); btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
         searchOverlay.classList.toggle('active');
-        if (searchOverlay.classList.contains('active')) {
-            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
-            document.getElementById('searchInput').focus();
-        } else {
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-        }
+        if (searchOverlay.classList.contains('active')) { btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); } 
+        else { btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
     });
 
-    btnGamesMenu.addEventListener('click', (e) => {
-        e.preventDefault();
-        mainMenu.style.display = 'none';
-        subMenuGames.style.display = 'block';
-    });
+    btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
+    btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
-    btnBackMainMenu.addEventListener('click', () => {
-        subMenuGames.style.display = 'none';
-        mainMenu.style.display = 'block';
-    });
+    // Database pencarian dengan Aero Glide di dalamnya
+    const searchDatabase = [
+        { keywords: ["beranda", "home", "renxxno"], url: "index.html" }, { keywords: ["biodata", "tentang"], url: "biodata.html" },
+        { keywords: ["game", "games", "ml", "aero glide", "ghost"], url: "games.html" }, { keywords: ["music", "musik", "lagu"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jasa"], url: "store.html" }, { keywords: ["pesan", "kirim pesan"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian"], url: "rating.html" }, { keywords: ["donasi", "donate"], url: "donate.html" },
+        { keywords: ["aero glide", "burung", "aero"], url: "aeroglide.html" }, { keywords: ["ghost hunter", "hantu"], url: "ghosthunter.html" }
+    ];
+
+    function performSearch() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        if (query === "") return; 
+        let foundUrl = "";
+        for (let i = 0; i < searchDatabase.length; i++) { if (searchDatabase[i].keywords.some(k => query.includes(k) || k.includes(query))) { foundUrl = searchDatabase[i].url; break; } }
+        if (foundUrl !== "") { document.getElementById('executeSearchBtn').className = "fa-solid fa-spinner fa-spin"; setTimeout(() => { window.location.href = foundUrl; }, 500); } 
+        else { document.getElementById('searchErrorMsg').style.display = 'block'; setTimeout(() => { document.getElementById('searchErrorMsg').style.display = 'none'; }, 3000); }
+    }
+    document.getElementById('executeSearchBtn').addEventListener('click', performSearch);
+    document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
 
 
     // ==========================================
-    // 2. SCRIPT GHOST HUNTER GAME
+    // 2. SCRIPT GHOST HUNTER (DURASI & SKOR BARU)
     // ==========================================
     const holes = document.querySelectorAll('.hole');
     const timeLeftText = document.querySelector('#timeLeft');
@@ -296,15 +278,18 @@
     const quitBtn = document.getElementById('quitBtn');
     const gameCard = document.getElementById('gameCard');
 
-    let score = 0; let currentTime = 30; let gameInterval = null; let countdownInterval = null;
+    let score = 0; 
+    let currentTime = 60; // WAKTU DIPERPANJANG JADI 60 DETIK
+    let gameInterval = null; let countdownInterval = null;
     let gameSpeed = 850; let isPlaying = false;
+    
     const ghostIcon = '<i class="fa-solid fa-ghost entity ghost"></i>';
     const bombIcon = '<i class="fa-solid fa-bomb entity bomb"></i>';
     const timeIcon = '<i class="fa-solid fa-stopwatch entity time"></i>';
 
     function spawnEntities() {
         holes.forEach(hole => { hole.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); hole.innerHTML = ''; hole.dataset.type = ''; });
-        let ghostCount = Math.random() > 0.65 ? 2 : 1; let spawnBomb = Math.random() > 0.7; let spawnTime = Math.random() > 0.91; 
+        let ghostCount = Math.random() > 0.60 ? 2 : 1; let spawnBomb = Math.random() > 0.7; let spawnTime = Math.random() > 0.91; 
         let availableHoles = [0, 1, 2, 3, 4, 5, 6, 7, 8].sort(() => Math.random() - 0.5);
 
         for (let i = 0; i < ghostCount; i++) {
@@ -334,34 +319,38 @@
                 hole.classList.remove('active'); hole.classList.add('hit-bomb'); gameCard.classList.add('shaking'); 
                 setTimeout(() => gameCard.classList.remove('shaking'), 400); triggerGameOver(true);
             } else if (type === 'time') {
-                currentTime += 3; timeLeftText.textContent = currentTime; timeLeftText.classList.add('bonus');
+                // BONUS WAKTU DITAMBAH JADI +5 DETIK
+                currentTime += 5; timeLeftText.textContent = currentTime; timeLeftText.classList.add('bonus');
                 setTimeout(() => timeLeftText.classList.remove('bonus'), 500);
                 hole.classList.remove('active'); hole.innerHTML = ''; hole.classList.add('hit-time');
             }
         };
-        hole.addEventListener('mousedown', handleHit); hole.addEventListener('touchstart', handleHit);
+        hole.addEventListener('mousedown', handleHit); hole.addEventListener('touchstart', handleHit, {passive: false});
     });
 
     function countDown() {
         currentTime--; timeLeftText.textContent = currentTime;
-        if (currentTime <= 5) { timeLeftText.classList.add('warning'); } else { timeLeftText.classList.remove('warning'); }
+        if (currentTime <= 10) { timeLeftText.classList.add('warning'); } else { timeLeftText.classList.remove('warning'); }
         if (currentTime <= 0) { triggerGameOver(false); }
     }
 
     function triggerGameOver(isBombed) {
         isPlaying = false; clearInterval(gameInterval); clearInterval(countdownInterval);
-        startBtn.disabled = false; startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Game';
+        startBtn.disabled = false; startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Berburu!';
         finalScoreText.innerText = score;
-        if (isBombed) { goTitle.innerText = "KABOOM!"; goReason.innerText = "Kamu Terkena Bom!"; goTitle.style.color = "#ff4757";
-        } else { goTitle.innerText = "WAKTU HABIS!"; goReason.innerText = "Permainan Selesai!"; goTitle.style.color = "#0066cc"; }
+        if (isBombed) { 
+            goTitle.innerText = "KABOOM!"; goReason.innerText = "Kamu Terkena Bom!"; goTitle.style.color = "#ff4757"; goTitle.style.textShadow = "0 0 20px rgba(255,71,87,0.6)";
+        } else { 
+            goTitle.innerText = "WAKTU HABIS!"; goReason.innerText = "Waktumu sudah habis!"; goTitle.style.color = "#00d2ff"; goTitle.style.textShadow = "0 0 20px rgba(0,210,255,0.6)";
+        }
         setTimeout(() => { gameOverScreen.classList.add('show'); }, 200);
     }
 
     function startGame() {
-        score = 0; currentTime = 30; isPlaying = true;
+        score = 0; currentTime = 60; isPlaying = true; // MULAI DARI 60 DETIK
         scoreText.textContent = score; timeLeftText.textContent = currentTime;
         timeLeftText.classList.remove('warning'); gameOverScreen.classList.remove('show');
-        startBtn.disabled = true; startBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bermain...';
+        startBtn.disabled = true; startBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Berburu...';
         holes.forEach(h => { h.innerHTML = ''; h.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); });
         clearInterval(gameInterval); clearInterval(countdownInterval);
         gameInterval = setInterval(spawnEntities, gameSpeed); countdownInterval = setInterval(countDown, 1000);
@@ -369,73 +358,14 @@
 
     startBtn.addEventListener('click', startGame);
     restartBtn.addEventListener('click', () => { gameOverScreen.classList.remove('show'); setTimeout(startGame, 300); });
+    
     quitBtn.addEventListener('click', () => {
         gameOverScreen.classList.remove('show');
         holes.forEach(h => { h.innerHTML = ''; h.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); });
-        scoreText.textContent = "0"; timeLeftText.textContent = "30";
-    });
-
-    // --- 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
-    const executeSearchBtn = document.getElementById('executeSearchBtn');
-    const searchInputBox = document.getElementById('searchInput');
-    const searchErrorMsg = document.getElementById('searchErrorMsg');
-
-    // Kamus Database Pencarian Kita
-    const searchDatabase = [
-        { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
-        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
-        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
-        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
-        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
-        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
-        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
-        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
-    ];
-
-    function performSearch() {
-        const query = searchInputBox.value.toLowerCase().trim();
-        if (query === "") return; 
-
-        let foundUrl = "";
-
-        // Mencari kecocokan kata
-        for (let i = 0; i < searchDatabase.length; i++) {
-            const item = searchDatabase[i];
-            const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
-            if (isMatch) {
-                foundUrl = item.url;
-                break; 
-            }
-        }
-
-        if (foundUrl !== "") {
-            searchErrorMsg.style.display = 'none';
-            // Efek Loading
-            executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
-            setTimeout(() => {
-                window.location.href = foundUrl; 
-            }, 500);
-        } else {
-            // Tampilkan Pesan Error
-            searchErrorMsg.style.display = 'block';
-            setTimeout(() => {
-                searchErrorMsg.style.display = 'none';
-            }, 3000);
-        }
-    }
-
-    // Jalankan pencarian jika klik ikon Kaca Pembesar di dalam kotak
-    executeSearchBtn.addEventListener('click', performSearch);
-
-    // Jalankan pencarian jika tekan tombol ENTER di Keyboard HP/Laptop
-    searchInputBox.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault(); // Mencegah halaman ke-refresh
-            performSearch();
-        }
+        scoreText.textContent = "0"; timeLeftText.textContent = "60"; // RESET TAMPILAN KE 60
     });
 </script>
 
 </body>
 </html>
+
