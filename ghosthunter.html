@@ -15,9 +15,10 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff; /* Latar Web Tetap Putih Bersih */
+            /* Latar luar disamakan dengan website (Apple Light) */
+            background: #f5f5f7; 
             display: flex; justify-content: center; align-items: flex-start;
-            padding: 100px 20px 40px 20px; color: #2d3436;
+            padding: 90px 20px 40px 20px; color: #1d1d1f;
         }
 
         /* =========================================
@@ -30,24 +31,61 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
+        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+        .apple-burger {
+            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
+            cursor: pointer; position: relative; z-index: 10000;
+        }
+        .apple-burger span {
+            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+        }
+        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
+        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
+
+        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 30px 25px;
-            transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto; 
         }
-        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+        .nav-overlay.active { opacity: 1; visibility: visible; }
 
-        .menu-list { list-style: none; }
-        .menu-list li { border-bottom: 1px solid #e5e5ea; }
-        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
+        .menu-list { list-style: none; padding-top: 10px; }
+        .menu-list li {
+            border-bottom: none; 
+            opacity: 0; transform: translateY(20px) scale(0.98);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
+        
+        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
+        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
+        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
+        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
+        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
+        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
+        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
+        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
+
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            letter-spacing: -1px;
+        }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 18px; color: #86868b; }
+        .menu-list a i { font-size: 20px; color: #86868b; }
 
-        .submenu-header { display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer; }
+        .submenu-header {
+            display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
+        }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
@@ -55,78 +93,94 @@
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
 
         /* =========================================
-           TEMA BARU: GHOST HUNTER "NEON ARCADE"
+           TAMPILAN GAME: ESTETIK SEPERTI AERO GLIDE
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes shake { 0%, 60% { transform: translate(-2px, 1px) rotate(0deg); } 20%, 80% { transform: translate(-2px, 0px) rotate(1deg); } 40%, 100% { transform: translate(1px, -1px) rotate(-1deg); } }
         
         .card-container {
-            background: linear-gradient(135deg, #130f40 0%, #000000 100%); /* Latar Gelap Arcade */
+            /* Gradasi elegan ala Aero Glide */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 24px; padding: 25px 20px; width: 100%; max-width: 450px; 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); border: 2px solid #30336b; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); border: 2px solid #ffffff; 
             text-align: center; position: relative; overflow: hidden; 
             opacity: 0; animation: popIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-            color: #ffffff;
         }
         .card-container.shaking { animation: shake 0.4s; border-color: #ff4757; }
 
-        .header-icon { font-size: 38px; color: #00d2ff; text-shadow: 0 0 15px rgba(0, 210, 255, 0.6); margin-bottom: 5px; opacity: 0; animation: fadeUp 0.5s 0.1s forwards; }
-        .header-title { font-size: 24px; font-weight: 900; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; opacity: 0; animation: fadeUp 0.5s 0.2s forwards; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .header-icon { font-size: 38px; color: #0066cc; margin-bottom: 5px; opacity: 0; animation: fadeUp 0.5s 0.1s forwards; }
+        .header-title { font-size: 24px; font-weight: 800; color: #1d1d1f; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; opacity: 0; animation: fadeUp 0.5s 0.2s forwards; }
 
         .tutorial-box {
-            background: rgba(0, 0, 0, 0.5); border-radius: 12px; padding: 12px; margin: 0 auto 15px auto; 
-            font-size: 12px; color: #dcdde1; text-align: left; line-height: 1.6; border: 1px dashed #00d2ff; 
-            opacity: 0; animation: fadeUp 0.5s 0.3s forwards; box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.1);
+            background: rgba(255, 255, 255, 0.6); border-radius: 12px; padding: 12px; margin: 0 auto 15px auto; 
+            font-size: 12px; color: #576574; text-align: left; line-height: 1.6; border: 1px dashed rgba(0, 102, 204, 0.4); 
+            opacity: 0; animation: fadeUp 0.5s 0.3s forwards;
         }
-        .tutorial-box strong { color: #00d2ff; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;}
-        .t-ghost { color: #00d2ff; font-weight: bold; text-shadow: 0 0 5px #00d2ff; }
-        .t-bomb { color: #ff4757; font-weight: bold; text-shadow: 0 0 5px #ff4757; }
-        .t-time { color: #00b894; font-weight: bold; text-shadow: 0 0 5px #00b894; }
+        .tutorial-box strong { color: #0066cc; font-size: 13px;}
+        .t-ghost { color: #0066cc; font-weight: bold; }
+        .t-bomb { color: #ff4757; font-weight: bold; }
+        .t-time { color: #00b894; font-weight: bold; }
 
         .stats-container { display: flex; justify-content: space-between; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.5s 0.4s forwards; }
-        .stat-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 12px; font-weight: 700; font-size: 11px; color: #a4b0be; width: 48%; text-transform: uppercase; }
-        .stat-box span { display: block; font-size: 26px; font-weight: 900; color: #ffffff; margin-top: 2px; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-        #timeLeft.warning { color: #ff4757; text-shadow: 0 0 10px #ff4757; }
-        #timeLeft.bonus { color: #00b894; text-shadow: 0 0 10px #00b894; }
+        .stat-box { background: #ffffff; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 11px; color: #86868b; width: 48%; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .stat-box span { display: block; font-size: 26px; font-weight: 800; color: #1d1d1f; margin-top: 2px; }
+        #timeLeft.warning { color: #ff4757; }
+        #timeLeft.bonus { color: #00b894; }
 
-        /* WADAH LUBANG HANTU GELAP */
+        /* WADAH LUBANG HANTU BERSIH */
         .game-board {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 300px; 
-            margin: 0 auto 25px auto; background: rgba(0, 0, 0, 0.6); padding: 15px;
-            border-radius: 18px; border: 1px solid #30336b; opacity: 0; animation: fadeUp 0.5s 0.4s forwards;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            margin: 0 auto 25px auto; background: rgba(255, 255, 255, 0.4); padding: 15px;
+            border-radius: 18px; border: 1px solid #ffffff; opacity: 0; animation: fadeUp 0.5s 0.4s forwards;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);
         }
-        .hole { background: #2f3640; aspect-ratio: 1/1; border-radius: 12px; box-shadow: inset 0 5px 15px rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; overflow: hidden; border: 2px solid transparent; transition: transform 0.1s ease; -webkit-tap-highlight-color: transparent; }
-        .hole:active { transform: scale(0.90); }
+        .hole { 
+            background: #ffffff; aspect-ratio: 1/1; border-radius: 12px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05), inset 0 -3px 5px rgba(0,0,0,0.02); 
+            display: flex; justify-content: center; align-items: center; 
+            cursor: pointer; position: relative; overflow: hidden; border: 2px solid transparent; 
+            transition: transform 0.1s ease; -webkit-tap-highlight-color: transparent; 
+        }
+        .hole:active { transform: scale(0.92); }
 
-        /* EFEK GLOWING ENTITY */
         .entity { font-size: 38px; opacity: 0; transform: translateY(100%); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease; pointer-events: none; }
         .hole.active .entity { opacity: 1; transform: translateY(0); }
         
-        .entity.ghost { color: #00d2ff; text-shadow: 0 0 15px #00d2ff, 0 0 30px #00d2ff; }
-        .entity.bomb { color: #ff4757; font-size: 34px; text-shadow: 0 0 15px #ff4757, 0 0 30px #ff4757; }
-        .entity.time { color: #00b894; font-size: 34px; text-shadow: 0 0 15px #00b894, 0 0 30px #00b894; }
+        .entity.ghost { color: #0066cc; text-shadow: 0 5px 10px rgba(0,102,204,0.2); }
+        .entity.bomb { color: #ff4757; font-size: 34px; text-shadow: 0 5px 10px rgba(255,71,87,0.2); }
+        .entity.time { color: #00b894; font-size: 34px; text-shadow: 0 5px 10px rgba(0,184,148,0.2); }
 
-        .hole.hit-ghost { border-color: #00d2ff; background: rgba(0, 210, 255, 0.2); box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); }
-        .hole.hit-bomb { border-color: #ff4757; background: rgba(255, 71, 87, 0.2); box-shadow: 0 0 15px rgba(255, 71, 87, 0.5); }
-        .hole.hit-time { border-color: #00b894; background: rgba(0, 184, 148, 0.2); box-shadow: 0 0 15px rgba(0, 184, 148, 0.5); }
+        .hole.hit-ghost { border-color: #0066cc; background: rgba(0, 102, 204, 0.1); }
+        .hole.hit-bomb { border-color: #ff4757; background: rgba(255, 71, 87, 0.15); }
+        .hole.hit-time { border-color: #00b894; background: rgba(0, 184, 148, 0.15); }
 
-        .start-btn { width: 100%; background: linear-gradient(135deg, #00d2ff, #0066cc); color: #ffffff; border: none; padding: 15px; border-radius: 12px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4); transition: all 0.3s ease; font-family: 'Poppins', sans-serif; opacity: 0; animation: fadeUp 0.5s 0.5s forwards; }
-        .start-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 210, 255, 0.6); }
-        .start-btn:disabled { background: #576574; color: rgba(255,255,255,0.5); cursor: not-allowed; box-shadow: none; transform: none; }
+        .start-btn { width: 100%; background: #0066cc; color: #ffffff; border: none; padding: 15px; border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); transition: all 0.3s ease; font-family: 'Poppins', sans-serif; opacity: 0; animation: fadeUp 0.5s 0.5s forwards; }
+        .start-btn:hover:not(:disabled) { background: #005bb5; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 102, 204, 0.4); }
+        .start-btn:disabled { background: #b2bec3; color: #ffffff; cursor: not-allowed; box-shadow: none; transform: none; }
 
-        .game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(8px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 20px; }
+        /* LAYAR GAME OVER GLASSMORPHISM */
+        .game-over-screen { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 20px; 
+        }
         .game-over-screen.show { opacity: 1; pointer-events: all; }
-        .go-title { font-size: 32px; font-weight: 900; color: #ff4757; text-transform: uppercase; margin-bottom: 5px; text-shadow: 0 0 20px rgba(255, 71, 87, 0.6); }
-        .go-score { font-size: 16px; color: #dcdde1; margin-bottom: 30px; font-weight: 500; }
-        .go-score span { color: #00d2ff; font-size: 38px; font-weight: 900; display: block; margin-top: 5px; text-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
+        .go-title { font-size: 32px; font-weight: 800; color: #1d1d1f; text-transform: uppercase; margin-bottom: 5px; }
+        .go-score { font-size: 15px; color: #576574; font-weight: 600; margin-bottom: 25px; }
+        .go-score span { color: #0066cc; font-size: 38px; font-weight: 900; display: block; margin-top: 5px; }
 
-        .go-buttons { display: flex; gap: 15px; justify-content: center; }
-        .go-btn { background: linear-gradient(135deg, #00b894, #008f71); color: #ffffff; border: none; padding: 12px 25px; border-radius: 30px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 5px 20px rgba(0, 184, 148, 0.4); transition: transform 0.2s; font-family: 'Poppins', sans-serif; display: flex; align-items: center; gap: 8px; }
-        .go-btn:hover { transform: scale(1.05); }
-        .go-btn.quit-btn { background: transparent; color: #ff4757; border: 2px solid #ff4757; box-shadow: none; padding: 10px 20px; }
-        .go-btn.quit-btn:hover { background: rgba(255, 71, 87, 0.1); }
+        .go-buttons { display: flex; flex-direction: column; gap: 12px; width: 70%; }
+        .go-btn { background: #0066cc; color: #ffffff; border: none; padding: 12px 20px; border-radius: 20px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); transition: all 0.2s; font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .go-btn:hover { background: #005bb5; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 102, 204, 0.4); }
+        
+        .go-btn.quit-btn { background: #ff3b30; box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3); }
+        .go-btn.quit-btn:hover { background: #d70015; box-shadow: 0 12px 25px rgba(215, 0, 21, 0.4); }
+
+        @media (max-width: 768px) {
+            .menu-list a { font-size: 28px; }
+        }
     </style>
 </head>
 <body>
@@ -136,7 +190,11 @@
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+        <!-- Ikon Animasi Garis X -->
+        <div class="apple-burger" id="toggleMenu">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+        </div>
     </div>
 </nav>
 
@@ -146,7 +204,7 @@
         <ul class="menu-list">
             <li><a href="index.html">Beranda</a></li>
             <li><a href="biodata.html">Biodata</a></li>
-            <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="#" id="btnGamesMenu" class="active">Games <i class="fa-solid fa-chevron-right"></i></a></li>
             <li><a href="music.html">Music</a></li>
             <li><a href="store.html">Store</a></li>
             <li><a href="sosmed.html">Sosial Media</a></li>
@@ -187,7 +245,6 @@
     </div>
 
     <div class="stats-container">
-        <!-- Tampilan waktu awal diubah menjadi 60 -->
         <div class="stat-box">Waktu <span id="timeLeft">60</span></div>
         <div class="stat-box">Skor <span id="score">0</span></div>
     </div>
@@ -204,7 +261,7 @@
         <div class="hole" data-index="8"></div>
     </div>
 
-    <button class="start-btn" id="startBtn"><i class="fa-solid fa-play"></i> Mulai Berburu!</button>
+    <button class="start-btn" id="startBtn"><i class="fa-solid fa-play"></i> Mulai Berburu</button>
 
     <div class="game-over-screen" id="gameOverScreen">
         <div class="go-title" id="goTitle">GAME OVER!</div>
@@ -212,44 +269,71 @@
         <div class="go-score">Skor Akhir: <span id="finalScore">0</span></div>
         <div class="go-buttons">
             <button class="go-btn" id="restartBtn"><i class="fa-solid fa-rotate-right"></i> Main Lagi</button>
-            <button class="go-btn quit-btn" id="quitBtn"><i class="fa-solid fa-xmark"></i> Keluar</button>
+            <button class="go-btn quit-btn" id="quitBtn"><i class="fa-solid fa-stop"></i> Berhenti</button>
         </div>
     </div>
 </div>
 
 <script>
     // ==========================================
-    // 1. SCRIPT NAVBAR & SEARCH
+    // 1. SCRIPT NAVBAR & OVERLAY MENU (SCROLL LOCK)
     // ==========================================
-    const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
-    const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
-    const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
-    const btnGamesMenu = document.getElementById('btnGamesMenu'); const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    const btnMenu = document.getElementById('toggleMenu');
+    const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
 
     btnMenu.addEventListener('click', () => {
-        if (searchOverlay.classList.contains('active')) { searchOverlay.classList.remove('active'); btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
+        if (searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+        
         menuOverlay.classList.toggle('active');
-        if (menuOverlay.classList.contains('active')) { btnMenu.classList.replace('fa-bars', 'fa-xmark'); mainMenu.style.display = 'block'; subMenuGames.style.display = 'none'; } 
-        else { btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
+        btnMenu.classList.toggle('active'); // Animasi Garis ke X
+
+        if (menuOverlay.classList.contains('active')) {
+            document.body.style.overflow = 'hidden'; // Kunci Scroll
+            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
+        } else {
+            document.body.style.overflow = 'auto'; // Lepas Scroll
+        }
     });
 
     btnSearch.addEventListener('click', () => {
-        if (menuOverlay.classList.contains('active')) { menuOverlay.classList.remove('active'); btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
+        if (menuOverlay.classList.contains('active')) {
+            menuOverlay.classList.remove('active');
+            btnMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
         searchOverlay.classList.toggle('active');
-        if (searchOverlay.classList.contains('active')) { btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); } 
-        else { btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
+        
+        if (searchOverlay.classList.contains('active')) {
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
+            document.getElementById('searchInput').focus();
+            document.body.style.overflow = 'hidden';
+        } else {
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+            document.body.style.overflow = 'auto';
+        }
     });
 
     btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
     btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
-    // Database pencarian dengan Aero Glide di dalamnya
+    // PENCARIAN DATABASE
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno"], url: "index.html" }, { keywords: ["biodata", "tentang"], url: "biodata.html" },
         { keywords: ["game", "games", "ml", "aero glide", "ghost"], url: "games.html" }, { keywords: ["music", "musik", "lagu"], url: "music.html" },
         { keywords: ["store", "toko", "baju", "jasa"], url: "store.html" }, { keywords: ["pesan", "kirim pesan"], url: "Memberipesan.html" },
         { keywords: ["rating", "view", "penilaian"], url: "rating.html" }, { keywords: ["donasi", "donate"], url: "donate.html" },
-        { keywords: ["aero glide", "burung", "aero"], url: "aeroglide.html" }, { keywords: ["ghost hunter", "hantu"], url: "ghosthunter.html" }
+        { keywords: ["aero glide", "burung", "aero"], url: "aeroglide.html" }, { keywords: ["ghost hunter", "hantu"], url: "ghosthunter.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" }
     ];
 
     function performSearch() {
@@ -263,9 +347,8 @@
     document.getElementById('executeSearchBtn').addEventListener('click', performSearch);
     document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
 
-
     // ==========================================
-    // 2. SCRIPT GHOST HUNTER (DURASI & SKOR BARU)
+    // 2. SCRIPT GHOST HUNTER
     // ==========================================
     const holes = document.querySelectorAll('.hole');
     const timeLeftText = document.querySelector('#timeLeft');
@@ -280,7 +363,7 @@
     const gameCard = document.getElementById('gameCard');
 
     let score = 0; 
-    let currentTime = 60; // WAKTU DIPERPANJANG JADI 60 DETIK
+    let currentTime = 60; // 60 DETIK AWAL
     let gameInterval = null; let countdownInterval = null;
     let gameSpeed = 850; let isPlaying = false;
     
@@ -320,7 +403,6 @@
                 hole.classList.remove('active'); hole.classList.add('hit-bomb'); gameCard.classList.add('shaking'); 
                 setTimeout(() => gameCard.classList.remove('shaking'), 400); triggerGameOver(true);
             } else if (type === 'time') {
-                // BONUS WAKTU DITAMBAH JADI +5 DETIK
                 currentTime += 5; timeLeftText.textContent = currentTime; timeLeftText.classList.add('bonus');
                 setTimeout(() => timeLeftText.classList.remove('bonus'), 500);
                 hole.classList.remove('active'); hole.innerHTML = ''; hole.classList.add('hit-time');
@@ -337,18 +419,18 @@
 
     function triggerGameOver(isBombed) {
         isPlaying = false; clearInterval(gameInterval); clearInterval(countdownInterval);
-        startBtn.disabled = false; startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Berburu!';
+        startBtn.disabled = false; startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Berburu';
         finalScoreText.innerText = score;
         if (isBombed) { 
-            goTitle.innerText = "KABOOM!"; goReason.innerText = "Kamu Terkena Bom!"; goTitle.style.color = "#ff4757"; goTitle.style.textShadow = "0 0 20px rgba(255,71,87,0.6)";
+            goTitle.innerText = "KABOOM!"; goReason.innerText = "Kamu Terkena Bom!"; goTitle.style.color = "#ff4757"; 
         } else { 
-            goTitle.innerText = "WAKTU HABIS!"; goReason.innerText = "Waktumu sudah habis!"; goTitle.style.color = "#00d2ff"; goTitle.style.textShadow = "0 0 20px rgba(0,210,255,0.6)";
+            goTitle.innerText = "WAKTU HABIS!"; goReason.innerText = "Waktumu sudah habis!"; goTitle.style.color = "#1d1d1f"; 
         }
         setTimeout(() => { gameOverScreen.classList.add('show'); }, 200);
     }
 
     function startGame() {
-        score = 0; currentTime = 60; isPlaying = true; // MULAI DARI 60 DETIK
+        score = 0; currentTime = 60; isPlaying = true;
         scoreText.textContent = score; timeLeftText.textContent = currentTime;
         timeLeftText.classList.remove('warning'); gameOverScreen.classList.remove('show');
         startBtn.disabled = true; startBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Berburu...';
@@ -360,10 +442,12 @@
     startBtn.addEventListener('click', startGame);
     restartBtn.addEventListener('click', () => { gameOverScreen.classList.remove('show'); setTimeout(startGame, 300); });
     
+    // FUNGSI BERHENTI TANPA KELUAR HALAMAN
     quitBtn.addEventListener('click', () => {
         gameOverScreen.classList.remove('show');
         holes.forEach(h => { h.innerHTML = ''; h.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); });
-        scoreText.textContent = "0"; timeLeftText.textContent = "60"; // RESET TAMPILAN KE 60
+        score = 0; scoreText.textContent = score; 
+        currentTime = 60; timeLeftText.textContent = currentTime; 
     });
 </script>
 
