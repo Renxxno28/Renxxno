@@ -28,7 +28,9 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-brand { display: flex; align-items: center; text-decoration: none; }
+        .brand-logo { height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply; transform: translateY(2px); }
+
         .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
@@ -64,6 +66,58 @@
         .search-box i:hover { color: #0066cc; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
+
+        /* =========================================
+           TOOLTIP / NOTIFIKASI MENU (BARU)
+           ========================================= */
+        .menu-tooltip {
+            position: fixed;
+            top: 65px; /* Tepat di bawah navbar */
+            right: 15px; /* Berada di sudut kanan dekat menu */
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9997;
+            border: 1px solid rgba(0,0,0,0.05);
+            /* Kondisi Awal: Tersembunyi */
+            opacity: 0;
+            transform: translateY(-10px);
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .menu-tooltip.show {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+        .tooltip-arrow {
+            position: absolute;
+            top: -6px;
+            right: 18px; /* Mengarah pas ke ikon garis tiga */
+            width: 12px;
+            height: 12px;
+            background: #ffffff;
+            transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-left: 1px solid rgba(0,0,0,0.05);
+        }
+        .menu-tooltip span {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+        .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
+        .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
+        .tooltip-close:hover { color: #fa233b; }
+
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(3px); }
+        }
 
         /* KARTU BERANDA */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
@@ -104,16 +158,23 @@
 </head>
 <body>
 
-<!-- TOP NAVBAR -->
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">Renxxno</a>
+    <a href="index.html" class="nav-brand">
+        <img src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Logo Renxxno" class="brand-logo">
+    </a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
         <i class="fa-solid fa-bars" id="toggleMenu"></i>
     </div>
 </nav>
 
-<!-- OVERLAY MENU -->
+<div class="menu-tooltip" id="menuTooltip">
+    <div class="tooltip-arrow"></div>
+    <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
+    <span>Klik di sini untuk melihat menu lainnya!</span>
+    <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
+</div>
+
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -136,19 +197,15 @@
     </div>
 </div>
 
-<!-- OVERLAY PENCARIAN (SUDAH DIPERBAIKI) -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <!-- Ikon kaca pembesar di bawah ini yang akan menjalankan pencarian jika diklik -->
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
         <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
     </div>
-    <!-- Pesan Peringatan -->
     <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
-<!-- KONTEN BERANDA -->
 <div class="card-container">
     <div class="img-wrapper">
         <img class="profile-img" src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Foto Profil Alexzander Bareno">
@@ -172,22 +229,22 @@
     </div>
 </div>
 
-<!-- ==========================================
-     JAVASCRIPT LENGKAP (NAVIGASI & PENCARIAN)
-     ========================================== -->
 <script>
     // --- 1. LOGIKA MENU & OVERLAY ---
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay');
     const searchOverlay = document.getElementById('searchOverlay');
-    
     const mainMenu = document.getElementById('mainMenu');
     const subMenuGames = document.getElementById('subMenuGames');
     const btnGamesMenu = document.getElementById('btnGamesMenu');
     const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    const menuTooltip = document.getElementById('menuTooltip');
 
     btnMenu.addEventListener('click', () => {
+        // Hilangkan notifikasi segera setelah menu diklik pertama kali!
+        if(menuTooltip) menuTooltip.classList.remove('show');
+
         if (searchOverlay.classList.contains('active')) {
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
@@ -202,6 +259,9 @@
     });
 
     btnSearch.addEventListener('click', () => {
+        // Hilangkan notifikasi jika membuka search
+        if(menuTooltip) menuTooltip.classList.remove('show');
+
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
             btnMenu.classList.replace('fa-xmark', 'fa-bars');
@@ -209,7 +269,7 @@
         searchOverlay.classList.toggle('active');
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
-            document.getElementById('searchInput').focus(); // Otomatis fokus ke kotak ketik
+            document.getElementById('searchInput').focus();
         } else {
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
@@ -223,12 +283,39 @@
         subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
     });
 
-    // --- 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
+    // --- 2. LOGIKA PENGINGAT (NOTIFIKASI PINTAR) ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const closeTooltip = document.getElementById('closeTooltip');
+
+        // Mengecek memori browser (Session Storage)
+        if (!sessionStorage.getItem('menuNotifShown')) {
+            // Tampilkan kotak setelah 1 detik
+            setTimeout(() => {
+                menuTooltip.classList.add('show');
+            }, 1000);
+
+            // Simpan ingatan: Jangan munculkan lagi selama tab ini tidak ditutup total!
+            sessionStorage.setItem('menuNotifShown', 'true');
+
+            // Opsional: Tutup otomatis setelah 8 detik jika tidak dihiraukan
+            setTimeout(() => {
+                menuTooltip.classList.remove('show');
+            }, 8000);
+        }
+
+        // Kalau tanda silang (x) di klik
+        if (closeTooltip) {
+            closeTooltip.addEventListener('click', () => {
+                menuTooltip.classList.remove('show');
+            });
+        }
+    });
+
+    // --- 3. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
     const executeSearchBtn = document.getElementById('executeSearchBtn');
     const searchInputBox = document.getElementById('searchInput');
     const searchErrorMsg = document.getElementById('searchErrorMsg');
 
-    // Kamus Database Pencarian Kita
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
         { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
@@ -247,45 +334,27 @@
 
         let foundUrl = "";
 
-        // Mencari kecocokan kata
         for (let i = 0; i < searchDatabase.length; i++) {
             const item = searchDatabase[i];
             const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
-            if (isMatch) {
-                foundUrl = item.url;
-                break; 
-            }
+            if (isMatch) { foundUrl = item.url; break; }
         }
 
         if (foundUrl !== "") {
             searchErrorMsg.style.display = 'none';
-            // Efek Loading
             executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
-            setTimeout(() => {
-                window.location.href = foundUrl; 
-            }, 500);
+            setTimeout(() => { window.location.href = foundUrl; }, 500);
         } else {
-            // Tampilkan Pesan Error
             searchErrorMsg.style.display = 'block';
-            setTimeout(() => {
-                searchErrorMsg.style.display = 'none';
-            }, 3000);
+            setTimeout(() => { searchErrorMsg.style.display = 'none'; }, 3000);
         }
     }
 
-    // Jalankan pencarian jika klik ikon Kaca Pembesar di dalam kotak
     executeSearchBtn.addEventListener('click', performSearch);
-
-    // Jalankan pencarian jika tekan tombol ENTER di Keyboard HP/Laptop
     searchInputBox.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault(); // Mencegah halaman ke-refresh
-            performSearch();
-        }
+        if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
     });
-
 </script>
 
 </body>
 </html>
-
