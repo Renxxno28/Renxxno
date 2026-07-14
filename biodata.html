@@ -5,35 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biodata | Renxxno</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        html, body {
-            min-height: 100vh;
-            width: 100%;
-            overflow-x: hidden; 
-        }
+        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; }
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff; 
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; 
-            padding: 100px 20px 40px 20px; 
-            color: #1d1d1f;
+            /* Latar abu-abu sangat muda khas Apple agar blok putih menonjol */
+            background: #f5f5f7; 
+            display: flex; justify-content: center; align-items: flex-start; 
+            padding: 90px 20px 60px 20px; color: #1d1d1f;
         }
 
-        /* =========================================
-           TOP NAVBAR APPLE STYLE
-           ========================================= */
+        /* NAVBAR ATAS */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -42,99 +30,157 @@
         }
 
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
+        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+        .apple-burger {
+            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
+            cursor: pointer; position: relative; z-index: 10000;
+        }
+        .apple-burger span {
+            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+        }
+        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
+        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
+
+        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 30px 25px;
-            transform: translateY(-100%); opacity: 0; visibility: hidden;
+            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto; 
+        }
+        .nav-overlay.active { opacity: 1; visibility: visible; }
+
+        /* LIST MENU ALA APPLE */
+        .menu-list { list-style: none; padding-top: 10px; }
+        .menu-list li {
+            border-bottom: none; 
+            opacity: 0; transform: translateY(20px) scale(0.98);
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
+        
+        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
+        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
+        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
+        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
+        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
+        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
+        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
+        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
 
-        .menu-list { list-style: none; }
-        .menu-list li { border-bottom: 1px solid #e5e5ea; }
         .menu-list a { 
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            letter-spacing: -1px;
         }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 18px; color: #86868b; }
+        .menu-list a i { font-size: 20px; color: #86868b; }
 
         .submenu-header {
-            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
+            display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
         }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
+        /* KOTAK PENCARIAN */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
+        .search-box i:hover { color: #0066cc; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
-        .search-box input::placeholder { color: #86868b; }
+        .search-box input::placeholder { color: #86868b; font-size: 16px; }
 
         /* =========================================
-           KOTAK KONTEN BIODATA
+           DESAIN BIODATA BARU (LEBIH LUAS & BERSIH)
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-        
-        .card-container {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 24px; padding: 45px 30px; width: 100%; max-width: 450px; 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); border: 2px solid #ffffff; 
-            transition: transform 0.3s ease; margin: 0 auto;
-            opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+
+        .biodata-section {
+            display: flex; flex-direction: column; gap: 20px;
+            max-width: 750px; width: 100%; margin: 0 auto;
         }
         
-        .header-profile { text-align: center; margin-bottom: 30px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; }
-        .profile-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #ffffff; box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 15px; animation: float 6s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
-        
-        .profile-name { font-size: 24px; font-weight: 700; color: #1e272e; margin-bottom: 5px; }
-        .profile-role { font-size: 14px; color: #0066cc; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        /* 1. Header Profil */
+        .profile-header {
+            text-align: center; margin-bottom: 10px;
+            opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        .profile-img { 
+            width: 150px; height: 150px; border-radius: 50%; object-fit: cover; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 4px solid #ffffff; 
+            animation: float 6s ease-in-out infinite; margin-bottom: 15px;
+        }
+        .profile-name { font-size: 32px; font-weight: 800; color: #1d1d1f; letter-spacing: -1px; margin-bottom: 2px; }
+        .profile-role { font-size: 15px; color: #0066cc; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
-        .section-1 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; }
-        .section-title { font-size: 16px; font-weight: 700; color: #1d1d1f; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .section-title i { color: #0066cc; }
+        /* 2. Kotak Info / Blok */
+        .bio-block {
+            background: #ffffff; border-radius: 24px; padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.02);
+            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        .bio-block:nth-child(2) { animation-delay: 0.2s; }
+        .bio-block:nth-child(3) { animation-delay: 0.3s; }
+        .bio-block:nth-child(4) { animation-delay: 0.4s; }
 
-        .bio-text { font-size: 14px; color: #576574; line-height: 1.7; margin-bottom: 25px; text-align: justify; }
+        .block-title { font-size: 20px; font-weight: 700; color: #1d1d1f; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }
+        .block-title i { color: #0066cc; font-size: 22px; }
 
-        .section-2 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s forwards; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s forwards; }
-        
-        .info-card { background: rgba(255, 255, 255, 0.8); padding: 15px; border-radius: 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid rgba(255, 255, 255, 0.6); transition: all 0.3s ease; }
-        .info-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0, 102, 204, 0.1); }
-        .info-icon { min-width: 35px; height: 35px; background: rgba(0, 102, 204, 0.1); color: #0066cc; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 16px; }
-        .info-detail { display: flex; flex-direction: column; overflow: hidden; }
-        .info-label { font-size: 11px; color: #86868b; font-weight: 600; text-transform: uppercase; }
-        .info-value { font-size: 13px; font-weight: 600; color: #1d1d1f; }
+        /* Teks Tentang Saya */
+        .bio-text { font-size: 15px; color: #576574; line-height: 1.8; text-align: justify; }
 
-        .section-3 { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s forwards; }
-        .tags-container { display: flex; flex-wrap: wrap; gap: 10px; opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.8s forwards; }
-        .tag { background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%); color: #576574; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: all 0.3s ease; }
-        .tag:hover { background: #0066cc; color: #ffffff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3); }
+        /* Grid Info Pribadi */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .info-card { 
+            background: #f5f5f7; border-radius: 16px; padding: 20px; 
+            display: flex; align-items: center; gap: 15px; transition: transform 0.3s ease; 
+        }
+        .info-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .info-card i { font-size: 24px; color: #0066cc; width: 30px; text-align: center; }
+        .info-detail { display: flex; flex-direction: column; }
+        .info-label { font-size: 12px; color: #86868b; font-weight: 600; text-transform: uppercase; }
+        .info-value { font-size: 15px; font-weight: 700; color: #1d1d1f; }
 
-        @media (max-width: 480px) {
-            body { padding: 80px 10px 40px 10px; }
-            .card-container { padding: 30px 20px; border-radius: 20px; }
-            .info-grid { grid-template-columns: 1fr; gap: 10px; }
-            .bio-text { text-align: left; }
-            .profile-img { width: 100px; height: 100px; }
+        /* Tag Hobi */
+        .tags-container { display: flex; flex-wrap: wrap; gap: 12px; }
+        .tag { 
+            background: #f5f5f7; color: #1d1d1f; padding: 12px 20px; border-radius: 20px; 
+            font-size: 14px; font-weight: 600; transition: all 0.3s ease; 
+        }
+        .tag:hover { background: #0066cc; color: #ffffff; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.25); }
+
+        @media (max-width: 768px) {
+            .menu-list a { font-size: 28px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .bio-block { padding: 25px 20px; }
+            .profile-img { width: 130px; height: 130px; }
+            .profile-name { font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
+<!-- TOP NAVBAR -->
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+        <!-- Ikon FontAwesome diganti dengan Ikon Animasi Garis X -->
+        <div class="apple-burger" id="toggleMenu">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+        </div>
     </div>
 </nav>
 
+<!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -173,58 +219,69 @@
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
-
-<div class="card-container">
+<!-- =========================================
+     KONTEN BIODATA (TAMPILAN LUAS & ELEGAN)
+     ========================================= -->
+<div class="biodata-section">
     
-    <div class="header-profile">
+    <!-- 1. Foto & Judul Utama -->
+    <div class="profile-header">
         <img class="profile-img" src="https://i.ibb.co.com/Xx7HdrQT/IMG20250420105850.jpg" alt="Foto Profil">
-        <div class="profile-name">Renxxno</div>
-        <div class="profile-role">Kreator Website</div>
+        <h1 class="profile-name">Renxxno</h1>
+        <p class="profile-role">Kreator Website</p>
     </div>
 
-    <h2 class="section-title section-1"><i class="fa-solid fa-user"></i> Tentang Saya</h2>
-    
-    <!-- Teks ini sekarang akan memudar halus ke atas, tidak lagi mengetik -->
-    <p class="bio-text section-1">
-        Perkenalkan, saya Alexzander Bareno, lulusan Teknik Komputer dan Jaringan (TKJ) SMK Negeri 2 Kota Blitar. Saya menguasai troubleshooting perangkat keras komputer & laptop serta instalasi jaringan internet. Berbekal pengalaman magang saya terbiasa melayani pelanggan dengan komunikatif, baik secara mandiri maupun di dalam tim. Saya adalah pribadi yang jujur, disiplin, teliti, dan selalu antusias mempelajari hal baru di bidang teknologi.
-    </p>
+    <!-- 2. Kotak Tentang Saya -->
+    <div class="bio-block">
+        <h2 class="block-title"><i class="fa-solid fa-circle-user"></i> Tentang Saya</h2>
+        <p class="bio-text">
+            Perkenalkan, saya Alexzander Bareno, lulusan Teknik Komputer dan Jaringan (TKJ) SMK Negeri 2 Kota Blitar. Saya menguasai troubleshooting perangkat keras komputer & laptop serta instalasi jaringan internet. Berbekal pengalaman magang saya terbiasa melayani pelanggan dengan komunikatif, baik secara mandiri maupun di dalam tim. Saya adalah pribadi yang jujur, disiplin, teliti, dan selalu antusias mempelajari hal baru di bidang teknologi.
+        </p>
+    </div>
 
-    <h2 class="section-title section-2"><i class="fa-solid fa-address-card"></i> Info Pribadi</h2>
-    <div class="info-grid">
-        <div class="info-card">
-            <div class="info-icon"><i class="fa-solid fa-calendar-day"></i></div>
-            <div class="info-detail">
-                <span class="info-label">Kelahiran</span>
-                <span class="info-value">28 April 2006</span>
+    <!-- 3. Kotak Info Pribadi -->
+    <div class="bio-block">
+        <h2 class="block-title"><i class="fa-solid fa-address-card"></i> Info Pribadi</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <i class="fa-solid fa-calendar-day"></i>
+                <div class="info-detail">
+                    <span class="info-label">Kelahiran</span>
+                    <span class="info-value">28 April 2006</span>
+                </div>
             </div>
-        </div>
-        <div class="info-card">
-            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
-            <div class="info-detail">
-                <span class="info-label">Lokasi</span>
-                <span class="info-value">Kota Blitar, Jawa Timur, Indonesia</span>
+            <div class="info-card">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="info-detail">
+                    <span class="info-label">Lokasi</span>
+                    <span class="info-value">Kota Blitar, Jawa Timur</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <h2 class="section-title section-3"><i class="fa-solid fa-star"></i> Minat & Hobi</h2>
-    <div class="tags-container">
-        <span class="tag">🎧 Musik</span>
-        <span class="tag">🎬 Video Editing</span>
-        <span class="tag">📸 Fotografi</span>
-        <span class="tag">🎮 Gaming</span>
+    <!-- 4. Kotak Minat & Hobi -->
+    <div class="bio-block">
+        <h2 class="block-title"><i class="fa-solid fa-star"></i> Minat & Hobi</h2>
+        <div class="tags-container">
+            <span class="tag">🎧 Musik</span>
+            <span class="tag">🎬 Video Editing</span>
+            <span class="tag">📸 Fotografi</span>
+            <span class="tag">🎮 Gaming</span>
+        </div>
     </div>
 
 </div>
+
+<!-- ==========================================
+     JAVASCRIPT LENGKAP 
+     ========================================== -->
 <script>
-    // ==========================================
-    // 1. SCRIPT NAVBAR & NESTED MENU 
-    // ==========================================
+    // --- 1. LOGIKA MENU & OVERLAY BARU (ANTI-LAG & SCROLL LOCK) ---
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay');
     const searchOverlay = document.getElementById('searchOverlay');
-    
     const mainMenu = document.getElementById('mainMenu');
     const subMenuGames = document.getElementById('subMenuGames');
     const btnGamesMenu = document.getElementById('btnGamesMenu');
@@ -235,27 +292,36 @@
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
+        
+        // Memunculkan Menu
         menuOverlay.classList.toggle('active');
+        btnMenu.classList.toggle('active'); // Memicu animasi ikon garis ke X
+
+        // Kunci background agar tidak bisa digeser saat menu terbuka
         if (menuOverlay.classList.contains('active')) {
-            btnMenu.classList.replace('fa-bars', 'fa-xmark');
-            mainMenu.style.display = 'block';
-            subMenuGames.style.display = 'none';
+            document.body.style.overflow = 'hidden'; 
+            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
         } else {
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+            document.body.style.overflow = 'auto'; // Lepas kunci background
         }
     });
 
     btnSearch.addEventListener('click', () => {
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+            btnMenu.classList.remove('active'); // Kembalikan ikon X ke Garis
+            document.body.style.overflow = 'auto';
         }
+        
         searchOverlay.classList.toggle('active');
+        
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
+            document.body.style.overflow = 'hidden'; // Kunci scroll
         } else {
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+            document.body.style.overflow = 'auto'; // Lepas kunci
         }
     });
 
@@ -270,9 +336,7 @@
         mainMenu.style.display = 'block';
     });
 
-    // ==========================================
-    // 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) 
-    // ==========================================
+    // --- 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
     const executeSearchBtn = document.getElementById('executeSearchBtn');
     const searchInputBox = document.getElementById('searchInput');
     const searchErrorMsg = document.getElementById('searchErrorMsg');
@@ -285,10 +349,11 @@
         { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
         { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
         { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" },
         { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
         { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
         { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" },
-        { keywords: ["aero glide", "burung", "aero", "glide", "terbang"], url: "aeroglide.html" } // Tambahan rute ke Aero Glide
+        { keywords: ["aero glide", "burung", "aero", "glide", "terbang"], url: "aeroglide.html" }
     ];
 
     function performSearch() {
@@ -333,4 +398,3 @@
 
 </body>
 </html>
-
