@@ -19,9 +19,7 @@
             padding: 90px 15px 40px 15px; color: #1d1d1f;
         }
 
-        /* =========================================
-           TOP NAVBAR APPLE STYLE
-           ========================================= */
+        /* NAVBAR ATAS */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -56,9 +54,7 @@
         .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; cursor: pointer; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
 
-        /* =========================================
-           KOTAK GAME "AERO GLIDE"
-           ========================================= */
+        /* KOTAK GAME "AERO GLIDE" */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         
         .game-wrapper {
@@ -83,15 +79,12 @@
             border-radius: 16px; overflow: hidden; background: #ffffff;
             box-shadow: inset 0 5px 15px rgba(0,0,0,0.1);
         }
-        
         canvas { width: 100%; height: 100%; display: block; }
 
-        /* MENU START & GAME OVER TRANPARAN */
+        /* MENU START & GAME OVER (TRANSPARAN) */
         .game-ui-layer {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Diubah agar lebih transparan (opacity 0.4) sehingga bola dan background terlihat! */
-            background: rgba(255, 255, 255, 0.4); 
-            backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+            background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 10; transition: opacity 0.3s;
         }
@@ -99,13 +92,7 @@
         .game-ui-layer h2 { font-size: 32px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
         .game-ui-layer p { font-size: 14px; font-weight: 700; color: #1d1d1f; margin-bottom: 25px; text-align: center; padding: 0 20px; text-shadow: 0 1px 5px rgba(255,255,255,0.8); }
         
-        /* BUNGKUSAN TOMBOL */
-        .action-btns {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 70%;
-        }
+        .action-btns { display: flex; flex-direction: column; gap: 12px; width: 70%; }
 
         .play-btn {
             background: #0066cc; color: #ffffff; border: none; padding: 12px 20px;
@@ -115,19 +102,18 @@
         }
         .play-btn:hover { background: #005bb5; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 102, 204, 0.4); }
         
-        /* TOMBOL BERHENTI (KELUAR GAME) */
+        /* TOMBOL BERHENTI */
         .quit-btn {
             background: #ff3b30; color: #ffffff; border: none; padding: 12px 20px;
             border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer;
             box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3); transition: all 0.2s;
-            text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;
-            display: none; /* Disembunyikan di awal */
+            font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px;
+            display: none; /* Disembunyikan saat awal */
         }
         .quit-btn:hover { background: #d70015; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(215, 0, 21, 0.4); }
 
         .hide { opacity: 0; pointer-events: none; }
         .instructions { font-size: 12px; color: #86868b; margin-top: 15px; font-weight: 500; }
-
     </style>
 </head>
 <body>
@@ -173,7 +159,6 @@
     </p>
 </div>
 <div class="game-wrapper">
-    
     <div class="game-header">
         <div class="game-title"><i class="fa-solid fa-rocket"></i> Aero Glide</div>
         <div class="score-board">
@@ -182,26 +167,26 @@
         </div>
     </div>
 
+    <!-- WADAH GAME -->
     <div class="canvas-container" id="canvasContainer">
-        
+        <!-- LAYAR AWAL / GAME OVER -->
         <div class="game-ui-layer" id="uiLayer">
             <h2 id="uiTitle">Aero Glide</h2>
-            <p id="uiDesc">Tap layar untuk melayang!</p>
-            
+            <p id="uiDesc">Tap layar untuk menerbangkan Roket!</p>
             <div class="action-btns">
                 <button class="play-btn" id="startBtn">
                     <i class="fa-solid fa-play"></i> Mulai Game
                 </button>
-                <a href="games.html" class="quit-btn" id="quitBtn">
-                    <i class="fa-solid fa-person-walking-arrow-right"></i> Berhenti
-                </a>
+                <button class="quit-btn" id="quitBtn">
+                    <i class="fa-solid fa-stop"></i> Berhenti
+                </button>
             </div>
         </div>
 
         <canvas id="gameCanvas" width="300" height="400"></canvas>
     </div>
 
-    <div class="instructions">Sistem dibuat lebih mudah untuk bersantai!</div>
+    <div class="instructions">Roket siap mengudara! Sentuh layar untuk terbang.</div>
 </div>
 
 <script>
@@ -217,14 +202,12 @@
         if (menuOverlay.classList.contains('active')) { btnMenu.classList.replace('fa-bars', 'fa-xmark'); mainMenu.style.display = 'block'; subMenuGames.style.display = 'none'; } 
         else { btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
     });
-
     btnSearch.addEventListener('click', () => {
         if (menuOverlay.classList.contains('active')) { menuOverlay.classList.remove('active'); btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
         searchOverlay.classList.toggle('active');
         if (searchOverlay.classList.contains('active')) { btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); } 
         else { btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
     });
-
     btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
     btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
@@ -234,14 +217,11 @@
         { keywords: ["store", "toko", "baju", "jasa"], url: "store.html" }, { keywords: ["pesan", "kirim pesan"], url: "Memberipesan.html" },
         { keywords: ["rating", "view", "penilaian"], url: "rating.html" }, { keywords: ["donasi", "donate"], url: "donate.html" }
     ];
-
     function performSearch() {
         const query = document.getElementById('searchInput').value.toLowerCase().trim();
         if (query === "") return; 
         let foundUrl = "";
-        for (let i = 0; i < searchDatabase.length; i++) {
-            if (searchDatabase[i].keywords.some(k => query.includes(k) || k.includes(query))) { foundUrl = searchDatabase[i].url; break; }
-        }
+        for (let i = 0; i < searchDatabase.length; i++) { if (searchDatabase[i].keywords.some(k => query.includes(k) || k.includes(query))) { foundUrl = searchDatabase[i].url; break; } }
         if (foundUrl !== "") { setTimeout(() => { window.location.href = foundUrl; }, 500); } 
         else { document.getElementById('searchErrorMsg').style.display = 'block'; setTimeout(() => { document.getElementById('searchErrorMsg').style.display = 'none'; }, 3000); }
     }
@@ -250,7 +230,7 @@
 
 
     // ==========================================
-    // --- 2. LOGIKA GAME AERO GLIDE (DIPERMUDAH) ---
+    // --- 2. LOGIKA GAME AERO GLIDE ---
     // ==========================================
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
@@ -263,113 +243,165 @@
     let score = 0;
     let bestScore = localStorage.getItem("aeroBestScore") || 0;
     document.getElementById("bestScore").innerText = bestScore;
-    
     let frames = 0;
     let isPlaying = false;
     let reqAnimation;
 
-    // Karakter Pemain (FISIKA DIPERMUDAH!)
+    // --- Karakter Baru: Roket Estetik ---
     const player = {
         x: 60,
         y: 200,
-        radius: 12,
+        radius: 12, // Radius Hitbox
         velocity: 0,
-        gravity: 0.18,      // Daya tarik ke bawah (DIKURANGI agar lambat jatuh)
-        jumpStrength: -4.0, // Kekuatan melompat (DISESUAIKAN agar lebih santai)
+        gravity: 0.18,      
+        jumpStrength: -4.0, 
         
         draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius + 4, 0, Math.PI * 2);
-            ctx.fillStyle = "rgba(0, 102, 204, 0.3)";
-            ctx.fill();
+            ctx.save();
+            ctx.translate(this.x, this.y);
             
+            // Efek memutar / hidung menukik berdasarkan kecepatan
+            let tilt = this.velocity * 0.1;
+            if(tilt > 0.5) tilt = 0.5; // Batas nungging bawah
+            if(tilt < -0.3) tilt = -0.3; // Batas nungging atas
+            ctx.rotate(tilt);
+
+            // 1. Api Roket Menyala Bergantian
+            if (frames % 10 < 5) { ctx.fillStyle = "#ff4757"; } else { ctx.fillStyle = "#ffa502"; }
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = "#0066cc";
+            ctx.moveTo(-12, -4);
+            ctx.lineTo(-22 - Math.random() * 8, 0); // Efek semburan
+            ctx.lineTo(-12, 4);
+            ctx.fill();
+
+            // 2. Sayap Atas & Bawah
+            ctx.fillStyle = "#a4b0be";
+            ctx.beginPath(); ctx.moveTo(-10, -8); ctx.lineTo(-15, -15); ctx.lineTo(0, -8); ctx.fill(); // Atas
+            ctx.beginPath(); ctx.moveTo(-10, 8); ctx.lineTo(-15, 15); ctx.lineTo(0, 8); ctx.fill(); // Bawah
+
+            // 3. Badan Roket
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.ellipse(0, 0, 16, 9, 0, 0, Math.PI * 2);
             ctx.fill();
             ctx.lineWidth = 2;
-            ctx.strokeStyle = "#ffffff";
+            ctx.strokeStyle = "#1d1d1f";
             ctx.stroke();
+
+            // 4. Kaca Jendela (Cockpit)
+            ctx.fillStyle = "#00a8ff";
+            ctx.beginPath();
+            ctx.arc(6, -1, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
         },
-        
         update() {
-            this.velocity += this.gravity;
-            this.y += this.velocity;
-            
-            if (this.y + this.radius >= canvas.height) {
-                this.y = canvas.height - this.radius;
-                gameOver();
-            }
-            if (this.y - this.radius <= 0) {
-                this.y = this.radius;
-                this.velocity = 0;
-            }
+            this.velocity += this.gravity; this.y += this.velocity;
+            if (this.y + this.radius >= canvas.height) { this.y = canvas.height - this.radius; gameOver(); }
+            if (this.y - this.radius <= 0) { this.y = this.radius; this.velocity = 0; }
         },
-        
-        flap() {
-            this.velocity = this.jumpStrength;
-        }
+        flap() { this.velocity = this.jumpStrength; }
     };
 
-    // Rintangan (DIPERMUDAH!)
+    // --- Pilar Baru: Desain Arsitektur Modern ---
     const obstacles = {
-        list: [],
-        width: 45,
-        gap: 145, // Jarak antar pilar LEBIH LEBAR
-        dx: 2.0,  // Kecepatan pilar LEBIH LAMBAT
-        
+        list: [], width: 45, gap: 145, dx: 2.0,
         draw() {
             for (let i = 0; i < this.list.length; i++) {
                 let obs = this.list[i];
-                ctx.fillStyle = "#e5e5ea";
-                ctx.strokeStyle = "#d1d1d6";
+                ctx.fillStyle = "#f1f2f6"; // Warna batang
+                ctx.strokeStyle = "#ced6e0";
                 ctx.lineWidth = 2;
 
-                ctx.beginPath(); ctx.roundRect(obs.x, 0, this.width, obs.top, 5); ctx.fill(); ctx.stroke();
-                ctx.beginPath(); ctx.roundRect(obs.x, canvas.height - obs.bottom, this.width, obs.bottom, 5); ctx.fill(); ctx.stroke();
+                // Pilar Atas (Bentuk pipa modern)
+                ctx.fillRect(obs.x + 4, 0, this.width - 8, obs.top - 12);
+                ctx.strokeRect(obs.x + 4, -2, this.width - 8, obs.top - 10);
+                // Ujung Tutup (Cap) Pilar Atas
+                ctx.fillRect(obs.x, obs.top - 12, this.width, 12);
+                ctx.strokeRect(obs.x, obs.top - 12, this.width, 12);
+                
+                // Pilar Bawah
+                let bottomY = canvas.height - obs.bottom;
+                ctx.fillRect(obs.x + 4, bottomY + 12, this.width - 8, obs.bottom - 12);
+                ctx.strokeRect(obs.x + 4, bottomY + 12, this.width - 8, obs.bottom);
+                // Ujung Tutup (Cap) Pilar Bawah
+                ctx.fillRect(obs.x, bottomY, this.width, 12);
+                ctx.strokeRect(obs.x, bottomY, this.width, 12);
             }
         },
-        
         update() {
-            if (frames % 100 === 0) { // Pilar muncul lebih jarang
+            if (frames % 100 === 0) {
                 let topHeight = Math.random() * (canvas.height - this.gap - 60) + 30;
                 let bottomHeight = canvas.height - this.gap - topHeight;
                 this.list.push({ x: canvas.width, top: topHeight, bottom: bottomHeight, passed: false });
             }
-
             for (let i = 0; i < this.list.length; i++) {
                 let obs = this.list[i];
                 obs.x -= this.dx;
-
                 if (player.x + player.radius > obs.x && player.x - player.radius < obs.x + this.width) {
                     if (player.y - player.radius < obs.top || player.y + player.radius > canvas.height - obs.bottom) { gameOver(); }
                 }
-
                 if (obs.x + this.width < player.x && !obs.passed) {
                     score++; document.getElementById("currentScore").innerText = score; obs.passed = true;
                 }
-
                 if (obs.x + this.width < 0) { this.list.shift(); i--; }
             }
         },
         reset() { this.list = []; }
     };
 
+    // --- Pemandangan Latar Belakang (Awan & Bukit) ---
+    const clouds = [
+        {x: 50, y: 60, speed: 0.2, size: 15},
+        {x: 180, y: 90, speed: 0.3, size: 20},
+        {x: 300, y: 50, speed: 0.15, size: 12}
+    ];
+
     function drawBackground() {
-        ctx.fillStyle = "#f5f5f7"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = "rgba(0,0,0,0.03)"; ctx.lineWidth = 1;
-        for(let i=0; i<canvas.width; i+=30) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke(); }
-        for(let i=0; i<canvas.height; i+=30) { ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke(); }
+        // 1. Langit Gradasi
+        let grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        grad.addColorStop(0, "#e0f2fe"); // Biru muda di atas
+        grad.addColorStop(1, "#f5f5f7"); // Putih di bawah
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // 2. Awan-awan bergerak
+        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        clouds.forEach(c => {
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.size, 0, Math.PI*2);
+            ctx.arc(c.x + c.size, c.y - c.size/2, c.size*0.8, 0, Math.PI*2);
+            ctx.arc(c.x + c.size*1.8, c.y, c.size*0.9, 0, Math.PI*2);
+            ctx.fill();
+            
+            c.x -= c.speed; // Awan jalan terus
+            if (c.x + c.size*3 < 0) c.x = canvas.width + c.size*2; 
+        });
+
+        // 3. Bukit Latar Belakang (Siluet)
+        ctx.fillStyle = "#d1d1d6";
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height); ctx.lineTo(0, canvas.height - 50);
+        ctx.quadraticCurveTo(150, canvas.height - 100, 300, canvas.height - 40);
+        ctx.lineTo(canvas.width, canvas.height); ctx.fill();
+        
+        // 4. Bukit Depan
+        ctx.fillStyle = "#e5e5ea";
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height); ctx.lineTo(0, canvas.height - 25);
+        ctx.quadraticCurveTo(100, canvas.height - 60, 250, canvas.height - 10);
+        ctx.lineTo(canvas.width, canvas.height); ctx.lineTo(canvas.width, canvas.height - 30);
+        ctx.fill();
     }
 
-    // ANIMASI IDLE (Mengambang sebelum main)
+    // --- LOOP Animasi & Permainan ---
     let idleAngle = 0;
     function idleLoop() {
         if (isPlaying) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawBackground();
-        idleAngle += 0.05;
-        player.y = 200 + Math.sin(idleAngle) * 10; // Mengambang naik turun
+        idleAngle += 0.05; player.y = 200 + Math.sin(idleAngle) * 10; 
         player.draw();
         reqAnimation = requestAnimationFrame(idleLoop);
     }
@@ -388,60 +420,58 @@
         if(e.type === "keydown" && e.code === "Space") { e.preventDefault(); player.flap(); }
         if(e.type === "mousedown" || e.type === "touchstart") { player.flap(); }
     }
-
     window.addEventListener("keydown", actionJump);
     canvas.addEventListener("mousedown", actionJump);
     canvas.addEventListener("touchstart", actionJump, {passive: false});
 
-    // Mulai / Restart Game
+    // START GAME
     startBtn.addEventListener("click", () => {
         cancelAnimationFrame(reqAnimation);
-        
-        player.y = 200;
-        player.velocity = 0;
-        
-        // AUTO-JUMP: Langsung melompat ke atas sedikit saat tombol Mulai ditekan!
-        player.flap(); 
-        
-        obstacles.reset();
-        score = 0; frames = 0;
+        player.y = 200; player.velocity = 0; player.flap(); 
+        obstacles.reset(); score = 0; frames = 0;
         document.getElementById("currentScore").innerText = score;
-        
-        uiLayer.classList.add("hide");
-        quitBtn.style.display = "none"; // Sembunyikan tombol Berhenti saat main
-        isPlaying = true;
-        
-        loop();
+        uiLayer.classList.add("hide"); quitBtn.style.display = "none"; 
+        isPlaying = true; loop();
     });
 
-    // Game Over
+    // GAME OVER
     function gameOver() {
         isPlaying = false;
         uiLayer.classList.remove("hide");
         uiTitle.innerText = "Game Over!";
         uiDesc.innerText = "Yahh nabrak! Skor kamu: " + score;
         startBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Main Lagi';
-        
-        // MUNCULKAN TOMBOL BERHENTI KETIKA GAME OVER
         quitBtn.style.display = "flex"; 
         
         if (score > bestScore) {
-            bestScore = score;
-            localStorage.setItem("aeroBestScore", bestScore);
+            bestScore = score; localStorage.setItem("aeroBestScore", bestScore);
             document.getElementById("bestScore").innerText = bestScore;
             uiDesc.innerText = "Skor Baru Tercipta! Skor: " + score;
         }
-        
-        // Panggil kembali Idle Loop agar bola mengambang lagi menunggu dimainkan
-        idleAngle = 0;
-        idleLoop();
+        idleAngle = 0; idleLoop();
     }
 
-    // Jalankan efek mengambang saat halaman pertama dibuka
+    // FUNGSI BERHENTI TANPA KELUAR HALAMAN
+    quitBtn.addEventListener("click", () => {
+        uiTitle.innerText = "Aero Glide";
+        uiDesc.innerText = "Tap layar untuk menerbangkan Roket!";
+        startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Game';
+        quitBtn.style.display = "none";
+        
+        score = 0;
+        document.getElementById("currentScore").innerText = score;
+        
+        player.y = 200;
+        player.velocity = 0;
+        obstacles.reset();
+        
+        // Animasi idle sudah berjalan karena dipanggil dari gameOver
+    });
+
+    // Mulai animasi awal
     idleLoop();
 
 </script>
-
 </body>
 </html>
 
