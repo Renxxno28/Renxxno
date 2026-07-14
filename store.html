@@ -45,34 +45,32 @@
         .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
         .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
 
-        /* OVERLAY MENU FULL SCREEN */
+        /* =========================================
+           OVERLAY MENU (KEMBALI KE DESAIN LAMA YANG RAPI)
+           ========================================= */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
-            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
-            overflow-y: auto; 
+            background: #ffffff; z-index: 9998; padding: 30px 25px;
+            transform: translateY(-100%); opacity: 0; visibility: hidden; 
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow-y: auto; /* Mencegah menu terpotong jika halamannya banyak */
         }
-        .nav-overlay.active { opacity: 1; visibility: visible; }
+        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
-        .menu-list { list-style: none; padding-top: 10px; }
-        .menu-list li { border-bottom: none; opacity: 0; transform: translateY(20px) scale(0.98); transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
-        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
-        
-        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
-        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
-        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
-        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
-        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
-        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
-        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
-        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
-        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
-
-        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; letter-spacing: -1px; }
+        .menu-list { list-style: none; }
+        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; 
+            text-decoration: none; transition: color 0.3s; 
+        }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 20px; color: #86868b; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
 
-        .submenu-header { display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px; }
+        .submenu-header { 
+            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f; 
+            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer; 
+        }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
@@ -82,7 +80,7 @@
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
 
         /* =========================================
-           KOTAK UTAMA STORE (PREMIUM CLEAN BLOCKS)
+           KOTAK UTAMA STORE 
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
@@ -107,25 +105,29 @@
 
         .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
+        /* KOTAK PRODUK YANG JELAS & TEGAS */
         .catalog-item {
-            background: #f5f5f7; border-radius: 20px; padding: 12px;
-            border: 1px solid #d1d1d6; text-align: center; cursor: pointer; transition: all 0.3s;
-            position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background: #ffffff; 
+            border-radius: 16px; padding: 12px;
+            border: 1.5px solid #d1d1d6; /* Garis Kotak Diperjelas */
+            text-align: center; cursor: pointer; transition: all 0.3s;
+            position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.04);
         }
         .catalog-item:hover { 
-            transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0, 102, 204, 0.15); 
-            border-color: #0066cc; background: #ffffff; 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 25px rgba(0, 102, 204, 0.15); 
+            border-color: #0066cc; 
         }
 
         .stock-label {
-            position: absolute; top: 18px; left: 18px; background: #ff3b30; color: white;
+            position: absolute; top: 20px; left: 20px; background: #ff3b30; color: white;
             font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 8px; z-index: 2;
             box-shadow: 0 4px 10px rgba(255, 59, 48, 0.3);
         }
 
         .catalog-img-box { 
-            width: 100%; aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; 
-            margin-bottom: 15px; background: #ffffff; border: 1px solid #e5e5ea;
+            width: 100%; aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; 
+            margin-bottom: 15px; background: #f5f5f7; border: 1px solid #e5e5ea;
         }
         .catalog-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
         .catalog-item:hover .catalog-img-box img { transform: scale(1.08); }
@@ -136,7 +138,9 @@
         }
         .catalog-price { font-size: 14px; font-weight: 700; color: #0066cc; }
 
-        /* DETAIL PRODUK */
+        /* =========================================
+           DETAIL PRODUK & PERBAIKAN BUG OVERFLOW
+           ========================================= */
         #viewDetail { display: none; animation: fadeUp 0.5s forwards; }
 
         .back-catalog-btn {
@@ -175,52 +179,46 @@
         .desc-accordion.active .desc-content { max-height: 250px; padding-top: 15px; }
         .desc-accordion.active .desc-header i { transform: rotate(180deg); color: #0066cc; }
 
-        /* =========================================
-           PERBAIKAN BUG OVERFLOW (UKURAN & JUMLAH)
-           ========================================= */
+        /* PERBAIKAN BUG: Diatur Berbaris Ke Bawah Agar Lebar Penuh */
         .product-options { 
             margin-bottom: 30px; text-align: left; 
-            display: flex; flex-direction: column; /* Pastikan selalu atas-bawah di HP */
+            display: flex; flex-direction: column; /* Selalu atas-bawah */
             gap: 20px; 
         }
         
         #sizeOptionBox, #quantityOptionBox {
-            display: flex; flex-direction: column; gap: 8px; width: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Merapikan ke kiri */
         }
 
-        .option-label { font-size: 14px; font-weight: 700; color: #1d1d1f; margin: 0; }
+        .option-label { display: block; font-size: 13px; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; }
         
         .size-select { 
-            width: 100%; height: 48px; padding: 0 15px; border-radius: 12px; border: 1px solid #d1d1d6; 
+            width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #d1d1d6; 
             background: #f5f5f7; font-family: 'Poppins', sans-serif; font-size: 14px; 
-            font-weight: 600; color: #1d1d1f; appearance: none; outline: none; 
+            font-weight: 500; color: #1d1d1f; appearance: none; outline: none; 
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2386868b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); 
             background-repeat: no-repeat; background-position: right 15px top 50%; 
             background-size: 12px auto; transition: border-color 0.3s;
         }
         .size-select:focus { border-color: #0066cc; }
         
+        /* Lebar kotak jumlah ( + 1 - ) dikunci agar tidak melebar */
         .quantity-control { 
-            display: flex; align-items: center; justify-content: space-between; 
-            background: #f5f5f7; border-radius: 12px; border: 1px solid #d1d1d6; 
-            width: fit-content; overflow: hidden; height: 48px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: #f5f5f7; border-radius: 12px; 
+            border: 1px solid #d1d1d6; width: 140px; overflow: hidden; 
         }
-        .qty-btn { 
-            background: transparent; border: none; width: 48px; height: 48px; font-size: 18px; 
-            color: #1d1d1f; cursor: pointer; transition: background 0.2s; 
-            display: flex; justify-content: center; align-items: center;
-        }
+        .qty-btn { background: transparent; border: none; width: 42px; height: 42px; font-size: 16px; color: #1d1d1f; cursor: pointer; transition: background 0.2s; }
         .qty-btn:hover { background: #e5e5ea; }
-        .qty-input { 
-            width: 55px; height: 48px; border: none; border-left: 1px solid rgba(0,0,0,0.05); 
-            border-right: 1px solid rgba(0,0,0,0.05); text-align: center; font-family: 'Poppins', sans-serif; 
-            font-size: 16px; font-weight: 700; color: #1d1d1f; outline: none; background: transparent; 
-        }
+        .qty-input { width: 50px; height: 42px; border: none; border-left: 1px solid rgba(0,0,0,0.05); border-right: 1px solid rgba(0,0,0,0.05); text-align: center; font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #1d1d1f; outline: none; background: transparent; }
 
         .add-cart-btn { width: 100%; background: #0066cc; color: #ffffff; border: none; padding: 16px; border-radius: 16px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: all 0.3s; font-family: 'Poppins', sans-serif; }
         .add-cart-btn:hover:not(:disabled) { background: #005bb5; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 102, 204, 0.35); }
 
-        /* FITUR LIGHTBOX (ZOOM FOTO) */
+        /* FITUR LIGHTBOX (ZOOM FOTO FULLSCREEN) */
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
@@ -235,20 +233,22 @@
             transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .lightbox-overlay.active .lightbox-img { transform: scale(1); }
-        .lightbox-close { position: absolute; top: -45px; right: -10px; color: #ffffff; font-size: 35px; cursor: pointer; transition: color 0.3s; }
+        .lightbox-close {
+            position: absolute; top: -45px; right: -10px;
+            color: #ffffff; font-size: 35px; cursor: pointer; transition: color 0.3s;
+        }
         .lightbox-close:hover { color: #ff4757; }
 
-        /* Pengaturan Tablet & Desktop (Berdampingan dengan aman) */
         @media (min-width: 768px) {
-            .menu-list a { font-size: 28px; }
             .store-card { padding: 45px 35px; }
             .catalog-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } 
             .detail-content-wrapper { flex-direction: row; align-items: flex-start; gap: 40px; }
             .detail-left { width: 45%; position: sticky; top: 80px; }
             .detail-right { width: 55%; }
+            /* Khusus di laptop, kotak jumlah dan ukuran bisa bersebelahan */
             .product-options { flex-direction: row; align-items: flex-end; }
             #sizeOptionBox { flex: 1; }
-            #quantityOptionBox { flex: 0 0 auto; width: auto; }
+            #quantityOptionBox { flex: 0 0 auto; }
         }
     </style>
 </head>
@@ -266,6 +266,7 @@
     </div>
 </nav>
 
+<!-- OVERLAY MENU (KEMBALI KE GAYA LAMA) -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -350,7 +351,7 @@
         </div> 
     </div>
 
-    <!-- HALAMAN DETAIL PRODUK (BUG FIX: SUSUNAN RAPI ATAS-BAWAH DI HP) -->
+    <!-- HALAMAN DETAIL PRODUK (Bug Overflow HP Diperbaiki) -->
     <div id="viewDetail">
         <button class="back-catalog-btn" onclick="closeProduct()">
             <i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog
@@ -388,6 +389,7 @@
                 </div>
 
                 <div class="product-options">
+                    <!-- Susunan Kotak Diperbarui Agar Tidak Tertumpuk di HP -->
                     <div id="sizeOptionBox">
                         <label class="option-label">Pilih Ukuran</label>
                         <select class="size-select" id="sizeSelect">
