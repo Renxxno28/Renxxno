@@ -125,11 +125,18 @@
     </div>
 </div>
 
-<!-- SEARCH OVERLAY -->
+<!-- OVERLAY PENCARIAN (SUDAH DIPERBAIKI) -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Cari..." id="searchInput">
+        <!-- Ikon kaca pembesar di bawah ini yang akan menjalankan pencarian jika diklik -->
+        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
+        <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
     </div>
+    <!-- Pesan Peringatan -->
+    <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
+        Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
+    </p>
+</div>
 </div>
 
 <!-- KONTEN PESAN -->
@@ -204,6 +211,67 @@
     });
 
     function resetForm() { successMessage.style.display = 'none'; formSubtitle.style.display = 'block'; form.style.display = 'block'; }
+
+    // --- 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
+    const executeSearchBtn = document.getElementById('executeSearchBtn');
+    const searchInputBox = document.getElementById('searchInput');
+    const searchErrorMsg = document.getElementById('searchErrorMsg');
+
+    // Kamus Database Pencarian Kita
+    const searchDatabase = [
+        { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
+        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
+        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
+        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
+        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
+        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+    ];
+
+    function performSearch() {
+        const query = searchInputBox.value.toLowerCase().trim();
+        if (query === "") return; 
+
+        let foundUrl = "";
+
+        // Mencari kecocokan kata
+        for (let i = 0; i < searchDatabase.length; i++) {
+            const item = searchDatabase[i];
+            const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
+            if (isMatch) {
+                foundUrl = item.url;
+                break; 
+            }
+        }
+
+        if (foundUrl !== "") {
+            searchErrorMsg.style.display = 'none';
+            // Efek Loading
+            executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
+            setTimeout(() => {
+                window.location.href = foundUrl; 
+            }, 500);
+        } else {
+            // Tampilkan Pesan Error
+            searchErrorMsg.style.display = 'block';
+            setTimeout(() => {
+                searchErrorMsg.style.display = 'none';
+            }, 3000);
+        }
+    }
+
+    // Jalankan pencarian jika klik ikon Kaca Pembesar di dalam kotak
+    executeSearchBtn.addEventListener('click', performSearch);
+
+    // Jalankan pencarian jika tekan tombol ENTER di Keyboard HP/Laptop
+    searchInputBox.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Mencegah halaman ke-refresh
+            performSearch();
+        }
+    });
 </script>
 </body>
 </html>
