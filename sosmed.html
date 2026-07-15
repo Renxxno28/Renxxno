@@ -17,7 +17,7 @@
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); 
             display: flex; justify-content: center; align-items: flex-start; 
-            padding: 120px 20px 40px 20px; /* Jarak atas sedikit ditambah agar seimbang */
+            padding: 120px 20px 40px 20px; 
             color: #1d1d1f;
         }
 
@@ -30,29 +30,62 @@
         }
 
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
-        /* OVERLAY UMUM */
+        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+        .apple-burger {
+            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
+            cursor: pointer; position: relative; z-index: 10000;
+        }
+        .apple-burger span {
+            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+        }
+        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
+        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
+
+        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 30px 25px;
-            transform: translateY(-100%); opacity: 0; visibility: hidden;
+            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
+        }
+        .nav-overlay.active { opacity: 1; visibility: visible; }
+
+        /* LIST MENU ALA APPLE */
+        .menu-list { list-style: none; padding-top: 10px; }
+        .menu-list li {
+            border-bottom: none; 
+            opacity: 0; transform: translateY(20px) scale(0.98);
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
+        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
+        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
+        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
+        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
+        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
+        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
+        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
+        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
+        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
 
-        .menu-list { list-style: none; }
-        .menu-list li { border-bottom: 1px solid #e5e5ea; }
         .menu-list a { 
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            letter-spacing: -1px;
         }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 18px; color: #86868b; }
+        .menu-list a i { font-size: 20px; color: #86868b; }
 
-        .submenu-header { display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer; }
+        .submenu-header {
+            display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
+        }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
         /* KOTAK PENCARIAN */
@@ -62,7 +95,29 @@
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
 
-        /* =========================================
+        /* TOOLTIP / NOTIFIKASI MENU */
+        .menu-tooltip {
+            position: fixed; top: 65px; right: 15px; background: #ffffff;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+            z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
+            opacity: 0; transform: translateY(-10px); visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
+        .tooltip-arrow {
+            position: absolute; top: -6px; right: 18px; width: 12px; height: 12px;
+            background: #ffffff; transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05);
+        }
+        .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
+        .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
+        .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
+        .tooltip-close:hover { color: #fa233b; }
+
+        @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+
+                /* =========================================
            DESAIN KARTU SOSIAL MEDIA (BIOLINK)
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
@@ -70,7 +125,7 @@
         
         .social-card {
             background: #ffffff;
-            border-radius: 30px; padding: 50px 25px; /* Padding disesuaikan karena foto hilang */
+            border-radius: 30px; padding: 50px 25px; 
             width: 100%; max-width: 420px; text-align: center; 
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(0, 0, 0, 0.05); 
@@ -97,48 +152,52 @@
         .btn-text { flex-grow: 1; text-align: left; transition: color 0.3s; }
         .social-btn .fa-chevron-right { font-size: 14px; color: #a4b0be; position: absolute; right: 25px; transition: right 0.3s, color 0.3s; }
 
-        /* Delay Animasi Muncul */
         .social-btn:nth-child(1) { animation-delay: 0.3s; } 
         .social-btn:nth-child(2) { animation-delay: 0.4s; }
         .social-btn:nth-child(3) { animation-delay: 0.5s; } 
         .social-btn:nth-child(4) { animation-delay: 0.6s; }
         
-        /* WARNA KHAS MASING-MASING SOSMED */
-        /* 1. YouTube */
         .btn-yt i:first-child { color: #ff0000; }
         .btn-yt:hover { background: #ff0000; color: #ffffff; transform: translateY(-4px); box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3); }
         
-        /* 2. Instagram */
         .btn-ig i:first-child { background: -webkit-linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .btn-ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #ffffff; transform: translateY(-4px); box-shadow: 0 10px 25px rgba(220, 39, 67, 0.3); }
         .btn-ig:hover i:first-child { background: none; -webkit-text-fill-color: #ffffff; color: #ffffff; }
         
-        /* 3. Email */
         .btn-email i:first-child { color: #4285f4; }
         .btn-email:hover { background: #4285f4; color: #ffffff; transform: translateY(-4px); box-shadow: 0 10px 25px rgba(66, 133, 244, 0.3); }
         
-        /* 4. WhatsApp */
         .btn-wa i:first-child { color: #25D366; }
         .btn-wa:hover { background: #25D366; color: #ffffff; transform: translateY(-4px); box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); }
 
-        /* Efek Teks & Panah Saat Hover Semua Tombol */
         .social-btn:hover .btn-text, .social-btn:hover i:first-child, .social-btn:hover .fa-chevron-right { color: #ffffff; }
         .social-btn:hover .fa-chevron-right { right: 15px; }
 
+        @media (max-width: 768px) {
+            .menu-list a { font-size: 28px; }
+        }
     </style>
 </head>
 <body>
 
-<!-- TOP NAVBAR -->
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+        <div class="apple-burger" id="toggleMenu">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+        </div>
     </div>
 </nav>
 
-<!-- OVERLAY MENU -->
+<div class="menu-tooltip" id="menuTooltip">
+    <div class="tooltip-arrow"></div>
+    <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
+    <span>Klik di sini untuk menu lainnya!</span>
+    <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
+</div>
+
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -163,7 +222,6 @@
     </div>
 </div>
 
-<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
@@ -173,55 +231,36 @@
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
-<!-- =========================================
-     KARTU SOSIAL MEDIA (BIOLINK)
-     ========================================= -->
+
 <div class="social-card">
-    
-    <!-- Bagian Foto Telah Dihapus Secara Penuh -->
-    
     <div class="profile-name">Renxxno</div>
     <div class="profile-bio">Mari berteman & terhubung bersama!</div>
     
-    <!-- DAFTAR TOMBOL SOSIAL MEDIA -->
     <div class="links-wrapper">
-        
-        <!-- Tombol YouTube -->
         <a href="https://youtube.com/@alexzanderbareno?si=Shl3zBDB-LEKatNP" target="_blank" class="social-btn btn-yt">
             <i class="fa-brands fa-youtube"></i> 
             <span class="btn-text">YouTube</span>
             <i class="fa-solid fa-chevron-right"></i>
         </a>
-        
-        <!-- Tombol Instagram -->
         <a href="https://www.instagram.com/renoogemoyyy?igsh=MXgwd2Z1eXQyMHVkbA==" target="_blank" class="social-btn btn-ig">
             <i class="fa-brands fa-instagram"></i> 
             <span class="btn-text">Instagram</span>
             <i class="fa-solid fa-chevron-right"></i>
         </a>
-        
-        <!-- Tombol Email -->
         <a href="mailto:alexanderbareno44@gmail.com" class="social-btn btn-email">
             <i class="fa-solid fa-envelope"></i> 
             <span class="btn-text">Email</span>
             <i class="fa-solid fa-chevron-right"></i>
         </a>
-        
-        <!-- Tombol WhatsApp -->
         <a href="https://wa.me/6285749776994" target="_blank" class="social-btn btn-wa">
             <i class="fa-brands fa-whatsapp"></i> 
             <span class="btn-text">WhatsApp</span>
             <i class="fa-solid fa-chevron-right"></i>
         </a>
-        
     </div>
 </div>
-
-<!-- ==========================================
-     JAVASCRIPT LENGKAP 
-     ========================================== -->
 <script>
-    // --- 1. LOGIKA MENU & OVERLAY ---
+    // --- 1. LOGIKA MENU & OVERLAY BARU (ANTI-LAG & SCROLL LOCK) ---
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay');
@@ -230,60 +269,89 @@
     const subMenuGames = document.getElementById('subMenuGames');
     const btnGamesMenu = document.getElementById('btnGamesMenu');
     const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    const menuTooltip = document.getElementById('menuTooltip');
 
     btnMenu.addEventListener('click', () => {
+        if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (searchOverlay.classList.contains('active')) {
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
+        
+        // Memunculkan Menu
         menuOverlay.classList.toggle('active');
+        btnMenu.classList.toggle('active'); // Memicu animasi ikon garis ke X
+
+        // Kunci background agar tidak bisa digeser saat menu terbuka
         if (menuOverlay.classList.contains('active')) {
-            btnMenu.classList.replace('fa-bars', 'fa-xmark');
+            document.body.style.overflow = 'hidden'; 
             mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
         } else {
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+            document.body.style.overflow = 'auto'; // Lepas kunci background
         }
     });
 
     btnSearch.addEventListener('click', () => {
+        if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
+            btnMenu.classList.remove('active'); // Kembalikan ikon X ke Garis
+            document.body.style.overflow = 'auto';
         }
+        
         searchOverlay.classList.toggle('active');
+        
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
+            document.body.style.overflow = 'hidden'; // Kunci scroll
         } else {
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+            document.body.style.overflow = 'auto'; // Lepas kunci
         }
     });
 
     btnGamesMenu.addEventListener('click', (e) => {
-        e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block';
+        e.preventDefault(); 
+        mainMenu.style.display = 'none'; 
+        subMenuGames.style.display = 'block';
     });
 
     btnBackMainMenu.addEventListener('click', () => {
-        subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
+        subMenuGames.style.display = 'none'; 
+        mainMenu.style.display = 'block';
     });
 
-    // --- 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
+    // --- 2. LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL) ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const closeTooltip = document.getElementById('closeTooltip');
+        if (!sessionStorage.getItem('menuNotifShown')) {
+            setTimeout(() => { if(menuTooltip) menuTooltip.classList.add('show'); }, 1000);
+            sessionStorage.setItem('menuNotifShown', 'true'); 
+            setTimeout(() => { if(menuTooltip) menuTooltip.classList.remove('show'); }, 8000); 
+        }
+        if (closeTooltip) {
+            closeTooltip.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
+        }
+    });
+
+    // --- 3. LOGIKA MESIN PENCARIAN (UPDATE TERBARU) ---
     const executeSearchBtn = document.getElementById('executeSearchBtn');
     const searchInputBox = document.getElementById('searchInput');
     const searchErrorMsg = document.getElementById('searchErrorMsg');
 
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
-        { keywords: ["biodata", "tentang", "about", "info", "lahir"], url: "biodata.html" },
-        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa", "hubungi"], url: "sosmed.html" },
-        { keywords: ["game", "games", "my account", "ml", "free fire", "pubg"], url: "games.html" },
-        { keywords: ["ghost", "ghost hunter", "hunter", "hantu"], url: "ghosthunter.html" },
+        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
+        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
+        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
         { keywords: ["aero glide", "burung", "aero", "terbang"], url: "aeroglide.html" },
         { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
-        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual"], url: "store.html" },
-        { keywords: ["pesan", "kirim pesan", "kontak", "email", "chat", "message"], url: "Memberipesan.html" },
+        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
+        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
         { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" }
     ];
 
     function performSearch() {
