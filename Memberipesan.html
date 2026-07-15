@@ -14,12 +14,12 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff; /* Background Apple Putih Bersih */
+            background: #ffffff; 
             display: flex; justify-content: center; align-items: flex-start;
             padding: 100px 20px 40px 20px; color: #1d1d1f;
         }
 
-        /* NAVBAR & OVERLAY MENU */
+        /* NAVBAR ATAS */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -27,33 +27,81 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
+        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+        .apple-burger {
+            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
+            cursor: pointer; position: relative; z-index: 10000;
+        }
+        .apple-burger span {
+            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+        }
+        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
+        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
+
+        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 30px 25px;
-            transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.4s ease;
+            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
         }
-        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+        .nav-overlay.active { opacity: 1; visibility: visible; }
 
-        .menu-list { list-style: none; }
-        .menu-list li { border-bottom: 1px solid #e5e5ea; }
-        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
-        
-        /* Warna Biru Menyala untuk Menu yang Sedang Dibuka */
+        /* LIST MENU ALA APPLE */
+        .menu-list { list-style: none; padding-top: 10px; }
+        .menu-list li {
+            border-bottom: none; 
+            opacity: 0; transform: translateY(20px) scale(0.98);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
+        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
+        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
+        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
+        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
+        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
+        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
+        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
+        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
+        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
+
+        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; letter-spacing: -1px; }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 18px; color: #86868b; }
+        .menu-list a i { font-size: 20px; color: #86868b; }
 
-        .submenu-header { display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer; }
+        .submenu-header { display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px; }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
+        .search-box i:hover { color: #0066cc; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
+        .search-box input::placeholder { color: #86868b; font-size: 16px; }
 
-        /* KOTAK PESAN */
+        /* TOOLTIP / NOTIFIKASI MENU */
+        .menu-tooltip {
+            position: fixed; top: 65px; right: 15px; background: #ffffff;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+            z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
+            opacity: 0; transform: translateY(-10px); visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
+        .tooltip-arrow { position: absolute; top: -6px; right: 18px; width: 12px; height: 12px; background: #ffffff; transform: rotate(45deg); border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05); }
+        .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
+        .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
+        .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
+        .tooltip-close:hover { color: #fa233b; }
+
+        @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+                /* KOTAK PESAN */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
@@ -88,6 +136,10 @@
         .success-text { font-size: 13px; color: #636e72; margin-bottom: 20px; }
         .back-form-btn { background: transparent; color: #0066cc; border: 1px solid #0066cc; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Poppins', sans-serif; }
         .back-form-btn:hover { background: rgba(0,102,204,0.1); }
+
+        @media (max-width: 768px) {
+            .menu-list a { font-size: 28px; }
+        }
     </style>
 </head>
 <body>
@@ -97,9 +149,20 @@
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+        <div class="apple-burger" id="toggleMenu">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+        </div>
     </div>
 </nav>
+
+<!-- TOOLTIP NOTIFIKASI MENU -->
+<div class="menu-tooltip" id="menuTooltip">
+    <div class="tooltip-arrow"></div>
+    <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
+    <span>Klik di sini untuk menu lainnya!</span>
+    <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
+</div>
 
 <!-- MENU OVERLAY -->
 <div class="nav-overlay" id="menuOverlay">
@@ -111,7 +174,6 @@
             <li><a href="music.html">Music</a></li>
             <li><a href="store.html">Store</a></li>
             <li><a href="sosmed.html">Sosial Media</a></li>
-            <!-- INDIKATOR AKTIF DI KIRIM PESAN -->
             <li><a href="Memberipesan.html" class="active">Kirim Pesan</a></li>
             <li><a href="rating.html">View & Rating</a></li>
             <li><a href="donate.html">Donasi</a></li>
@@ -127,18 +189,15 @@
     </div>
 </div>
 
-<!-- OVERLAY PENCARIAN (SUDAH DIPERBAIKI) -->
+<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <!-- Ikon kaca pembesar di bawah ini yang akan menjalankan pencarian jika diklik -->
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
         <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
     </div>
-    <!-- Pesan Peringatan -->
     <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
-</div>
 </div>
 
 <!-- KONTEN PESAN -->
@@ -170,32 +229,83 @@
         <button class="back-form-btn" onclick="resetForm()">Kirim Pesan Lain</button>
     </div>
 </div>
-
 <script>
-    // JS NAVBAR
-    const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
-    const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
-    const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
-    const btnGamesMenu = document.getElementById('btnGamesMenu'); const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    // --- 1. LOGIKA MENU & OVERLAY BARU (ANTI-LAG & SCROLL LOCK) ---
+    const btnMenu = document.getElementById('toggleMenu');
+    const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    const menuTooltip = document.getElementById('menuTooltip');
 
     btnMenu.addEventListener('click', () => {
-        if (searchOverlay.classList.contains('active')) { searchOverlay.classList.remove('active'); btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
+        if(menuTooltip) menuTooltip.classList.remove('show'); 
+        if (searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+        
+        // Memunculkan Menu
         menuOverlay.classList.toggle('active');
-        if (menuOverlay.classList.contains('active')) { btnMenu.classList.replace('fa-bars', 'fa-xmark'); mainMenu.style.display = 'block'; subMenuGames.style.display = 'none'; } 
-        else { btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
+        btnMenu.classList.toggle('active'); // Memicu animasi ikon garis ke X
+
+        // Kunci background agar tidak bisa digeser saat menu terbuka
+        if (menuOverlay.classList.contains('active')) {
+            document.body.style.overflow = 'hidden'; 
+            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
+        } else {
+            document.body.style.overflow = 'auto'; // Lepas kunci background
+        }
     });
 
     btnSearch.addEventListener('click', () => {
-        if (menuOverlay.classList.contains('active')) { menuOverlay.classList.remove('active'); btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
+        if(menuTooltip) menuTooltip.classList.remove('show'); 
+        if (menuOverlay.classList.contains('active')) {
+            menuOverlay.classList.remove('active');
+            btnMenu.classList.remove('active'); // Kembalikan ikon X ke Garis
+            document.body.style.overflow = 'auto';
+        }
+        
         searchOverlay.classList.toggle('active');
-        if (searchOverlay.classList.contains('active')) { btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); } 
-        else { btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
+        
+        if (searchOverlay.classList.contains('active')) {
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
+            document.getElementById('searchInput').focus();
+            document.body.style.overflow = 'hidden'; // Kunci scroll
+        } else {
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+            document.body.style.overflow = 'auto'; // Lepas kunci
+        }
     });
 
-    btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
-    btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
+    btnGamesMenu.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        mainMenu.style.display = 'none'; 
+        subMenuGames.style.display = 'block';
+    });
 
-    // JS FORMULIR
+    btnBackMainMenu.addEventListener('click', () => {
+        subMenuGames.style.display = 'none'; 
+        mainMenu.style.display = 'block';
+    });
+
+    // --- 2. LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL) ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const closeTooltip = document.getElementById('closeTooltip');
+        if (!sessionStorage.getItem('menuNotifShown')) {
+            setTimeout(() => { if(menuTooltip) menuTooltip.classList.add('show'); }, 1000);
+            sessionStorage.setItem('menuNotifShown', 'true'); 
+            setTimeout(() => { if(menuTooltip) menuTooltip.classList.remove('show'); }, 8000); 
+        }
+        if (closeTooltip) {
+            closeTooltip.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
+        }
+    });
+
+    // --- 3. JS FORMULIR (TIDAK DIUBAH SAMA SEKALI) ---
     const form = document.getElementById('contactForm'); const submitBtn = document.getElementById('submitBtn');
     const btnIcon = document.getElementById('btnIcon'); const btnText = document.getElementById('btnText');
     const successMessage = document.getElementById('successMessage'); const formSubtitle = document.getElementById('formSubtitle');
@@ -214,22 +324,23 @@
 
     function resetForm() { successMessage.style.display = 'none'; formSubtitle.style.display = 'block'; form.style.display = 'block'; }
 
-    // --- 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
+    // --- 4. LOGIKA MESIN PENCARIAN (UPDATE TERBARU) ---
     const executeSearchBtn = document.getElementById('executeSearchBtn');
     const searchInputBox = document.getElementById('searchInput');
     const searchErrorMsg = document.getElementById('searchErrorMsg');
 
-    // Kamus Database Pencarian Kita
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
         { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
         { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
         { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
+        { keywords: ["aero glide", "burung", "aero", "terbang"], url: "aeroglide.html" },
         { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
         { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
         { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
         { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" }
     ];
 
     function performSearch() {
@@ -237,44 +348,26 @@
         if (query === "") return; 
 
         let foundUrl = "";
-
-        // Mencari kecocokan kata
         for (let i = 0; i < searchDatabase.length; i++) {
             const item = searchDatabase[i];
             const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
-            if (isMatch) {
-                foundUrl = item.url;
-                break; 
-            }
+            if (isMatch) { foundUrl = item.url; break; }
         }
 
         if (foundUrl !== "") {
             searchErrorMsg.style.display = 'none';
-            // Efek Loading
             executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
-            setTimeout(() => {
-                window.location.href = foundUrl; 
-            }, 500);
+            setTimeout(() => { window.location.href = foundUrl; }, 500);
         } else {
-            // Tampilkan Pesan Error
             searchErrorMsg.style.display = 'block';
-            setTimeout(() => {
-                searchErrorMsg.style.display = 'none';
-            }, 3000);
+            setTimeout(() => { searchErrorMsg.style.display = 'none'; }, 3000);
         }
     }
 
-    // Jalankan pencarian jika klik ikon Kaca Pembesar di dalam kotak
     executeSearchBtn.addEventListener('click', performSearch);
-
-    // Jalankan pencarian jika tekan tombol ENTER di Keyboard HP/Laptop
     searchInputBox.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault(); // Mencegah halaman ke-refresh
-            performSearch();
-        }
+        if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
     });
 </script>
 </body>
 </html>
-
