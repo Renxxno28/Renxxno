@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Hunter | Renxxno Games</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; touch-action: manipulation; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Latar luar disamakan dengan website (Apple Light) */
+            background: #f5f5f7; 
+            display: flex; justify-content: center; align-items: flex-start;
+            padding: 90px 20px 40px 20px; color: #1d1d1f;
+        }
+
+        /* =========================================
+           TOP NAVBAR APPLE STYLE
+           ========================================= */
+        .apple-nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 54px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .nav-icons i:hover { opacity: 0.5; }
+
+        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+        .apple-burger {
+            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
+            cursor: pointer; position: relative; z-index: 10000;
+        }
+        .apple-burger span {
+            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+        }
+        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
+        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
+
+        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
+        .nav-overlay {
+            position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
+            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto; 
+        }
+        .nav-overlay.active { opacity: 1; visibility: visible; }
+
+        .menu-list { list-style: none; padding-top: 10px; }
+        .menu-list li {
+            border-bottom: none; 
+            opacity: 0; transform: translateY(20px) scale(0.98);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
+        
+        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
+        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
+        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
+        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
+        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
+        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
+        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
+        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
+
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            letter-spacing: -1px;
+        }
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        .menu-list a i { font-size: 20px; color: #86868b; }
+
+        .submenu-header {
+            display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
+        }
+        .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
+
+        .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; cursor: pointer; }
+        .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
+
+        /* =========================================
+           TAMPILAN GAME: ESTETIK SEPERTI AERO GLIDE
+           ========================================= */
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes shake { 0%, 60% { transform: translate(-2px, 1px) rotate(0deg); } 20%, 80% { transform: translate(-2px, 0px) rotate(1deg); } 40%, 100% { transform: translate(1px, -1px) rotate(-1deg); } }
+        
+        .card-container {
+            /* Gradasi elegan ala Aero Glide */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 24px; padding: 25px 20px; width: 100%; max-width: 450px; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); border: 2px solid #ffffff; 
+            text-align: center; position: relative; overflow: hidden; 
+            opacity: 0; animation: popIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        .card-container.shaking { animation: shake 0.4s; border-color: #ff4757; }
+
+        .header-icon { font-size: 38px; color: #0066cc; margin-bottom: 5px; opacity: 0; animation: fadeUp 0.5s 0.1s forwards; }
+        .header-title { font-size: 24px; font-weight: 800; color: #1d1d1f; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; opacity: 0; animation: fadeUp 0.5s 0.2s forwards; }
+
+        .tutorial-box {
+            background: rgba(255, 255, 255, 0.6); border-radius: 12px; padding: 12px; margin: 0 auto 15px auto; 
+            font-size: 12px; color: #576574; text-align: left; line-height: 1.6; border: 1px dashed rgba(0, 102, 204, 0.4); 
+            opacity: 0; animation: fadeUp 0.5s 0.3s forwards;
+        }
+        .tutorial-box strong { color: #0066cc; font-size: 13px;}
+        .t-ghost { color: #0066cc; font-weight: bold; }
+        .t-bomb { color: #ff4757; font-weight: bold; }
+        .t-time { color: #00b894; font-weight: bold; }
+
+        .stats-container { display: flex; justify-content: space-between; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.5s 0.4s forwards; }
+        .stat-box { background: #ffffff; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 11px; color: #86868b; width: 48%; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .stat-box span { display: block; font-size: 26px; font-weight: 800; color: #1d1d1f; margin-top: 2px; }
+        #timeLeft.warning { color: #ff4757; }
+        #timeLeft.bonus { color: #00b894; }
+
+        /* WADAH LUBANG HANTU BERSIH */
+        .game-board {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 300px; 
+            margin: 0 auto 25px auto; background: rgba(255, 255, 255, 0.4); padding: 15px;
+            border-radius: 18px; border: 1px solid #ffffff; opacity: 0; animation: fadeUp 0.5s 0.4s forwards;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .hole { 
+            background: #ffffff; aspect-ratio: 1/1; border-radius: 12px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05), inset 0 -3px 5px rgba(0,0,0,0.02); 
+            display: flex; justify-content: center; align-items: center; 
+            cursor: pointer; position: relative; overflow: hidden; border: 2px solid transparent; 
+            transition: transform 0.1s ease; -webkit-tap-highlight-color: transparent; 
+        }
+        .hole:active { transform: scale(0.92); }
+
+        .entity { font-size: 38px; opacity: 0; transform: translateY(100%); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease; pointer-events: none; }
+        .hole.active .entity { opacity: 1; transform: translateY(0); }
+        
+        .entity.ghost { color: #0066cc; text-shadow: 0 5px 10px rgba(0,102,204,0.2); }
+        .entity.bomb { color: #ff4757; font-size: 34px; text-shadow: 0 5px 10px rgba(255,71,87,0.2); }
+        .entity.time { color: #00b894; font-size: 34px; text-shadow: 0 5px 10px rgba(0,184,148,0.2); }
+
+        .hole.hit-ghost { border-color: #0066cc; background: rgba(0, 102, 204, 0.1); }
+        .hole.hit-bomb { border-color: #ff4757; background: rgba(255, 71, 87, 0.15); }
+        .hole.hit-time { border-color: #00b894; background: rgba(0, 184, 148, 0.15); }
+
+        .start-btn { width: 100%; background: #0066cc; color: #ffffff; border: none; padding: 15px; border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); transition: all 0.3s ease; font-family: 'Poppins', sans-serif; opacity: 0; animation: fadeUp 0.5s 0.5s forwards; }
+        .start-btn:hover:not(:disabled) { background: #005bb5; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 102, 204, 0.4); }
+        .start-btn:disabled { background: #b2bec3; color: #ffffff; cursor: not-allowed; box-shadow: none; transform: none; }
+
+        /* LAYAR GAME OVER GLASSMORPHISM */
+        .game-over-screen { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 20px; 
+        }
+        .game-over-screen.show { opacity: 1; pointer-events: all; }
+        .go-title { font-size: 32px; font-weight: 800; color: #1d1d1f; text-transform: uppercase; margin-bottom: 5px; }
+        .go-score { font-size: 15px; color: #576574; font-weight: 600; margin-bottom: 25px; }
+        .go-score span { color: #0066cc; font-size: 38px; font-weight: 900; display: block; margin-top: 5px; }
+
+        .go-buttons { display: flex; flex-direction: column; gap: 12px; width: 70%; }
+        .go-btn { background: #0066cc; color: #ffffff; border: none; padding: 12px 20px; border-radius: 20px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); transition: all 0.2s; font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .go-btn:hover { background: #005bb5; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 102, 204, 0.4); }
+        
+        .go-btn.quit-btn { background: #ff3b30; box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3); }
+        .go-btn.quit-btn:hover { background: #d70015; box-shadow: 0 12px 25px rgba(215, 0, 21, 0.4); }
+
+        @media (max-width: 768px) {
+            .menu-list a { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOP NAVBAR -->
+<nav class="apple-nav">
+    <a href="index.html" class="nav-brand">Renxxno</a>
+    <div class="nav-icons">
+        <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
+        <!-- Ikon Animasi Garis X -->
+        <div class="apple-burger" id="toggleMenu">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+        </div>
+    </div>
+</nav>
+
+<!-- OVERLAY MENU -->
+<div class="nav-overlay" id="menuOverlay">
+    <div id="mainMenu">
+        <ul class="menu-list">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="biodata.html">Biodata</a></li>
+            <li><a href="#" id="btnGamesMenu" class="active">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="store.html">Store</a></li>
+            <li><a href="sosmed.html">Sosial Media</a></li>
+            <li><a href="Memberipesan.html">Kirim Pesan</a></li>
+            <li><a href="rating.html">View & Rating</a></li>
+            <li><a href="donate.html">Donasi</a></li>
+        </ul>
+    </div>
+    <div id="subMenuGames" style="display: none;">
+        <div class="submenu-header" id="btnBackMainMenu"><i class="fa-solid fa-chevron-left"></i><span>Games</span></div>
+        <ul class="menu-list">
+            <li><a href="games.html">My Account</a></li>
+            <li><a href="ghosthunter.html" class="active">Ghost Hunter</a></li>
+            <li><a href="aeroglide.html">Aero Glide</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- OVERLAY PENCARIAN -->
+<div class="nav-overlay" id="searchOverlay">
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
+        <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
+    </div>
+    <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
+        Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
+    </p>
+</div>
+<div class="card-container" id="gameCard">
+    <div class="header-icon"><i class="fa-solid fa-ghost"></i></div>
+    <h1 class="header-title">Ghost Hunter</h1>
+    
+    <div class="tutorial-box">
+        <strong>Cara Bermain:</strong><br>
+        <span class="t-ghost"><i class="fa-solid fa-ghost"></i> Ghost:</span> +1 Skor.<br>
+        <span class="t-bomb"><i class="fa-solid fa-bomb"></i> Bom:</span> Game Over.<br>
+        <span class="t-time"><i class="fa-solid fa-stopwatch"></i> Time:</span> +5 Detik.
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-box">Waktu <span id="timeLeft">60</span></div>
+        <div class="stat-box">Skor <span id="score">0</span></div>
+    </div>
+
+    <div class="game-board">
+        <div class="hole" data-index="0"></div>
+        <div class="hole" data-index="1"></div>
+        <div class="hole" data-index="2"></div>
+        <div class="hole" data-index="3"></div>
+        <div class="hole" data-index="4"></div>
+        <div class="hole" data-index="5"></div>
+        <div class="hole" data-index="6"></div>
+        <div class="hole" data-index="7"></div>
+        <div class="hole" data-index="8"></div>
+    </div>
+
+    <button class="start-btn" id="startBtn"><i class="fa-solid fa-play"></i> Mulai Berburu</button>
+
+    <div class="game-over-screen" id="gameOverScreen">
+        <div class="go-title" id="goTitle">GAME OVER!</div>
+        <div class="go-score" id="goReason">Waktu Habis!</div>
+        <div class="go-score">Skor Akhir: <span id="finalScore">0</span></div>
+        <div class="go-buttons">
+            <button class="go-btn" id="restartBtn"><i class="fa-solid fa-rotate-right"></i> Main Lagi</button>
+            <button class="go-btn quit-btn" id="quitBtn"><i class="fa-solid fa-stop"></i> Berhenti</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==========================================
+    // 1. SCRIPT NAVBAR & OVERLAY MENU (SCROLL LOCK)
+    // ==========================================
+    const btnMenu = document.getElementById('toggleMenu');
+    const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu');
+    const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu');
+    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+
+    btnMenu.addEventListener('click', () => {
+        if (searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+        }
+        
+        menuOverlay.classList.toggle('active');
+        btnMenu.classList.toggle('active'); // Animasi Garis ke X
+
+        if (menuOverlay.classList.contains('active')) {
+            document.body.style.overflow = 'hidden'; // Kunci Scroll
+            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
+        } else {
+            document.body.style.overflow = 'auto'; // Lepas Scroll
+        }
+    });
+
+    btnSearch.addEventListener('click', () => {
+        if (menuOverlay.classList.contains('active')) {
+            menuOverlay.classList.remove('active');
+            btnMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        searchOverlay.classList.toggle('active');
+        
+        if (searchOverlay.classList.contains('active')) {
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
+            document.getElementById('searchInput').focus();
+            document.body.style.overflow = 'hidden';
+        } else {
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
+    btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
+
+    // PENCARIAN DATABASE
+    const searchDatabase = [
+        { keywords: ["beranda", "home", "renxxno"], url: "index.html" }, { keywords: ["biodata", "tentang"], url: "biodata.html" },
+        { keywords: ["game", "games", "ml", "aero glide", "ghost"], url: "games.html" }, { keywords: ["music", "musik", "lagu"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jasa"], url: "store.html" }, { keywords: ["pesan", "kirim pesan"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian"], url: "rating.html" }, { keywords: ["donasi", "donate"], url: "donate.html" },
+        { keywords: ["aero glide", "burung", "aero"], url: "aeroglide.html" }, { keywords: ["ghost hunter", "hantu"], url: "ghosthunter.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" }
+    ];
+
+    function performSearch() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        if (query === "") return; 
+        let foundUrl = "";
+        for (let i = 0; i < searchDatabase.length; i++) { if (searchDatabase[i].keywords.some(k => query.includes(k) || k.includes(query))) { foundUrl = searchDatabase[i].url; break; } }
+        if (foundUrl !== "") { document.getElementById('executeSearchBtn').className = "fa-solid fa-spinner fa-spin"; setTimeout(() => { window.location.href = foundUrl; }, 500); } 
+        else { document.getElementById('searchErrorMsg').style.display = 'block'; setTimeout(() => { document.getElementById('searchErrorMsg').style.display = 'none'; }, 3000); }
+    }
+    document.getElementById('executeSearchBtn').addEventListener('click', performSearch);
+    document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
+
+    // ==========================================
+    // 2. SCRIPT GHOST HUNTER
+    // ==========================================
+    const holes = document.querySelectorAll('.hole');
+    const timeLeftText = document.querySelector('#timeLeft');
+    const scoreText = document.querySelector('#score');
+    const startBtn = document.querySelector('#startBtn');
+    const gameOverScreen = document.getElementById('gameOverScreen');
+    const finalScoreText = document.getElementById('finalScore');
+    const goTitle = document.getElementById('goTitle');
+    const goReason = document.getElementById('goReason');
+    const restartBtn = document.getElementById('restartBtn');
+    const quitBtn = document.getElementById('quitBtn');
+    const gameCard = document.getElementById('gameCard');
+
+    let score = 0; 
+    let currentTime = 60; // 60 DETIK AWAL
+    let gameInterval = null; let countdownInterval = null;
+    let gameSpeed = 850; let isPlaying = false;
+    
+    const ghostIcon = '<i class="fa-solid fa-ghost entity ghost"></i>';
+    const bombIcon = '<i class="fa-solid fa-bomb entity bomb"></i>';
+    const timeIcon = '<i class="fa-solid fa-stopwatch entity time"></i>';
+
+    function spawnEntities() {
+        holes.forEach(hole => { hole.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); hole.innerHTML = ''; hole.dataset.type = ''; });
+        let ghostCount = Math.random() > 0.60 ? 2 : 1; let spawnBomb = Math.random() > 0.7; let spawnTime = Math.random() > 0.91; 
+        let availableHoles = [0, 1, 2, 3, 4, 5, 6, 7, 8].sort(() => Math.random() - 0.5);
+
+        for (let i = 0; i < ghostCount; i++) {
+            if(availableHoles.length === 0) break;
+            let holeIndex = availableHoles.pop();
+            holes[holeIndex].innerHTML = ghostIcon; holes[holeIndex].dataset.type = 'ghost'; holes[holeIndex].classList.add('active');
+        }
+        if (spawnBomb && availableHoles.length > 0) {
+            let holeIndex = availableHoles.pop();
+            holes[holeIndex].innerHTML = bombIcon; holes[holeIndex].dataset.type = 'bomb'; holes[holeIndex].classList.add('active');
+        }
+        if (spawnTime && availableHoles.length > 0) {
+            let holeIndex = availableHoles.pop();
+            holes[holeIndex].innerHTML = timeIcon; holes[holeIndex].dataset.type = 'time'; holes[holeIndex].classList.add('active');
+        }
+    }
+
+    holes.forEach(hole => {
+        const handleHit = (e) => {
+            if(e.type === 'touchstart') e.preventDefault(); 
+            if (!isPlaying || !hole.classList.contains('active')) return;
+            let type = hole.dataset.type;
+
+            if (type === 'ghost') {
+                score++; scoreText.textContent = score; hole.classList.remove('active'); hole.innerHTML = ''; hole.classList.add('hit-ghost');
+            } else if (type === 'bomb') {
+                hole.classList.remove('active'); hole.classList.add('hit-bomb'); gameCard.classList.add('shaking'); 
+                setTimeout(() => gameCard.classList.remove('shaking'), 400); triggerGameOver(true);
+            } else if (type === 'time') {
+                currentTime += 5; timeLeftText.textContent = currentTime; timeLeftText.classList.add('bonus');
+                setTimeout(() => timeLeftText.classList.remove('bonus'), 500);
+                hole.classList.remove('active'); hole.innerHTML = ''; hole.classList.add('hit-time');
+            }
+        };
+        hole.addEventListener('mousedown', handleHit); hole.addEventListener('touchstart', handleHit, {passive: false});
+    });
+
+    function countDown() {
+        currentTime--; timeLeftText.textContent = currentTime;
+        if (currentTime <= 10) { timeLeftText.classList.add('warning'); } else { timeLeftText.classList.remove('warning'); }
+        if (currentTime <= 0) { triggerGameOver(false); }
+    }
+
+    function triggerGameOver(isBombed) {
+        isPlaying = false; clearInterval(gameInterval); clearInterval(countdownInterval);
+        startBtn.disabled = false; startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Berburu';
+        finalScoreText.innerText = score;
+        if (isBombed) { 
+            goTitle.innerText = "KABOOM!"; goReason.innerText = "Kamu Terkena Bom!"; goTitle.style.color = "#ff4757"; 
+        } else { 
+            goTitle.innerText = "WAKTU HABIS!"; goReason.innerText = "Waktumu sudah habis!"; goTitle.style.color = "#1d1d1f"; 
+        }
+        setTimeout(() => { gameOverScreen.classList.add('show'); }, 200);
+    }
+
+    function startGame() {
+        score = 0; currentTime = 60; isPlaying = true;
+        scoreText.textContent = score; timeLeftText.textContent = currentTime;
+        timeLeftText.classList.remove('warning'); gameOverScreen.classList.remove('show');
+        startBtn.disabled = true; startBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Berburu...';
+        holes.forEach(h => { h.innerHTML = ''; h.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); });
+        clearInterval(gameInterval); clearInterval(countdownInterval);
+        gameInterval = setInterval(spawnEntities, gameSpeed); countdownInterval = setInterval(countDown, 1000);
+    }
+
+    startBtn.addEventListener('click', startGame);
+    restartBtn.addEventListener('click', () => { gameOverScreen.classList.remove('show'); setTimeout(startGame, 300); });
+    
+    // FUNGSI BERHENTI TANPA KELUAR HALAMAN
+    quitBtn.addEventListener('click', () => {
+        gameOverScreen.classList.remove('show');
+        holes.forEach(h => { h.innerHTML = ''; h.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); });
+        score = 0; scoreText.textContent = score; 
+        currentTime = 60; timeLeftText.textContent = currentTime; 
+    });
+</script>
+
+</body>
+</html>
+
