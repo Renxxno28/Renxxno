@@ -19,8 +19,8 @@
             padding: 90px 15px 50px 15px; color: #1d1d1f;
         }
 
-                /* =========================================
-           TOP NAVBAR APPLE STYLE (TERBARU)
+        /* =========================================
+           TOP NAVBAR APPLE STYLE (PERSIS INDEX.HTML)
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -46,7 +46,7 @@
         .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
         .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
 
-        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
+        /* OVERLAY MENU FULL SCREEN */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
             background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
@@ -55,7 +55,7 @@
         }
         .nav-overlay.active { opacity: 1; visibility: visible; }
 
-        /* LIST MENU ALA APPLE (ANIMASI MUNCUL BERURUTAN) */
+        /* LIST MENU ALA APPLE */
         .menu-list { list-style: none; padding-top: 10px; }
         .menu-list li {
             border-bottom: none; 
@@ -88,15 +88,13 @@
         }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
-        /* KOTAK PENCARIAN */
+        /* KOTAK PENCARIAN & TOOLTIP */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
         .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
         .search-box i:hover { color: #0066cc; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
-
-        /* TOOLTIP / NOTIFIKASI MENU PINTAR */
-        .menu-tooltip {
+                .menu-tooltip {
             position: fixed; top: 65px; right: 15px; background: #ffffff;
             border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             padding: 12px 16px; display: flex; align-items: center; gap: 12px;
@@ -117,10 +115,9 @@
 
         @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
 
-        @media (max-width: 768px) {
-            .menu-list a { font-size: 28px; } /* Ukuran font menu untuk mobile */
-        }
-                /* =========================================
+        @media (max-width: 768px) { .menu-list a { font-size: 28px; } }
+
+        /* =========================================
            DESAIN GAME PUZZLE (LEBIH KECIL & ADA TIMER)
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
@@ -131,7 +128,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08); border: 2px solid rgba(0,0,0,0.02); 
             text-align: center; position: relative; margin: 0 auto;
             touch-action: none; user-select: none; -webkit-user-select: none;
-            animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
 
         /* HEADER SCORE */
@@ -144,13 +141,16 @@
         .score-number { font-size: 28px; font-weight: 800; color: #0f172a; line-height: 1; }
         .score-number.hs { color: #fa233b; }
 
-        /* UI TIMER WAKTU */
+        /* UI TIMER WAKTU & TOMBOL BERHENTI */
         .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; padding: 0 5px; }
         .timer-title { font-size: 12px; font-weight: 700; color: #64748b; display: flex; align-items: center; gap: 5px; }
         .timer-value { font-size: 14px; font-weight: 800; color: #1d1d1f; }
         .timer-bar-bg { width: 100%; height: 12px; background: #e2e8f0; border-radius: 10px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .timer-bar-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #34d399, #10b981); transition: width 1s linear, background 0.3s; }
         
+        .btn-stop { background: #fee2e2; color: #ef4444; border: none; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 14px; }
+        .btn-stop:hover { background: #ef4444; color: #ffffff; transform: scale(1.1); }
+
         @keyframes pulseDanger { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         .pulse-danger { animation: pulseDanger 1s infinite; }
 
@@ -171,15 +171,15 @@
             box-shadow: inset 3px 3px 6px rgba(0,0,0,0.06), inset -3px -3px 6px rgba(255,255,255,0.8);
             transition: all 0.15s;
         }
-
-        /* AREA SPAWN BALOK (TRAY) */
+                /* AREA SPAWN BALOK (TRAY) */
         .tray-container { display: flex; justify-content: space-around; align-items: center; height: 120px; padding: 10px; background: #f8fafc; border-radius: 20px; border: 1px solid #e2e8f0; }
         .tray-block { cursor: pointer; transition: transform 0.2s, opacity 0.2s; }
         
         .shape-matrix { display: grid; gap: 3px; pointer-events: none; }
         .shape-cell { border-radius: 6px; }
         .shape-cell.empty { background: transparent; border: none; box-shadow: none !important; }
-                /* WARNA BALOK 3D GUMMY/JELLY */
+
+        /* WARNA BALOK 3D GUMMY/JELLY */
         .color-1 { background: linear-gradient(135deg, #60a5fa, #3b82f6); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #2563eb; }
         .color-2 { background: linear-gradient(135deg, #4ade80, #22c55e); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #16a34a; }
         .color-3 { background: linear-gradient(135deg, #facc15, #eab308); box-shadow: inset 0 3px 5px rgba(255,255,255,0.7), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #ca8a04; }
@@ -245,12 +245,8 @@
             <li><a href="donate.html">Donasi</a></li>
         </ul>
     </div>
-    
     <div id="subMenuGames" style="display: none;">
-        <div class="submenu-header" id="btnBackMainMenu">
-            <i class="fa-solid fa-chevron-left"></i>
-            <span>Games</span>
-        </div>
+        <div class="submenu-header" id="btnBackMainMenu"><i class="fa-solid fa-chevron-left"></i><span>Games</span></div>
         <ul class="menu-list">
             <li><a href="games.html">My Account</a></li>
             <li><a href="ghosthunter.html">Ghost Hunter</a></li>
@@ -259,16 +255,16 @@
         </ul>
     </div>
 </div>
+
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
+        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;"></i>
         <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
     </div>
     <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
-
 <div class="game-wrapper">
     <div class="stats-row">
         <div class="score-box">
@@ -285,7 +281,12 @@
         <div class="timer-title">
             <i class="fa-regular fa-clock"></i> Sisa Waktu
         </div>
-        <div class="timer-value" id="timerTextCounter">01:30</div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="timer-value" id="timerTextCounter">01:30</div>
+            <button class="btn-stop" onclick="triggerGameOver('Game Dihentikan')" title="Berhenti Main">
+                <i class="fa-solid fa-stop"></i>
+            </button>
+        </div>
     </div>
     <div class="timer-bar-bg" id="timerBarBg">
         <div class="timer-bar-fill" id="timerBar"></div>
@@ -305,8 +306,8 @@
 </div>
 
 <script>
-        // ==========================================
-    // 1. LOGIKA MENU & OVERLAY BARU (ANTI-LAG & SCROLL LOCK)
+    // ==========================================
+    // 1. MENU NAVBAR & SEARCH ENGINE (PERSIS INDEX.HTML)
     // ==========================================
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
@@ -324,11 +325,9 @@
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
-        
         menuOverlay.classList.toggle('active');
         btnMenu.classList.toggle('active'); 
 
-        // Kunci background agar tidak bisa digeser saat menu terbuka
         if (menuOverlay.classList.contains('active')) {
             document.body.style.overflow = 'hidden'; 
             mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
@@ -344,9 +343,7 @@
             btnMenu.classList.remove('active'); 
             document.body.style.overflow = 'auto';
         }
-        
         searchOverlay.classList.toggle('active');
-        
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
@@ -357,77 +354,40 @@
         }
     });
 
-    btnGamesMenu.addEventListener('click', (e) => {
-        e.preventDefault(); 
-        mainMenu.style.display = 'none'; 
-        subMenuGames.style.display = 'block';
-    });
+    btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
+    btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
-    btnBackMainMenu.addEventListener('click', () => {
-        subMenuGames.style.display = 'none'; 
-        mainMenu.style.display = 'block';
+    document.addEventListener("DOMContentLoaded", () => {
+        if (!sessionStorage.getItem('menuNotifShown')) { setTimeout(() => { if(menuTooltip) menuTooltip.classList.add('show'); }, 1000); sessionStorage.setItem('menuNotifShown', 'true'); setTimeout(() => { if(menuTooltip) menuTooltip.classList.remove('show'); }, 8000); }
+        document.getElementById('closeTooltip')?.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
+        
+        initGame(); // Eksekusi Game Saat Web Siap
     });
-
-    // --- LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL) ---
-    document.addEventListener("DOMContentLoaded", function() {
-        const closeTooltip = document.getElementById('closeTooltip');
-        if (!sessionStorage.getItem('menuNotifShown')) {
-            setTimeout(() => { if(menuTooltip) menuTooltip.classList.add('show'); }, 1000);
-            sessionStorage.setItem('menuNotifShown', 'true'); 
-            setTimeout(() => { if(menuTooltip) menuTooltip.classList.remove('show'); }, 8000); 
-        }
-        if (closeTooltip) {
-            closeTooltip.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
-        }
-    });
-
-    // ==========================================
-    // 2. LOGIKA MESIN PENCARIAN (SEARCH ENGINE FULL)
-    // ==========================================
-    const executeSearchBtn = document.getElementById('executeSearchBtn');
-    const searchInputBox = document.getElementById('searchInput');
-    const searchErrorMsg = document.getElementById('searchErrorMsg');
 
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
-        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
-        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
-        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
+        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah"], url: "biodata.html" },
+        { keywords: ["game", "games", "my account", "ml", "free fire"], url: "games.html" },
+        { keywords: ["ghost", "ghost hunter", "hunter", "hantu"], url: "ghosthunter.html" },
         { keywords: ["aero glide", "burung", "aero", "terbang"], url: "aeroglide.html" },
         { keywords: ["puzzle", "block puzzle", "balok", "tetris", "susun"], url: "puzzle.html" },
-        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
-        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
-        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
-        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" },
-        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" }
+        { keywords: ["music", "musik", "lagu"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jasa", "website", "jual"], url: "store.html" },
+        { keywords: ["pesan", "kirim pesan", "kontak", "email"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "ulasan"], url: "rating.html" },
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang"], url: "donate.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "youtube", "whatsapp"], url: "sosmed.html" }
     ];
 
+    const executeSearchBtn = document.getElementById('executeSearchBtn'); const searchInputBox = document.getElementById('searchInput'); const searchErrorMsg = document.getElementById('searchErrorMsg');
     function performSearch() {
-        const query = searchInputBox.value.toLowerCase().trim();
-        if (query === "") return; 
-
+        const query = searchInputBox.value.toLowerCase().trim(); if (query === "") return; 
         let foundUrl = "";
-        for (let i = 0; i < searchDatabase.length; i++) {
-            const item = searchDatabase[i];
-            const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
-            if (isMatch) { foundUrl = item.url; break; }
-        }
-
-        if (foundUrl !== "") {
-            searchErrorMsg.style.display = 'none';
-            executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
-            setTimeout(() => { window.location.href = foundUrl; }, 500);
-        } else {
-            searchErrorMsg.style.display = 'block';
-            setTimeout(() => { searchErrorMsg.style.display = 'none'; }, 3000);
-        }
+        for (let i = 0; i < searchDatabase.length; i++) { if (searchDatabase[i].keywords.some(k => query.includes(k) || k.includes(query))) { foundUrl = searchDatabase[i].url; break; } }
+        if (foundUrl !== "") { searchErrorMsg.style.display = 'none'; executeSearchBtn.className = "fa-solid fa-spinner fa-spin"; setTimeout(() => { window.location.href = foundUrl; }, 500); } 
+        else { searchErrorMsg.style.display = 'block'; setTimeout(() => { searchErrorMsg.style.display = 'none'; }, 3000); }
     }
-
-    executeSearchBtn.addEventListener('click', performSearch);
-    searchInputBox.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
-    });
+    executeSearchBtn.addEventListener('click', performSearch); searchInputBox.addEventListener('keypress', function(e) { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
         // ==========================================
     // 2. AUDIO SYNTHESIZER
     // ==========================================
@@ -435,28 +395,35 @@
     let actx;
 
     function playSound(type) {
-        if (!actx) actx = new AudioContext();
-        if(actx.state === 'suspended') actx.resume();
-        const osc = actx.createOscillator(); const gain = actx.createGain();
-        osc.connect(gain); gain.connect(actx.destination);
-        const now = actx.currentTime;
-        if(type === 'place') {
-            osc.type = 'sine'; osc.frequency.setValueAtTime(600, now); osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
-            gain.gain.setValueAtTime(0.5, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-            osc.start(now); osc.stop(now + 0.1);
-        } else if (type === 'clear') {
-            osc.type = 'triangle'; osc.frequency.setValueAtTime(800, now); osc.frequency.linearRampToValueAtTime(1200, now + 0.1); osc.frequency.linearRampToValueAtTime(1600, now + 0.2);
-            gain.gain.setValueAtTime(0.4, now); gain.gain.linearRampToValueAtTime(0, now + 0.3);
-            osc.start(now); osc.stop(now + 0.3);
-        } else if (type === 'combo') {
-            osc.type = 'square'; osc.frequency.setValueAtTime(400, now); osc.frequency.linearRampToValueAtTime(2000, now + 0.3);
-            gain.gain.setValueAtTime(0.3, now); gain.gain.linearRampToValueAtTime(0, now + 0.4);
-            osc.start(now); osc.stop(now + 0.4);
-        }
+        try {
+            if (!actx) actx = new AudioContext();
+            if(actx.state === 'suspended') actx.resume();
+            const osc = actx.createOscillator(); const gain = actx.createGain();
+            osc.connect(gain); gain.connect(actx.destination);
+            const now = actx.currentTime;
+            
+            if(type === 'place') {
+                osc.type = 'sine'; osc.frequency.setValueAtTime(600, now); osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
+                gain.gain.setValueAtTime(0.5, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'clear') {
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(800, now); osc.frequency.linearRampToValueAtTime(1200, now + 0.1); osc.frequency.linearRampToValueAtTime(1600, now + 0.2);
+                gain.gain.setValueAtTime(0.4, now); gain.gain.linearRampToValueAtTime(0, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            } else if (type === 'combo') {
+                osc.type = 'square'; osc.frequency.setValueAtTime(400, now); osc.frequency.linearRampToValueAtTime(2000, now + 0.3);
+                gain.gain.setValueAtTime(0.3, now); gain.gain.linearRampToValueAtTime(0, now + 0.4);
+                osc.start(now); osc.stop(now + 0.4);
+            } else if (type === 'gameover') {
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(300, now); osc.frequency.exponentialRampToValueAtTime(100, now + 0.6);
+                gain.gain.setValueAtTime(0.4, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.6);
+                osc.start(now); osc.stop(now + 0.6);
+            }
+        } catch(e) { console.log("Audio not supported or blocked"); }
     }
 
     // ==========================================
-    // 3. LOGIKA GAME & FITUR TIMER
+    // 3. LOGIKA GAME, TIMER & FIX BUG DROP
     // ==========================================
     const boardEl = document.getElementById('board'); const trayEl = document.getElementById('tray');
     const scoreDisplay = document.getElementById('scoreDisplay'); const highScoreDisplay = document.getElementById('highScoreDisplay');
@@ -538,17 +505,18 @@
         blockEl.addEventListener('pointerdown', handleDragStart); trayEl.appendChild(blockEl);
     }
 
-    // --- LOGIKA DRAG & DROP (MENGGUNAKAN KOORDINAT LOKASI) ---
+    // --- LOGIKA DRAG & DROP (AKURASI FIX BUG) ---
     let activeDrag = null;
 
     function handleDragStart(e) {
         if(e.button !== 0 && e.type !== 'touchstart' && e.pointerType === 'mouse') return; 
-        if(!actx) actx = new AudioContext();
+        playSound(''); // Inisiasi audio engine diam diam
         
         const blockEl = e.currentTarget; e.preventDefault();
 
-        const boardRect = boardEl.getBoundingClientRect();
-        const gridCellSize = boardRect.width / 8; // Presisi ukuran sel
+        // Ambil ukuran SATU KOTAK CELL ASLI dari papan (Akurat 100%)
+        const firstCellRect = boardEl.querySelector('.cell').getBoundingClientRect();
+        const gridCellSize = firstCellRect.width + 3; // +3px karena ada gap antar kotak
 
         const clone = blockEl.cloneNode(true); clone.className = 'drag-clone';
         clone.style.transform = `scale(${gridCellSize / trayCellSize})`; 
@@ -572,24 +540,18 @@
     function moveClone(x, y) {
         if(!activeDrag) return;
         activeDrag.clone.style.left = (x - activeDrag.offsetX) + 'px';
-        activeDrag.clone.style.top = (y - activeDrag.offsetY - 50) + 'px'; 
+        activeDrag.clone.style.top = (y - activeDrag.offsetY - 70) + 'px'; // Melayang di atas jari
     }
 
     document.addEventListener('pointerup', (e) => {
         if(!activeDrag) return;
         
-        const clientX = e.clientX || e.changedTouches?.[0].clientX;
-        const clientY = e.changedTouches ? e.changedTouches[0].clientY - 50 : e.clientY - 50; 
+        // Cek Posis Drop Balok Berdasarkan Kotak Pertama Di Grid (Akurat)
+        const cloneRect = activeDrag.clone.getBoundingClientRect();
+        const firstCellRect = boardEl.querySelector('.cell').getBoundingClientRect();
 
-        // DETEKSI KOORDINAT LOKASI
-        const boardRect = boardEl.getBoundingClientRect();
-        const shapeRealW = activeDrag.data.shape[0].length * activeDrag.gridCellSize;
-        const shapeRealH = activeDrag.data.shape.length * activeDrag.gridCellSize;
-        const topLeftX = clientX - (shapeRealW / 2);
-        const topLeftY = clientY - (shapeRealH / 2);
-
-        const dropCol = Math.round((topLeftX - boardRect.left) / activeDrag.gridCellSize);
-        const dropRow = Math.round((topLeftY - boardRect.top) / activeDrag.gridCellSize);
+        const dropCol = Math.round((cloneRect.left - firstCellRect.left) / activeDrag.gridCellSize);
+        const dropRow = Math.round((cloneRect.top - firstCellRect.top) / activeDrag.gridCellSize);
 
         let placed = false;
 
