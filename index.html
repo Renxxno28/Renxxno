@@ -28,11 +28,13 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
-        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
-        .nav-icons i:hover { opacity: 0.5; }
-
+            .nav-brand { 
+            font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
+            -webkit-touch-callout: none; /* Mencegah pop-up menu saat ditahan di iOS/iPhone */
+            -webkit-user-select: none;   /* Mencegah teks terblok/terseleksi warna biru */
+            user-select: none;           /* Mencegah seleksi standar */
+            -webkit-tap-highlight-color: transparent; /* Menghilangkan efek kedip abu-abu saat disentuh di HP */
+        }
         /* =========================================
            IKON MENU APPLE (GARIS JADI X MULUS)
            ========================================= */
@@ -192,7 +194,7 @@
 </head>
 <body>
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">Renxxno</a>
+    <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
         <div class="apple-burger" id="toggleMenu">
