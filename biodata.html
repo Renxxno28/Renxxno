@@ -162,6 +162,15 @@
             .bio-block { padding: 25px 20px; }
             .profile-img { width: 130px; height: 130px; }
             .profile-name { font-size: 28px; }
+
+        /* =========================================
+           KODE ANTI DOWNLOAD & TAHAN FOTO
+           ========================================= */
+        .anti-download {
+            -webkit-touch-callout: none; /* Mencegah munculnya menu pop-up (Save Image) di HP / iOS */
+            -webkit-user-select: none;   /* Mencegah gambar terseleksi atau terblok biru */
+            user-select: none;           /* Mencegah seleksi standar */
+            pointer-events: none;        /* Membuat foto kebal dari klik kanan atau tahan lama */
         }
     </style>
 </head>
@@ -228,6 +237,8 @@
     <!-- 1. Foto & Judul Utama -->
     <div class="profile-header">
         <img class="profile-img" src="https://i.ibb.co.com/Xx7HdrQT/IMG20250420105850.jpg" alt="Foto Profil">
+        <img class="foto-profil" src="https://i.ibb.co.com/Xx7HdrQT/IMG20250420105850.jpg" alt="Foto Biodata">
+<img class="foto-profil anti-download" draggable="false" src="https://i.ibb.co.com/Xx7HdrQT/IMG20250420105850.jpg" alt="Foto Biodata"> 
         <h1 class="profile-name">Renxxno</h1>
         <p class="profile-role">Kreator Website</p>
     </div>
