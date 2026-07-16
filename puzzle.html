@@ -20,7 +20,7 @@
         }
 
         /* =========================================
-           TOP NAVBAR APPLE STYLE (PERSIS INDEX.HTML)
+           TOP NAVBAR APPLE STYLE (KLASIK RENXXNO)
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -28,94 +28,44 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
-        /* IKON MENU APPLE (GARIS JADI X MULUS) */
-        .apple-burger {
-            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
-            cursor: pointer; position: relative; z-index: 10000;
-        }
-        .apple-burger span {
-            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
-        }
-        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
-        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
-
-        /* OVERLAY MENU FULL SCREEN */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
-            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
-            overflow-y: auto;
+            background: #ffffff; z-index: 9998; padding: 30px 25px;
+            transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.4s ease;
         }
-        .nav-overlay.active { opacity: 1; visibility: visible; }
+        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
-        /* LIST MENU ALA APPLE */
-        .menu-list { list-style: none; padding-top: 10px; }
-        .menu-list li {
-            border-bottom: none; 
-            opacity: 0; transform: translateY(20px) scale(0.98);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
-        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
-        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
-        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
-        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
-        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
-        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
-        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
-        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
-        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
-        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
-
-        .menu-list a { 
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
-            letter-spacing: -1px;
-        }
+        .menu-list { list-style: none; }
+        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 20px; color: #86868b; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
 
-        .submenu-header {
-            display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
-        }
+        .submenu-header { display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer; }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
-        /* KOTAK PENCARIAN & TOOLTIP */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
-        .search-box i:hover { color: #0066cc; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
-        .search-box input::placeholder { color: #86868b; font-size: 16px; }
+        .search-box input::placeholder { color: #86868b; }
                 .menu-tooltip {
-            position: fixed; top: 65px; right: 15px; background: #ffffff;
-            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
-            z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
-            opacity: 0; transform: translateY(-10px); visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: fixed; top: 65px; right: 15px; background: #ffffff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px; z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
+            opacity: 0; transform: translateY(-10px); visibility: hidden; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
-        .tooltip-arrow {
-            position: absolute; top: -6px; right: 18px; width: 12px; height: 12px;
-            background: #ffffff; transform: rotate(45deg);
-            border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05);
-        }
+        .tooltip-arrow { position: absolute; top: -6px; right: 18px; width: 12px; height: 12px; background: #ffffff; transform: rotate(45deg); border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05); }
         .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
         .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
         .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
         .tooltip-close:hover { color: #fa233b; }
 
         @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
-
-        @media (max-width: 768px) { .menu-list a { font-size: 28px; } }
 
         /* =========================================
            DESAIN GAME PUZZLE (LEBIH KECIL & ADA TIMER)
@@ -128,20 +78,17 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08); border: 2px solid rgba(0,0,0,0.02); 
             text-align: center; position: relative; margin: 0 auto;
             touch-action: none; user-select: none; -webkit-user-select: none;
-            opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; overflow: hidden;
         }
 
         /* HEADER SCORE */
         .stats-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 15px; }
-        .score-box { 
-            background: #f8fafc; flex: 1; padding: 12px 10px; border-radius: 20px; 
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;
-        }
+        .score-box { background: #f8fafc; flex: 1; padding: 12px 10px; border-radius: 20px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); border: 1px solid #e2e8f0; }
         .score-title { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
         .score-number { font-size: 28px; font-weight: 800; color: #0f172a; line-height: 1; }
         .score-number.hs { color: #fa233b; }
 
-        /* UI TIMER WAKTU & TOMBOL BERHENTI */
+        /* UI TIMER WAKTU */
         .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; padding: 0 5px; }
         .timer-title { font-size: 12px; font-weight: 700; color: #64748b; display: flex; align-items: center; gap: 5px; }
         .timer-value { font-size: 14px; font-weight: 800; color: #1d1d1f; }
@@ -154,7 +101,7 @@
         @keyframes pulseDanger { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         .pulse-danger { animation: pulseDanger 1s infinite; }
 
-        /* PAPAN GRID UTAMA (KOTAK DALAM EMBOSS) */
+        /* PAPAN GRID UTAMA & BALOK */
         .game-board {
             display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px;
             background: #f8fafc; border: 6px solid #f1f5f9; border-radius: 16px; 
@@ -165,21 +112,15 @@
         .game-board.shake { animation: boardShake 0.3s ease; }
         @keyframes boardShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px) translateY(3px); } 50% { transform: translateX(5px) translateY(-3px); } 75% { transform: translateX(-5px) translateY(3px); } }
 
-        /* DESAIN KOTAK KOSONG YANG LEBIH BAGUS (TENGGELAM/EMBOSS) */
-        .cell {
-            aspect-ratio: 1; background: #e2e8f0; border-radius: 6px;
-            box-shadow: inset 3px 3px 6px rgba(0,0,0,0.06), inset -3px -3px 6px rgba(255,255,255,0.8);
-            transition: all 0.15s;
-        }
-                /* AREA SPAWN BALOK (TRAY) */
+        .cell { aspect-ratio: 1; background: #e2e8f0; border-radius: 6px; box-shadow: inset 3px 3px 6px rgba(0,0,0,0.06), inset -3px -3px 6px rgba(255,255,255,0.8); transition: all 0.15s; }
+        
         .tray-container { display: flex; justify-content: space-around; align-items: center; height: 120px; padding: 10px; background: #f8fafc; border-radius: 20px; border: 1px solid #e2e8f0; }
         .tray-block { cursor: pointer; transition: transform 0.2s, opacity 0.2s; }
         
         .shape-matrix { display: grid; gap: 3px; pointer-events: none; }
         .shape-cell { border-radius: 6px; }
         .shape-cell.empty { background: transparent; border: none; box-shadow: none !important; }
-
-        /* WARNA BALOK 3D GUMMY/JELLY */
+                /* WARNA BALOK 3D GUMMY/JELLY */
         .color-1 { background: linear-gradient(135deg, #60a5fa, #3b82f6); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #2563eb; }
         .color-2 { background: linear-gradient(135deg, #4ade80, #22c55e); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #16a34a; }
         .color-3 { background: linear-gradient(135deg, #facc15, #eab308); box-shadow: inset 0 3px 5px rgba(255,255,255,0.7), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #ca8a04; }
@@ -189,7 +130,6 @@
 
         .drag-clone { position: fixed; pointer-events: none; z-index: 10000; transform-origin: top left; filter: drop-shadow(0 20px 25px rgba(0,0,0,0.4)); }
 
-        /* ANIMASI HANCUR (KILATAN CAHAYA) & TEKS */
         @keyframes clearFlash { 0% { background: #ffffff; transform: scale(1.1); box-shadow: 0 0 20px #fff; border: 2px solid #fff; z-index: 10; } 100% { background: transparent; transform: scale(0.2); opacity: 0; border: none; box-shadow: none; } }
         .cell.clearing { animation: clearFlash 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 
@@ -198,7 +138,7 @@
         .popup-time { font-size: 26px; color: #10b981; text-shadow: 0 4px 10px rgba(16,185,129,0.4); }
         @keyframes floatUp { 0% { opacity: 1; transform: translateY(0) scale(0.5); } 30% { transform: translateY(-40px) scale(1.3); } 100% { opacity: 0; transform: translateY(-80px) scale(1); } }
 
-        /* GAME OVER OVERLAY */
+        /* OVERLAY START & GAME OVER (DENGAN TOMBOL BERHENTI) */
         .overlay-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 32px;
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
@@ -207,8 +147,12 @@
         }
         .overlay-screen.active { opacity: 1; visibility: visible; }
         .overlay-title { font-size: 34px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; }
-        .btn-action { background: #0066cc; color: white; border: none; padding: 12px 30px; border-radius: 30px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4); margin-top: 25px; transition: all 0.3s; font-family: 'Poppins', sans-serif;}
+        
+        .btn-action { background: #0066cc; color: white; border: none; padding: 12px 30px; border-radius: 30px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4); transition: all 0.3s; font-family: 'Poppins', sans-serif;}
         .btn-action:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0, 102, 204, 0.5); }
+
+        .btn-stop-game { background: #fee2e2; color: #ef4444; border: none; padding: 12px 25px; border-radius: 30px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3); transition: all 0.3s; font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        .btn-stop-game:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(239, 68, 68, 0.4); background: #ef4444; color: #ffffff; }
     </style>
 </head>
 <body>
@@ -217,26 +161,16 @@
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <div class="apple-burger" id="toggleMenu">
-            <span class="line-1"></span>
-            <span class="line-2"></span>
-        </div>
+        <i class="fa-solid fa-bars" id="toggleMenu"></i>
     </div>
 </nav>
-
-<div class="menu-tooltip" id="menuTooltip">
-    <div class="tooltip-arrow"></div>
-    <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
-    <span>Klik di sini untuk menu lainnya!</span>
-    <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
-</div>
 
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
             <li><a href="index.html">Beranda</a></li>
             <li><a href="biodata.html">Biodata</a></li>
-            <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="#" id="btnGamesMenu" class="active">Games <i class="fa-solid fa-chevron-right"></i></a></li>
             <li><a href="music.html">Music</a></li>
             <li><a href="store.html">Store</a></li>
             <li><a href="sosmed.html">Sosial Media</a></li>
@@ -255,7 +189,6 @@
         </ul>
     </div>
 </div>
-
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;"></i>
@@ -265,6 +198,7 @@
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
+
 <div class="game-wrapper">
     <div class="stats-row">
         <div class="score-box">
@@ -283,7 +217,7 @@
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
             <div class="timer-value" id="timerTextCounter">01:30</div>
-            <button class="btn-stop" onclick="triggerGameOver('Game Dihentikan')" title="Berhenti Main">
+            <button class="btn-stop" onclick="quitToMenu()" title="Berhenti Main">
                 <i class="fa-solid fa-stop"></i>
             </button>
         </div>
@@ -298,71 +232,47 @@
     <div class="tray-container" id="tray">
         </div>
 
+    <div class="overlay-screen active" id="startOverlay">
+        <h2 class="overlay-title">Block Puzzle</h2>
+        <p style="color:#64748b; font-weight:600; font-size:16px; margin-bottom: 20px;">Susun balok & cetak skor tertinggi!</p>
+        <button class="btn-action" onclick="startGame()"><i class="fa-solid fa-play"></i> Mulai Main</button>
+    </div>
+
     <div class="overlay-screen" id="gameOverOverlay">
         <h2 class="overlay-title" id="gameOverReason">Game Over!</h2>
         <p style="color:#64748b; font-weight:600; font-size:16px;" id="finalScoreDisplay">Score Akhir: 0</p>
-        <button class="btn-action" onclick="initGame()"><i class="fa-solid fa-rotate-right"></i> Main Lagi</button>
+        <div style="display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; justify-content: center;">
+            <button class="btn-action" style="margin-top: 0;" onclick="initGame()"><i class="fa-solid fa-rotate-right"></i> Main Lagi</button>
+            <button class="btn-stop-game" style="margin-top: 0;" onclick="quitToMenu()"><i class="fa-solid fa-stop"></i> Berhenti</button>
+        </div>
     </div>
 </div>
 
 <script>
     // ==========================================
-    // 1. MENU NAVBAR & SEARCH ENGINE (PERSIS INDEX.HTML)
+    // 1. MENU NAVBAR & SEARCH ENGINE
     // ==========================================
-    const btnMenu = document.getElementById('toggleMenu');
-    const btnSearch = document.getElementById('toggleSearch');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const searchOverlay = document.getElementById('searchOverlay');
-    const mainMenu = document.getElementById('mainMenu');
-    const subMenuGames = document.getElementById('subMenuGames');
-    const btnGamesMenu = document.getElementById('btnGamesMenu');
-    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
-    const menuTooltip = document.getElementById('menuTooltip');
+    const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu'); const btnBackMainMenu = document.getElementById('btnBackMainMenu');
 
     btnMenu.addEventListener('click', () => {
-        if(menuTooltip) menuTooltip.classList.remove('show'); 
-        if (searchOverlay.classList.contains('active')) {
-            searchOverlay.classList.remove('active');
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-        }
+        if (searchOverlay.classList.contains('active')) { searchOverlay.classList.remove('active'); btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
         menuOverlay.classList.toggle('active');
-        btnMenu.classList.toggle('active'); 
-
-        if (menuOverlay.classList.contains('active')) {
-            document.body.style.overflow = 'hidden'; 
-            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
-        } else {
-            document.body.style.overflow = 'auto'; 
-        }
+        if (menuOverlay.classList.contains('active')) { btnMenu.classList.replace('fa-bars', 'fa-xmark'); mainMenu.style.display = 'block'; subMenuGames.style.display = 'none'; } 
+        else { btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
     });
 
     btnSearch.addEventListener('click', () => {
-        if(menuTooltip) menuTooltip.classList.remove('show'); 
-        if (menuOverlay.classList.contains('active')) {
-            menuOverlay.classList.remove('active');
-            btnMenu.classList.remove('active'); 
-            document.body.style.overflow = 'auto';
-        }
+        if (menuOverlay.classList.contains('active')) { menuOverlay.classList.remove('active'); btnMenu.classList.replace('fa-xmark', 'fa-bars'); }
         searchOverlay.classList.toggle('active');
-        if (searchOverlay.classList.contains('active')) {
-            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
-            document.getElementById('searchInput').focus();
-            document.body.style.overflow = 'hidden'; 
-        } else {
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-            document.body.style.overflow = 'auto'; 
-        }
+        if (searchOverlay.classList.contains('active')) { btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); } 
+        else { btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
     });
 
     btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
     btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        if (!sessionStorage.getItem('menuNotifShown')) { setTimeout(() => { if(menuTooltip) menuTooltip.classList.add('show'); }, 1000); sessionStorage.setItem('menuNotifShown', 'true'); setTimeout(() => { if(menuTooltip) menuTooltip.classList.remove('show'); }, 8000); }
-        document.getElementById('closeTooltip')?.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
-        
-        initGame(); // Eksekusi Game Saat Web Siap
-    });
 
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
@@ -419,15 +329,16 @@
                 gain.gain.setValueAtTime(0.4, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.6);
                 osc.start(now); osc.stop(now + 0.6);
             }
-        } catch(e) { console.log("Audio not supported or blocked"); }
+        } catch(e) { console.log("Audio not supported"); }
     }
 
     // ==========================================
-    // 3. LOGIKA GAME, TIMER & FIX BUG DROP
+    // 3. LOGIKA GAME, START, BERHENTI, & TIMER
     // ==========================================
     const boardEl = document.getElementById('board'); const trayEl = document.getElementById('tray');
     const scoreDisplay = document.getElementById('scoreDisplay'); const highScoreDisplay = document.getElementById('highScoreDisplay');
-    const gameOverOverlay = document.getElementById('gameOverOverlay'); const finalScoreDisplay = document.getElementById('finalScoreDisplay');
+    const startOverlay = document.getElementById('startOverlay'); const gameOverOverlay = document.getElementById('gameOverOverlay'); 
+    const finalScoreDisplay = document.getElementById('finalScoreDisplay');
     const timerBar = document.getElementById('timerBar'); const timerBarBg = document.getElementById('timerBarBg'); const timerTextCounter = document.getElementById('timerTextCounter');
     
     let grid = []; let score = 0;
@@ -444,6 +355,22 @@
         { shape: [[1,0],[1,1]], color: 'color-5' }, { shape: [[0,1],[1,1]], color: 'color-5' }, { shape: [[1,1,1],[0,1,0]], color: 'color-6' }, 
         { shape: [[1,0,0],[1,1,1]], color: 'color-1' } 
     ];
+
+    // FUNGSI MEMULAI GAME (TOMBOL MULAI)
+    function startGame() {
+        startOverlay.classList.remove('active');
+        initGame();
+    }
+
+    // FUNGSI BERHENTI GAME (TOMBOL BERHENTI KEMBALI KE MENU MULAI)
+    function quitToMenu() {
+        clearInterval(timerInterval);
+        gameOverOverlay.classList.remove('active');
+        boardEl.innerHTML = ''; trayEl.innerHTML = '';
+        scoreDisplay.innerText = 0; timerTextCounter.innerText = "01:30";
+        timerBar.style.width = "100%"; timerBar.style.background = 'linear-gradient(90deg, #34d399, #10b981)';
+        startOverlay.classList.add('active'); // Memunculkan menu mulai kembali
+    }
 
     function initGame() {
         grid = Array.from({length: size}, () => Array(size).fill(null));
@@ -505,18 +432,18 @@
         blockEl.addEventListener('pointerdown', handleDragStart); trayEl.appendChild(blockEl);
     }
 
-    // --- LOGIKA DRAG & DROP (AKURASI FIX BUG) ---
+    // --- 4. LOGIKA DRAG & DROP (AKURASI DROP FIX BUG TOTAL) ---
     let activeDrag = null;
 
     function handleDragStart(e) {
         if(e.button !== 0 && e.type !== 'touchstart' && e.pointerType === 'mouse') return; 
-        playSound(''); // Inisiasi audio engine diam diam
+        playSound(''); // Inisiasi audio engine
         
         const blockEl = e.currentTarget; e.preventDefault();
 
-        // Ambil ukuran SATU KOTAK CELL ASLI dari papan (Akurat 100%)
+        // Ambil ukuran SATU KOTAK CELL ASLI dari papan untuk penempatan presisi
         const firstCellRect = boardEl.querySelector('.cell').getBoundingClientRect();
-        const gridCellSize = firstCellRect.width + 3; // +3px karena ada gap antar kotak
+        const gridCellSize = firstCellRect.width + 3; // +3px penyesuaian jarak gap
 
         const clone = blockEl.cloneNode(true); clone.className = 'drag-clone';
         clone.style.transform = `scale(${gridCellSize / trayCellSize})`; 
@@ -546,7 +473,7 @@
     document.addEventListener('pointerup', (e) => {
         if(!activeDrag) return;
         
-        // Cek Posis Drop Balok Berdasarkan Kotak Pertama Di Grid (Akurat)
+        // KALKULASI PRESISI KOORDINAT JATUHNYA BAYANGAN BALOK
         const cloneRect = activeDrag.clone.getBoundingClientRect();
         const firstCellRect = boardEl.querySelector('.cell').getBoundingClientRect();
 
