@@ -15,14 +15,13 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            /* Latar luar disamakan dengan website (Apple Light) */
             background: #f5f5f7; 
             display: flex; justify-content: center; align-items: flex-start;
             padding: 90px 20px 40px 20px; color: #1d1d1f;
         }
 
         /* =========================================
-           TOP NAVBAR APPLE STYLE
+           TOP NAVBAR APPLE STYLE (ANTI POP-UP LOGO)
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -30,12 +29,19 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        
+        .nav-brand { 
+            font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
+            user-select: none;           
+            -webkit-tap-highlight-color: transparent; 
+        }
+
         .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
-        /* IKON MENU APPLE (GARIS JADI X MULUS) */
         .apple-burger {
             width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
             cursor: pointer; position: relative; z-index: 10000;
@@ -47,7 +53,6 @@
         .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
         .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
 
-        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
             background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
@@ -55,8 +60,7 @@
             overflow-y: auto; 
         }
         .nav-overlay.active { opacity: 1; visibility: visible; }
-
-        .menu-list { list-style: none; padding-top: 10px; }
+                .menu-list { list-style: none; padding-top: 10px; }
         .menu-list li {
             border-bottom: none; 
             opacity: 0; transform: translateY(20px) scale(0.98);
@@ -100,7 +104,6 @@
         @keyframes shake { 0%, 60% { transform: translate(-2px, 1px) rotate(0deg); } 20%, 80% { transform: translate(-2px, 0px) rotate(1deg); } 40%, 100% { transform: translate(1px, -1px) rotate(-1deg); } }
         
         .card-container {
-            /* Gradasi elegan ala Aero Glide */
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 24px; padding: 25px 20px; width: 100%; max-width: 450px; 
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); border: 2px solid #ffffff; 
@@ -122,13 +125,14 @@
         .t-bomb { color: #ff4757; font-weight: bold; }
         .t-time { color: #00b894; font-weight: bold; }
 
-        .stats-container { display: flex; justify-content: space-between; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.5s 0.4s forwards; }
-        .stat-box { background: #ffffff; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 11px; color: #86868b; width: 48%; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .stat-box span { display: block; font-size: 26px; font-weight: 800; color: #1d1d1f; margin-top: 2px; }
+        /* PERBAIKAN RESPONSIVITAS KOTAK STATISTIK */
+        .stats-container { display: flex; justify-content: space-between; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.5s 0.4s forwards; gap: 8px; }
+        .stat-box { background: #ffffff; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 11px; color: #86868b; flex: 1; text-align: center; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .stat-box span { display: block; font-size: 24px; font-weight: 800; color: #1d1d1f; margin-top: 2px; }
+        .stat-box.hs span { color: #fa233b; }
         #timeLeft.warning { color: #ff4757; }
         #timeLeft.bonus { color: #00b894; }
-
-        /* WADAH LUBANG HANTU BERSIH */
+                /* WADAH LUBANG HANTU BERSIH */
         .game-board {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 300px; 
             margin: 0 auto 25px auto; background: rgba(255, 255, 255, 0.4); padding: 15px;
@@ -185,19 +189,17 @@
 </head>
 <body>
 
-<!-- TOP NAVBAR -->
+<!-- TOP NAVBAR DENGAN ANTI-POPUP TEKS -->
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">Renxxno</a>
+    <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <!-- Ikon Animasi Garis X -->
         <div class="apple-burger" id="toggleMenu">
             <span class="line-1"></span>
             <span class="line-2"></span>
         </div>
     </div>
 </nav>
-
 <!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
@@ -219,7 +221,7 @@
             <li><a href="games.html">My Account</a></li>
             <li><a href="ghosthunter.html" class="active">Ghost Hunter</a></li>
             <li><a href="aeroglide.html">Aero Glide</a></li>
-            <li><a href="puzzle.html">Block Puzzle</a></li> </ul>
+            <li><a href="puzzle.html">Block Puzzle</a></li> 
         </ul>
     </div>
 </div>
@@ -234,6 +236,7 @@
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
+
 <div class="card-container" id="gameCard">
     <div class="header-icon"><i class="fa-solid fa-ghost"></i></div>
     <h1 class="header-title">Ghost Hunter</h1>
@@ -245,9 +248,11 @@
         <span class="t-time"><i class="fa-solid fa-stopwatch"></i> Time:</span> +5 Detik.
     </div>
 
+    <!-- STATISTIK (DITAMBAHKAN HIGH SCORE) -->
     <div class="stats-container">
         <div class="stat-box">Waktu <span id="timeLeft">60</span></div>
         <div class="stat-box">Skor <span id="score">0</span></div>
+        <div class="stat-box hs">Tertinggi <span id="highScore">0</span></div>
     </div>
 
     <div class="game-board">
@@ -274,10 +279,9 @@
         </div>
     </div>
 </div>
-
 <script>
     // ==========================================
-    // 1. SCRIPT NAVBAR & OVERLAY MENU (SCROLL LOCK)
+    // 1. SCRIPT NAVBAR & PENCARIAN (BESERTA PUZZLE)
     // ==========================================
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
@@ -293,47 +297,37 @@
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
-        
         menuOverlay.classList.toggle('active');
-        btnMenu.classList.toggle('active'); // Animasi Garis ke X
-
+        btnMenu.classList.toggle('active'); 
         if (menuOverlay.classList.contains('active')) {
-            document.body.style.overflow = 'hidden'; // Kunci Scroll
-            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
+            document.body.style.overflow = 'hidden'; mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
         } else {
-            document.body.style.overflow = 'auto'; // Lepas Scroll
+            document.body.style.overflow = 'auto'; 
         }
     });
 
     btnSearch.addEventListener('click', () => {
         if (menuOverlay.classList.contains('active')) {
-            menuOverlay.classList.remove('active');
-            btnMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            menuOverlay.classList.remove('active'); btnMenu.classList.remove('active'); document.body.style.overflow = 'auto';
         }
-        
         searchOverlay.classList.toggle('active');
-        
         if (searchOverlay.classList.contains('active')) {
-            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
-            document.getElementById('searchInput').focus();
-            document.body.style.overflow = 'hidden';
+            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); document.body.style.overflow = 'hidden';
         } else {
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-            document.body.style.overflow = 'auto';
+            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); document.body.style.overflow = 'auto';
         }
     });
 
     btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
     btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
-    // PENCARIAN DATABASE
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno"], url: "index.html" }, { keywords: ["biodata", "tentang"], url: "biodata.html" },
         { keywords: ["game", "games", "ml", "aero glide", "ghost"], url: "games.html" }, { keywords: ["music", "musik", "lagu"], url: "music.html" },
         { keywords: ["store", "toko", "baju", "jasa"], url: "store.html" }, { keywords: ["pesan", "kirim pesan"], url: "Memberipesan.html" },
         { keywords: ["rating", "view", "penilaian"], url: "rating.html" }, { keywords: ["donasi", "donate"], url: "donate.html" },
         { keywords: ["aero glide", "burung", "aero"], url: "aeroglide.html" }, { keywords: ["ghost hunter", "hantu"], url: "ghosthunter.html" },
+        { keywords: ["puzzle", "block puzzle", "balok", "tetris"], url: "puzzle.html" },
         { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" }
     ];
 
@@ -349,11 +343,46 @@
     document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
 
     // ==========================================
-    // 2. SCRIPT GHOST HUNTER
+    // 2. AUDIO SYNTHESIZER (SFX GAME)
+    // ==========================================
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let actx;
+
+    function playSound(type) {
+        try {
+            if (!actx) actx = new AudioContext();
+            if(actx.state === 'suspended') actx.resume();
+            const osc = actx.createOscillator(); const gain = actx.createGain();
+            osc.connect(gain); gain.connect(actx.destination);
+            const now = actx.currentTime;
+            
+            if(type === 'ghost') {
+                osc.type = 'sine'; osc.frequency.setValueAtTime(800, now); osc.frequency.exponentialRampToValueAtTime(1200, now + 0.1);
+                gain.gain.setValueAtTime(0.5, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'bomb') {
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(50, now + 0.3);
+                gain.gain.setValueAtTime(0.5, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            } else if (type === 'time') {
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(600, now); osc.frequency.linearRampToValueAtTime(1200, now + 0.1); osc.frequency.linearRampToValueAtTime(1800, now + 0.2);
+                gain.gain.setValueAtTime(0.3, now); gain.gain.linearRampToValueAtTime(0, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            } else if (type === 'gameover') {
+                osc.type = 'square'; osc.frequency.setValueAtTime(300, now); osc.frequency.exponentialRampToValueAtTime(100, now + 0.6);
+                gain.gain.setValueAtTime(0.4, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.6);
+                osc.start(now); osc.stop(now + 0.6);
+            }
+        } catch(e) {}
+    }
+
+    // ==========================================
+    // 3. SCRIPT GHOST HUNTER & HIGH SCORE
     // ==========================================
     const holes = document.querySelectorAll('.hole');
     const timeLeftText = document.querySelector('#timeLeft');
     const scoreText = document.querySelector('#score');
+    const highScoreText = document.querySelector('#highScore');
     const startBtn = document.querySelector('#startBtn');
     const gameOverScreen = document.getElementById('gameOverScreen');
     const finalScoreText = document.getElementById('finalScore');
@@ -364,7 +393,10 @@
     const gameCard = document.getElementById('gameCard');
 
     let score = 0; 
-    let currentTime = 60; // 60 DETIK AWAL
+    let highScore = localStorage.getItem('renxxno_ghost_hs') || 0;
+    highScoreText.textContent = highScore;
+
+    let currentTime = 60; 
     let gameInterval = null; let countdownInterval = null;
     let gameSpeed = 850; let isPlaying = false;
     
@@ -399,11 +431,22 @@
             let type = hole.dataset.type;
 
             if (type === 'ghost') {
-                score++; scoreText.textContent = score; hole.classList.remove('active'); hole.innerHTML = ''; hole.classList.add('hit-ghost');
+                playSound('ghost');
+                score++; scoreText.textContent = score; 
+                hole.classList.remove('active'); hole.innerHTML = ''; hole.classList.add('hit-ghost');
+                
+                // Cek & Update High Score
+                if (score > highScore) {
+                    highScore = score;
+                    highScoreText.textContent = highScore;
+                    localStorage.setItem('renxxno_ghost_hs', highScore);
+                }
             } else if (type === 'bomb') {
+                playSound('bomb');
                 hole.classList.remove('active'); hole.classList.add('hit-bomb'); gameCard.classList.add('shaking'); 
                 setTimeout(() => gameCard.classList.remove('shaking'), 400); triggerGameOver(true);
             } else if (type === 'time') {
+                playSound('time');
                 currentTime += 5; timeLeftText.textContent = currentTime; timeLeftText.classList.add('bonus');
                 setTimeout(() => timeLeftText.classList.remove('bonus'), 500);
                 hole.classList.remove('active'); hole.innerHTML = ''; hole.classList.add('hit-time');
@@ -419,6 +462,7 @@
     }
 
     function triggerGameOver(isBombed) {
+        playSound('gameover');
         isPlaying = false; clearInterval(gameInterval); clearInterval(countdownInterval);
         startBtn.disabled = false; startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Berburu';
         finalScoreText.innerText = score;
@@ -431,6 +475,7 @@
     }
 
     function startGame() {
+        if(!actx) actx = new AudioContext(); // Inisialisasi Audio Engine
         score = 0; currentTime = 60; isPlaying = true;
         scoreText.textContent = score; timeLeftText.textContent = currentTime;
         timeLeftText.classList.remove('warning'); gameOverScreen.classList.remove('show');
@@ -443,7 +488,6 @@
     startBtn.addEventListener('click', startGame);
     restartBtn.addEventListener('click', () => { gameOverScreen.classList.remove('show'); setTimeout(startGame, 300); });
     
-    // FUNGSI BERHENTI TANPA KELUAR HALAMAN
     quitBtn.addEventListener('click', () => {
         gameOverScreen.classList.remove('show');
         holes.forEach(h => { h.innerHTML = ''; h.classList.remove('active', 'hit-ghost', 'hit-bomb', 'hit-time'); });
@@ -454,4 +498,3 @@
 
 </body>
 </html>
-
