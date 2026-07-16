@@ -28,7 +28,16 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        
+        /* UPDATE: ANTI-POPUP PADA TEKS RENXXNO */
+        .nav-brand { 
+            font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
+            user-select: none;           
+            -webkit-tap-highlight-color: transparent; 
+        }
+        
         .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
@@ -44,8 +53,7 @@
         }
         .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
         .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
-
-        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
+                /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
             background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
@@ -86,7 +94,8 @@
             padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
         }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
-                /* KOTAK PENCARIAN */
+
+        /* KOTAK PENCARIAN */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
         .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
         .search-box i:hover { color: #0066cc; }
@@ -114,8 +123,7 @@
         .tooltip-close:hover { color: #fa233b; }
 
         @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
-
-        /* =========================================
+                /* =========================================
            KOTAK UTAMA STORE 
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
@@ -162,7 +170,8 @@
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: normal; 
         }
         .catalog-price { font-size: 13px; font-weight: 600; color: #0066cc; }
-                /* DETAIL PRODUK */
+
+        /* DETAIL PRODUK */
         #viewDetail { display: none; animation: fadeUp 0.5s forwards; }
 
         .back-catalog-btn {
@@ -261,8 +270,10 @@
     </style>
 </head>
 <body>
+
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">Renxxno</a>
+    <!-- UPDATE ANTI-POPUP TEKS RENXXNO -->
+    <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
         <div class="apple-burger" id="toggleMenu">
@@ -271,7 +282,6 @@
         </div>
     </div>
 </nav>
-
 <div class="menu-tooltip" id="menuTooltip">
     <div class="tooltip-arrow"></div>
     <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
@@ -321,7 +331,7 @@
             <p>Temukan Produk Dan Layanan Terbaik</p>
         </div>
 
-        <!-- KATALOG BAJU (2 FOTO) -->
+        <!-- KATALOG BAJU (2 FOTO & ANTI-DOWNLOAD) -->
         <h2 class="category-title"><i class="fa-solid fa-shirt"></i> Pakaian</h2>
         <div class="catalog-grid">
             <div class="catalog-item" onclick="openProduct(this)"
@@ -343,7 +353,7 @@
             </div>
         </div> 
         
-        <!-- KATALOG JASA (1 FOTO) -->
+        <!-- KATALOG JASA (1 FOTO & ANTI-DOWNLOAD) -->
         <h2 class="category-title" style="margin-top: 40px;"><i class="fa-solid fa-laptop-code"></i> Jasa Kami</h2>
         <div class="catalog-grid">
             <div class="catalog-item" onclick="openProduct(this)"
@@ -377,7 +387,7 @@
                         <img id="detailMainImg" src="" alt="Produk Utama" class="anti-download" draggable="false">
                         <div class="zoom-icon" onclick="openLightbox()"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
-                    <!-- WADAH THUMBNAIL -->
+                    <!-- WADAH THUMBNAIL (FOTO KECIL) -->
                     <div class="thumbnail-list" id="thumbListContainer">
                         <div class="thumb-box active" onclick="changeImage(this, 1)" id="thumbBox1"><img id="detailThumb1" src="" alt="Thumb 1" class="anti-download" draggable="false"></div>
                         <div class="thumb-box" onclick="changeImage(this, 2)" id="thumbBox2"><img id="detailThumb2" src="" alt="Thumb 2" class="anti-download" draggable="false"></div>
