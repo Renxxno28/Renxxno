@@ -15,7 +15,7 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: #f5f5f7; /* Latar abu-abu sangat muda khas Apple */
+            background: #f5f5f7; 
             display: flex; justify-content: center; align-items: flex-start; 
             padding: 90px 20px 60px 20px; color: #1d1d1f;
         }
@@ -30,14 +30,17 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        /* PERBAIKAN TEKS RENXXNO: ANTI-POPUP & ANTI-BLOK */
+        /* UPDATE ANTI-POPUP TEKS RENXXNO */
         .nav-brand { 
             font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
             -webkit-touch-callout: none; 
             -webkit-user-select: none;   
             user-select: none;           
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; 
         }
+                .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .nav-icons i:hover { opacity: 0.5; }
 
         /* IKON MENU APPLE (GARIS JADI X MULUS) */
         .apple-burger {
@@ -68,7 +71,7 @@
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
-                .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
         .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
         .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
         .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
@@ -99,8 +102,7 @@
         .search-box i:hover { color: #0066cc; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
-
-        /* TOOLTIP / NOTIFIKASI MENU */
+                /* TOOLTIP / NOTIFIKASI MENU */
         .menu-tooltip {
             position: fixed; top: 65px; right: 15px; background: #ffffff;
             border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
@@ -121,7 +123,8 @@
         .tooltip-close:hover { color: #fa233b; }
 
         @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
-                /* =========================================
+
+        /* =========================================
            DESAIN BIODATA BARU (LEBIH LUAS & BERSIH)
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
@@ -133,12 +136,10 @@
             max-width: 750px; width: 100%; margin: 0 auto;
         }
         
-        /* 1. Header Profil */
         .profile-header {
             text-align: center; margin-bottom: 10px;
             opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
-        /* PERBAIKAN UKURAN FOTO ADA DI SINI */
         .profile-img { 
             width: 150px; height: 150px; border-radius: 50%; object-fit: cover; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 4px solid #ffffff; 
@@ -147,7 +148,6 @@
         .profile-name { font-size: 32px; font-weight: 800; color: #1d1d1f; letter-spacing: -1px; margin-bottom: 2px; }
         .profile-role { font-size: 15px; color: #0066cc; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* 2. Kotak Info / Blok */
         .bio-block {
             background: #ffffff; border-radius: 24px; padding: 30px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.02);
@@ -162,7 +162,6 @@
 
         .bio-text { font-size: 15px; color: #576574; line-height: 1.8; text-align: justify; }
 
-        /* Grid Info Pribadi */
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .info-card { 
             background: #f5f5f7; border-radius: 16px; padding: 20px; 
@@ -174,7 +173,6 @@
         .info-label { font-size: 12px; color: #86868b; font-weight: 600; text-transform: uppercase; }
         .info-value { font-size: 15px; font-weight: 700; color: #1d1d1f; }
 
-        /* Tag Hobi */
         .tags-container { display: flex; flex-wrap: wrap; gap: 12px; }
         .tag { 
             background: #f5f5f7; color: #1d1d1f; padding: 12px 20px; border-radius: 20px; 
@@ -186,10 +184,10 @@
            KODE ANTI DOWNLOAD & TAHAN FOTO
            ========================================= */
         .anti-download {
-            -webkit-touch-callout: none; /* Mencegah menu pop-up (Save Image) di HP iOS/Android */
-            -webkit-user-select: none;   /* Mencegah gambar ter-highlight biru */
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
             user-select: none;           
-            pointer-events: none;        /* Kebal klik kanan dan tahan lama */
+            pointer-events: none;        
         }
 
         @media (max-width: 768px) {
@@ -202,8 +200,9 @@
     </style>
 </head>
 <body>
+<!-- TOP NAVBAR -->
 <nav class="apple-nav">
-    <!-- PERBAIKAN HTML RENXXNO: oncontextmenu & draggable -->
+    <!-- UPDATE: DRAGGABLE & ONCONTEXTMENU UNTUK ANTI POPUP -->
     <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
@@ -214,6 +213,7 @@
     </div>
 </nav>
 
+<!-- TOOLTIP NOTIFIKASI MENU -->
 <div class="menu-tooltip" id="menuTooltip">
     <div class="tooltip-arrow"></div>
     <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
@@ -221,6 +221,7 @@
     <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
 </div>
 
+<!-- OVERLAY MENU -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -250,6 +251,7 @@
     </div>
 </div>
 
+<!-- OVERLAY PENCARIAN -->
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
@@ -260,6 +262,9 @@
     </p>
 </div>
 
+<!-- =========================================
+     KONTEN BIODATA
+     ========================================= -->
 <div class="biodata-section">
     
     <div class="profile-header">
@@ -325,16 +330,14 @@
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
         
-        // Memunculkan Menu
         menuOverlay.classList.toggle('active');
-        btnMenu.classList.toggle('active'); // Memicu animasi ikon garis ke X
+        btnMenu.classList.toggle('active'); 
 
-        // Kunci background agar tidak bisa digeser saat menu terbuka
         if (menuOverlay.classList.contains('active')) {
             document.body.style.overflow = 'hidden'; 
             mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
         } else {
-            document.body.style.overflow = 'auto'; // Lepas kunci background
+            document.body.style.overflow = 'auto'; 
         }
     });
 
@@ -342,7 +345,7 @@
         if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
-            btnMenu.classList.remove('active'); // Kembalikan ikon X ke Garis
+            btnMenu.classList.remove('active'); 
             document.body.style.overflow = 'auto';
         }
         
@@ -351,10 +354,10 @@
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
-            document.body.style.overflow = 'hidden'; // Kunci scroll
+            document.body.style.overflow = 'hidden'; 
         } else {
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-            document.body.style.overflow = 'auto'; // Lepas kunci
+            document.body.style.overflow = 'auto'; 
         }
     });
 
@@ -369,7 +372,7 @@
         mainMenu.style.display = 'block';
     });
 
-    // --- 2. LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL) ---
+    // --- 2. LOGIKA NOTIFIKASI PINTAR ---
     document.addEventListener("DOMContentLoaded", function() {
         const closeTooltip = document.getElementById('closeTooltip');
         if (!sessionStorage.getItem('menuNotifShown')) {
@@ -387,7 +390,6 @@
     const searchInputBox = document.getElementById('searchInput');
     const searchErrorMsg = document.getElementById('searchErrorMsg');
 
-    // Kamus Database Pencarian Kita
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
         { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
