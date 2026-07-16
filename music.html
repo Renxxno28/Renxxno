@@ -162,6 +162,16 @@
         @media (max-width: 768px) {
             .menu-list a { font-size: 28px; }
         }
+
+        /* =========================================
+           KODE ANTI DOWNLOAD & TAHAN FOTO
+           ========================================= */
+        .anti-download {
+            -webkit-touch-callout: none; /* Mencegah munculnya menu pop-up (Save Image) di HP / iOS */
+            -webkit-user-select: none;   /* Mencegah gambar terseleksi atau terblok biru */
+            user-select: none;           /* Mencegah seleksi standar */
+            pointer-events: none;        /* Membuat foto kebal dari klik kanan atau tahan lama */
+        }
     </style>
 </head>
 <body>
@@ -381,7 +391,7 @@
     // ==========================================
     const playlist = [
         {
-            title: "Just Keep Watching [slowed+reverb]", artist: "Tate McRae", cover: "https://i.ibb.co.com/jZxfLH7X/F1CD.jpg", 
+            title: "Just Keep Watching [slowed+reverb]", artist: "Tate McRae", <img id="cover" class="anti-download" draggable="false" src="https://i.ibb.co.com/jZxfLH7X/F1CD.jpg" alt="Cover Lagu">, 
             src: "https://files.catbox.moe/jx3non.mp4", description: "Versi lambat (Slowed + Reverb) dari lagu populer Tate McRae yang ada di film F1®. Alunannya memberikan kesan yang lebih mendalam, menenangkan, dan sangat estetik untuk dinikmati sambil bersantai.",
             lyrics: `[00:08.00] Oh\n[00:10.50] I wanna let my hair down (yeah, yeah, yeah, yeah, yeah)\n[00:12.50] While I'm staring down your face\n[00:13.50] Wanna go 'til lights out (yeah, yeah, yeah, yeah, yeah)\n[00:16.50] Take you right back to my place\n[00:18.00] You out your mind (no, no, no, no)\n[00:20.00] If you don't know what this is\n[00:23.50] I'll tell 'em one by one, show 'em one by one\n[00:26.50] Twist my wrist\n[00:27.00] Goes like this, start with the track\n[00:29.50] Eyes on me, arching my back\n[00:32.00] Just like this, here for the night\n[00:36.00] You ain't buying in? Just keep watching\n[00:37.50] Goes like this (yeah), move from the back (yeah)\n[00:38.50] Eyes on me (yeah), how you like that? (Yeah)\n[00:40.00] Just like this, here for the night\n[00:43.00] You ain't buying in? Just keep watching\n[00:44.00] Just keep watching\n[00:48.00] Just keep, just keep (no-no, oh, no-no)\n[00:52.00] Just keep watching\n[01:02.00] I wanna make my mind up (yeah, yeah, yeah, yeah, yeah)\n[01:04.00] 'Cause I know where this might go\n[01:06.50] Wanna take your time up (yeah, yeah, yeah, yeah, yeah)\n[01:08.50] But you make it difficult\n[01:11.00] Your friends, they try (they try, yeah)\n[01:13.50] But they don't know what this is (this is, yeah)\n[01:13.00] We'll tell 'em one by one, show 'em one by one\n[01:15.00] Twist my wrist\n[01:20.00] Goes like this, start with the track\n[01:22.00] Eyes on me, arching my back\n[01:24.00] Just like this, here for the night\n[01:26.00] You ain't buying in? Just keep watching\n[01:28.00] Goes like this (yeah), move from the back (yeah)\n[01:30.00] Eyes on me (yeah), how you like that? (Yeah)\n[01:33.50] Just like this, here for the night\n[01:35.00] You ain't buying in? Just keep watching (yeah, yeah, yeah)\n[01:40.00] Just keep watching\n[01:44.00] Just keep, just keep (no-no, oh, no-no)\n[01:49.00] Just keep watching (ooh)\n[01:55.00] It's alright, if you can't keep up, give me all your love\n[02:01.50] All night, all night\n[02:03.00] It's alright (it's alright), if you can't keep up, give me all your love\n[02:09.00] All night (all night), all night (baby)\n[02:13.50] Goes like this, start with the track\n[02:14.00] Eyes on me, arching my back\n[02:16.00] Just like this, here for the night\n[02:18.00] You ain't buying in? Just keep watching\n[02:21.00] Goes like this (yeah), move from the back (yeah)\n[02:23.00] Eyes on me (yeah), how you like that? (Yeah)\n[02:24.50] Just like this, here for the night\n[02:27.00] You ain't buying in? Just keep watching (you know you watching)\n[02:32.50] Just keep watching (as long as you're watching)\n[02:37.00] Just keep, just keep (you know you watching)\n[02:41.50] Just keep watching (as long as you're watching)\n[02:45.00] Just keep watching`
         },
