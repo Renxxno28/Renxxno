@@ -20,8 +20,8 @@
             padding: 80px 20px 40px 20px; color: #1d1d1f; 
         }
 
-        /* =========================================
-           TOP NAVBAR (SAMA PERSIS DENGAN STORE)
+                /* =========================================
+           TOP NAVBAR APPLE STYLE (TERBARU)
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -31,50 +31,97 @@
         }
 
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
+        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+        .apple-burger {
+            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
+            cursor: pointer; position: relative; z-index: 10000;
+        }
+        .apple-burger span {
+            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+        }
+        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
+        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
+
+        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 30px 25px;
-            transform: translateY(-100%); opacity: 0; visibility: hidden;
-            transition: all 0.4s ease; overflow-y: auto;
+            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
         }
-        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
+        .nav-overlay.active { opacity: 1; visibility: visible; }
 
-        .menu-list { list-style: none; }
-        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        /* LIST MENU ALA APPLE (ANIMASI MUNCUL BERURUTAN) */
+        .menu-list { list-style: none; padding-top: 10px; }
+        .menu-list li {
+            border-bottom: none; 
+            opacity: 0; transform: translateY(20px) scale(0.98);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
+        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
+        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
+        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
+        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
+        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
+        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
+        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
+        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
+        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
+
         .menu-list a { 
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+            letter-spacing: -1px;
         }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 18px; color: #86868b; }
+        .menu-list a i { font-size: 20px; color: #86868b; }
 
         .submenu-header {
-            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
+            display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
         }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
+        /* KOTAK PENCARIAN */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; cursor: pointer; transition: color 0.3s; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
         .search-box i:hover { color: #0066cc; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
-                /* TOOLTIP NOTIFIKASI MENU */
+
+        /* TOOLTIP / NOTIFIKASI MENU PINTAR */
         .menu-tooltip {
-            position: fixed; top: 65px; right: 15px; background: #ffffff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); padding: 12px 16px; display: flex; align-items: center; gap: 12px; z-index: 9997; border: 1px solid rgba(0,0,0,0.05); opacity: 0; transform: translateY(-10px); visibility: hidden; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: fixed; top: 65px; right: 15px; background: #ffffff;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+            z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
+            opacity: 0; transform: translateY(-10px); visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
-        .tooltip-arrow { position: absolute; top: -6px; right: 18px; width: 12px; height: 12px; background: #ffffff; transform: rotate(45deg); border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05); }
+        .tooltip-arrow {
+            position: absolute; top: -6px; right: 18px; width: 12px; height: 12px;
+            background: #ffffff; transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05);
+        }
         .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
         .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
         .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
         .tooltip-close:hover { color: #fa233b; }
+
         @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
 
+        @media (max-width: 768px) {
+            .menu-list a { font-size: 28px; } /* Ukuran font menu untuk mobile */
+        }
+        
         /* =========================================
            KODE ANTI DOWNLOAD & TAHAN FOTO
            ========================================= */
