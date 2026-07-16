@@ -249,6 +249,16 @@
         @media (max-width: 768px) {
             .menu-list a { font-size: 28px; }
         }
+
+                /* =========================================
+           KODE ANTI DOWNLOAD & TAHAN FOTO
+           ========================================= */
+        .anti-download {
+            -webkit-touch-callout: none; /* Mencegah munculnya menu pop-up (Save Image) di HP / iOS */
+            -webkit-user-select: none;   /* Mencegah gambar terseleksi atau terblok biru */
+            user-select: none;           /* Mencegah seleksi standar */
+            pointer-events: none;        /* Membuat foto kebal dari klik kanan atau tahan lama */
+        }
     </style>
 </head>
 <body>
@@ -325,13 +335,13 @@
                  data-cat="Pakaian Jacket"
                  data-price="Rp 200.000"
                  data-desc="Brand: LoundNclear Bekas Pakai, Cuma 2 Kali, Masi sangat bagus bisa langsung dianter kalau lokasi di Kota Blitar, Dan Diluar kota juga bisa tapi tunggu waktu Pembayaran dulu baru dikirim. Bahan premium eksklusif. SISA 1 STOK TERAKHIR!"
-                 data-img1="https://i.ibb.co.com/Kx14kMQY/IMG-20260713-164310.jpg"
-                 data-img2="https://i.ibb.co.com/Mm3MDcm/IMG-20260713-164338.jpg"
-                 data-img3=""> 
+                 <img id="https://i.ibb.co.com/Kx14kMQY/IMG-20260713-164310.jpg" src="" class="anti-download" draggable="false" alt="Thumb 1">
+                 <img id="https://i.ibb.co.com/Mm3MDcm/IMG-20260713-164338.jpg" src="" class="anti-download" draggable="false" alt="Thumb 2">
+                 <img id="" src="" class="anti-download" draggable="false" alt="Thumb 3"> 
                 
                 <div class="stock-label">Sisa 1 (Ukuran L)</div> 
                 <div class="catalog-img-box">
-                    <img src="https://i.ibb.co.com/Kx14kMQY/IMG-20260713-164310.jpg" alt="Produk Baju">
+                    <img src="https://i.ibb.co.com/Kx14kMQY/IMG-20260713-164310.jpg" class="anti-download" draggable="false" alt="Produk Baju">
                 </div>
                 <div class="catalog-title">Jacket Sherpa White</div>
                 <div class="catalog-price">Rp 200.000</div>
