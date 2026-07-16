@@ -28,13 +28,19 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-            .nav-brand { 
+        /* PERBAIKAN TEKS RENXXNO: ANTI-POPUP & ANTI-BLOK */
+        .nav-brand { 
             font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
-            -webkit-touch-callout: none; /* Mencegah pop-up menu saat ditahan di iOS/iPhone */
-            -webkit-user-select: none;   /* Mencegah teks terblok/terseleksi warna biru */
-            user-select: none;           /* Mencegah seleksi standar */
-            -webkit-tap-highlight-color: transparent; /* Menghilangkan efek kedip abu-abu saat disentuh di HP */
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
+            user-select: none;           
+            -webkit-tap-highlight-color: transparent; 
         }
+        
+        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .nav-icons i:hover { opacity: 0.5; }
+
         /* =========================================
            IKON MENU APPLE (GARIS JADI X MULUS)
            ========================================= */
@@ -59,8 +65,7 @@
             overflow-y: auto; 
         }
         .nav-overlay.active { opacity: 1; visibility: visible; }
-
-        /* LIST MENU ALA APPLE */
+                /* LIST MENU ALA APPLE */
         .menu-list { list-style: none; padding-top: 10px; }
         .menu-list li {
             border-bottom: none; 
@@ -93,7 +98,8 @@
             padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
         }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
-                /* KOTAK PENCARIAN */
+
+        /* KOTAK PENCARIAN */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
         .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
         .search-box i:hover { color: #0066cc; }
@@ -123,8 +129,7 @@
         @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-
-        /* =========================================
+                /* =========================================
            TAMPILAN BERANDA (HERO SECTION) UPDATE BARU
            ========================================= */
         .hero-section {
@@ -140,12 +145,10 @@
         /* Foto Tidak Bulat, Transparan, Besar, Anti-Download, Diam Setelah Muncul */
         .hero-img { 
             width: 100%; 
-            max-width: 320px; /* Ukuran besar proporsional */
+            max-width: 320px; 
             height: auto; 
             object-fit: contain; 
-            mix-blend-mode: multiply; /* Menyatukan latar belakang putih ke web */
-            
-            /* Anti Pop-up Download / Tekan Tahan */
+            mix-blend-mode: multiply; 
             -webkit-touch-callout: none; 
             -webkit-user-select: none; 
             user-select: none;
@@ -185,7 +188,7 @@
 
         @media (max-width: 768px) {
             .hero-title { font-size: 34px; }
-            .hero-img { max-width: 250px; } /* Menyesuaikan agar pas di HP */
+            .hero-img { max-width: 250px; } 
             .hero-cta { flex-direction: column; width: 100%; max-width: 250px; }
             .btn-primary, .btn-secondary { justify-content: center; }
             .menu-list a { font-size: 28px; } 
@@ -193,7 +196,9 @@
     </style>
 </head>
 <body>
+
 <nav class="apple-nav">
+    <!-- PERBAIKAN HTML RENXXNO: oncontextmenu & draggable -->
     <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
@@ -203,7 +208,6 @@
         </div>
     </div>
 </nav>
-
 <div class="menu-tooltip" id="menuTooltip">
     <div class="tooltip-arrow"></div>
     <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
@@ -238,6 +242,7 @@
         </ul>
     </div>
 </div>
+
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
         <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
@@ -248,11 +253,16 @@
     </p>
 </div>
 
+<!-- =========================================
+     KONTEN BERANDA (HERO SECTION)
+     ========================================= -->
 <div class="hero-section">
     
     <div class="hero-image-wrapper">
         <img class="hero-img" src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Foto Profil Renxxno">
     </div>
+    
+    <h1 class="hero-title">Halo, Saya <span>Renxxno</span>.</h1>
     
     <p class="hero-desc">
         Selamat datang di ruang digital saya. Di sini Anda bisa mengenal saya lebih dekat, melihat proyek karya, bermain mini-games, hingga menjelajahi katalog layanan di store digital saya. Let's connect!
@@ -268,6 +278,9 @@
     </div>
 
 </div>
+<!-- ==========================================
+     JAVASCRIPT LENGKAP 
+     ========================================== -->
 <script>
     // --- 1. LOGIKA MENU & OVERLAY BARU (ANTI-LAG & SCROLL LOCK) ---
     const btnMenu = document.getElementById('toggleMenu');
@@ -287,16 +300,14 @@
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
         
-        // Memunculkan Menu
         menuOverlay.classList.toggle('active');
-        btnMenu.classList.toggle('active'); // Memicu animasi ikon garis ke X
+        btnMenu.classList.toggle('active');
 
-        // Kunci background agar tidak bisa digeser saat menu terbuka
         if (menuOverlay.classList.contains('active')) {
             document.body.style.overflow = 'hidden'; 
             mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
         } else {
-            document.body.style.overflow = 'auto'; // Lepas kunci background
+            document.body.style.overflow = 'auto'; 
         }
     });
 
@@ -304,7 +315,7 @@
         if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
-            btnMenu.classList.remove('active'); // Kembalikan ikon X ke Garis
+            btnMenu.classList.remove('active'); 
             document.body.style.overflow = 'auto';
         }
         
@@ -313,10 +324,10 @@
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
-            document.body.style.overflow = 'hidden'; // Kunci scroll
+            document.body.style.overflow = 'hidden'; 
         } else {
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-            document.body.style.overflow = 'auto'; // Lepas kunci
+            document.body.style.overflow = 'auto'; 
         }
     });
 
