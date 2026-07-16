@@ -21,7 +21,7 @@
         }
 
         /* =========================================
-           TOP NAVBAR APPLE STYLE
+           TOP NAVBAR APPLE STYLE (UPDATE ANTI POPUP)
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -29,12 +29,19 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        
+        .nav-brand { 
+            font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
+            user-select: none;           
+            -webkit-tap-highlight-color: transparent; 
+        }
+        
         .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
-
-        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+                /* IKON MENU APPLE (GARIS JADI X MULUS) */
         .apple-burger {
             width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
             cursor: pointer; position: relative; z-index: 10000;
@@ -73,6 +80,7 @@
         .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
         .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
         .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
+        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
 
         .menu-list a { 
             display: flex; justify-content: space-between; align-items: center;
@@ -95,7 +103,28 @@
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
 
-        /* =========================================
+        /* TOOLTIP / NOTIFIKASI MENU */
+        .menu-tooltip {
+            position: fixed; top: 65px; right: 15px; background: #ffffff;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+            z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
+            opacity: 0; transform: translateY(-10px); visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
+        .tooltip-arrow {
+            position: absolute; top: -6px; right: 18px; width: 12px; height: 12px;
+            background: #ffffff; transform: rotate(45deg);
+            border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05);
+        }
+        .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
+        .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
+        .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
+        .tooltip-close:hover { color: #fa233b; }
+
+        @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+                /* =========================================
            KOTAK GAMES ACCORDION (DESAIN LEBAR)
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
@@ -161,7 +190,7 @@
 
 <!-- NAVBAR -->
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">Renxxno</a>
+    <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
         <!-- Ikon Animasi Garis X -->
@@ -172,6 +201,13 @@
     </div>
 </nav>
 
+<!-- TOOLTIP NOTIFIKASI MENU -->
+<div class="menu-tooltip" id="menuTooltip">
+    <div class="tooltip-arrow"></div>
+    <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
+    <span>Klik di sini untuk menu lainnya!</span>
+    <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
+</div>
 <!-- MENU OVERLAY -->
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
@@ -195,7 +231,7 @@
             <li><a href="games.html" class="active">My Account</a></li>
             <li><a href="ghosthunter.html">Ghost Hunter</a></li>
             <li><a href="aeroglide.html">Aero Glide</a></li>
-            <li><a href="puzzle.html">Block Puzzle</a></li> </ul>
+            <li><a href="puzzle.html">Block Puzzle</a></li>
         </ul>
     </div>
 </div>
@@ -210,7 +246,8 @@
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
-<!-- KONTEN MY ACCOUNT (LEBAR & LUAS) -->
+
+<!-- KONTEN MY ACCOUNT (SAMA PERSIS DENGAN SEBELUMNYA) -->
 <div class="games-section">
     
     <div class="page-header">
@@ -263,7 +300,6 @@
         </div>
     </div>
 </div>
-
 <!-- ==========================================
      JAVASCRIPT LENGKAP 
      ========================================== -->
@@ -277,8 +313,10 @@
     const subMenuGames = document.getElementById('subMenuGames');
     const btnGamesMenu = document.getElementById('btnGamesMenu');
     const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    const menuTooltip = document.getElementById('menuTooltip');
 
     btnMenu.addEventListener('click', () => {
+        if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (searchOverlay.classList.contains('active')) {
             searchOverlay.classList.remove('active');
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
@@ -298,6 +336,7 @@
     });
 
     btnSearch.addEventListener('click', () => {
+        if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
             btnMenu.classList.remove('active'); // Kembalikan ikon X ke Garis
@@ -327,7 +366,20 @@
         mainMenu.style.display = 'block';
     });
 
-    // --- 2. JS ACCORDION MY ACCOUNT ---
+    // --- 2. LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL) ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const closeTooltip = document.getElementById('closeTooltip');
+        if (!sessionStorage.getItem('menuNotifShown')) {
+            setTimeout(() => { if(menuTooltip) menuTooltip.classList.add('show'); }, 1000);
+            sessionStorage.setItem('menuNotifShown', 'true'); 
+            setTimeout(() => { if(menuTooltip) menuTooltip.classList.remove('show'); }, 8000); 
+        }
+        if (closeTooltip) {
+            closeTooltip.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
+        }
+    });
+
+    // --- 3. JS ACCORDION MY ACCOUNT ---
     document.addEventListener("DOMContentLoaded", function() {
         const gameHeaders = document.querySelectorAll(".game-header");
         gameHeaders.forEach(header => {
@@ -342,7 +394,7 @@
         });
     });
 
-    // --- 3. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
+    // --- 4. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
     const executeSearchBtn = document.getElementById('executeSearchBtn');
     const searchInputBox = document.getElementById('searchInput');
     const searchErrorMsg = document.getElementById('searchErrorMsg');
@@ -353,6 +405,7 @@
         { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
         { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
         { keywords: ["aero glide", "burung", "aero", "glide", "terbang"], url: "aeroglide.html" },
+        { keywords: ["puzzle", "block puzzle", "balok", "tetris", "susun"], url: "puzzle.html" },
         { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
         { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
         { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" },
