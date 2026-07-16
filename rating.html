@@ -23,14 +23,13 @@
             display: flex;
             flex-direction: column; 
             align-items: center;
-            gap: 40px; 
             padding: 100px 20px 50px 20px; 
             min-height: 100vh;
             color: #1d1d1f;
         }
 
         /* =========================================
-           TOP NAVBAR APPLE STYLE
+           TOP NAVBAR APPLE STYLE (ANTI POPUP)
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -39,7 +38,15 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        /* UPDATE ANTI-POPUP TEKS RENXXNO */
+        .nav-brand { 
+            font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
+            user-select: none;           
+            -webkit-tap-highlight-color: transparent; 
+        }
+
         .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
@@ -55,8 +62,7 @@
         }
         .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
         .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
-
-        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
+                /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
             background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
@@ -127,24 +133,28 @@
 
         @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
                 /* =========================================
-           KOTAK RATING & VIEW (PREMIUM CARD)
+           KOTAK RATING & VIEW (RESPONSIVE PC & MOBILE)
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         
+        /* PEMBUNGKUS BARU: AGAR BISA BERDAMPINGAN DI PC */
+        .cards-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+            max-width: 900px; /* Lebar maksimal di PC */
+            margin: 0 auto;
+        }
+
         .premium-card {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 24px;
-            padding: 30px 25px; 
-            width: 100%;
-            max-width: 420px; 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
-            border: 2px solid #ffffff; 
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            opacity: 0;
+            border-radius: 24px; padding: 30px 25px; width: 100%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); border: 2px solid #ffffff; 
+            text-align: center; position: relative; overflow: hidden;
+            transition: transform 0.3s ease; opacity: 0;
             animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
 
@@ -154,18 +164,12 @@
 
         /* IKON MELAYANG (VIEWS) */
         .icon-wrapper {
-            width: 55px; height: 55px;
-            background: #0066cc; 
-            border-radius: 16px;
-            display: flex; justify-content: center; align-items: center;
-            margin: 0 auto 15px auto;
-            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3);
-            opacity: 0;
+            width: 55px; height: 55px; background: #0066cc; border-radius: 16px;
+            display: flex; justify-content: center; align-items: center; margin: 0 auto 15px auto;
+            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3); opacity: 0;
             animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards, float 3s ease-in-out infinite 0.8s;
         }
         .icon-wrapper i { font-size: 24px; color: #ffffff; }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
         .stat-title {
             font-size: 16px; font-weight: 800; color: #1d1d1f; letter-spacing: 0.5px;
@@ -222,6 +226,12 @@
         }
         .thank-you-msg i { font-size: 35px; margin-bottom: 10px; display: block; animation: float 3s ease-in-out infinite; }
 
+        /* SETTING RESPONSIVE UNTUK PC AGAR BERDAMPINGAN */
+        @media (min-width: 768px) {
+            .cards-wrapper { flex-direction: row; justify-content: center; align-items: stretch; }
+            .premium-card { flex: 1; max-width: 100%; }
+        }
+
         @media (max-width: 768px) {
             .menu-list a { font-size: 28px; }
         }
@@ -229,9 +239,9 @@
 </head>
 <body>
 
-<!-- TOP NAVBAR APPLE STYLE -->
+<!-- TOP NAVBAR DENGAN FITUR ANTI-POPUP TEKS -->
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">Renxxno</a>
+    <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
         <div class="apple-burger" id="toggleMenu">
@@ -240,7 +250,6 @@
         </div>
     </div>
 </nav>
-
 <!-- TOOLTIP NOTIFIKASI MENU -->
 <div class="menu-tooltip" id="menuTooltip">
     <div class="tooltip-arrow"></div>
@@ -275,7 +284,7 @@
             <li><a href="games.html">My Account</a></li>
             <li><a href="ghosthunter.html">Ghost Hunter</a></li>
             <li><a href="aeroglide.html">Aero Glide</a></li>
-            <li><a href="puzzle.html">Block Puzzle</a></li> </ul>
+            <li><a href="puzzle.html">Block Puzzle</a></li>
         </ul>
     </div>
 </div>
@@ -291,68 +300,70 @@
     </p>
 </div>
 
-<!-- KOTAK 1: VIEW -->
-<div class="premium-card">
-    <div class="icon-wrapper">
-        <i class="fa-solid fa-eye"></i>
-    </div>
-    <div class="stat-title">Dilihat Oleh</div>
-    <div class="badge-wrapper">
-        <img class="badge-img" src="https://api.visitorbadge.io/api/visitors?path=renxxno.portofolio.v2026&label=TOTAL%20VIEWS&labelColor=%232d3436&countColor=%230066cc&style=for-the-badge" alt="Visitor Badge">
-    </div>
-</div>
-
-<!-- KOTAK 2: RATING -->
-<div class="premium-card">
-    
-    <div class="avg-rating-container" id="avgContainer">
-        <div class="avg-label">Rata-rata Penilaian</div>
-        <div class="avg-number" id="avgNumberText">3.9</div>
-        <div class="avg-stars">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star-half-stroke"></i>
-            <i class="fa-regular fa-star"></i>
+<!-- PEMBUNGKUS RESPONSIVE PC & MOBILE -->
+<div class="cards-wrapper">
+    <!-- KOTAK 1: VIEW -->
+    <div class="premium-card">
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-eye"></i>
+        </div>
+        <div class="stat-title">Dilihat Oleh</div>
+        <div class="badge-wrapper">
+            <img class="badge-img" src="https://api.visitorbadge.io/api/visitors?path=renxxno.portofolio.v2026&label=TOTAL%20VIEWS&labelColor=%232d3436&countColor=%230066cc&style=for-the-badge" alt="Visitor Badge">
         </div>
     </div>
 
-    <hr class="divider">
-
-    <!-- FORMULIR RATING -->
-    <form id="ratingForm" action="https://formspree.io/f/xgojgjgq" method="POST">
-        <div id="ratingArea">
-            <div class="rating-title">Beri Rating Website Ini</div>
-            
-            <div class="star-rating" id="stars">
-                <i class="fa-regular fa-star" data-val="1"></i>
-                <i class="fa-regular fa-star" data-val="2"></i>
-                <i class="fa-regular fa-star" data-val="3"></i>
-                <i class="fa-regular fa-star" data-val="4"></i>
-                <i class="fa-regular fa-star" data-val="5"></i>
-            </div>
-            
-            <input type="hidden" name="Bintang" id="ratingValue" required>
-
-            <div class="comment-section" id="commentSection">
-                <textarea name="Komentar" class="comment-box" placeholder="Tulis komentar dan kesanmu di sini..." required></textarea>
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    <i class="fa-solid fa-paper-plane" id="btnIcon"></i> <span id="btnText">Kirim Penilaian</span>
-                </button>
+    <!-- KOTAK 2: RATING -->
+    <div class="premium-card">
+        
+        <div class="avg-rating-container" id="avgContainer">
+            <div class="avg-label">Rata-rata Penilaian</div>
+            <div class="avg-number" id="avgNumberText">3.9</div>
+            <div class="avg-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+                <i class="fa-regular fa-star"></i>
             </div>
         </div>
-    </form>
 
-    <!-- PESAN SUKSES SETELAH KIRIM -->
-    <div class="thank-you-msg" id="thankYouMsg">
-        <i class="fa-solid fa-face-smile-beam"></i>
-        Terima kasih! Penilaian kamu sudah berhasil terkirim.
+        <hr class="divider">
+
+        <!-- FORMULIR RATING -->
+        <form id="ratingForm" action="https://formspree.io/f/xgojgjgq" method="POST">
+            <div id="ratingArea">
+                <div class="rating-title">Beri Rating Website Ini</div>
+                
+                <div class="star-rating" id="stars">
+                    <i class="fa-regular fa-star" data-val="1"></i>
+                    <i class="fa-regular fa-star" data-val="2"></i>
+                    <i class="fa-regular fa-star" data-val="3"></i>
+                    <i class="fa-regular fa-star" data-val="4"></i>
+                    <i class="fa-regular fa-star" data-val="5"></i>
+                </div>
+                
+                <input type="hidden" name="Bintang" id="ratingValue" required>
+
+                <div class="comment-section" id="commentSection">
+                    <textarea name="Komentar" class="comment-box" placeholder="Tulis komentar dan kesanmu di sini..." required></textarea>
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <i class="fa-solid fa-paper-plane" id="btnIcon"></i> <span id="btnText">Kirim Penilaian</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- PESAN SUKSES SETELAH KIRIM -->
+        <div class="thank-you-msg" id="thankYouMsg">
+            <i class="fa-solid fa-face-smile-beam"></i>
+            Terima kasih! Penilaian kamu sudah berhasil terkirim.
+        </div>
     </div>
-
 </div>
 <script>
     // ==========================================
-    // 1. SCRIPT NAVBAR & NESTED MENU (UPDATE)
+    // 1. SCRIPT NAVBAR & OVERLAY MENU
     // ==========================================
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
@@ -371,16 +382,14 @@
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
         }
         
-        // Memunculkan Menu
         menuOverlay.classList.toggle('active');
-        btnMenu.classList.toggle('active'); // Memicu animasi ikon garis ke X
+        btnMenu.classList.toggle('active'); 
 
-        // Kunci background agar tidak bisa digeser saat menu terbuka
         if (menuOverlay.classList.contains('active')) {
             document.body.style.overflow = 'hidden'; 
             mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
         } else {
-            document.body.style.overflow = 'auto'; // Lepas kunci background
+            document.body.style.overflow = 'auto'; 
         }
     });
 
@@ -388,7 +397,7 @@
         if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
-            btnMenu.classList.remove('active'); // Kembalikan ikon X ke Garis
+            btnMenu.classList.remove('active'); 
             document.body.style.overflow = 'auto';
         }
         
@@ -397,10 +406,10 @@
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
-            document.body.style.overflow = 'hidden'; // Kunci scroll
+            document.body.style.overflow = 'hidden'; 
         } else {
             btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-            document.body.style.overflow = 'auto'; // Lepas kunci
+            document.body.style.overflow = 'auto'; 
         }
     });
 
@@ -416,7 +425,7 @@
     });
 
     // ==========================================
-    // 2. LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL)
+    // 2. LOGIKA NOTIFIKASI PINTAR
     // ==========================================
     document.addEventListener("DOMContentLoaded", function() {
         const closeTooltip = document.getElementById('closeTooltip');
@@ -431,7 +440,7 @@
     });
 
     // ==========================================
-    // 3. SCRIPT RATING & VIEW COUNTER (TIDAK DIUBAH)
+    // 3. SCRIPT RATING & BINTANG (TIDAK DIUBAH)
     // ==========================================
     const stars = document.querySelectorAll('#stars i');
     const commentSection = document.getElementById('commentSection');
@@ -514,7 +523,7 @@
     });
 
     // ==========================================
-    // 4. LOGIKA MESIN PENCARIAN (UPDATE TERBARU)
+    // 4. LOGIKA MESIN PENCARIAN (TERMASUK PUZZLE)
     // ==========================================
     const executeSearchBtn = document.getElementById('executeSearchBtn');
     const searchInputBox = document.getElementById('searchInput');
@@ -526,6 +535,7 @@
         { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
         { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
         { keywords: ["aero glide", "burung", "aero", "terbang"], url: "aeroglide.html" },
+        { keywords: ["puzzle", "block puzzle", "balok", "tetris", "susun"], url: "puzzle.html" },
         { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
         { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
         { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
