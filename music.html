@@ -21,7 +21,7 @@
         }
 
         /* =========================================
-           TOP NAVBAR APPLE STYLE
+           TOP NAVBAR (SAMA PERSIS DENGAN STORE)
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -31,62 +31,39 @@
         }
 
         .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
+        .nav-icons { display: flex; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
 
-        /* IKON MENU APPLE (GARIS JADI X MULUS) */
-        .apple-burger {
-            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
-            cursor: pointer; position: relative; z-index: 10000;
-        }
-        .apple-burger span {
-            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
-        }
-        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
-        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
-
-        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
-            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
-            overflow-y: auto; 
+            background: #ffffff; z-index: 9998; padding: 30px 25px;
+            transform: translateY(-100%); opacity: 0; visibility: hidden;
+            transition: all 0.4s ease; overflow-y: auto;
         }
-        .nav-overlay.active { opacity: 1; visibility: visible; }
+        .nav-overlay.active { transform: translateY(0); opacity: 1; visibility: visible; }
 
-        /* LIST MENU ALA APPLE */
-        .menu-list { list-style: none; padding-top: 10px; }
-        .menu-list li { border-bottom: none; opacity: 0; transform: translateY(20px) scale(0.98); transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
-        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
-        
-        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
-        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
-        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
-        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
-        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
-        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
-        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
-        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
-        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
-        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
-
-        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; letter-spacing: -1px; }
+        .menu-list { list-style: none; }
+        .menu-list li { border-bottom: 1px solid #e5e5ea; }
+        .menu-list a { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; font-size: 24px; font-weight: 600; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+        }
         .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 20px; color: #86868b; }
+        .menu-list a i { font-size: 18px; color: #86868b; }
 
-        .submenu-header { display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px; }
+        .submenu-header {
+            display: flex; align-items: center; font-size: 24px; font-weight: 600; color: #1d1d1f;
+            padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid #e5e5ea; cursor: pointer;
+        }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
 
-        /* KOTAK PENCARIAN */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; cursor: pointer; transition: color 0.3s; }
         .search-box i:hover { color: #0066cc; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
-
-        /* TOOLTIP NOTIFIKASI MENU */
+                /* TOOLTIP NOTIFIKASI MENU */
         .menu-tooltip {
             position: fixed; top: 65px; right: 15px; background: #ffffff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); padding: 12px 16px; display: flex; align-items: center; gap: 12px; z-index: 9997; border: 1px solid rgba(0,0,0,0.05); opacity: 0; transform: translateY(-10px); visibility: hidden; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
@@ -99,6 +76,16 @@
         @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
 
         /* =========================================
+           KODE ANTI DOWNLOAD & TAHAN FOTO
+           ========================================= */
+        .anti-download {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* =========================================
            APPLE MUSIC PLAYER UI
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
@@ -106,7 +93,6 @@
 
         .am-player-container { width: 100%; max-width: 380px; display: flex; flex-direction: column; opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
 
-        /* FIX BUG FOTO DESKTOP: Mengunci ukuran agar presisi */
         .media-section { 
             position: relative; width: 100%; max-width: 320px; aspect-ratio: 1/1; 
             margin: 0 auto 30px auto; 
@@ -146,44 +132,21 @@
         .am-volume { display: flex; align-items: center; gap: 10px; color: #86868b; font-size: 14px; flex-grow: 1; }
         .am-volume input[type="range"]::-webkit-slider-thumb { box-shadow: -400px 0 0 400px #1d1d1f; }
 
-        /* =========================================
-           DESKRIPSI KHAS APPLE MUSIC 
-           ========================================= */
         .am-description-box { 
-            background: transparent; 
-            border-top: 1px solid rgba(0,0,0,0.08); 
-            padding: 25px 5px 10px 5px; 
+            background: transparent; border-top: 1px solid rgba(0,0,0,0.08); padding: 25px 5px 10px 5px; 
             width: 100%; max-width: 380px; text-align: left;
             opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; 
         }
         .desc-header { font-size: 12px; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         .desc-body { font-size: 15px; color: #1d1d1f; line-height: 1.6; font-weight: 500; }
-
-        @media (max-width: 768px) {
-            .menu-list a { font-size: 28px; }
-        }
-
-        /* =========================================
-           KODE ANTI DOWNLOAD & TAHAN FOTO
-           ========================================= */
-        .anti-download {
-            -webkit-touch-callout: none; /* Mencegah munculnya menu pop-up (Save Image) di HP / iOS */
-            -webkit-user-select: none;   /* Mencegah gambar terseleksi atau terblok biru */
-            user-select: none;           /* Mencegah seleksi standar */
-            pointer-events: none;        /* Membuat foto kebal dari klik kanan atau tahan lama */
-        }
     </style>
 </head>
 <body>
-
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <div class="apple-burger" id="toggleMenu">
-            <span class="line-1"></span>
-            <span class="line-2"></span>
-        </div>
+        <i class="fa-solid fa-bars" id="toggleMenu"></i>
     </div>
 </nav>
 
@@ -217,7 +180,7 @@
             <li><a href="games.html">My Account</a></li>
             <li><a href="ghosthunter.html">Ghost Hunter</a></li>
             <li><a href="aeroglide.html">Aero Glide</a></li>
-            <li><a href="puzzle.html">Block Puzzle</a></li> </ul>
+            <li><a href="puzzle.html">Block Puzzle</a></li> 
         </ul>
     </div>
 </div>
@@ -235,7 +198,7 @@
 <div class="am-player-container" id="playerNode">
     <div class="media-section">
         <div class="cover-view">
-            <img id="albumCover" src="" alt="Album Cover">
+            <img id="albumCover" class="anti-download" draggable="false" src="" alt="Album Cover">
         </div>
         <div class="lyrics-view" id="lyricView"></div>
     </div>
@@ -280,7 +243,7 @@
 </div>
 <script>
     // ==========================================
-    // 1. LOGIKA MENU & OVERLAY (ANTI-LAG & SCROLL LOCK)
+    // 1. LOGIKA MENU & OVERLAY (SAMA PERSIS DGN STORE)
     // ==========================================
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
@@ -300,12 +263,12 @@
         }
         
         menuOverlay.classList.toggle('active');
-        btnMenu.classList.toggle('active'); // Memicu animasi X
-
         if (menuOverlay.classList.contains('active')) {
-            document.body.style.overflow = 'hidden'; 
+            btnMenu.classList.replace('fa-bars', 'fa-xmark');
             mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
+            document.body.style.overflow = 'hidden'; 
         } else {
+            btnMenu.classList.replace('fa-xmark', 'fa-bars');
             document.body.style.overflow = 'auto'; 
         }
     });
@@ -314,12 +277,11 @@
         if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
-            btnMenu.classList.remove('active'); 
+            btnMenu.classList.replace('fa-xmark', 'fa-bars'); 
             document.body.style.overflow = 'auto';
         }
         
         searchOverlay.classList.toggle('active');
-        
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
@@ -337,27 +299,38 @@
         subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
     });
 
+    document.addEventListener("DOMContentLoaded", function() {
+        const closeTooltip = document.getElementById('closeTooltip');
+        if (!sessionStorage.getItem('menuNotifShown')) {
+            setTimeout(() => { menuTooltip.classList.add('show'); }, 1000);
+            sessionStorage.setItem('menuNotifShown', 'true'); 
+            setTimeout(() => { menuTooltip.classList.remove('show'); }, 8000); 
+        }
+        if (closeTooltip) {
+            closeTooltip.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
+        }
+    });
+
     // ==========================================
-    // 2. LOGIKA MESIN PENCARIAN (BISA CARI LAGU)
+    // 2. LOGIKA MESIN PENCARIAN
     // ==========================================
     const executeSearchBtn = document.getElementById('executeSearchBtn');
     const searchInputBox = document.getElementById('searchInput');
     const searchErrorMsg = document.getElementById('searchErrorMsg');
 
-    // INFO: Judul-judul lagu sudah ditambahkan di bagian 'music.html'
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
-        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
-        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
-        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
-        { keywords: ["aero glide", "burung", "aero", "glide", "terbang"], url: "aeroglide.html" },
-        // DATABASE LAGU:
-        { keywords: ["music", "musik", "lagu", "tate mcrae", "just keep watching", "enau", "sesi potret", "berubah", "tenxi", "bersenja gurau", "raim laode", "tunggal eka", "denny caknan"], url: "music.html" },
-        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
-        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" },
-        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
-        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
+        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah"], url: "biodata.html" },
+        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff"], url: "games.html" },
+        { keywords: ["ghost", "ghost hunter", "hunter", "hantu"], url: "ghosthunter.html" },
+        { keywords: ["aero glide", "burung", "aero", "terbang"], url: "aeroglide.html" },
+        { keywords: ["puzzle", "block puzzle", "balok", "tetris"], url: "puzzle.html" },
+        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "tenxi", "raim", "denny"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jasa", "website", "jual"], url: "store.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "youtube", "wa"], url: "sosmed.html" },
+        { keywords: ["pesan", "kirim pesan", "kontak", "email"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan"], url: "rating.html" },
+        { keywords: ["donasi", "donate", "qris", "uang", "saweria"], url: "donate.html" }
     ];
 
     function performSearch() {
@@ -385,13 +358,12 @@
     searchInputBox.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
     });
-
-    // ==========================================
+        // ==========================================
     // 3. SCRIPT PEMUTAR & LIRIK MUSIC
     // ==========================================
     const playlist = [
         {
-            title: "Just Keep Watching [slowed+reverb]", artist: "Tate McRae", <img id="cover" class="anti-download" draggable="false" src="https://i.ibb.co.com/jZxfLH7X/F1CD.jpg" alt="Cover Lagu">, 
+            title: "Just Keep Watching [slowed+reverb]", artist: "Tate McRae", cover: "https://i.ibb.co.com/jZxfLH7X/F1CD.jpg", 
             src: "https://files.catbox.moe/jx3non.mp4", description: "Versi lambat (Slowed + Reverb) dari lagu populer Tate McRae yang ada di film F1®. Alunannya memberikan kesan yang lebih mendalam, menenangkan, dan sangat estetik untuk dinikmati sambil bersantai.",
             lyrics: `[00:08.00] Oh\n[00:10.50] I wanna let my hair down (yeah, yeah, yeah, yeah, yeah)\n[00:12.50] While I'm staring down your face\n[00:13.50] Wanna go 'til lights out (yeah, yeah, yeah, yeah, yeah)\n[00:16.50] Take you right back to my place\n[00:18.00] You out your mind (no, no, no, no)\n[00:20.00] If you don't know what this is\n[00:23.50] I'll tell 'em one by one, show 'em one by one\n[00:26.50] Twist my wrist\n[00:27.00] Goes like this, start with the track\n[00:29.50] Eyes on me, arching my back\n[00:32.00] Just like this, here for the night\n[00:36.00] You ain't buying in? Just keep watching\n[00:37.50] Goes like this (yeah), move from the back (yeah)\n[00:38.50] Eyes on me (yeah), how you like that? (Yeah)\n[00:40.00] Just like this, here for the night\n[00:43.00] You ain't buying in? Just keep watching\n[00:44.00] Just keep watching\n[00:48.00] Just keep, just keep (no-no, oh, no-no)\n[00:52.00] Just keep watching\n[01:02.00] I wanna make my mind up (yeah, yeah, yeah, yeah, yeah)\n[01:04.00] 'Cause I know where this might go\n[01:06.50] Wanna take your time up (yeah, yeah, yeah, yeah, yeah)\n[01:08.50] But you make it difficult\n[01:11.00] Your friends, they try (they try, yeah)\n[01:13.50] But they don't know what this is (this is, yeah)\n[01:13.00] We'll tell 'em one by one, show 'em one by one\n[01:15.00] Twist my wrist\n[01:20.00] Goes like this, start with the track\n[01:22.00] Eyes on me, arching my back\n[01:24.00] Just like this, here for the night\n[01:26.00] You ain't buying in? Just keep watching\n[01:28.00] Goes like this (yeah), move from the back (yeah)\n[01:30.00] Eyes on me (yeah), how you like that? (Yeah)\n[01:33.50] Just like this, here for the night\n[01:35.00] You ain't buying in? Just keep watching (yeah, yeah, yeah)\n[01:40.00] Just keep watching\n[01:44.00] Just keep, just keep (no-no, oh, no-no)\n[01:49.00] Just keep watching (ooh)\n[01:55.00] It's alright, if you can't keep up, give me all your love\n[02:01.50] All night, all night\n[02:03.00] It's alright (it's alright), if you can't keep up, give me all your love\n[02:09.00] All night (all night), all night (baby)\n[02:13.50] Goes like this, start with the track\n[02:14.00] Eyes on me, arching my back\n[02:16.00] Just like this, here for the night\n[02:18.00] You ain't buying in? Just keep watching\n[02:21.00] Goes like this (yeah), move from the back (yeah)\n[02:23.00] Eyes on me (yeah), how you like that? (Yeah)\n[02:24.50] Just like this, here for the night\n[02:27.00] You ain't buying in? Just keep watching (you know you watching)\n[02:32.50] Just keep watching (as long as you're watching)\n[02:37.00] Just keep, just keep (you know you watching)\n[02:41.50] Just keep watching (as long as you're watching)\n[02:45.00] Just keep watching`
         },
@@ -482,7 +454,11 @@
 
     function loadSong(index) {
         const song = playlist[index];
-        songTitleText.innerText = song.title; artistNameText.innerText = song.artist; albumCover.src = song.cover;
+        songTitleText.innerText = song.title; artistNameText.innerText = song.artist; 
+        
+        /* Gambar akan ter-update otomatis dan class anti-download tetap aman! */
+        albumCover.src = song.cover;
+        
         audio.src = song.src; songDescText.innerText = song.description;
         renderLyrics(song.lyrics); 
         progressBar.value = 0; currentTimeText.innerText = "0:00"; durationTimeText.innerText = "-0:00";
