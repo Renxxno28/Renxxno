@@ -20,7 +20,7 @@
             padding: 80px 20px 40px 20px; color: #1d1d1f; 
         }
 
-                /* =========================================
+        /* =========================================
            TOP NAVBAR APPLE STYLE (TERBARU)
            ========================================= */
         .apple-nav {
@@ -30,7 +30,15 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        /* UPDATE: ANTI-POPUP PADA TEKS RENXXNO */
+        .nav-brand { 
+            font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
+            user-select: none;           
+            -webkit-tap-highlight-color: transparent; 
+        }
+
         .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
@@ -46,8 +54,7 @@
         }
         .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
         .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
-
-        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
+                /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
         .nav-overlay {
             position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
             background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
@@ -121,8 +128,7 @@
         @media (max-width: 768px) {
             .menu-list a { font-size: 28px; } /* Ukuran font menu untuk mobile */
         }
-        
-        /* =========================================
+                /* =========================================
            KODE ANTI DOWNLOAD & TAHAN FOTO
            ========================================= */
         .anti-download {
@@ -189,14 +195,17 @@
     </style>
 </head>
 <body>
+
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">Renxxno</a>
+    <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <i class="fa-solid fa-bars" id="toggleMenu"></i>
+        <div class="apple-burger" id="toggleMenu">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+        </div>
     </div>
 </nav>
-
 <div class="menu-tooltip" id="menuTooltip">
     <div class="tooltip-arrow"></div>
     <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
@@ -290,7 +299,7 @@
 </div>
 <script>
     // ==========================================
-    // 1. LOGIKA MENU & OVERLAY (SAMA PERSIS DGN STORE)
+    // 1. LOGIKA MENU & OVERLAY (SAMA PERSIS)
     // ==========================================
     const btnMenu = document.getElementById('toggleMenu');
     const btnSearch = document.getElementById('toggleSearch');
@@ -310,12 +319,12 @@
         }
         
         menuOverlay.classList.toggle('active');
+        btnMenu.classList.toggle('active');
+
         if (menuOverlay.classList.contains('active')) {
-            btnMenu.classList.replace('fa-bars', 'fa-xmark');
-            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
             document.body.style.overflow = 'hidden'; 
+            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
         } else {
-            btnMenu.classList.replace('fa-xmark', 'fa-bars');
             document.body.style.overflow = 'auto'; 
         }
     });
@@ -324,11 +333,12 @@
         if(menuTooltip) menuTooltip.classList.remove('show'); 
         if (menuOverlay.classList.contains('active')) {
             menuOverlay.classList.remove('active');
-            btnMenu.classList.replace('fa-xmark', 'fa-bars'); 
+            btnMenu.classList.remove('active'); 
             document.body.style.overflow = 'auto';
         }
         
         searchOverlay.classList.toggle('active');
+        
         if (searchOverlay.classList.contains('active')) {
             btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
             document.getElementById('searchInput').focus();
@@ -349,9 +359,9 @@
     document.addEventListener("DOMContentLoaded", function() {
         const closeTooltip = document.getElementById('closeTooltip');
         if (!sessionStorage.getItem('menuNotifShown')) {
-            setTimeout(() => { menuTooltip.classList.add('show'); }, 1000);
+            setTimeout(() => { if(menuTooltip) menuTooltip.classList.add('show'); }, 1000);
             sessionStorage.setItem('menuNotifShown', 'true'); 
-            setTimeout(() => { menuTooltip.classList.remove('show'); }, 8000); 
+            setTimeout(() => { if(menuTooltip) menuTooltip.classList.remove('show'); }, 8000); 
         }
         if (closeTooltip) {
             closeTooltip.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
@@ -367,17 +377,17 @@
 
     const searchDatabase = [
         { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
-        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah"], url: "biodata.html" },
-        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff"], url: "games.html" },
-        { keywords: ["ghost", "ghost hunter", "hunter", "hantu"], url: "ghosthunter.html" },
-        { keywords: ["aero glide", "burung", "aero", "terbang"], url: "aeroglide.html" },
-        { keywords: ["puzzle", "block puzzle", "balok", "tetris"], url: "puzzle.html" },
-        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "tenxi", "raim", "denny"], url: "music.html" },
-        { keywords: ["store", "toko", "baju", "jasa", "website", "jual"], url: "store.html" },
-        { keywords: ["sosial media", "sosmed", "instagram", "youtube", "wa"], url: "sosmed.html" },
-        { keywords: ["pesan", "kirim pesan", "kontak", "email"], url: "Memberipesan.html" },
-        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "uang", "saweria"], url: "donate.html" }
+        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
+        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
+        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
+        { keywords: ["aero glide", "burung", "aero", "glide", "terbang"], url: "aeroglide.html" },
+        { keywords: ["puzzle", "block puzzle", "balok", "tetris", "susun"], url: "puzzle.html" },
+        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
+        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" },
+        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
+        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" }
     ];
 
     function performSearch() {
@@ -405,7 +415,8 @@
     searchInputBox.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
     });
-        // ==========================================
+
+    // ==========================================
     // 3. SCRIPT PEMUTAR & LIRIK MUSIC
     // ==========================================
     const playlist = [
