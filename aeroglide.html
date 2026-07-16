@@ -14,13 +14,13 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: #f5f5f7; /* Latar luar diubah jadi abu-abu muda khas Apple */
+            background: #f5f5f7; 
             display: flex; justify-content: center; align-items: flex-start; 
             padding: 90px 15px 40px 15px; color: #1d1d1f;
         }
 
         /* =========================================
-           TOP NAVBAR APPLE STYLE
+           TOP NAVBAR APPLE STYLE (UPDATE ANTI POPUP)
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -28,12 +28,19 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+
+        .nav-brand { 
+            font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none;   
+            user-select: none;           
+            -webkit-tap-highlight-color: transparent; 
+        }
+
         .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
-
-        /* IKON MENU APPLE (GARIS JADI X MULUS) */
+                /* IKON MENU APPLE (GARIS JADI X MULUS) */
         .apple-burger {
             width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
             cursor: pointer; position: relative; z-index: 10000;
@@ -90,14 +97,13 @@
         .search-box i:hover { color: #0066cc; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
         .search-box input::placeholder { color: #86868b; font-size: 16px; }
-
-        /* =========================================
-           KOTAK GAME "AERO GLIDE" (Desain Clean Block Baru)
+                /* =========================================
+           KOTAK GAME "AERO GLIDE"
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         
         .game-wrapper {
-            background: #ffffff; /* Diubah menjadi kotak putih elegan */
+            background: #ffffff;
             border-radius: 24px; padding: 30px 20px; width: 100%; max-width: 450px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); border: 1px solid rgba(0,0,0,0.02);
             opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
@@ -112,7 +118,6 @@
         .score-box { background: #f5f5f7; padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 600; color: #86868b; border: 1px solid rgba(0,0,0,0.02); }
         .score-box span { color: #1d1d1f; font-size: 16px; font-weight: 800; }
 
-        /* AREA CANVAS GAME (TIDAK DIUBAH) */
         .canvas-container {
             position: relative; width: 100%; aspect-ratio: 3/4; 
             border-radius: 16px; overflow: hidden; background: #ffffff;
@@ -120,7 +125,6 @@
         }
         canvas { width: 100%; height: 100%; display: block; }
 
-        /* MENU START & GAME OVER DALAM GAME (TIDAK DIUBAH) */
         .game-ui-layer {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
@@ -162,7 +166,7 @@
 <body>
 
 <nav class="apple-nav">
-    <a href="index.html" class="nav-brand">Renxxno</a>
+    <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
     <div class="nav-icons">
         <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
         <div class="apple-burger" id="toggleMenu">
@@ -171,7 +175,6 @@
         </div>
     </div>
 </nav>
-
 <div class="nav-overlay" id="menuOverlay">
     <div id="mainMenu">
         <ul class="menu-list">
@@ -192,7 +195,7 @@
             <li><a href="games.html">My Account</a></li>
             <li><a href="ghosthunter.html">Ghost Hunter</a></li>
             <li><a href="aeroglide.html" class="active">Aero Glide</a></li>
-            <li><a href="puzzle.html">Block Puzzle</a></li> </ul>
+            <li><a href="puzzle.html">Block Puzzle</a></li>
         </ul>
     </div>
 </div>
@@ -206,6 +209,7 @@
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
+
 <div class="game-wrapper">
     <div class="game-header">
         <div class="game-title"><i class="fa-solid fa-rocket"></i> Aero Glide</div>
@@ -220,135 +224,106 @@
             <h2 id="uiTitle">Aero Glide</h2>
             <p id="uiDesc">Tap layar untuk menerbangkan Roket!</p>
             <div class="action-btns">
-                <button class="play-btn" id="startBtn">
-                    <i class="fa-solid fa-play"></i> Mulai Game
-                </button>
-                <button class="quit-btn" id="quitBtn">
-                    <i class="fa-solid fa-stop"></i> Berhenti
-                </button>
+                <button class="play-btn" id="startBtn"><i class="fa-solid fa-play"></i> Mulai Game</button>
+                <button class="quit-btn" id="quitBtn"><i class="fa-solid fa-stop"></i> Berhenti</button>
             </div>
         </div>
 
         <canvas id="gameCanvas" width="300" height="400"></canvas>
     </div>
-
     <div class="instructions">Roket siap mengudara! Sentuh layar untuk terbang.</div>
 </div>
 
 <script>
     // --- 1. LOGIKA MENU & OVERLAY BARU (ANTI-LAG & SCROLL LOCK) ---
-    const btnMenu = document.getElementById('toggleMenu');
-    const btnSearch = document.getElementById('toggleSearch');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const searchOverlay = document.getElementById('searchOverlay');
-    const mainMenu = document.getElementById('mainMenu');
-    const subMenuGames = document.getElementById('subMenuGames');
-    const btnGamesMenu = document.getElementById('btnGamesMenu');
-    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
+    const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
+    const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
+    const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
+    const btnGamesMenu = document.getElementById('btnGamesMenu'); const btnBackMainMenu = document.getElementById('btnBackMainMenu');
 
     btnMenu.addEventListener('click', () => {
-        if (searchOverlay.classList.contains('active')) {
-            searchOverlay.classList.remove('active');
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-        }
-        
-        menuOverlay.classList.toggle('active');
-        btnMenu.classList.toggle('active'); // Animasi X
-
-        if (menuOverlay.classList.contains('active')) {
-            document.body.style.overflow = 'hidden'; 
-            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
-        } else {
-            document.body.style.overflow = 'auto'; 
-        }
+        if (searchOverlay.classList.contains('active')) { searchOverlay.classList.remove('active'); btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); }
+        menuOverlay.classList.toggle('active'); btnMenu.classList.toggle('active'); 
+        if (menuOverlay.classList.contains('active')) { document.body.style.overflow = 'hidden'; mainMenu.style.display = 'block'; subMenuGames.style.display = 'none'; } 
+        else { document.body.style.overflow = 'auto'; }
     });
 
     btnSearch.addEventListener('click', () => {
-        if (menuOverlay.classList.contains('active')) {
-            menuOverlay.classList.remove('active');
-            btnMenu.classList.remove('active'); 
-            document.body.style.overflow = 'auto';
-        }
-        
+        if (menuOverlay.classList.contains('active')) { menuOverlay.classList.remove('active'); btnMenu.classList.remove('active'); document.body.style.overflow = 'auto'; }
         searchOverlay.classList.toggle('active');
-        
-        if (searchOverlay.classList.contains('active')) {
-            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
-            document.getElementById('searchInput').focus();
-            document.body.style.overflow = 'hidden'; 
-        } else {
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-            document.body.style.overflow = 'auto'; 
-        }
+        if (searchOverlay.classList.contains('active')) { btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark'); document.getElementById('searchInput').focus(); document.body.style.overflow = 'hidden'; } 
+        else { btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass'); document.body.style.overflow = 'auto'; }
     });
 
-    btnGamesMenu.addEventListener('click', (e) => {
-        e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block';
-    });
-
-    btnBackMainMenu.addEventListener('click', () => {
-        subMenuGames.style.display = 'none'; mainMenu.style.display = 'block';
-    });
+    btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
+    btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
 
     // --- 2. PENCARIAN DATABASE ---
     const searchDatabase = [
-        { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
-        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
-        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
-        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
-        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
-        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
-        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" },
-        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
-        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" },
-        { keywords: ["aero glide", "burung", "aero", "glide", "terbang"], url: "aeroglide.html" }
+        { keywords: ["beranda", "home", "renxxno"], url: "index.html" }, { keywords: ["biodata", "tentang", "info"], url: "biodata.html" },
+        { keywords: ["game", "games", "ml", "pubg"], url: "games.html" }, { keywords: ["ghost", "ghost hunter", "hantu"], url: "ghosthunter.html" },
+        { keywords: ["music", "musik", "lagu"], url: "music.html" }, { keywords: ["store", "toko", "baju", "jasa"], url: "store.html" },
+        { keywords: ["sosial media", "sosmed", "instagram", "youtube", "wa"], url: "sosmed.html" }, { keywords: ["pesan", "kontak", "email"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view", "penilaian"], url: "rating.html" }, { keywords: ["donasi", "donate", "qris", "uang"], url: "donate.html" },
+        { keywords: ["aero glide", "burung", "aero"], url: "aeroglide.html" }, { keywords: ["puzzle", "block puzzle", "balok", "tetris"], url: "puzzle.html" }
     ];
 
     function performSearch() {
-        const query = document.getElementById('searchInput').value.toLowerCase().trim();
-        if (query === "") return; 
+        const query = document.getElementById('searchInput').value.toLowerCase().trim(); if (query === "") return; 
         let foundUrl = "";
-        for (let i = 0; i < searchDatabase.length; i++) { 
-            if (searchDatabase[i].keywords.some(k => query.includes(k) || k.includes(query))) { foundUrl = searchDatabase[i].url; break; } 
-        }
-        if (foundUrl !== "") { 
-            document.getElementById('executeSearchBtn').className = "fa-solid fa-spinner fa-spin"; 
-            setTimeout(() => { window.location.href = foundUrl; }, 500); 
-        } 
-        else { 
-            document.getElementById('searchErrorMsg').style.display = 'block'; 
-            setTimeout(() => { document.getElementById('searchErrorMsg').style.display = 'none'; }, 3000); 
-        }
+        for (let i = 0; i < searchDatabase.length; i++) { if (searchDatabase[i].keywords.some(k => query.includes(k) || k.includes(query))) { foundUrl = searchDatabase[i].url; break; } }
+        if (foundUrl !== "") { document.getElementById('executeSearchBtn').className = "fa-solid fa-spinner fa-spin"; setTimeout(() => { window.location.href = foundUrl; }, 500); } 
+        else { document.getElementById('searchErrorMsg').style.display = 'block'; setTimeout(() => { document.getElementById('searchErrorMsg').style.display = 'none'; }, 3000); }
     }
     document.getElementById('executeSearchBtn').addEventListener('click', performSearch);
     document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
+        // ==========================================
+    // --- 3. AUDIO SYNTHESIZER (SFX BARU) ---
+    // ==========================================
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let actx;
 
+    function playSound(type) {
+        try {
+            if (!actx) actx = new AudioContext();
+            if(actx.state === 'suspended') actx.resume();
+            const osc = actx.createOscillator(); const gain = actx.createGain();
+            osc.connect(gain); gain.connect(actx.destination);
+            const now = actx.currentTime;
+            
+            if(type === 'flap') {
+                osc.type = 'sine'; osc.frequency.setValueAtTime(300, now); osc.frequency.exponentialRampToValueAtTime(600, now + 0.1);
+                gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'score') {
+                osc.type = 'square'; osc.frequency.setValueAtTime(800, now); osc.frequency.linearRampToValueAtTime(1200, now + 0.1);
+                gain.gain.setValueAtTime(0.1, now); gain.gain.linearRampToValueAtTime(0, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'crash') {
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(50, now + 0.3);
+                gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            }
+        } catch(e) {}
+    }
 
     // ==========================================
-    // --- 3. LOGIKA GAME AERO GLIDE (TETAP SAMA) ---
+    // --- 4. LOGIKA GAME AERO GLIDE ---
     // ==========================================
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-    const uiLayer = document.getElementById("uiLayer");
-    const uiTitle = document.getElementById("uiTitle");
-    const uiDesc = document.getElementById("uiDesc");
-    const startBtn = document.getElementById("startBtn");
+    const canvas = document.getElementById("gameCanvas"); const ctx = canvas.getContext("2d");
+    const uiLayer = document.getElementById("uiLayer"); const uiTitle = document.getElementById("uiTitle");
+    const uiDesc = document.getElementById("uiDesc"); const startBtn = document.getElementById("startBtn");
     const quitBtn = document.getElementById("quitBtn");
     
-    let score = 0;
-    let bestScore = localStorage.getItem("aeroBestScore") || 0;
+    let score = 0; let bestScore = localStorage.getItem("aeroBestScore") || 0;
     document.getElementById("bestScore").innerText = bestScore;
-    let frames = 0;
-    let isPlaying = false;
-    let reqAnimation;
+    let frames = 0; let isPlaying = false; let reqAnimation;
 
     // Karakter Roket
     const player = {
         x: 60, y: 200, radius: 12, velocity: 0, gravity: 0.18, jumpStrength: -4.0, 
         draw() {
-            ctx.save();
-            ctx.translate(this.x, this.y);
+            ctx.save(); ctx.translate(this.x, this.y);
             let tilt = this.velocity * 0.1;
             if(tilt > 0.5) tilt = 0.5; if(tilt < -0.3) tilt = -0.3; 
             ctx.rotate(tilt);
@@ -356,16 +331,12 @@
             if (frames % 10 < 5) { ctx.fillStyle = "#ff4757"; } else { ctx.fillStyle = "#ffa502"; }
             ctx.beginPath(); ctx.moveTo(-12, -4); ctx.lineTo(-22 - Math.random() * 8, 0); ctx.lineTo(-12, 4); ctx.fill();
 
-            ctx.fillStyle = "#a4b0be";
-            ctx.beginPath(); ctx.moveTo(-10, -8); ctx.lineTo(-15, -15); ctx.lineTo(0, -8); ctx.fill(); 
+            ctx.fillStyle = "#a4b0be"; ctx.beginPath(); ctx.moveTo(-10, -8); ctx.lineTo(-15, -15); ctx.lineTo(0, -8); ctx.fill(); 
             ctx.beginPath(); ctx.moveTo(-10, 8); ctx.lineTo(-15, 15); ctx.lineTo(0, 8); ctx.fill(); 
 
-            ctx.fillStyle = "#ffffff";
-            ctx.beginPath(); ctx.ellipse(0, 0, 16, 9, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = "#ffffff"; ctx.beginPath(); ctx.ellipse(0, 0, 16, 9, 0, 0, Math.PI * 2); ctx.fill();
             ctx.lineWidth = 2; ctx.strokeStyle = "#1d1d1f"; ctx.stroke();
-
-            ctx.fillStyle = "#00a8ff";
-            ctx.beginPath(); ctx.arc(6, -1, 4, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = "#00a8ff"; ctx.beginPath(); ctx.arc(6, -1, 4, 0, Math.PI * 2); ctx.fill();
             ctx.restore();
         },
         update() {
@@ -373,7 +344,7 @@
             if (this.y + this.radius >= canvas.height) { this.y = canvas.height - this.radius; gameOver(); }
             if (this.y - this.radius <= 0) { this.y = this.radius; this.velocity = 0; }
         },
-        flap() { this.velocity = this.jumpStrength; }
+        flap() { this.velocity = this.jumpStrength; playSound('flap'); } // Mainkan suara terbang
     };
 
     // Pilar
@@ -403,6 +374,7 @@
                 }
                 if (obs.x + this.width < player.x && !obs.passed) {
                     score++; document.getElementById("currentScore").innerText = score; obs.passed = true;
+                    playSound('score'); // Mainkan suara saat dapat poin
                 }
                 if (obs.x + this.width < 0) { this.list.shift(); i--; }
             }
@@ -456,6 +428,7 @@
     canvas.addEventListener("touchstart", actionJump, {passive: false});
 
     startBtn.addEventListener("click", () => {
+        if(!actx) actx = new AudioContext(); // Init audio user gesture
         cancelAnimationFrame(reqAnimation);
         player.y = 200; player.velocity = 0; player.flap(); 
         obstacles.reset(); score = 0; frames = 0;
@@ -466,6 +439,7 @@
 
     function gameOver() {
         isPlaying = false; uiLayer.classList.remove("hide");
+        playSound('crash'); // Suara nabrak
         uiTitle.innerText = "Game Over!"; uiDesc.innerText = "Yahh nabrak! Skor kamu: " + score;
         startBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Main Lagi';
         quitBtn.style.display = "flex"; 
