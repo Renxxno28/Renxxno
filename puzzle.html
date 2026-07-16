@@ -20,7 +20,7 @@
         }
 
         /* =========================================
-           TOP NAVBAR (SAMA PERSIS 100% DENGAN LAINNYA)
+           TOP NAVBAR (PERSIS SEPERTI STORE.HTML)
            ========================================= */
         .apple-nav {
             position: fixed; top: 0; left: 0; right: 0; height: 54px;
@@ -77,16 +77,13 @@
         .score-number { font-size: 28px; font-weight: 800; color: #0f172a; line-height: 1; }
         .score-number.hs { color: #fa233b; }
 
-        /* UI TIMER WAKTU & PAUSE */
+        /* UI TIMER WAKTU */
         .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; padding: 0 5px; }
         .timer-title { font-size: 12px; font-weight: 700; color: #64748b; display: flex; align-items: center; gap: 5px; }
         .timer-value { font-size: 14px; font-weight: 800; color: #1d1d1f; }
         .timer-bar-bg { width: 100%; height: 12px; background: #e2e8f0; border-radius: 10px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .timer-bar-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #34d399, #10b981); transition: width 1s linear, background 0.3s; }
         
-        .btn-pause { background: transparent; border: none; color: #86868b; font-size: 16px; cursor: pointer; transition: color 0.3s; }
-        .btn-pause:hover { color: #0066cc; }
-
         @keyframes pulseDanger { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         .pulse-danger { animation: pulseDanger 1s infinite; }
 
@@ -115,8 +112,7 @@
         .shape-matrix { display: grid; gap: 3px; pointer-events: none; }
         .shape-cell { border-radius: 6px; }
         .shape-cell.empty { background: transparent; border: none; box-shadow: none !important; }
-
-        /* WARNA BALOK 3D GUMMY/JELLY */
+                /* WARNA BALOK 3D GUMMY/JELLY */
         .color-1 { background: linear-gradient(135deg, #60a5fa, #3b82f6); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #2563eb; }
         .color-2 { background: linear-gradient(135deg, #4ade80, #22c55e); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #16a34a; }
         .color-3 { background: linear-gradient(135deg, #facc15, #eab308); box-shadow: inset 0 3px 5px rgba(255,255,255,0.7), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #ca8a04; }
@@ -126,17 +122,16 @@
 
         .drag-clone { position: fixed; pointer-events: none; z-index: 10000; transform-origin: top left; filter: drop-shadow(0 20px 25px rgba(0,0,0,0.4)); }
 
-        /* ANIMASI HANCUR (KILATAN CAHAYA) */
+        /* ANIMASI HANCUR (KILATAN CAHAYA) & TEKS */
         @keyframes clearFlash { 0% { background: #ffffff; transform: scale(1.1); box-shadow: 0 0 20px #fff; border: 2px solid #fff; z-index: 10; } 100% { background: transparent; transform: scale(0.2); opacity: 0; border: none; box-shadow: none; } }
         .cell.clearing { animation: clearFlash 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 
-        /* TEKS POPUP (SCORE, COMBO, & TIME) */
         .popup-text { position: absolute; font-weight: 800; pointer-events: none; z-index: 50; animation: floatUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
         .popup-combo { font-size: 34px; color: #fa233b; font-style: italic; text-shadow: 0 4px 15px rgba(250, 35, 59, 0.4); }
         .popup-time { font-size: 26px; color: #10b981; text-shadow: 0 4px 10px rgba(16,185,129,0.4); }
         @keyframes floatUp { 0% { opacity: 1; transform: translateY(0) scale(0.5); } 30% { transform: translateY(-40px) scale(1.3); } 100% { opacity: 0; transform: translateY(-80px) scale(1); } }
 
-        /* OVERLAY GAME OVER & PAUSE */
+        /* GAME OVER OVERLAY */
         .overlay-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 32px;
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
@@ -150,6 +145,7 @@
     </style>
 </head>
 <body>
+
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
@@ -192,7 +188,6 @@
         Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
     </p>
 </div>
-
 <div class="game-wrapper">
     <div class="stats-row">
         <div class="score-box">
@@ -209,10 +204,7 @@
         <div class="timer-title">
             <i class="fa-regular fa-clock"></i> Sisa Waktu
         </div>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div class="timer-value" id="timerTextCounter">01:30</div>
-            <button class="btn-pause" onclick="pauseGame()"><i class="fa-solid fa-pause"></i></button>
-        </div>
+        <div class="timer-value" id="timerTextCounter">01:30</div>
     </div>
     <div class="timer-bar-bg" id="timerBarBg">
         <div class="timer-bar-fill" id="timerBar"></div>
@@ -229,13 +221,8 @@
         <p style="color:#64748b; font-weight:600; font-size:16px;" id="finalScoreDisplay">Score Akhir: 0</p>
         <button class="btn-action" onclick="initGame()"><i class="fa-solid fa-rotate-right"></i> Main Lagi</button>
     </div>
-
-    <div class="overlay-screen" id="pauseOverlay">
-        <h2 class="overlay-title">Di-pause</h2>
-        <p style="color:#64748b; font-weight:600; font-size:16px;">Istirahat dulu yaa</p>
-        <button class="btn-action" onclick="resumeGame()"><i class="fa-solid fa-play"></i> Lanjutkan</button>
-    </div>
 </div>
+
 <script>
     // ==========================================
     // 1. MENU NAVBAR & SEARCH ENGINE
@@ -288,9 +275,7 @@
         else { searchErrorMsg.style.display = 'block'; setTimeout(() => { searchErrorMsg.style.display = 'none'; }, 3000); }
     }
     executeSearchBtn.addEventListener('click', performSearch); searchInputBox.addEventListener('keypress', function(e) { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
-
-
-    // ==========================================
+        // ==========================================
     // 2. AUDIO SYNTHESIZER
     // ==========================================
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -299,10 +284,8 @@
     function playSound(type) {
         if (!actx) actx = new AudioContext();
         if(actx.state === 'suspended') actx.resume();
-        const osc = actx.createOscillator();
-        const gain = actx.createGain();
+        const osc = actx.createOscillator(); const gain = actx.createGain();
         osc.connect(gain); gain.connect(actx.destination);
-
         const now = actx.currentTime;
         if(type === 'place') {
             osc.type = 'sine'; osc.frequency.setValueAtTime(600, now); osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
@@ -320,12 +303,11 @@
     }
 
     // ==========================================
-    // 3. INISIALISASI GAME & TIMER
+    // 3. LOGIKA GAME & FITUR TIMER
     // ==========================================
     const boardEl = document.getElementById('board'); const trayEl = document.getElementById('tray');
     const scoreDisplay = document.getElementById('scoreDisplay'); const highScoreDisplay = document.getElementById('highScoreDisplay');
-    const gameOverOverlay = document.getElementById('gameOverOverlay'); const pauseOverlay = document.getElementById('pauseOverlay');
-    const finalScoreDisplay = document.getElementById('finalScoreDisplay');
+    const gameOverOverlay = document.getElementById('gameOverOverlay'); const finalScoreDisplay = document.getElementById('finalScoreDisplay');
     const timerBar = document.getElementById('timerBar'); const timerBarBg = document.getElementById('timerBarBg'); const timerTextCounter = document.getElementById('timerTextCounter');
     
     let grid = []; let score = 0;
@@ -333,15 +315,20 @@
     highScoreDisplay.innerText = highScore;
 
     const size = 8; const trayCellSize = window.innerWidth <= 480 ? 20 : 25; 
+    let timeLeft = 90; let maxTime = 90; let timerInterval;
 
-    let timeLeft = 90; let maxTime = 90; let timerInterval; let isPaused = false;
+    const blockTypes = [
+        { shape: [[1]], color: 'color-1' }, { shape: [[1,1]], color: 'color-2' }, { shape: [[1],[1]], color: 'color-2' }, 
+        { shape: [[1,1,1]], color: 'color-3' }, { shape: [[1],[1],[1]], color: 'color-3' }, { shape: [[1,1,1,1]], color: 'color-6' }, 
+        { shape: [[1],[1],[1],[1]], color: 'color-6' }, { shape: [[1,1],[1,1]], color: 'color-4' }, { shape: [[1,1,1],[1,1,1],[1,1,1]], color: 'color-5' }, 
+        { shape: [[1,0],[1,1]], color: 'color-5' }, { shape: [[0,1],[1,1]], color: 'color-5' }, { shape: [[1,1,1],[0,1,0]], color: 'color-6' }, 
+        { shape: [[1,0,0],[1,1,1]], color: 'color-1' } 
+    ];
 
     function initGame() {
         grid = Array.from({length: size}, () => Array(size).fill(null));
-        score = 0; updateScore(); isPaused = false;
-        gameOverOverlay.classList.remove('active'); pauseOverlay.classList.remove('active');
+        score = 0; updateScore(); gameOverOverlay.classList.remove('active');
         boardEl.innerHTML = '';
-        
         for(let r = 0; r < size; r++) {
             for(let c = 0; c < size; c++) {
                 let cell = document.createElement('div'); cell.className = 'cell'; cell.dataset.row = r; cell.dataset.col = c;
@@ -366,30 +353,11 @@
         clearInterval(timerInterval); if(reset) timeLeft = maxTime;
         updateTimerUI();
         timerInterval = setInterval(() => {
-            if(isPaused) return;
             timeLeft--;
             if(timeLeft <= 0) { timeLeft = 0; updateTimerUI(); triggerGameOver("Waktu Habis!"); } 
             else { updateTimerUI(); }
         }, 1000);
     }
-
-    function pauseGame() { isPaused = true; clearInterval(timerInterval); pauseOverlay.classList.add('active'); }
-    function resumeGame() { isPaused = false; pauseOverlay.classList.remove('active'); startTimer(false); }
-        const blockTypes = [
-        { shape: [[1]], color: 'color-1' }, 
-        { shape: [[1,1]], color: 'color-2' }, 
-        { shape: [[1],[1]], color: 'color-2' }, 
-        { shape: [[1,1,1]], color: 'color-3' }, 
-        { shape: [[1],[1],[1]], color: 'color-3' }, 
-        { shape: [[1,1,1,1]], color: 'color-6' }, 
-        { shape: [[1],[1],[1],[1]], color: 'color-6' }, 
-        { shape: [[1,1],[1,1]], color: 'color-4' }, 
-        { shape: [[1,1,1],[1,1,1],[1,1,1]], color: 'color-5' }, 
-        { shape: [[1,0],[1,1]], color: 'color-5' }, 
-        { shape: [[0,1],[1,1]], color: 'color-5' }, 
-        { shape: [[1,1,1],[0,1,0]], color: 'color-6' }, 
-        { shape: [[1,0,0],[1,1,1]], color: 'color-1' } 
-    ];
 
     function spawnTrayBlocks() {
         trayEl.innerHTML = '';
@@ -414,32 +382,24 @@
             }
         }
         blockEl.appendChild(matrixEl); blockEl.blockData = blockData; 
-        blockEl.addEventListener('pointerdown', handleDragStart);
-        trayEl.appendChild(blockEl);
+        blockEl.addEventListener('pointerdown', handleDragStart); trayEl.appendChild(blockEl);
     }
 
-    // ==========================================
-    // 4. LOGIKA DRAG & DROP (BUG KOORDINAT DIPERBAIKI)
-    // ==========================================
+    // --- LOGIKA DRAG & DROP (MENGGUNAKAN KOORDINAT LOKASI) ---
     let activeDrag = null;
 
     function handleDragStart(e) {
         if(e.button !== 0 && e.type !== 'touchstart' && e.pointerType === 'mouse') return; 
         if(!actx) actx = new AudioContext();
-        if(isPaused) return; // Cegah ditarik saat pause
         
         const blockEl = e.currentTarget; e.preventDefault();
 
         const boardRect = boardEl.getBoundingClientRect();
-        const gridCellSize = boardRect.width / 8; // Presisi akurat ukuran sel kotak papan
+        const gridCellSize = boardRect.width / 8; // Presisi ukuran sel
 
-        const clone = blockEl.cloneNode(true);
-        clone.className = 'drag-clone';
-        // Menskalakan blok agar ukurannya pas dengan grid saat ditarik
+        const clone = blockEl.cloneNode(true); clone.className = 'drag-clone';
         clone.style.transform = `scale(${gridCellSize / trayCellSize})`; 
-        
-        document.body.appendChild(clone);
-        blockEl.style.opacity = '0'; 
+        document.body.appendChild(clone); blockEl.style.opacity = '0'; 
 
         const shapeW = blockEl.blockData.shape[0].length * gridCellSize;
         const shapeH = blockEl.blockData.shape.length * gridCellSize;
@@ -452,57 +412,51 @@
     }
 
     document.addEventListener('pointermove', (e) => {
-        if(!activeDrag) return;
-        e.preventDefault(); 
-        const clientX = e.clientX || e.touches?.[0].clientX;
-        const clientY = e.clientY || e.touches?.[0].clientY;
-        moveClone(clientX, clientY);
+        if(!activeDrag) return; e.preventDefault(); 
+        moveClone(e.clientX || e.touches?.[0].clientX, e.clientY || e.touches?.[0].clientY);
     });
 
     function moveClone(x, y) {
         if(!activeDrag) return;
-        // Posisi clone berada sedikit di atas jari agar terlihat
         activeDrag.clone.style.left = (x - activeDrag.offsetX) + 'px';
-        activeDrag.clone.style.top = (y - activeDrag.offsetY - 80) + 'px'; 
+        activeDrag.clone.style.top = (y - activeDrag.offsetY - 50) + 'px'; 
     }
 
     document.addEventListener('pointerup', (e) => {
         if(!activeDrag) return;
         
-        // PERBAIKAN BUG DROP MENGGUNAKAN VISUAL RECTANGLE
-        // Mengambil koordinat pasti dari clone yang dilihat oleh mata pemain
-        const cloneRect = activeDrag.clone.getBoundingClientRect();
-        const boardRect = boardEl.getBoundingClientRect();
+        const clientX = e.clientX || e.changedTouches?.[0].clientX;
+        const clientY = e.changedTouches ? e.changedTouches[0].clientY - 50 : e.clientY - 50; 
 
-        // Mencari Drop Kolom dan Baris berdasarkan titik kiri atas bayangan balok
-        const dropCol = Math.round((cloneRect.left - boardRect.left) / activeDrag.gridCellSize);
-        const dropRow = Math.round((cloneRect.top - boardRect.top) / activeDrag.gridCellSize);
+        // DETEKSI KOORDINAT LOKASI
+        const boardRect = boardEl.getBoundingClientRect();
+        const shapeRealW = activeDrag.data.shape[0].length * activeDrag.gridCellSize;
+        const shapeRealH = activeDrag.data.shape.length * activeDrag.gridCellSize;
+        const topLeftX = clientX - (shapeRealW / 2);
+        const topLeftY = clientY - (shapeRealH / 2);
+
+        const dropCol = Math.round((topLeftX - boardRect.left) / activeDrag.gridCellSize);
+        const dropRow = Math.round((topLeftY - boardRect.top) / activeDrag.gridCellSize);
 
         let placed = false;
 
-        // Toleransi masuk jika pemain meletakkan di sekitar papan
         if (dropCol >= -1 && dropCol <= 8 && dropRow >= -1 && dropRow <= 8) {
             if (canPlace(activeDrag.data.shape, dropRow, dropCol)) {
-                playSound('place'); 
-                placeBlock(activeDrag.data, dropRow, dropCol);
-                activeDrag.original.remove(); 
-                placed = true;
+                playSound('place'); placeBlock(activeDrag.data, dropRow, dropCol);
+                activeDrag.original.remove(); placed = true;
                 
-                checkLines(dropRow, dropCol);
+                let linesCleared = checkLines(dropRow, dropCol);
                 
-                // MUNCULKAN BLOK BARU SECARA INSTAN JIKA HABIS
                 if(trayEl.querySelectorAll('.tray-block').length === 0) {
                     spawnTrayBlocks();
-                } else {
+                } else if (!linesCleared) {
                     checkGameOver();
                 }
             }
         }
 
-        // Kembalikan ke tempat asal jika tidak valid
         if(!placed) { activeDrag.original.style.opacity = '1'; }
-        activeDrag.clone.remove();
-        activeDrag = null;
+        activeDrag.clone.remove(); activeDrag = null;
     });
 
     function canPlace(shape, r, c) {
@@ -539,28 +493,22 @@
         for(let c = 0; c < size; c++) { let colFull = true; for(let r = 0; r < size; r++) { if(grid[r][c] === null) colFull = false; } if(colFull) colsToClear.push(c); }
 
         const totalLines = rowsToClear.length + colsToClear.length;
-        if(totalLines === 0) return;
+        if(totalLines === 0) return false;
 
-        // TAMBAH WAKTU & EFEK COMBO
         let addedTime = totalLines * 5; 
-        if(totalLines >= 2) addedTime += 5; // Bonus Combo Waktu
-        timeLeft += addedTime;
-        if(timeLeft > maxTime) timeLeft = maxTime;
+        if(totalLines >= 2) addedTime += 5; 
+        timeLeft += addedTime; if(timeLeft > maxTime) timeLeft = maxTime;
         updateTimerUI();
 
         if(totalLines >= 2) { 
-            playSound('combo'); 
-            boardEl.classList.add('shake');
-            setTimeout(()=> boardEl.classList.remove('shake'), 300);
+            playSound('combo'); boardEl.classList.add('shake'); setTimeout(()=> boardEl.classList.remove('shake'), 300);
             showPopupText(`Combo ${totalLines}!`, targetR, targetC, false);
-            setTimeout(()=> showPopupText(`+${addedTime} Detik!`, targetR, targetC, true), 300);
+            setTimeout(()=> showPopupText(`+${addedTime} Detik!`, targetR, targetC, true), 300); 
         } else {
-            playSound('clear');
-            showPopupText(`+${addedTime} Detik!`, targetR, targetC, true);
+            playSound('clear'); showPopupText(`+${addedTime} Detik!`, targetR, targetC, true);
         }
 
-        score += totalLines * 50;
-        updateScore();
+        score += totalLines * 50; updateScore();
 
         rowsToClear.forEach(r => {
             for(let c=0; c<size; c++) {
@@ -579,6 +527,8 @@
             document.querySelectorAll('.cell.clearing').forEach(cell => { cell.className = 'cell'; });
             if (trayEl.querySelectorAll('.tray-block').length > 0) { checkGameOver(); }
         }, 400);
+
+        return true;
     }
 
     function showPopupText(text, row, col, isTime) {
@@ -592,16 +542,12 @@
         popup.style.left = `${rect.left + window.scrollX - 40}px`;
         popup.style.top = `${rect.top + window.scrollY - 30}px`;
         document.body.appendChild(popup);
-
         setTimeout(() => popup.remove(), 1000);
     }
 
     function updateScore() {
         scoreDisplay.innerText = score;
-        if(score > highScore) {
-            highScore = score; highScoreDisplay.innerText = highScore;
-            localStorage.setItem('renxxno_puzzle_hs', highScore);
-        }
+        if(score > highScore) { highScore = score; highScoreDisplay.innerText = highScore; localStorage.setItem('renxxno_puzzle_hs', highScore); }
     }
 
     function triggerGameOver(reason) {
@@ -626,6 +572,7 @@
             }
             if(canFitAnywhere) break;
         }
+
         if(!canFitAnywhere) { triggerGameOver("Tidak Ada Ruang!"); }
     }
 </script>
