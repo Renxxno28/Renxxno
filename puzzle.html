@@ -79,13 +79,13 @@
         .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
         .tooltip-close:hover { color: #fa233b; }
                 /* =========================================
-           DESAIN GAME PUZZLE (TEMA 3D GUMMY BLOCKS)
+           DESAIN GAME PUZZLE (LEBIH KECIL & ADA TIMER)
            ========================================= */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         
         .game-wrapper {
             background: #ffffff;
-            border-radius: 32px; padding: 25px 20px; width: 100%; max-width: 480px; 
+            border-radius: 32px; padding: 25px 20px; width: 100%; max-width: 400px; /* Diperkecil seperti Aero Glide */
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08); border: 2px solid rgba(0,0,0,0.02); 
             text-align: center; position: relative; margin: 0 auto;
             touch-action: none; user-select: none; -webkit-user-select: none;
@@ -93,62 +93,68 @@
         }
 
         /* HEADER SCORE */
-        .stats-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 15px; }
+        .stats-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 15px; }
         .score-box { 
-            background: #f8fafc; flex: 1; padding: 15px 12px; border-radius: 20px; 
+            background: #f8fafc; flex: 1; padding: 12px 10px; border-radius: 20px; 
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;
         }
-        .score-title { font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-        .score-number { font-size: 32px; font-weight: 800; color: #0f172a; line-height: 1; }
+        .score-title { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .score-number { font-size: 28px; font-weight: 800; color: #0f172a; line-height: 1; }
         .score-number.hs { color: #fa233b; }
 
-        /* PAPAN GRID UTAMA (8x8) EMBOSS STYLE */
+        /* UI TIMER WAKTU */
+        .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; padding: 0 5px; }
+        .timer-title { font-size: 12px; font-weight: 700; color: #64748b; }
+        .timer-value { font-size: 14px; font-weight: 800; color: #1d1d1f; }
+        .timer-bar-bg { width: 100%; height: 12px; background: #e2e8f0; border-radius: 10px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .timer-bar-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #34d399, #10b981); transition: width 1s linear, background 0.3s; }
+        @keyframes pulseDanger { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .pulse-danger { animation: pulseDanger 1s infinite; }
+
+        /* PAPAN GRID UTAMA (KOTAK DALAM EMBOSS) */
         .game-board {
             display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px;
-            background: #f1f5f9; border: 6px solid #e2e8f0; border-radius: 16px; 
+            background: #f8fafc; border: 6px solid #f1f5f9; border-radius: 16px; 
             padding: 5px; margin-bottom: 25px; position: relative; 
-            box-shadow: inset 0 8px 15px rgba(0,0,0,0.08);
-            transition: transform 0.1s ease; /* Untuk animasi shake combo */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05), inset 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.1s ease;
         }
         .game-board.shake { animation: boardShake 0.3s ease; }
         @keyframes boardShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px) translateY(3px); } 50% { transform: translateX(5px) translateY(-3px); } 75% { transform: translateX(-5px) translateY(3px); } }
 
+        /* DESAIN KOTAK KOSONG YANG LEBIH BAGUS (TENGGELAM/EMBOSS) */
         .cell {
-            aspect-ratio: 1; background: #ffffff; border-radius: 6px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.04);
+            aspect-ratio: 1; background: #e2e8f0; border-radius: 6px;
+            box-shadow: inset 3px 3px 6px rgba(0,0,0,0.06), inset -3px -3px 6px rgba(255,255,255,0.8);
             transition: all 0.15s;
         }
 
         /* AREA SPAWN BALOK (TRAY) */
-        .tray-container { display: flex; justify-content: space-around; align-items: center; height: 130px; padding: 15px; background: #f8fafc; border-radius: 24px; border: 1px solid #e2e8f0; }
+        .tray-container { display: flex; justify-content: space-around; align-items: center; height: 120px; padding: 10px; background: #f8fafc; border-radius: 20px; border: 1px solid #e2e8f0; }
         .tray-block { cursor: pointer; transition: transform 0.2s, opacity 0.2s; }
         
-        /* MATRIKS BENTUK BALOK */
         .shape-matrix { display: grid; gap: 3px; pointer-events: none; }
         .shape-cell { border-radius: 6px; }
         .shape-cell.empty { background: transparent; border: none; box-shadow: none !important; }
 
-        /* WARNA BALOK 3D GUMMY/JELLY (PERBAIKAN DESAIN) */
-        .color-1 { background: linear-gradient(135deg, #60a5fa, #3b82f6); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #2563eb; } /* Biru */
-        .color-2 { background: linear-gradient(135deg, #4ade80, #22c55e); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #16a34a; } /* Hijau */
-        .color-3 { background: linear-gradient(135deg, #facc15, #eab308); box-shadow: inset 0 3px 5px rgba(255,255,255,0.7), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #ca8a04; } /* Kuning */
-        .color-4 { background: linear-gradient(135deg, #f87171, #ef4444); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #dc2626; } /* Merah */
-        .color-5 { background: linear-gradient(135deg, #c084fc, #a855f7); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #9333ea; } /* Ungu */
-        .color-6 { background: linear-gradient(135deg, #fb923c, #f97316); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #ea580c; } /* Oranye */
+        /* WARNA BALOK 3D GUMMY/JELLY */
+        .color-1 { background: linear-gradient(135deg, #60a5fa, #3b82f6); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #2563eb; }
+        .color-2 { background: linear-gradient(135deg, #4ade80, #22c55e); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #16a34a; }
+        .color-3 { background: linear-gradient(135deg, #facc15, #eab308); box-shadow: inset 0 3px 5px rgba(255,255,255,0.7), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #ca8a04; }
+        .color-4 { background: linear-gradient(135deg, #f87171, #ef4444); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #dc2626; }
+        .color-5 { background: linear-gradient(135deg, #c084fc, #a855f7); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #9333ea; }
+        .color-6 { background: linear-gradient(135deg, #fb923c, #f97316); box-shadow: inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 5px rgba(0,0,0,0.2), 0 3px 5px rgba(0,0,0,0.25); border: 1px solid #ea580c; }
 
-        /* EFEK DRAG & DROP */
         .drag-clone { position: fixed; pointer-events: none; z-index: 10000; filter: drop-shadow(0 20px 25px rgba(0,0,0,0.4)); }
 
         /* ANIMASI HANCUR (KILATAN CAHAYA) */
         @keyframes clearFlash { 0% { background: #ffffff; transform: scale(1.1); box-shadow: 0 0 20px #fff; border: 2px solid #fff; z-index: 10; } 100% { background: transparent; transform: scale(0.2); opacity: 0; border: none; box-shadow: none; } }
         .cell.clearing { animation: clearFlash 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 
-        /* TEKS POPUP (SCORE & COMBO) */
-        .popup-text {
-            position: absolute; color: #3b82f6; font-weight: 800; font-size: 28px; text-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-            pointer-events: none; z-index: 50; animation: floatUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-        .popup-combo { font-size: 38px; color: #fa233b; font-style: italic; text-shadow: 0 4px 15px rgba(250, 35, 59, 0.4); }
+        /* TEKS POPUP (SCORE, COMBO, & TIME) */
+        .popup-text { position: absolute; font-weight: 800; pointer-events: none; z-index: 50; animation: floatUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .popup-combo { font-size: 34px; color: #fa233b; font-style: italic; text-shadow: 0 4px 15px rgba(250, 35, 59, 0.4); }
+        .popup-time { font-size: 26px; color: #10b981; text-shadow: 0 4px 10px rgba(16,185,129,0.4); }
         @keyframes floatUp { 0% { opacity: 1; transform: translateY(0) scale(0.5); } 30% { transform: translateY(-40px) scale(1.3); } 100% { opacity: 0; transform: translateY(-80px) scale(1); } }
 
         /* GAME OVER OVERLAY */
@@ -159,14 +165,13 @@
             opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 100;
         }
         #gameOverOverlay.active { opacity: 1; visibility: visible; }
-        .game-over-title { font-size: 36px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; }
-        .btn-restart { background: #0066cc; color: white; border: none; padding: 14px 35px; border-radius: 30px; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4); margin-top: 25px; transition: all 0.3s; font-family: 'Poppins', sans-serif;}
+        .game-over-title { font-size: 34px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; }
+        .btn-restart { background: #0066cc; color: white; border: none; padding: 12px 30px; border-radius: 30px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4); margin-top: 25px; transition: all 0.3s; font-family: 'Poppins', sans-serif;}
         .btn-restart:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0, 102, 204, 0.5); }
     </style>
 </head>
 <body>
 
-<!-- TOP NAVBAR APPLE STYLE -->
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand">Renxxno</a>
     <div class="nav-icons">
@@ -220,7 +225,6 @@
     </p>
 </div>
 
-<!-- KONTEN GAME PUZZLE 3D -->
 <div class="game-wrapper">
     <div class="stats-row">
         <div class="score-box">
@@ -233,16 +237,22 @@
         </div>
     </div>
     
-    <div class="game-board" id="board">
-        <!-- Grid 64 kotak dibuat otomatis oleh JS -->
+    <div class="timer-header">
+        <div class="timer-title"><i class="fa-regular fa-clock"></i> Sisa Waktu</div>
+        <div class="timer-value" id="timerTextCounter">01:30</div>
     </div>
+    <div class="timer-bar-bg" id="timerBarBg">
+        <div class="timer-bar-fill" id="timerBar"></div>
+    </div>
+
+    <div class="game-board" id="board">
+        </div>
 
     <div class="tray-container" id="tray">
-        <!-- Balok pilihan muncul di sini -->
-    </div>
+        </div>
 
     <div id="gameOverOverlay">
-        <h2 class="game-over-title">Game Over!</h2>
+        <h2 class="game-over-title" id="gameOverReason">Game Over!</h2>
         <p style="color:#64748b; font-weight:600; font-size:16px;" id="finalScoreDisplay">Score Akhir: 0</p>
         <button class="btn-restart" onclick="initGame()"><i class="fa-solid fa-rotate-right"></i> Main Lagi</button>
     </div>
@@ -310,7 +320,7 @@
 
 
     // ==========================================
-    // 2. AUDIO SYNTHESIZER (LEBIH MANTAP)
+    // 2. AUDIO SYNTHESIZER
     // ==========================================
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     let actx;
@@ -324,7 +334,7 @@
 
         const now = actx.currentTime;
         if(type === 'place') {
-            osc.type = 'sine'; // Suara Pop / Plop
+            osc.type = 'sine'; 
             osc.frequency.setValueAtTime(600, now);
             osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
             gain.gain.setValueAtTime(0.5, now);
@@ -332,7 +342,7 @@
             osc.start(now); osc.stop(now + 0.1);
         } 
         else if (type === 'clear') {
-            osc.type = 'triangle'; // Suara Cling ceria
+            osc.type = 'triangle'; 
             osc.frequency.setValueAtTime(800, now);
             osc.frequency.linearRampToValueAtTime(1200, now + 0.1);
             osc.frequency.linearRampToValueAtTime(1600, now + 0.2);
@@ -341,7 +351,7 @@
             osc.start(now); osc.stop(now + 0.3);
         }
         else if (type === 'combo') {
-            osc.type = 'square'; // Suara Combo Bombastis
+            osc.type = 'square'; 
             osc.frequency.setValueAtTime(400, now);
             osc.frequency.linearRampToValueAtTime(2000, now + 0.3);
             gain.gain.setValueAtTime(0.3, now);
@@ -350,9 +360,8 @@
         }
     }
 
-
     // ==========================================
-    // 3. LOGIKA GAME & PERBAIKAN BUG DRAG
+    // 3. LOGIKA GAME & FITUR TIMER
     // ==========================================
     const boardEl = document.getElementById('board');
     const trayEl = document.getElementById('tray');
@@ -360,6 +369,9 @@
     const highScoreDisplay = document.getElementById('highScoreDisplay');
     const gameOverOverlay = document.getElementById('gameOverOverlay');
     const finalScoreDisplay = document.getElementById('finalScoreDisplay');
+    const timerBar = document.getElementById('timerBar');
+    const timerBarBg = document.getElementById('timerBarBg');
+    const timerTextCounter = document.getElementById('timerTextCounter');
     
     let grid = [];
     let score = 0;
@@ -367,23 +379,27 @@
     highScoreDisplay.innerText = highScore;
 
     const size = 8;
-    const trayCellSize = window.innerWidth <= 480 ? 22 : 28; 
+    const trayCellSize = window.innerWidth <= 480 ? 20 : 25; 
 
-    // Bentuk Balok ala Video
+    // FITUR TIMER
+    let timeLeft = 90; // Waktu Default 90 Detik
+    let maxTime = 90;
+    let timerInterval;
+
     const blockTypes = [
-        { shape: [[1]], color: 'color-1' }, // 1x1 
-        { shape: [[1,1]], color: 'color-2' }, // 2x1 
-        { shape: [[1],[1]], color: 'color-2' }, // 1x2 
-        { shape: [[1,1,1]], color: 'color-3' }, // 3x1 
-        { shape: [[1],[1],[1]], color: 'color-3' }, // 1x3
-        { shape: [[1,1,1,1]], color: 'color-7' }, // 4x1 
-        { shape: [[1],[1],[1],[1]], color: 'color-7' }, // 1x4
-        { shape: [[1,1],[1,1]], color: 'color-4' }, // Kotak 2x2 
-        { shape: [[1,1,1],[1,1,1],[1,1,1]], color: 'color-5' }, // Kotak 3x3
-        { shape: [[1,0],[1,1]], color: 'color-5' }, // L Kecil
-        { shape: [[0,1],[1,1]], color: 'color-5' }, // J Kecil
-        { shape: [[1,1,1],[0,1,0]], color: 'color-6' }, // T Shape
-        { shape: [[1,0,0],[1,1,1]], color: 'color-1' } // L Besar
+        { shape: [[1]], color: 'color-1' }, 
+        { shape: [[1,1]], color: 'color-2' }, 
+        { shape: [[1],[1]], color: 'color-2' }, 
+        { shape: [[1,1,1]], color: 'color-3' }, 
+        { shape: [[1],[1],[1]], color: 'color-3' }, 
+        { shape: [[1,1,1,1]], color: 'color-6' }, 
+        { shape: [[1],[1],[1],[1]], color: 'color-6' }, 
+        { shape: [[1,1],[1,1]], color: 'color-4' }, 
+        { shape: [[1,1,1],[1,1,1],[1,1,1]], color: 'color-5' }, 
+        { shape: [[1,0],[1,1]], color: 'color-5' }, 
+        { shape: [[0,1],[1,1]], color: 'color-5' }, 
+        { shape: [[1,1,1],[0,1,0]], color: 'color-6' }, 
+        { shape: [[1,0,0],[1,1,1]], color: 'color-1' } 
     ];
 
     function initGame() {
@@ -401,6 +417,46 @@
             }
         }
         spawnTrayBlocks();
+        startTimer();
+    }
+
+    // UPDATE UI WAKTU
+    function updateTimerUI() {
+        let percentage = (timeLeft / maxTime) * 100;
+        if(percentage > 100) percentage = 100;
+        
+        timerBar.style.width = percentage + '%';
+        
+        let m = Math.floor(timeLeft / 60);
+        let s = timeLeft % 60;
+        timerTextCounter.innerText = `0${m}:${s < 10 ? '0'+s : s}`;
+        
+        if(timeLeft > 30) {
+            timerBar.style.background = 'linear-gradient(90deg, #34d399, #10b981)';
+            timerBarBg.classList.remove('pulse-danger');
+        } else if (timeLeft > 10) {
+            timerBar.style.background = 'linear-gradient(90deg, #fbbf24, #f59e0b)';
+            timerBarBg.classList.remove('pulse-danger');
+        } else {
+            timerBar.style.background = 'linear-gradient(90deg, #f87171, #ef4444)';
+            timerBarBg.classList.add('pulse-danger');
+        }
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timeLeft = maxTime;
+        updateTimerUI();
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            if(timeLeft <= 0) {
+                timeLeft = 0;
+                updateTimerUI();
+                triggerGameOver("Waktu Habis!");
+            } else {
+                updateTimerUI();
+            }
+        }, 1000);
     }
 
     function spawnTrayBlocks() {
@@ -431,46 +487,36 @@
         
         blockEl.appendChild(matrixEl);
         blockEl.blockData = blockData; 
-        
         blockEl.addEventListener('pointerdown', handleDragStart);
         trayEl.appendChild(blockEl);
     }
 
-    // --- LOGIKA DRAG & DROP (DENGAN MATEMATIKA KOORDINAT FIX BUG) ---
     let activeDrag = null;
 
     function handleDragStart(e) {
         if(e.button !== 0 && e.type !== 'touchstart' && e.pointerType === 'mouse') return; 
-        
-        // Inisialisasi AudioContext saat layar disentuh pertama kali (Kebijakan Browser)
         if(!actx) actx = new AudioContext();
         
         const blockEl = e.currentTarget;
         e.preventDefault();
 
         const boardRect = boardEl.getBoundingClientRect();
-        const gridCellSize = boardRect.width / 8; // Mengambil ukuran pasti dari grid
+        const gridCellSize = boardRect.width / 8; // Presisi akurat ukuran sel kotak
 
         const clone = blockEl.cloneNode(true);
         clone.className = 'drag-clone';
-        // Skalakan clone agar pas dengan grid saat diangkat
-        const scaleFactor = gridCellSize / trayCellSize;
-        clone.style.transform = `scale(${scaleFactor})`;
+        clone.style.transform = `scale(${gridCellSize / trayCellSize})`; // Scale sesuai grid
         
         document.body.appendChild(clone);
         blockEl.style.opacity = '0'; 
 
-        // Hitung titik tengah dari bentuk blok
         const shapeW = blockEl.blockData.shape[0].length * trayCellSize;
         const shapeH = blockEl.blockData.shape.length * trayCellSize;
 
         activeDrag = {
             original: blockEl, clone: clone, data: blockEl.blockData,
-            offsetX: shapeW / 2,
-            offsetY: shapeH / 2,
-            gridCellSize: gridCellSize
+            offsetX: shapeW / 2, offsetY: shapeH / 2, gridCellSize: gridCellSize
         };
-        
         moveClone(e.clientX || e.touches?.[0].clientX, e.clientY || e.touches?.[0].clientY);
     }
 
@@ -484,44 +530,43 @@
 
     function moveClone(x, y) {
         if(!activeDrag) return;
-        // Posisikan clone di atas jari pengguna
         activeDrag.clone.style.left = (x - activeDrag.offsetX) + 'px';
-        activeDrag.clone.style.top = (y - activeDrag.offsetY - 60) + 'px'; 
+        activeDrag.clone.style.top = (y - activeDrag.offsetY - 50) + 'px'; 
     }
 
     document.addEventListener('pointerup', (e) => {
         if(!activeDrag) return;
         
         const clientX = e.clientX || e.changedTouches?.[0].clientX;
-        const clientY = e.changedTouches ? e.changedTouches[0].clientY - 60 : e.clientY - 60; // Offset jari
+        const clientY = e.changedTouches ? e.changedTouches[0].clientY - 50 : e.clientY - 50; 
 
-        // HITUNG KOORDINAT SECARA MATEMATIKA (SOLUSI BUG)
+        // PERBAIKAN BUG DROP (MENGGUNAKAN MATEMATIKA KOORDINAT LOKASI)
         const boardRect = boardEl.getBoundingClientRect();
-        
-        // Titik X dan Y Kiri Atas dari bentuk yang sedang diseret
         const shapeRealW = activeDrag.data.shape[0].length * activeDrag.gridCellSize;
         const shapeRealH = activeDrag.data.shape.length * activeDrag.gridCellSize;
         const topLeftX = clientX - (shapeRealW / 2);
         const topLeftY = clientY - (shapeRealH / 2);
 
-        // Konversi Koordinat Layar ke Baris & Kolom Grid
         const dropCol = Math.round((topLeftX - boardRect.left) / activeDrag.gridCellSize);
         const dropRow = Math.round((topLeftY - boardRect.top) / activeDrag.gridCellSize);
 
         let placed = false;
 
-        // Cek apakah balok masuk akal berada di dalam batas grid
         if (dropCol >= -1 && dropCol <= 8 && dropRow >= -1 && dropRow <= 8) {
             if (canPlace(activeDrag.data.shape, dropRow, dropCol)) {
                 playSound('place'); 
                 placeBlock(activeDrag.data, dropRow, dropCol);
-                activeDrag.original.remove(); 
+                activeDrag.original.remove(); // Hapus balok lama
                 placed = true;
                 
-                checkLines(dropRow, dropCol);
+                let linesCleared = checkLines(dropRow, dropCol);
                 
-                if(trayEl.children.length === 0) spawnTrayBlocks();
-                else checkGameOver();
+                // PERBAIKAN BUG: SELALU SPAWN KALAU KOSONG TANPA TUNDA!
+                if(trayEl.querySelectorAll('.tray-block').length === 0) {
+                    spawnTrayBlocks();
+                } else if (!linesCleared) {
+                    checkGameOver();
+                }
             }
         }
 
@@ -564,17 +609,25 @@
         for(let c = 0; c < size; c++) { let colFull = true; for(let r = 0; r < size; r++) { if(grid[r][c] === null) colFull = false; } if(colFull) colsToClear.push(c); }
 
         const totalLines = rowsToClear.length + colsToClear.length;
-        if(totalLines === 0) return;
+        if(totalLines === 0) return false;
 
-        // EFEK SHAKE & POPUP COMBO
+        // TAMBAH WAKTU KETIKA MENGHANCURKAN BLOK
+        let addedTime = totalLines * 5; 
+        if(totalLines >= 2) addedTime += 5; // Bonus Combo Waktu
+        timeLeft += addedTime;
+        if(timeLeft > maxTime) timeLeft = maxTime;
+        updateTimerUI();
+
+        // EFEK COMBO & WAKTU
         if(totalLines >= 2) { 
             playSound('combo'); 
             boardEl.classList.add('shake');
             setTimeout(()=> boardEl.classList.remove('shake'), 300);
-            showPopupText(`Combo ${totalLines}!`, targetR, targetC, true);
+            showPopupText(`Combo ${totalLines}!`, targetR, targetC, false);
+            setTimeout(()=> showPopupText(`+${addedTime} Detik!`, targetR, targetC, true), 300); // Popup Waktu
         } else {
             playSound('clear');
-            showPopupText(`+${totalLines * 50}`, targetR, targetC, false);
+            showPopupText(`+${addedTime} Detik!`, targetR, targetC, true);
         }
 
         score += totalLines * 50;
@@ -595,18 +648,22 @@
 
         setTimeout(() => {
             document.querySelectorAll('.cell.clearing').forEach(cell => { cell.className = 'cell'; });
-            checkGameOver(); 
+            if (trayEl.querySelectorAll('.tray-block').length > 0) {
+                checkGameOver(); 
+            }
         }, 400);
+
+        return true;
     }
 
-    function showPopupText(text, row, col, isCombo) {
-        // Cari titik tengah kemunculan teks
+    function showPopupText(text, row, col, isTime) {
         const cellEl = document.querySelector(`.cell[data-row='${row >= 0 ? row : 4}'][data-col='${col >= 0 ? col : 4}']`);
         if(!cellEl) return;
         const rect = cellEl.getBoundingClientRect();
         
         const popup = document.createElement('div');
-        popup.className = `popup-text ${isCombo ? 'popup-combo' : ''}`;
+        // Bedakan warna teks jika nambah waktu atau combo
+        popup.className = `popup-text ${isTime ? 'popup-time' : 'popup-combo'}`;
         popup.innerText = text;
         popup.style.left = `${rect.left + window.scrollX - 40}px`;
         popup.style.top = `${rect.top + window.scrollY - 30}px`;
@@ -624,8 +681,16 @@
         }
     }
 
+    function triggerGameOver(reason) {
+        clearInterval(timerInterval);
+        playSound('gameover');
+        document.getElementById('gameOverReason').innerText = reason;
+        finalScoreDisplay.innerText = "Score Akhir: " + score;
+        gameOverOverlay.classList.add('active');
+    }
+
     function checkGameOver() {
-        const trayBlocks = Array.from(trayEl.children);
+        const trayBlocks = trayEl.querySelectorAll('.tray-block');
         if(trayBlocks.length === 0) return;
 
         let canFitAnywhere = false;
@@ -641,8 +706,7 @@
         }
 
         if(!canFitAnywhere) {
-            finalScoreDisplay.innerText = "Score Akhir: " + score;
-            gameOverOverlay.classList.add('active');
+            triggerGameOver("Tidak Ada Ruang!");
         }
     }
 </script>
