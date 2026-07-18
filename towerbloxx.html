@@ -12,150 +12,62 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { min-height: 100vh; width: 100%; overflow-x: hidden; touch-action: manipulation; }
         
-        body {
-            font-family: 'Poppins', sans-serif; background: #f5f5f7; 
-            display: flex; justify-content: center; align-items: flex-start; 
-            padding: 90px 15px 40px 15px; color: #1d1d1f;
-        }
+        body { font-family: 'Poppins', sans-serif; background: #f5f5f7; display: flex; justify-content: center; align-items: flex-start; padding: 90px 15px 40px 15px; color: #1d1d1f; }
 
-        /* =========================================
-           TOP NAVBAR APPLE STYLE (TERBARU)
-           ========================================= */
-        .apple-nav {
-            position: fixed; top: 0; left: 0; right: 0; height: 54px;
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
-
-        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
+        /* NAVBAR & OVERLAY APPLE STYLE */
+        .apple-nav { position: fixed; top: 0; left: 0; right: 0; height: 54px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08); }
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
         .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
-        .nav-icons i:hover { opacity: 0.5; }
-
-        /* IKON MENU APPLE (GARIS JADI X MULUS) */
-        .apple-burger {
-            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
-            cursor: pointer; position: relative; z-index: 10000;
-        }
-        .apple-burger span {
-            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
-        }
+        
+        .apple-burger { width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; position: relative; z-index: 10000; }
+        .apple-burger span { display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s; }
         .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
         .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
 
-        /* OVERLAY MENU FULL SCREEN (BISA DI-SCROLL) */
-        .nav-overlay {
-            position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
-            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
-            overflow-y: auto;
-        }
+        .nav-overlay { position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px); background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; overflow-y: auto; }
         .nav-overlay.active { opacity: 1; visibility: visible; }
-
-        /* LIST MENU ALA APPLE (ANIMASI MUNCUL BERURUTAN) */
         .menu-list { list-style: none; padding-top: 10px; }
-        .menu-list li {
-            border-bottom: none; 
-            opacity: 0; transform: translateY(20px) scale(0.98);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+        .menu-list li { opacity: 0; transform: translateY(20px) scale(0.98); transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
-        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
-        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
-        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
-        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
-        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
-        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
-        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
-        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
-        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
-        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
-
-        .menu-list a { 
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
-            letter-spacing: -1px;
-        }
-        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 20px; color: #86868b; }
-
-        .submenu-header {
-            display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
-        }
+        .menu-list a { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; letter-spacing: -1px; }
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; } .menu-list a i { font-size: 20px; color: #86868b; }
+        .submenu-header { display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f; padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px; }
         .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
-
-        /* KOTAK PENCARIAN */
+        
+        /* SEARCH BOX */
         .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
-        .search-box i:hover { color: #0066cc; }
+        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; cursor: pointer; }
         .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
-        .search-box input::placeholder { color: #86868b; font-size: 16px; }
-
-        /* TOOLTIP / NOTIFIKASI MENU PINTAR */
-        .menu-tooltip {
-            position: fixed; top: 65px; right: 15px; background: #ffffff;
-            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
-            z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
-            opacity: 0; transform: translateY(-10px); visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
-        .tooltip-arrow {
-            position: absolute; top: -6px; right: 18px; width: 12px; height: 12px;
-            background: #ffffff; transform: rotate(45deg);
-            border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05);
-        }
-        .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
-        .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
-        .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
-        .tooltip-close:hover { color: #fa233b; }
-
-        @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
-
-        @media (max-width: 768px) {
-            .menu-list a { font-size: 28px; } /* Ukuran font menu untuk mobile */
-        }
-
-        /* KOTAK GAME */
+                /* KOTAK GAME TOWER BLOXX */
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-        .game-wrapper {
-            background: #ffffff; border-radius: 24px; padding: 30px 20px; width: 100%; max-width: 450px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); border: 1px solid rgba(0,0,0,0.02);
-            opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-            position: relative; text-align: center; margin: 0 auto;
-        }
-        .game-header { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .game-wrapper { background: #ffffff; border-radius: 24px; padding: 30px 20px; width: 100%; max-width: 450px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); border: 1px solid rgba(0,0,0,0.02); opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; position: relative; text-align: center; margin: 0 auto; }
+        .game-header { margin-bottom: 20px; display: flex; flex-direction: column; gap: 15px; align-items: center; }
         .game-title { font-size: 22px; font-weight: 800; color: #1d1d1f; display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }
         .game-title i { color: #0066cc; font-size: 24px; }
-        .score-board { display: flex; gap: 12px; }
-        .score-box { background: #f5f5f7; padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 600; color: #86868b; border: 1px solid rgba(0,0,0,0.02); }
-        .score-box span { color: #1d1d1f; font-size: 16px; font-weight: 800; }
+        .score-board { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; width: 100%; }
+        .score-box { background: #f5f5f7; padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; color: #86868b; border: 1px solid rgba(0,0,0,0.02); }
+        .score-box span { color: #1d1d1f; font-size: 15px; font-weight: 800; }
+        .bonus-text { color: #34c759 !important; }
+        
         .canvas-container { position: relative; width: 100%; aspect-ratio: 3/4; border-radius: 16px; overflow: hidden; background: #87CEEB; box-shadow: inset 0 5px 15px rgba(0,0,0,0.1); }
         canvas { width: 100%; height: 100%; display: block; touch-action: none; }
-        .game-ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; transition: opacity 0.3s; }
-        .game-ui-layer h2 { font-size: 32px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
-        .game-ui-layer p { font-size: 14px; font-weight: 700; color: #1d1d1f; margin-bottom: 25px; text-align: center; padding: 0 20px; text-shadow: 0 1px 5px rgba(255,255,255,0.8); }
+        .game-ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; transition: opacity 0.3s; }
+        .game-ui-layer h2 { font-size: 30px; font-weight: 800; color: #1d1d1f; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
+        .game-ui-layer p { font-size: 14px; font-weight: 700; color: #1d1d1f; margin-bottom: 25px; text-align: center; padding: 0 20px; }
         .action-btns { display: flex; flex-direction: column; gap: 12px; width: 70%; }
-        .play-btn { background: #0066cc; color: #ffffff; border: none; padding: 14px 20px; border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .play-btn:hover { background: #005bb5; transform: translateY(-3px); }
-        .quit-btn { background: #ff3b30; color: #ffffff; border: none; padding: 14px 20px; border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; display: none; }
-        .quit-btn:hover { background: #d70015; transform: translateY(-3px); }
+        .play-btn { background: #0066cc; color: #ffffff; border: none; padding: 14px 20px; border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .quit-btn { background: #ff3b30; color: #ffffff; border: none; padding: 14px 20px; border-radius: 20px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3); display: flex; align-items: center; justify-content: center; gap: 8px; display: none; }
         .hide { opacity: 0; pointer-events: none; }
-        .instructions { font-size: 13px; color: #86868b; margin-top: 20px; font-weight: 500; }
-        @media (max-width: 768px) { .menu-list a { font-size: 28px; } .game-wrapper { padding: 25px 15px; } }
+        .instructions { font-size: 12px; color: #86868b; margin-top: 15px; font-weight: 500; }
+        @media (max-width: 768px) { .menu-list a { font-size: 28px; } }
     </style>
 </head>
 <body>
+
 <nav class="apple-nav">
     <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
-    <div class="nav-icons">
-        <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <div class="apple-burger" id="toggleMenu"><span class="line-1"></span><span class="line-2"></span></div>
-    </div>
+    <div class="nav-icons"><i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i><div class="apple-burger" id="toggleMenu"><span class="line-1"></span><span class="line-2"></span></div></div>
 </nav>
 
 <div class="nav-overlay" id="menuOverlay">
@@ -177,21 +89,19 @@
         </ul>
     </div>
 </div>
-
 <div class="nav-overlay" id="searchOverlay">
     <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;"></i>
-        <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
+        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn"></i>
+        <input type="text" placeholder="Cari halaman..." id="searchInput">
     </div>
-    <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
-        Maaf, pencarian tidak ditemukan.
-    </p>
+    <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">Pencarian tidak ditemukan.</p>
 </div>
 
 <div class="game-wrapper">
     <div class="game-header">
         <div class="game-title"><i class="fa-solid fa-building"></i> Tower Bloxx</div>
         <div class="score-board">
+            <div class="score-box">Waktu: <span id="timeLeft">60</span>s</div>
             <div class="score-box">Skor: <span id="currentScore">0</span></div>
             <div class="score-box">Best: <span id="bestScore">0</span></div>
         </div>
@@ -199,15 +109,15 @@
     <div class="canvas-container" id="canvasContainer">
         <div class="game-ui-layer" id="uiLayer">
             <h2 id="uiTitle">Tower Bloxx</h2>
-            <p id="uiDesc">Tap layar untuk menjatuhkan blok!</p>
+            <p id="uiDesc">Tap tepat waktu. Perfect = +3 Detik Waktu!</p>
             <div class="action-btns">
-                <button class="play-btn" id="startBtn"><i class="fa-solid fa-play"></i> Mulai Game</button>
+                <button class="play-btn" id="startBtn"><i class="fa-solid fa-play"></i> Mulai Bangun</button>
                 <button class="quit-btn" id="quitBtn"><i class="fa-solid fa-stop"></i> Berhenti</button>
             </div>
         </div>
         <canvas id="gameCanvas" width="300" height="400"></canvas>
     </div>
-    <div class="instructions">Bangun gedung tertinggi! Tap layar di saat yang tepat.</div>
+    <div class="instructions">Jangan terlalu goyah atau gedungmu akan runtuh!</div>
 </div>
 
 <script>
@@ -233,70 +143,57 @@
 
     btnGamesMenu.addEventListener('click', (e) => { e.preventDefault(); mainMenu.style.display = 'none'; subMenuGames.style.display = 'block'; });
     btnBackMainMenu.addEventListener('click', () => { subMenuGames.style.display = 'none'; mainMenu.style.display = 'block'; });
-        // 2. PENCARIAN DATABASE (Basis Aero)
+
+    // 2. DATABASE SEARCH
     const searchDatabase = [
-        { keywords: ["beranda", "home", "renxxno"], url: "index.html" }, { keywords: ["biodata", "tentang", "info"], url: "biodata.html" },
-        { keywords: ["game", "games", "ml", "pubg"], url: "games.html" }, { keywords: ["ghost", "ghost hunter", "hantu"], url: "ghosthunter.html" },
-        { keywords: ["music", "musik", "lagu"], url: "music.html" }, { keywords: ["store", "toko", "baju", "jasa"], url: "store.html" },
-        { keywords: ["sosial media", "sosmed", "instagram", "youtube", "wa"], url: "sosmed.html" }, { keywords: ["pesan", "kontak", "email"], url: "Memberipesan.html" },
-        { keywords: ["rating", "view", "penilaian"], url: "rating.html" }, { keywords: ["donasi", "donate", "qris", "uang"], url: "donate.html" },
-        { keywords: ["aero glide", "burung", "aero"], url: "aeroglide.html" }, { keywords: ["puzzle", "block puzzle", "balok", "tetris"], url: "puzzle.html" },
+        { keywords: ["beranda", "home"], url: "index.html" }, { keywords: ["biodata", "tentang"], url: "biodata.html" },
+        { keywords: ["game", "games", "ml"], url: "games.html" }, { keywords: ["ghost", "hantu"], url: "ghosthunter.html" },
+        { keywords: ["music", "lagu"], url: "music.html" }, { keywords: ["store", "toko"], url: "store.html" },
+        { keywords: ["sosial media", "sosmed"], url: "sosmed.html" }, { keywords: ["pesan", "email"], url: "Memberipesan.html" },
+        { keywords: ["rating", "view"], url: "rating.html" }, { keywords: ["donasi", "qris"], url: "donate.html" },
+        { keywords: ["aero glide", "burung"], url: "aeroglide.html" }, { keywords: ["puzzle", "tetris"], url: "puzzle.html" },
         { keywords: ["tower", "bloxx", "bangunan", "gedung"], url: "towerbloxx.html" }
     ];
-
-    function performSearch() {
-        const query = document.getElementById('searchInput').value.toLowerCase().trim(); if (query === "") return; 
-        let foundUrl = "";
+        function performSearch() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim(); if (query === "") return; let foundUrl = "";
         for (let i = 0; i < searchDatabase.length; i++) { if (searchDatabase[i].keywords.some(k => query.includes(k) || k.includes(query))) { foundUrl = searchDatabase[i].url; break; } }
         if (foundUrl !== "") { document.getElementById('executeSearchBtn').className = "fa-solid fa-spinner fa-spin"; setTimeout(() => { window.location.href = foundUrl; }, 500); } 
         else { document.getElementById('searchErrorMsg').style.display = 'block'; setTimeout(() => { document.getElementById('searchErrorMsg').style.display = 'none'; }, 3000); }
     }
-    document.getElementById('executeSearchBtn').addEventListener('click', performSearch);
-    document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
+    document.getElementById('executeSearchBtn').addEventListener('click', performSearch); document.getElementById('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); performSearch(); } });
 
     // 3. AUDIO SYNTHESIZER
     const AudioContext = window.AudioContext || window.webkitAudioContext; let actx;
     function playSound(type) {
         try {
             if (!actx) actx = new AudioContext(); if(actx.state === 'suspended') actx.resume();
-            const osc = actx.createOscillator(); const gain = actx.createGain();
-            osc.connect(gain); gain.connect(actx.destination); const now = actx.currentTime;
-            
-            if(type === 'drop') {
-                osc.type = 'sine'; osc.frequency.setValueAtTime(400, now); osc.frequency.exponentialRampToValueAtTime(200, now + 0.1);
-                gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-                osc.start(now); osc.stop(now + 0.1);
-            } else if (type === 'score') {
-                osc.type = 'triangle'; osc.frequency.setValueAtTime(600, now); osc.frequency.linearRampToValueAtTime(900, now + 0.1);
-                gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0, now + 0.2);
-                osc.start(now); osc.stop(now + 0.2);
-            } else if (type === 'crash') {
-                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(50, now + 0.4);
-                gain.gain.setValueAtTime(0.4, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-                osc.start(now); osc.stop(now + 0.4);
-            }
+            const osc = actx.createOscillator(); const gain = actx.createGain(); osc.connect(gain); gain.connect(actx.destination); const now = actx.currentTime;
+            if(type === 'drop') { osc.type = 'sine'; osc.frequency.setValueAtTime(400, now); osc.frequency.exponentialRampToValueAtTime(200, now + 0.1); gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1); osc.start(now); osc.stop(now + 0.1); } 
+            else if (type === 'score') { osc.type = 'triangle'; osc.frequency.setValueAtTime(600, now); osc.frequency.linearRampToValueAtTime(900, now + 0.1); gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0, now + 0.2); osc.start(now); osc.stop(now + 0.2); } 
+            else if (type === 'crash') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(50, now + 0.4); gain.gain.setValueAtTime(0.4, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4); osc.start(now); osc.stop(now + 0.4); }
         } catch(e) {}
     }
 
-    // 4. LOGIKA GAME TOWER BLOXX
+    // 4. ENGINE GAME TOWER BLOXX
     const canvas = document.getElementById("gameCanvas"); const ctx = canvas.getContext("2d");
     const uiLayer = document.getElementById("uiLayer"); const uiTitle = document.getElementById("uiTitle");
     const uiDesc = document.getElementById("uiDesc"); const startBtn = document.getElementById("startBtn");
-    const quitBtn = document.getElementById("quitBtn");
+    const quitBtn = document.getElementById("quitBtn"); const timeUI = document.getElementById("timeLeft");
     
-    let score = 0; let bestScore = localStorage.getItem("towerBestScore") || 0;
-    document.getElementById("bestScore").innerText = bestScore;
-    let isPlaying = false; let reqAnimation;
+    let score = 0; let bestScore = localStorage.getItem("towerBestScore") || 0; document.getElementById("bestScore").innerText = bestScore;
+    let isPlaying = false; let state = 'start'; let reqAnimation; let gameTimer;
     
+    // Variabel Mekanik Baru
     let blocks = []; let currentBlock = null; let cameraY = 0; let time = 0;
-    const bw = 90; const bh = 60; // Lebar & Tinggi Blok
-
+    const bw = 90; const bh = 60; 
+    let sway = 0; // Tingkat Goyangan
+    let timeLeft = 60; let canDrop = true; // Timer & Anti-Spam
+    
     function drawTexturedBlock(x, y, w, h, isBase) {
         ctx.save(); ctx.translate(x, y);
-        ctx.fillStyle = isBase ? '#7f8fa6' : '#fbc531'; ctx.fillRect(-w/2, 0, w, h); // Warna tembok
+        ctx.fillStyle = isBase ? '#7f8fa6' : '#fbc531'; ctx.fillRect(-w/2, 0, w, h); 
         ctx.strokeStyle = '#2f3640'; ctx.lineWidth = 2; ctx.strokeRect(-w/2, 0, w, h);
-        
-        ctx.fillStyle = '#f5f6fa'; // Jendela
+        ctx.fillStyle = '#f5f6fa'; 
         for(let i=0; i<3; i++) {
             for(let j=0; j<2; j++) {
                 if(!isBase && Math.random() > 0.2) { ctx.fillStyle = (i+j)%2==0 ? '#00a8ff' : '#fcfc83'; } 
@@ -304,51 +201,49 @@
                 ctx.fillRect(-w/2 + 10 + i*26, 10 + j*22, 18, 14);
             }
         }
-        ctx.fillStyle = '#2f3640'; ctx.fillRect(-w/2 - 4, 0, w + 8, 6); // Atap
+        ctx.fillStyle = '#2f3640'; ctx.fillRect(-w/2 - 4, 0, w + 8, 6); 
         ctx.restore();
     }
-        function drawBackground() {
+
+    function drawBackground() {
         let grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
         grad.addColorStop(0, "#87CEEB"); grad.addColorStop(1, "#f5f5f7");
         ctx.fillStyle = grad; ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Awan
         ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-        ctx.beginPath(); ctx.arc(50, 100 + cameraY*0.2, 20, 0, Math.PI*2); ctx.arc(80, 90 + cameraY*0.2, 25, 0, Math.PI*2); ctx.fill();
-        ctx.beginPath(); ctx.arc(250, 50 + cameraY*0.3, 15, 0, Math.PI*2); ctx.arc(270, 45 + cameraY*0.3, 20, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(50, 100 + (cameraY*0.1), 20, 0, Math.PI*2); ctx.arc(80, 90 + (cameraY*0.1), 25, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(250, 50 + (cameraY*0.15), 15, 0, Math.PI*2); ctx.arc(270, 45 + (cameraY*0.15), 20, 0, Math.PI*2); ctx.fill();
     }
+        function startTimerLogic() {
+        clearInterval(gameTimer); timeLeft = 60; timeUI.innerText = timeLeft; timeUI.classList.remove("bonus-text");
+        gameTimer = setInterval(() => {
+            if(isPlaying && state === 'playing') {
+                timeLeft--; timeUI.innerText = timeLeft;
+                if(timeLeft <= 0) { gameOver("Waktu Habis!"); }
+            }
+        }, 1000);
+    }
+
+    function spawnBlock() { currentBlock = { x: canvas.width/2, y: cameraY + 80, w: bw, h: bh, falling: false, dy: 0 }; canDrop = true; }
 
     function initGame() {
         blocks = [{x: canvas.width/2, y: canvas.height - bh - 20, w: bw, h: bh, base: true}];
-        cameraY = 0; score = 0; document.getElementById("currentScore").innerText = score;
-        spawnBlock();
-    }
-
-    function spawnBlock() {
-        currentBlock = { x: canvas.width/2, y: cameraY + 60, w: bw, h: bh, falling: false, dy: 0 };
-    }
-
-    function idleLoop() {
-        if (isPlaying) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height); drawBackground();
-        time += 0.04;
-        let swingX = canvas.width/2 + Math.sin(time) * 80;
-        ctx.beginPath(); ctx.moveTo(canvas.width/2, 0); ctx.lineTo(swingX, 100); ctx.strokeStyle = '#2f3640'; ctx.lineWidth = 2; ctx.stroke();
-        drawTexturedBlock(swingX, 100, bw, bh, false);
-        drawTexturedBlock(canvas.width/2, canvas.height - bh - 20, bw, bh, true); // Base
-        reqAnimation = requestAnimationFrame(idleLoop);
+        cameraY = 0; score = 0; sway = 0; document.getElementById("currentScore").innerText = score;
+        spawnBlock(); startTimerLogic();
     }
 
     function loop() {
         if (!isPlaying) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height); drawBackground();
-        time += 0.05;
+        ctx.clearRect(0, 0, canvas.width, canvas.height); drawBackground(); time += 0.05;
 
         ctx.save(); ctx.translate(0, -cameraY + (canvas.height - 300));
         
-        // Logika Jatuh
-        if(currentBlock.falling) {
-            currentBlock.y += currentBlock.dy; currentBlock.dy += 0.6; // Gravitasi
+        // Render Tanah Konstruksi
+        ctx.fillStyle = '#b2bec3'; ctx.fillRect(0, canvas.height - 20, canvas.width, 300);
+        ctx.fillStyle = '#d63031'; ctx.fillRect(10, canvas.height - 20, 30, 20); ctx.fillRect(canvas.width - 40, canvas.height - 20, 30, 20);
+
+        let craneY = cameraY + 20; // Posisi Crane Ikut Naik
+        if(currentBlock.falling && state === 'playing') {
+            currentBlock.y += currentBlock.dy; currentBlock.dy += 0.7; // Gravitasi
             let top = blocks[blocks.length-1];
             if(currentBlock.y + bh >= top.y) {
                 let diff = Math.abs(currentBlock.x - top.x);
@@ -356,67 +251,69 @@
                     currentBlock.y = top.y - bh;
                     blocks.push({...currentBlock, base: false});
                     score++; document.getElementById("currentScore").innerText = score;
-                    playSound('score'); spawnBlock();
-                } else { // Jatuh Meleset
-                    gameOver();
-                }
+                    
+                    if (diff < 5) { // Perfect Hit! +3 Detik & Stabil
+                        timeLeft += 3; timeUI.innerText = timeLeft; timeUI.classList.add("bonus-text");
+                        setTimeout(() => timeUI.classList.remove("bonus-text"), 500);
+                        sway *= 0.4; playSound('score'); 
+                    } else { sway += diff * 0.15; playSound('score'); } // Melenceng = Tambah Goyang
+
+                    if (sway > 20) { gameOver("Terlalu Goyah!"); } 
+                    else { setTimeout(spawnBlock, 400); } // Anti-spam delay
+                } else { gameOver("Blok Melenceng!"); }
             }
-        } else {
-            currentBlock.x = canvas.width/2 + Math.sin(time) * 80; // Ayun
-            currentBlock.y = cameraY + 80;
-            ctx.beginPath(); ctx.moveTo(canvas.width/2, cameraY); ctx.lineTo(currentBlock.x, currentBlock.y); ctx.strokeStyle = '#2f3640'; ctx.lineWidth = 2; ctx.stroke();
+        } else if (state === 'playing') {
+            currentBlock.x = canvas.width/2 + Math.sin(time) * 85; currentBlock.y = craneY + 80; // Ayun dari Crane
+            ctx.beginPath(); ctx.moveTo(canvas.width/2, craneY + 10); ctx.lineTo(currentBlock.x, currentBlock.y); ctx.strokeStyle = '#2f3640'; ctx.lineWidth = 2; ctx.stroke();
         }
 
-        // Animasi Kamera Naikl
         let targetCam = canvas.height - (blocks.length * bh) - 200;
         if(targetCam < cameraY) cameraY -= (cameraY - targetCam) * 0.1;
 
-        // Render Tower
-        blocks.forEach(b => drawTexturedBlock(b.x, b.y, b.w, b.h, b.base));
-        if(!currentBlock.falling && state !== 'gameover') drawTexturedBlock(currentBlock.x, currentBlock.y, currentBlock.w, currentBlock.h, false);
-        else if (currentBlock.falling) drawTexturedBlock(currentBlock.x, currentBlock.y, currentBlock.w, currentBlock.h, false);
+        // Render Tower dengan Efek Goyang (Sway)
+        blocks.forEach((b, i) => {
+            let blockSway = 0; if(!b.base) { blockSway = Math.sin(time * 2 + i*0.5) * (sway * (i / blocks.length)); }
+            drawTexturedBlock(b.x + blockSway, b.y, b.w, b.h, b.base);
+        });
+
+        // Render Crane & Blok
+        ctx.fillStyle = '#ffb142'; ctx.fillRect(canvas.width/2 - 10, craneY, canvas.width/2 + 20, 20); // Lengan Derek
+        ctx.fillStyle = '#cc8e35'; ctx.fillRect(canvas.width - 25, craneY, 30, canvas.height); // Tiang Derek
+        if(state !== 'gameover') drawTexturedBlock(currentBlock.x, currentBlock.y, currentBlock.w, currentBlock.h, false);
         
-        ctx.restore();
-        reqAnimation = requestAnimationFrame(loop);
+        ctx.restore(); reqAnimation = requestAnimationFrame(loop);
     }
 
-    let state = 'start';
     function actionDrop(e) {
-        if (!isPlaying) return;
+        if (!isPlaying || state !== 'playing') return;
         if(e.type === "keydown" && e.code !== "Space") return;
         if(e.type === "keydown") e.preventDefault();
         
-        if(currentBlock && !currentBlock.falling) {
-            currentBlock.falling = true; playSound('drop');
+        if(currentBlock && !currentBlock.falling && canDrop) {
+            currentBlock.falling = true; canDrop = false; playSound('drop'); // canDrop cegah spam
         }
     }
     window.addEventListener("keydown", actionDrop); canvas.addEventListener("mousedown", actionDrop); canvas.addEventListener("touchstart", actionDrop, {passive: false});
 
     startBtn.addEventListener("click", () => {
         if(!actx) actx = new AudioContext(); cancelAnimationFrame(reqAnimation);
-        initGame(); uiLayer.classList.add("hide"); quitBtn.style.display = "none"; 
+        initGame(); uiLayer.classList.add("hide"); quitBtn.style.display = "flex"; 
         state = 'playing'; isPlaying = true; loop();
     });
 
-    function gameOver() {
-        isPlaying = false; state = 'gameover'; uiLayer.classList.remove("hide"); playSound('crash');
-        uiTitle.innerText = "Runtuh!"; uiDesc.innerText = "Gedung jatuh! Skor kamu: " + score;
-        startBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Main Lagi'; quitBtn.style.display = "flex"; 
-        if (score > bestScore) {
-            bestScore = score; localStorage.setItem("towerBestScore", bestScore);
-            document.getElementById("bestScore").innerText = bestScore;
-            uiDesc.innerText = "Skor Baru Tercipta! Skor: " + score;
-        }
-        idleLoop();
+    function gameOver(reason) {
+        isPlaying = false; state = 'gameover'; clearInterval(gameTimer);
+        uiLayer.classList.remove("hide"); playSound('crash');
+        uiTitle.innerText = reason; uiDesc.innerText = "Gedung hancur! Skor kamu: " + score;
+        startBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Main Lagi';
+        if (score > bestScore) { bestScore = score; localStorage.setItem("towerBestScore", bestScore); document.getElementById("bestScore").innerText = bestScore; uiDesc.innerText = "Skor Baru Tercipta! Skor: " + score; }
     }
 
     quitBtn.addEventListener("click", () => {
-        uiTitle.innerText = "Tower Bloxx"; uiDesc.innerText = "Tap layar untuk menjatuhkan blok!";
-        startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Game'; quitBtn.style.display = "none";
-        score = 0; document.getElementById("currentScore").innerText = score;
+        uiTitle.innerText = "Tower Bloxx"; uiDesc.innerText = "Tap tepat waktu. Perfect = +3 Detik Waktu!";
+        startBtn.innerHTML = '<i class="fa-solid fa-play"></i> Mulai Bangun'; quitBtn.style.display = "none";
+        score = 0; document.getElementById("currentScore").innerText = score; clearInterval(gameTimer); timeUI.innerText = "60";
     });
-    
-    initGame(); idleLoop();
 </script>
 </body>
 </html>
