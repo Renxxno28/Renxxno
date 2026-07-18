@@ -47,8 +47,8 @@
         .game-title i { color: #0066cc; font-size: 24px; }
         .score-board { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; width: 100%; }
         .score-box { background: #f5f5f7; padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; color: #86868b; border: 1px solid rgba(0,0,0,0.02); }
-        .score-box span { color: #1d1d1f; font-size: 15px; font-weight: 800; }
-        .bonus-text { color: #34c759 !important; }
+        .score-box span { color: #1d1d1f; font-size: 15px; font-weight: 800; transition: color 0.3s; }
+        .bonus-text { color: #34c759 !important; transform: scale(1.2); display: inline-block; transition: all 0.2s; }
         
         .canvas-container { position: relative; width: 100%; aspect-ratio: 3/4; border-radius: 16px; overflow: hidden; background: #87CEEB; box-shadow: inset 0 5px 15px rgba(0,0,0,0.1); }
         canvas { width: 100%; height: 100%; display: block; touch-action: none; }
@@ -121,7 +121,7 @@
 </div>
 
 <script>
-    // 1. LOGIKA MENU (Basis Aero)
+    // 1. LOGIKA MENU 
     const btnMenu = document.getElementById('toggleMenu'); const btnSearch = document.getElementById('toggleSearch');
     const menuOverlay = document.getElementById('menuOverlay'); const searchOverlay = document.getElementById('searchOverlay');
     const mainMenu = document.getElementById('mainMenu'); const subMenuGames = document.getElementById('subMenuGames');
@@ -174,7 +174,7 @@
         } catch(e) {}
     }
 
-    // 4. ENGINE GAME TOWER BLOXX
+    // 4. ENGINE GAME TOWER BLOXX TERBARU
     const canvas = document.getElementById("gameCanvas"); const ctx = canvas.getContext("2d");
     const uiLayer = document.getElementById("uiLayer"); const uiTitle = document.getElementById("uiTitle");
     const uiDesc = document.getElementById("uiDesc"); const startBtn = document.getElementById("startBtn");
@@ -183,10 +183,10 @@
     let score = 0; let bestScore = localStorage.getItem("towerBestScore") || 0; document.getElementById("bestScore").innerText = bestScore;
     let isPlaying = false; let state = 'start'; let reqAnimation; let gameTimer;
     
-    // Variabel Mekanik Baru
+    // Variabel Mekanik yang Diperbaiki
     let blocks = []; let currentBlock = null; let cameraY = 0; let time = 0;
     const bw = 90; const bh = 60; 
-    let sway = 0; // Tingkat Goyangan
+    let swayAmplitude = 0; // Seberapa parah goyangannya
     let timeLeft = 60; let canDrop = true; // Timer & Anti-Spam
     
     function drawTexturedBlock(x, y, w, h, isBase) {
@@ -210,24 +210,29 @@
         grad.addColorStop(0, "#87CEEB"); grad.addColorStop(1, "#f5f5f7");
         ctx.fillStyle = grad; ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-        ctx.beginPath(); ctx.arc(50, 100 + (cameraY*0.1), 20, 0, Math.PI*2); ctx.arc(80, 90 + (cameraY*0.1), 25, 0, Math.PI*2); ctx.fill();
-        ctx.beginPath(); ctx.arc(250, 50 + (cameraY*0.15), 15, 0, Math.PI*2); ctx.arc(270, 45 + (cameraY*0.15), 20, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(50, 100, 20, 0, Math.PI*2); ctx.arc(80, 90, 25, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(250, 50, 15, 0, Math.PI*2); ctx.arc(270, 45, 20, 0, Math.PI*2); ctx.fill();
     }
         function startTimerLogic() {
         clearInterval(gameTimer); timeLeft = 60; timeUI.innerText = timeLeft; timeUI.classList.remove("bonus-text");
         gameTimer = setInterval(() => {
             if(isPlaying && state === 'playing') {
                 timeLeft--; timeUI.innerText = timeLeft;
-                if(timeLeft <= 0) { gameOver("Waktu Habis!"); }
+                if(timeLeft <= 0) gameOver("Waktu Habis!");
             }
         }, 1000);
     }
 
-    function spawnBlock() { currentBlock = { x: canvas.width/2, y: cameraY + 80, w: bw, h: bh, falling: false, dy: 0 }; canDrop = true; }
+    function spawnBlock() {
+        let top = blocks[blocks.length-1]; let craneY = top.y - 180;
+        currentBlock = { x: canvas.width/2, y: craneY + 60, w: bw, h: bh, falling: false, dy: 0, landed: false };
+        canDrop = true;
+    }
 
     function initGame() {
-        blocks = [{x: canvas.width/2, y: canvas.height - bh - 20, w: bw, h: bh, base: true}];
-        cameraY = 0; score = 0; sway = 0; document.getElementById("currentScore").innerText = score;
+        // Gedung mulai dari tanah terbawah
+        blocks = [{x: canvas.width/2, y: canvas.height - 100, w: bw, h: bh, base: true, diff: 0}];
+        cameraY = 0; score = 0; swayAmplitude = 0; document.getElementById("currentScore").innerText = score;
         spawnBlock(); startTimerLogic();
     }
 
@@ -235,51 +240,67 @@
         if (!isPlaying) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height); drawBackground(); time += 0.05;
 
-        ctx.save(); ctx.translate(0, -cameraY + (canvas.height - 300));
-        
-        // Render Tanah Konstruksi
-        ctx.fillStyle = '#b2bec3'; ctx.fillRect(0, canvas.height - 20, canvas.width, 300);
-        ctx.fillStyle = '#d63031'; ctx.fillRect(10, canvas.height - 20, 30, 20); ctx.fillRect(canvas.width - 40, canvas.height - 20, 30, 20);
-
-        let craneY = cameraY + 20; // Posisi Crane Ikut Naik
-        if(currentBlock.falling && state === 'playing') {
-            currentBlock.y += currentBlock.dy; currentBlock.dy += 0.7; // Gravitasi
-            let top = blocks[blocks.length-1];
+        // Logika Fisika & Jatuh (FIX BUG SPAM)
+        let top = blocks[blocks.length-1]; let craneY = top.y - 180;
+        if(currentBlock.falling && !currentBlock.landed && state === 'playing') {
+            currentBlock.y += currentBlock.dy; currentBlock.dy += 0.8; // Gravitasi
+            
             if(currentBlock.y + bh >= top.y) {
-                let diff = Math.abs(currentBlock.x - top.x);
-                if(diff < bw - 10) { // Berhasil Tumpuk
+                currentBlock.landed = true; // KUNCI! Mencegah tabrakan berulang (Anti-Bug)
+                let diff = currentBlock.x - top.x; let absDiff = Math.abs(diff);
+
+                if(absDiff < bw - 15) { // Berhasil mendarat
                     currentBlock.y = top.y - bh;
-                    blocks.push({...currentBlock, base: false});
+                    currentBlock.x = top.x + diff; // Nempel sesuai kemiringan
+                    blocks.push({...currentBlock, base: false, diff: diff});
                     score++; document.getElementById("currentScore").innerText = score;
                     
-                    if (diff < 5) { // Perfect Hit! +3 Detik & Stabil
-                        timeLeft += 3; timeUI.innerText = timeLeft; timeUI.classList.add("bonus-text");
-                        setTimeout(() => timeUI.classList.remove("bonus-text"), 500);
-                        sway *= 0.4; playSound('score'); 
-                    } else { sway += diff * 0.15; playSound('score'); } // Melenceng = Tambah Goyang
+                    if(absDiff < 6) { // Perfect! +Waktu & Stabil
+                        timeLeft += 3; timeUI.innerText = timeLeft;
+                        timeUI.classList.add("bonus-text"); setTimeout(() => timeUI.classList.remove("bonus-text"), 500);
+                        swayAmplitude *= 0.4; playSound('score'); 
+                    } else { // Melenceng, Goyangan nambah
+                        swayAmplitude += diff * 0.2; playSound('score'); 
+                    }
 
-                    if (sway > 20) { gameOver("Terlalu Goyah!"); } 
-                    else { setTimeout(spawnBlock, 400); } // Anti-spam delay
-                } else { gameOver("Blok Melenceng!"); }
+                    if(Math.abs(swayAmplitude) > 35) gameOver("Gedung Runtuh!");
+                    else setTimeout(spawnBlock, 400); // Jeda sebelum memunculkan blok baru
+                } else {
+                    gameOver("Blok Meleset!"); // Jatuh ke tanah
+                }
             }
-        } else if (state === 'playing') {
-            currentBlock.x = canvas.width/2 + Math.sin(time) * 85; currentBlock.y = craneY + 80; // Ayun dari Crane
+        } else if (state === 'playing' && !currentBlock.falling) {
+            currentBlock.x = canvas.width/2 + Math.sin(time * 2.5) * 90; // Kecepatan ayunan dari crane
+            currentBlock.y = craneY + 80;
+        }
+
+        // Kamera Smooth Mengikuti Puncak Gedung
+        let targetCam = (canvas.height / 2) - top.y + 100;
+        if (targetCam > 0) targetCam = 0; // Jangan turun di bawah tanah
+        cameraY += (targetCam - cameraY) * 0.1;
+
+        ctx.save(); ctx.translate(0, cameraY);
+        
+        // Render Tanah & Mesin Derek
+        ctx.fillStyle = '#b2bec3'; ctx.fillRect(0, canvas.height - 40, canvas.width, 300); // Tanah
+        ctx.fillStyle = '#ffb142'; ctx.fillRect(canvas.width/2 - 20, craneY, canvas.width/2 + 20, 20); // Lengan Derek
+        ctx.fillStyle = '#cc8e35'; ctx.fillRect(canvas.width - 35, craneY, 35, canvas.height - craneY - 40); // Tiang Derek
+
+        // Tali Derek
+        if(state !== 'gameover' && !currentBlock.falling) {
             ctx.beginPath(); ctx.moveTo(canvas.width/2, craneY + 10); ctx.lineTo(currentBlock.x, currentBlock.y); ctx.strokeStyle = '#2f3640'; ctx.lineWidth = 2; ctx.stroke();
         }
 
-        let targetCam = canvas.height - (blocks.length * bh) - 200;
-        if(targetCam < cameraY) cameraY -= (cameraY - targetCam) * 0.1;
-
-        // Render Tower dengan Efek Goyang (Sway)
+        // Render Gedung & Efek Goyang (Sway)
         blocks.forEach((b, i) => {
-            let blockSway = 0; if(!b.base) { blockSway = Math.sin(time * 2 + i*0.5) * (sway * (i / blocks.length)); }
-            drawTexturedBlock(b.x + blockSway, b.y, b.w, b.h, b.base);
+            let swayOffset = 0; 
+            if(!b.base) swayOffset = Math.sin(time + i*0.2) * swayAmplitude * (i / blocks.length);
+            drawTexturedBlock(b.x + swayOffset, b.y, b.w, b.h, b.base);
         });
 
-        // Render Crane & Blok
-        ctx.fillStyle = '#ffb142'; ctx.fillRect(canvas.width/2 - 10, craneY, canvas.width/2 + 20, 20); // Lengan Derek
-        ctx.fillStyle = '#cc8e35'; ctx.fillRect(canvas.width - 25, craneY, 30, canvas.height); // Tiang Derek
-        if(state !== 'gameover') drawTexturedBlock(currentBlock.x, currentBlock.y, currentBlock.w, currentBlock.h, false);
+        // Blok Jatuh
+        if(state !== 'gameover' && currentBlock.falling) drawTexturedBlock(currentBlock.x, currentBlock.y, currentBlock.w, currentBlock.h, false);
+        else if(!currentBlock.falling) drawTexturedBlock(currentBlock.x, currentBlock.y, currentBlock.w, currentBlock.h, false);
         
         ctx.restore(); reqAnimation = requestAnimationFrame(loop);
     }
@@ -288,23 +309,19 @@
         if (!isPlaying || state !== 'playing') return;
         if(e.type === "keydown" && e.code !== "Space") return;
         if(e.type === "keydown") e.preventDefault();
-        
-        if(currentBlock && !currentBlock.falling && canDrop) {
-            currentBlock.falling = true; canDrop = false; playSound('drop'); // canDrop cegah spam
-        }
+        if(currentBlock && !currentBlock.falling && canDrop) { currentBlock.falling = true; canDrop = false; playSound('drop'); }
     }
     window.addEventListener("keydown", actionDrop); canvas.addEventListener("mousedown", actionDrop); canvas.addEventListener("touchstart", actionDrop, {passive: false});
 
     startBtn.addEventListener("click", () => {
         if(!actx) actx = new AudioContext(); cancelAnimationFrame(reqAnimation);
-        initGame(); uiLayer.classList.add("hide"); quitBtn.style.display = "flex"; 
-        state = 'playing'; isPlaying = true; loop();
+        initGame(); uiLayer.classList.add("hide"); quitBtn.style.display = "flex"; state = 'playing'; isPlaying = true; loop();
     });
 
     function gameOver(reason) {
         isPlaying = false; state = 'gameover'; clearInterval(gameTimer);
         uiLayer.classList.remove("hide"); playSound('crash');
-        uiTitle.innerText = reason; uiDesc.innerText = "Gedung hancur! Skor kamu: " + score;
+        uiTitle.innerText = reason; uiDesc.innerText = "Skor akhir kamu: " + score;
         startBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Main Lagi';
         if (score > bestScore) { bestScore = score; localStorage.setItem("towerBestScore", bestScore); document.getElementById("bestScore").innerText = bestScore; uiDesc.innerText = "Skor Baru Tercipta! Skor: " + score; }
     }
