@@ -29,15 +29,7 @@
             padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
-        /* UPDATE: ANTI-POPUP PADA TEKS RENXXNO */
-        .nav-brand { 
-            font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
-            -webkit-touch-callout: none; 
-            -webkit-user-select: none;   
-            user-select: none;           
-            -webkit-tap-highlight-color: transparent; 
-        }
-
+        .nav-brand { font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; }
         .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
         .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
         .nav-icons i:hover { opacity: 0.5; }
@@ -81,12 +73,13 @@
         .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
         .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
         .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
+
         .menu-list a { 
             display: flex; justify-content: space-between; align-items: center;
             padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
             letter-spacing: -1px;
         }
-                .menu-list a:hover, .menu-list a.active { color: #0066cc; }
+        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
         .menu-list a i { font-size: 20px; color: #86868b; }
 
         .submenu-header {
@@ -124,7 +117,9 @@
 
         @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
 
-        @media (max-width: 768px) { .menu-list a { font-size: 28px; } }
+        @media (max-width: 768px) {
+            .menu-list a { font-size: 28px; } /* Ukuran font menu untuk mobile */
+        }
 
         /* =========================================
            DESAIN GAME PUZZLE & LAYAR AWAL
